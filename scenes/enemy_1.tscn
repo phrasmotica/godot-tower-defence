@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://buo64r0x83gru"]
+
+[ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
+atlas = ExtResource("1_fkgmj")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rm0dq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t5xpf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy1" type="PathFollow2D"]
+loop = false
+script = ExtResource("1_mx3jq")
+starting_health = 5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_rm0dq")

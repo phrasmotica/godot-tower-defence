@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=5 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Texture2D" uid="uid://b88llhfu10tyh" path="res://assets/sprites/path.jpg" id="1_hvnhp"]
+[ext_resource type="PackedScene" uid="uid://buo64r0x83gru" path="res://scenes/enemy_1.tscn" id="2_s70yg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_158o4"]
 size = Vector2(1280, 100)
@@ -28,3 +29,7 @@ shape = SubResource("RectangleShape2D_158o4")
 
 [node name="PathWaypoints" type="Path2D" parent="Background"]
 curve = SubResource("Curve2D_0uew2")
+
+[node name="Enemy1" parent="Background/PathWaypoints" instance=ExtResource("2_s70yg")]
+position = Vector2(-50, 360)
+movement_speed = 0.2
