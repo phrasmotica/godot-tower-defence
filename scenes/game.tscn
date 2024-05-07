@@ -1,6 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=4 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Texture2D" uid="uid://b88llhfu10tyh" path="res://assets/sprites/path.jpg" id="1_hvnhp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_158o4"]
+size = Vector2(1280, 100)
+
+[sub_resource type="Curve2D" id="Curve2D_0uew2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -50, 360, 0, 0, 0, 0, 1330, 360)
+}
+point_count = 2
 
 [node name="Game" type="Node2D"]
 
@@ -10,3 +19,12 @@
 offset_right = 40.0
 offset_bottom = 40.0
 texture = ExtResource("1_hvnhp")
+
+[node name="PathArea" type="Area2D" parent="Background"]
+
+[node name="PathCollider" type="CollisionShape2D" parent="Background/PathArea"]
+position = Vector2(640, 360)
+shape = SubResource("RectangleShape2D_158o4")
+
+[node name="PathWaypoints" type="Path2D" parent="Background"]
+curve = SubResource("Curve2D_0uew2")
