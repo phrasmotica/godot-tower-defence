@@ -15,5 +15,13 @@ func move(delta):
 
 func _on_collision_area_body_entered(body:Node2D):
 	hit.emit(body)
-	stats.take_damage(1)
+
+	var new_health = stats.take_damage(1)
+	if new_health <= 0:
+		die()
+
 	body.queue_free()
+
+func die():
+	print("I am dead!")
+	queue_free()

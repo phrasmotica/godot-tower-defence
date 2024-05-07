@@ -39,3 +39,21 @@ movement_speed = 0.2
 
 [node name="Bullet" parent="Foreground" instance=ExtResource("3_dmqji")]
 position = Vector2(237, 349)
+
+[node name="Bullet2" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(420, 349)
+
+[node name="Bullet3" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(580, 349)
+
+[node name="Bullet4" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(726, 349)
+
+[node name="Bullet5" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(882, 349)
+
+[node name="Bullet6" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(1023, 349)
+
+[node name="Bullet7" parent="Foreground" instance=ExtResource("3_dmqji")]
+position = Vector2(1161, 349)
