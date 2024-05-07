@@ -34,7 +34,8 @@ script = ExtResource("3_3k5g8")
 starting_health = 5
 
 [node name="CollisionArea" type="Area2D" parent="."]
-collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource("RectangleShape2D_8qu8x")
+
+[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
