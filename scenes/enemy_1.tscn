@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=8 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
+[ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/health_bar.tscn" id="2_vr2lm"]
 [ext_resource type="Script" path="res://scripts/enemy_stats.gd" id="3_3k5g8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
@@ -25,6 +26,10 @@ size = Vector2(64, 64)
 [node name="Enemy1" type="PathFollow2D"]
 loop = false
 script = ExtResource("1_mx3jq")
+
+[node name="HealthBar" parent="." instance=ExtResource("2_vr2lm")]
+offset_top = -40.0
+offset_bottom = -40.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_rm0dq")
