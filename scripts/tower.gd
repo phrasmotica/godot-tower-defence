@@ -46,3 +46,15 @@ func _on_collision_area_mouse_exited():
 func _on_collision_area_input_event(viewport:Node, event:InputEvent, shape_idx:int):
 	if event.is_pressed():
 		select()
+
+func _on_barrel_shoot():
+	var level = levels_node.get_current_level()
+	print("Current level is " + level.name)
+
+	var projectile = level.stats.projectile
+
+	var bullet: Projectile = projectile.instantiate()
+	bullet.damage = level.stats.damage
+	print("Projectile now has damage " + str(bullet.damage))
+
+	add_child(bullet)

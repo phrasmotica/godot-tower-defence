@@ -1,4 +1,7 @@
-extends Node
+class_name TowerLevelStats extends Node
+
+@export
+var projectile: PackedScene
 
 @export_range(1, 3)
 var damage: int
