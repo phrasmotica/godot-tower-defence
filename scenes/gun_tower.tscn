@@ -1,10 +1,10 @@
-[gd_scene load_steps=19 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=17 format=3 uid="uid://bm6ytyxvbceh0"]
 
-[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_h2pjr"]
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
+[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="4_t0fww"]
 [ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
 
@@ -41,45 +41,30 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
-atlas = ExtResource("1_h2pjr")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_nd3ji"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p5m64")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qgw7p"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
 atlas = ExtResource("4_gubpj")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ohimc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_6lplc"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qgw7p")
+"texture": SubResource("AtlasTexture_8x2l0")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mvpva"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0rfb"]
 atlas = ExtResource("5_kp04t")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_luw1d"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_rpdrq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mvpva")
+"texture": SubResource("AtlasTexture_t0rfb")
 }],
 "loop": true,
 "name": &"default",
@@ -108,25 +93,34 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="Levels" type="Node2D" parent="."]
 
-[node name="Upgrade0" type="Node2D" parent="Levels"]
+[node name="Level0" parent="Levels" instance=ExtResource("4_t0fww")]
 
-[node name="Upgrade0Sprite" type="AnimatedSprite2D" parent="Levels/Upgrade0"]
-sprite_frames = SubResource("SpriteFrames_nd3ji")
-
-[node name="Upgrade1" type="Node2D" parent="Levels"]
+[node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
 
-[node name="Upgrade1Sprite" type="AnimatedSprite2D" parent="Levels/Upgrade1"]
-sprite_frames = SubResource("SpriteFrames_ohimc")
+[node name="Sprite" parent="Levels/Level1" index="0"]
+sprite_frames = SubResource("SpriteFrames_6lplc")
 
-[node name="Upgrade2" type="Node2D" parent="Levels"]
+[node name="Stats" parent="Levels/Level1" index="1"]
+damage = 1
+fire_rate = 2
+
+[node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
 
-[node name="Upgrade2Sprite" type="AnimatedSprite2D" parent="Levels/Upgrade2"]
-sprite_frames = SubResource("SpriteFrames_luw1d")
+[node name="Sprite" parent="Levels/Level2" index="0"]
+sprite_frames = SubResource("SpriteFrames_rpdrq")
+
+[node name="Stats" parent="Levels/Level2" index="1"]
+damage = 2
+fire_rate = 2
 
 [node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
 
 [connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]
 [connection signal="mouse_entered" from="CollisionArea" to="." method="_on_collision_area_mouse_entered"]
 [connection signal="mouse_exited" from="CollisionArea" to="." method="_on_collision_area_mouse_exited"]
+
+[editable path="Levels/Level0"]
+[editable path="Levels/Level1"]
+[editable path="Levels/Level2"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://djj6tjv3p0qo6"]
+
+[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_ws6y7"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="2_4oole"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
+atlas = ExtResource("1_ws6y7")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nd3ji"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5m64")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Level" type="Node2D"]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_nd3ji")
+
+[node name="Stats" type="Node" parent="."]
+script = ExtResource("2_4oole")
