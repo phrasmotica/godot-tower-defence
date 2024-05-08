@@ -4,7 +4,5 @@ class_name GunBarrel extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var bullet = projectile.instantiate()
-	bullet.position.x += 50
-
+	var bullet: Projectile = projectile.instantiate()
 	add_child(bullet)
