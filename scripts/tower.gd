@@ -2,6 +2,7 @@ class_name Tower extends Node2D
 
 @onready var range_node = $Range
 @onready var selection_node = $Selection
+@onready var levels_node = $Levels
 
 var is_selected = false
 
@@ -14,6 +15,12 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		deselect()
+
+	# gets the angle we want to face
+	var angle_to_enemy = global_position.direction_to(Vector2.ZERO).angle()
+
+	# slowly changes the rotation to face the angle
+	levels_node.rotation = move_toward(levels_node.rotation, angle_to_enemy, delta)
 
 func select():
 	selection_node.show()
