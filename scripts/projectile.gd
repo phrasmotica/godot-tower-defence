@@ -1,7 +1,9 @@
 class_name Projectile extends Node2D
 
 var damage: int = 1
+var speed: int = 10
+
+var direction: Vector2
 
 func _process(delta):
-    # TODO: ditch this, have the tower move me towards the nearest enemy
-    position.x += 1
+    translate(direction * speed)

@@ -41,6 +41,9 @@ func get_near_enemy():
 	if enemies.size() <= 0:
 		return null
 
+	if enemies[0] == null or enemies[0].is_queued_for_deletion():
+		return null
+
 	var distance_to_enemy = global_position.distance_to(enemies[0].global_position)
 	if distance_to_enemy > get_range_px():
 		return null
@@ -79,6 +82,8 @@ func _on_barrel_shoot():
 
 	var bullet: Projectile = projectile.instantiate()
 	bullet.damage = level.stats.damage
+	bullet.direction = Vector2.RIGHT.rotated(levels_node.rotation)
+
 	print("Projectile now has damage " + str(bullet.damage))
 
 	add_child(bullet)
