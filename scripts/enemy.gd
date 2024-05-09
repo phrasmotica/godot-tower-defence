@@ -1,7 +1,7 @@
 class_name Enemy extends PathFollow2D
 
 @export_range(0.1, 0.2)
-var movement_speed: float
+var movement_speed: float = 0.1
 
 @onready var health_bar: HealthBar = $HealthBar
 @onready var stats: EnemyStats = $Stats
@@ -22,10 +22,10 @@ func move(delta):
 		reached_end.emit(self)
 		remove()
 
-func _on_collision_area_body_entered(body:Node2D):
+func _on_collision_area_body_entered(body: Projectile):
 	hit.emit(body)
 
-	var new_health = stats.take_damage(1)
+	var new_health = stats.take_damage(body.damage)
 	health_bar.draw_health(new_health)
 
 	if new_health <= 0:
