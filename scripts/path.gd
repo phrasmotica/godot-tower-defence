@@ -12,10 +12,21 @@ func _process(delta):
 
 func spawn_enemy():
 	var enemy: Enemy = enemy_scene.instantiate()
+
+	enemy.die.connect(_on_enemy_die)
 	enemy.reached_end.connect(_on_enemy_reached_end)
 
 	add_child(enemy)
 	enemies.append(enemy)
 
+func remove_enemy(enemy: Enemy):
+	enemies.erase(enemy)
+	enemy.queue_free()
+
+func _on_enemy_die(enemy: Enemy):
+	remove_enemy(enemy)
+
 func _on_enemy_reached_end(enemy: Enemy):
+	remove_enemy(enemy)
+
 	enemy_reached_end.emit(enemy)

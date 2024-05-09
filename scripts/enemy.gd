@@ -7,6 +7,7 @@ var movement_speed: float = 0.1
 @onready var stats: EnemyStats = $Stats
 
 signal hit(body:Node2D)
+signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
 
 func _ready():
@@ -20,7 +21,6 @@ func move(delta):
 		progress_ratio += movement_speed * delta
 	else:
 		reached_end.emit(self)
-		remove()
 
 func _on_collision_area_body_entered(body: Projectile):
 	hit.emit(body)
@@ -29,13 +29,6 @@ func _on_collision_area_body_entered(body: Projectile):
 	health_bar.draw_health(new_health)
 
 	if new_health <= 0:
-		die()
+		die.emit(self)
 
 	body.queue_free()
-
-func remove():
-	queue_free()
-
-func die():
-	print("I am dead!")
-	queue_free()
