@@ -4,7 +4,7 @@ var path: Path
 
 @onready var firing_line: RayCast2D = $FiringLine
 
-func _process(delta):
+func scan(delta):
 	var near_enemy = get_near_enemy()
 	if near_enemy:
 		point_towards_enemy(near_enemy, delta)

@@ -1,27 +1,47 @@
 class_name Tower extends Node2D
 
+enum TowerMode { PLACING, FIRING }
+
 @onready var path: Path = %PathWaypoints
 
 @onready var range_node = $Range
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels
 
+var tower_mode = TowerMode.PLACING
 var is_selected = false
 
+signal on_placed(tower: Tower)
 signal on_selected
 signal on_deselected
 
 func _ready():
-	levels_node.path = path
-
 	deselect()
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
-		deselect()
+	if tower_mode == TowerMode.PLACING:
+		position = get_viewport().get_mouse_position()
 
-	if Input.is_action_just_pressed("ui_text_delete"):
-		sell()
+	if tower_mode == TowerMode.FIRING:
+		if Input.is_action_just_pressed("ui_cancel"):
+			deselect()
+
+		if Input.is_action_just_pressed("ui_text_delete"):
+			sell()
+
+		levels_node.scan(delta)
+
+func is_placing():
+	return tower_mode == TowerMode.PLACING
+
+func set_placing():
+	tower_mode = TowerMode.PLACING
+
+func set_firing():
+	# TODO: self.path is null here. We need a better way of passing it down,
+	# or perhaps this isn't the approach we should take at all...
+	levels_node.path = self.path
+	tower_mode = TowerMode.FIRING
 
 func select():
 	selection_node.show()
@@ -47,9 +67,14 @@ func _on_collision_area_mouse_exited():
 	if not is_selected:
 		range_node.hide()
 
-func _on_collision_area_input_event(viewport:Node, event:InputEvent, shape_idx:int):
+func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
 	if event.is_pressed():
-		select()
+		if tower_mode == TowerMode.PLACING:
+			set_firing()
+			on_placed.emit(self)
+
+		if tower_mode == TowerMode.FIRING:
+			select()
 
 func _on_barrel_shoot():
 	if not levels_node.should_shoot():
