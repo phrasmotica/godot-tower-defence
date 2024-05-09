@@ -75,6 +75,9 @@ func _on_collision_area_input_event(viewport:Node, event:InputEvent, shape_idx:i
 		select()
 
 func _on_barrel_shoot():
+	if not get_near_enemy():
+		return
+
 	var level = levels_node.get_current_level()
 	print("Current level is " + level.name)
 
