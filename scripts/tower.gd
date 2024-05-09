@@ -78,6 +78,9 @@ func _on_barrel_shoot():
 	if not get_near_enemy():
 		return
 
+	if not levels_node.should_shoot():
+		return
+
 	var level = levels_node.get_current_level()
 	print("Current level is " + level.name)
 
