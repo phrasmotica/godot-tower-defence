@@ -32,6 +32,7 @@ offset_bottom = 40.0
 texture = ExtResource("1_hvnhp")
 
 [node name="PathArea" type="Area2D" parent="Background"]
+collision_layer = 4
 
 [node name="PathCollider" type="CollisionShape2D" parent="Background/PathArea"]
 position = Vector2(640, 360)
