@@ -100,9 +100,6 @@ script = ExtResource("4_4tss6")
 
 [node name="Stats" parent="Levels/Level0" index="1"]
 projectile = ExtResource("5_ikvgn")
-damage = 1
-fire_rate = 1
-range = 3
 
 [node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
@@ -112,9 +109,7 @@ sprite_frames = SubResource("SpriteFrames_6lplc")
 
 [node name="Stats" parent="Levels/Level1" index="1"]
 projectile = ExtResource("5_ikvgn")
-damage = 1
 fire_rate = 2
-range = 3
 
 [node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
@@ -126,7 +121,6 @@ sprite_frames = SubResource("SpriteFrames_rpdrq")
 projectile = ExtResource("5_ikvgn")
 damage = 2
 fire_rate = 2
-range = 3
 
 [node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
 

@@ -4,10 +4,10 @@ class_name TowerLevelStats extends Node
 var projectile: PackedScene
 
 @export_range(1, 3)
-var damage: int
+var damage: int = 1
 
 @export_range(1, 2)
-var fire_rate: int
+var fire_rate: int = 1
 
 @export_range(3, 6)
-var range: int
+var range: int = 3
