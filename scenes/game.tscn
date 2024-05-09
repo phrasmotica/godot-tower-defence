@@ -40,6 +40,7 @@ shape = SubResource("RectangleShape2D_158o4")
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="PathWaypoints" type="Path2D" parent="Enemies"]
+unique_name_in_owner = true
 curve = SubResource("Curve2D_0uew2")
 script = ExtResource("3_c8cdx")
 enemy_scene = ExtResource("2_s70yg")
