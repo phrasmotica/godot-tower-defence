@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=10 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Texture2D" uid="uid://b88llhfu10tyh" path="res://assets/sprites/path.jpg" id="1_hvnhp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://scripts/path.gd" id="3_c8cdx"]
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="3_dmqji"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="5_3wfyb"]
+[ext_resource type="Script" path="res://scripts/tower_manager.gd" id="5_rtba5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_158o4"]
 size = Vector2(1280, 100)
@@ -47,9 +48,8 @@ script = ExtResource("3_c8cdx")
 enemy_scene = ExtResource("2_s70yg")
 
 [node name="Towers" type="Node2D" parent="."]
-
-[node name="GunTower" parent="Towers" instance=ExtResource("5_3wfyb")]
-position = Vector2(391, 189)
+script = ExtResource("5_rtba5")
+tower_1 = ExtResource("5_3wfyb")
 
 [node name="Foreground" type="Node2D" parent="."]
 
