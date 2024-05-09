@@ -96,6 +96,10 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 [node name="Levels" type="Node2D" parent="."]
 script = ExtResource("4_4tss6")
 
+[node name="FiringLine" type="RayCast2D" parent="Levels"]
+target_position = Vector2(300, 2.08165e-12)
+collide_with_areas = true
+
 [node name="Level0" parent="Levels" instance=ExtResource("4_t0fww")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]

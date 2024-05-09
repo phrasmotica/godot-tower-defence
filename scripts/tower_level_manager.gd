@@ -1,4 +1,5 @@
 extends Node2D
 
 func get_current_level() -> TowerLevel:
-	return get_child(0)
+	# firing line is child index 0, so skip it
+	return get_child(1)
