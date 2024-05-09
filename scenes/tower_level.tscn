@@ -20,6 +20,7 @@ animations = [{
 }]
 
 [node name="Level" type="Node2D"]
+z_index = 100
 script = ExtResource("1_p6oa4")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
