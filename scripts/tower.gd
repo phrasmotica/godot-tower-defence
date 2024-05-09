@@ -20,6 +20,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		deselect()
 
+	if Input.is_action_just_pressed("ui_text_delete"):
+		sell()
+
 func select():
 	selection_node.show()
 	range_node.show()
@@ -33,6 +36,9 @@ func deselect():
 	is_selected = false
 
 	on_deselected.emit()
+
+func sell():
+	queue_free()
 
 func _on_collision_area_mouse_entered():
 	range_node.show()
