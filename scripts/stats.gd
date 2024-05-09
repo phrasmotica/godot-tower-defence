@@ -11,3 +11,6 @@ var fire_rate: int = 1
 
 @export_range(3, 6)
 var range: int = 3
+
+@export_range(1, 10)
+var rotate_speed: int = 3

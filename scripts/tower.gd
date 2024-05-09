@@ -51,11 +51,13 @@ func get_near_enemy():
 	return enemies[0]
 
 func point_towards_enemy(enemy: Enemy, delta: float):
+	var rotate_speed = levels_node.get_current_level().stats.rotate_speed
+
 	# gets the angle we want to face
 	var angle_to_enemy = global_position.direction_to(enemy.global_position).angle()
 
 	# slowly changes the rotation to face the angle
-	levels_node.rotation = move_toward(levels_node.rotation, angle_to_enemy, delta)
+	levels_node.rotation = move_toward(levels_node.rotation, angle_to_enemy, delta * rotate_speed)
 
 func get_range_px():
 	var level = levels_node.get_current_level()
