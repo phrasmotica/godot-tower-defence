@@ -10,6 +10,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("tower_1"):
 		new_tower = tower_1.instantiate()
 
+		new_tower.path = path
 		new_tower.set_placing()
 		new_tower.on_placed.connect(_on_new_tower_placed)
 

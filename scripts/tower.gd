@@ -2,12 +2,12 @@ class_name Tower extends Node2D
 
 enum TowerMode { PLACING, FIRING }
 
-@onready var path: Path = %PathWaypoints
 
 @onready var range_node = $Range
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels
 
+var path: Path
 var tower_mode = TowerMode.PLACING
 var is_selected = false
 
@@ -29,7 +29,7 @@ func _process(delta):
 		if Input.is_action_just_pressed("ui_text_delete"):
 			sell()
 
-		levels_node.scan(delta)
+		scan(delta)
 
 func is_placing():
 	return tower_mode == TowerMode.PLACING
@@ -38,10 +38,30 @@ func set_placing():
 	tower_mode = TowerMode.PLACING
 
 func set_firing():
-	# TODO: self.path is null here. We need a better way of passing it down,
-	# or perhaps this isn't the approach we should take at all...
-	levels_node.path = self.path
 	tower_mode = TowerMode.FIRING
+
+func scan(delta):
+	var near_enemy = get_near_enemy()
+	if near_enemy:
+		levels_node.point_towards_enemy(near_enemy, delta)
+
+func get_near_enemy():
+	var enemies = path.enemies
+	if enemies.size() <= 0:
+		return null
+
+	if enemies[0] == null or enemies[0].is_queued_for_deletion():
+		return null
+
+	var distance_to_enemy = global_position.distance_to(enemies[0].global_position)
+	if distance_to_enemy > get_range_px():
+		return null
+
+	return enemies[0]
+
+func get_range_px():
+	# 1 range => 100px
+	return levels_node.get_current_level().stats.range * 100
 
 func select():
 	selection_node.show()
