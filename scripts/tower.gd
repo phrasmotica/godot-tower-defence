@@ -23,11 +23,15 @@ func _process(delta):
 		position = get_viewport().get_mouse_position()
 
 	if tower_mode == TowerMode.FIRING:
-		if Input.is_action_just_pressed("ui_cancel"):
-			deselect()
+		if is_selected:
+			if Input.is_action_just_pressed("ui_cancel"):
+				deselect()
 
-		if Input.is_action_just_pressed("ui_text_delete"):
-			sell()
+			if Input.is_action_just_pressed("ui_text_delete"):
+				sell()
+
+			if Input.is_action_just_pressed("tower_upgrade"):
+				upgrade()
 
 		scan(delta)
 
@@ -83,6 +87,9 @@ func deselect():
 
 func sell():
 	queue_free()
+
+func upgrade():
+	levels_node.start_upgrade()
 
 func _on_collision_area_mouse_entered():
 	range_node.show()
