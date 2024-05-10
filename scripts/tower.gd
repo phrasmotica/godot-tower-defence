@@ -1,6 +1,6 @@
 class_name Tower extends Node2D
 
-enum TowerMode { PLACING, FIRING }
+enum TowerMode { PLACING, WARMUP, FIRING }
 
 
 @onready var range_node = $Range
@@ -33,6 +33,10 @@ func _process(delta):
 
 func is_placing():
 	return tower_mode == TowerMode.PLACING
+
+func set_warming_up():
+	tower_mode = TowerMode.WARMUP
+	levels_node.start_warmup()
 
 func set_placing():
 	tower_mode = TowerMode.PLACING
@@ -90,7 +94,7 @@ func _on_collision_area_mouse_exited():
 func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
 	if event.is_pressed():
 		if tower_mode == TowerMode.PLACING:
-			set_firing()
+			set_warming_up()
 			on_placed.emit(self)
 
 		if tower_mode == TowerMode.FIRING:
@@ -112,3 +116,7 @@ func _on_barrel_shoot():
 	print("Projectile now has damage " + str(bullet.damage))
 
 	add_child(bullet)
+
+func _on_levels_warmed_up():
+	print("Gun tower warmup finished")
+	set_firing()

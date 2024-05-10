@@ -1,6 +1,15 @@
-extends Node2D
+class_name TowerLevelManager extends Node2D
 
 @onready var firing_line: RayCast2D = $FiringLine
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+signal warmed_up
+
+func start_warmup():
+	animation_player.play("warmup")
+
+func warmup_finished():
+	warmed_up.emit()
 
 func should_shoot():
 	return firing_line.is_colliding()
