@@ -7,7 +7,7 @@ signal enemy_reached_end(enemy: Enemy)
 
 @export var enemy_scene: PackedScene
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		spawn_enemy()
 
