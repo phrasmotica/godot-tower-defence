@@ -21,3 +21,6 @@ func add_money(amount):
 func set_money(money):
 	current_money = money
 	money_changed.emit(current_money)
+
+func _on_path_waypoints_enemy_died(_enemy:Enemy):
+	add_money(1)

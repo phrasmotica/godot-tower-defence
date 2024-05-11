@@ -2,6 +2,7 @@ class_name Path extends Path2D
 
 var enemies: Array[Enemy] = []
 
+signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
 
 @export var enemy_scene: PackedScene
@@ -25,6 +26,8 @@ func remove_enemy(enemy: Enemy):
 
 func _on_enemy_die(enemy: Enemy):
 	remove_enemy(enemy)
+
+	enemy_died.emit(enemy)
 
 func _on_enemy_reached_end(enemy: Enemy):
 	remove_enemy(enemy)
