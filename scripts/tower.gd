@@ -126,11 +126,11 @@ func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx
 			set_warming_up()
 			on_placed.emit(self)
 
-		if tower_mode == TowerMode.FIRING:
+		if is_firing():
 			select()
 
 func _on_barrel_shoot():
-	if tower_mode != TowerMode.FIRING:
+	if not is_firing():
 		return
 
 	if not levels_node.should_shoot():
