@@ -328,6 +328,7 @@ libraries = {
 [connection signal="input_event" from="CollisionArea" to="." method="_on_collision_area_input_event"]
 [connection signal="mouse_entered" from="CollisionArea" to="." method="_on_collision_area_mouse_entered"]
 [connection signal="mouse_exited" from="CollisionArea" to="." method="_on_collision_area_mouse_exited"]
+[connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
 

@@ -1,7 +1,6 @@
 class_name Tower extends Node2D
 
-enum TowerMode { PLACING, WARMUP, FIRING }
-
+enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 
 @onready var range_node = $Range
 @onready var selection_node = $Selection
@@ -48,6 +47,9 @@ func set_placing():
 func set_firing():
 	tower_mode = TowerMode.FIRING
 
+func set_upgrading():
+	tower_mode = TowerMode.UPGRADING
+
 func scan(delta):
 	var near_enemy = get_near_enemy()
 	if near_enemy:
@@ -89,6 +91,7 @@ func sell():
 	queue_free()
 
 func upgrade():
+	set_upgrading()
 	levels_node.start_upgrade()
 
 func _on_collision_area_mouse_entered():
@@ -108,6 +111,9 @@ func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx
 			select()
 
 func _on_barrel_shoot():
+	if tower_mode != TowerMode.FIRING:
+		return
+
 	if not levels_node.should_shoot():
 		return
 
@@ -126,4 +132,8 @@ func _on_barrel_shoot():
 
 func _on_levels_warmed_up():
 	print("Gun tower warmup finished")
+	set_firing()
+
+func _on_levels_upgraded():
+	print("Gun tower upgrade finished")
 	set_firing()
