@@ -5,6 +5,10 @@ class_name TowerLevelManager extends Node2D
 @onready var warmup_bar: ColorRect = $WarmupProgressBar
 @onready var upgrade_bar: ColorRect = $UpgradeProgressBar
 
+@export var levels: Array[TowerLevel]
+
+var level_index = 0
+
 signal warmed_up
 signal upgraded
 
@@ -19,18 +23,26 @@ func warmup_finished():
 	warmed_up.emit()
 
 func start_upgrade():
+	if not can_upgrade():
+		return
+
 	animation_player.play("upgrade")
 
 func upgrade_finished():
-	# TODO: move up to the next level
+	if not can_upgrade():
+		return
+
+	level_index += 1
 	upgraded.emit()
+
+func can_upgrade():
+	return level_index < levels.size() - 1
 
 func should_shoot():
 	return firing_line.is_colliding()
 
 func get_current_level() -> TowerLevel:
-	# firing line is child index 0, so skip it
-	return get_child(1)
+	return levels[level_index]
 
 func point_towards_enemy(enemy: Enemy, delta: float):
 	var rotate_speed = get_current_level().stats.rotate_speed
