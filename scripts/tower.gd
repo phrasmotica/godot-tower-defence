@@ -15,7 +15,7 @@ var is_selected = false
 
 signal on_placed(tower: Tower)
 signal on_upgrade_start(tower: Tower, next_level: TowerLevel)
-signal on_selected
+signal on_selected(tower: Tower)
 signal on_deselected
 
 func _ready():
@@ -83,7 +83,7 @@ func select():
 	range_node.show()
 	is_selected = true
 
-	on_selected.emit()
+	on_selected.emit(self)
 
 func deselect():
 	selection_node.hide()
