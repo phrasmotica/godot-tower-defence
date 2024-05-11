@@ -20,6 +20,16 @@ func _process(_delta):
 
 		add_child(new_tower)
 
+	if Input.is_action_just_pressed("ui_cancel"):
+		if new_tower:
+			cancel_tower_creation()
+			new_tower = null
+
+func cancel_tower_creation():
+	print("Cancelling tower creation")
+	new_tower.queue_free()
+	new_tower = null
+
 func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")
 	new_tower = null
