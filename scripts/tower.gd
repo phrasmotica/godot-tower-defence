@@ -2,6 +2,9 @@ class_name Tower extends Node2D
 
 enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 
+@export_range(1, 10)
+var price: int = 1
+
 @onready var range_node = $Range
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels

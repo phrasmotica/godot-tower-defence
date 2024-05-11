@@ -25,5 +25,5 @@ func set_money(money):
 func _on_path_waypoints_enemy_died(_enemy:Enemy):
 	add_money(1)
 
-func _on_towers_tower_placed(_tower: Tower):
-	add_money(-1)
+func _on_towers_tower_placed(tower: Tower):
+	add_money(-tower.price)
