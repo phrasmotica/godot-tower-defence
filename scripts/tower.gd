@@ -6,12 +6,14 @@ enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 var price: int = 1
 
 @onready var range_node = $Range
+@onready var range_sprite = $Range/RangeSprite
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels
 
 var path: Path
 var tower_mode = TowerMode.PLACING
 var is_selected = false
+var is_valid_location = false
 
 signal on_placed(tower: Tower)
 signal on_upgrade_start(tower: Tower, next_level: TowerLevel)
@@ -19,6 +21,7 @@ signal on_selected(tower: Tower)
 signal on_deselected
 
 func _ready():
+	is_valid_location = true
 	deselect()
 
 func _process(delta):
@@ -35,6 +38,9 @@ func _process(delta):
 func is_placing():
 	return tower_mode == TowerMode.PLACING
 
+func can_be_placed():
+	return is_placing() and is_valid_location
+
 func set_warming_up():
 	tower_mode = TowerMode.WARMUP
 	levels_node.start_warmup()
@@ -47,6 +53,12 @@ func set_firing():
 
 func set_upgrading():
 	tower_mode = TowerMode.UPGRADING
+
+func set_default_look():
+	range_sprite.modulate = Color.WHITE
+
+func set_error_look():
+	range_sprite.modulate = Color.RED
 
 func scan(delta):
 	var near_enemy = get_near_enemy()
@@ -107,7 +119,7 @@ func _on_collision_area_mouse_exited():
 
 func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
 	if event.is_pressed():
-		if tower_mode == TowerMode.PLACING:
+		if can_be_placed():
 			set_warming_up()
 			on_placed.emit(self)
 
@@ -141,3 +153,13 @@ func _on_levels_warmed_up():
 func _on_levels_upgraded():
 	print("Gun tower upgrade finished")
 	set_firing()
+
+func _on_collision_area_area_entered(_area:Area2D):
+	print("Gun tower entered path area")
+	is_valid_location = false
+	set_error_look()
+
+func _on_collision_area_area_exited(_area:Area2D):
+	print("Gun tower exited path area")
+	is_valid_location = true
+	set_default_look()
