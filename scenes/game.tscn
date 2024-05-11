@@ -22,6 +22,7 @@ point_count = 2
 [node name="Managers" type="Node" parent="."]
 
 [node name="BankManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
 script = ExtResource("1_rbgcv")
 
 [node name="LivesManager" type="Node" parent="Managers"]

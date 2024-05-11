@@ -88,6 +88,9 @@ func deselect():
 func sell():
 	queue_free()
 
+func get_upgrade():
+	return levels_node.get_upgrade()
+
 func upgrade():
 	var next_level = levels_node.start_upgrade()
 	if next_level:

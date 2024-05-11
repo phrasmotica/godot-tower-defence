@@ -2,6 +2,7 @@ class_name TowerManager extends Node2D
 
 @export var tower_1: PackedScene
 
+@onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
 
 signal tower_placed(tower: Tower)
@@ -34,8 +35,10 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("tower_upgrade"):
 		if selected_tower:
-			# TODO: prevent this if we don't have enough money
-			upgrade()
+			var next_level = selected_tower.get_upgrade()
+
+			if next_level and bank.can_afford(next_level.price):
+				upgrade()
 
 func deselect():
 	print("Deselecting tower")
