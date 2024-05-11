@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=24 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="4_4tss6"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_n5mc5"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="4_t0fww"]
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="5_ikvgn"]
 [ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
@@ -90,7 +91,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("WarmupProgressBar:size")
+tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -102,7 +103,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UpgradeProgressBar:size")
+tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -144,7 +145,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("UpgradeProgressBar:size")
+tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -156,7 +157,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("UpgradeProgressBar")
+tracks/3/path = NodePath("../ProgressBars/UpgradeProgressBar")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -203,7 +204,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("WarmupProgressBar:size")
+tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar:size")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -215,7 +216,7 @@ tracks/2/keys = {
 tracks/3/type = "method"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("WarmupProgressBar")
+tracks/3/path = NodePath("../ProgressBars/WarmupProgressBar")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -257,6 +258,24 @@ visible = false
 
 [node name="SelectionSprite" type="AnimatedSprite2D" parent="Selection"]
 sprite_frames = SubResource("SpriteFrames_7prn5")
+
+[node name="ProgressBars" type="Node2D" parent="."]
+
+[node name="WarmupProgressBar" type="ColorRect" parent="ProgressBars"]
+offset_left = -32.0
+offset_top = 40.0
+offset_right = 32.0
+offset_bottom = 48.0
+color = Color(0, 0, 1, 1)
+script = ExtResource("4_n5mc5")
+
+[node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
+offset_left = -32.0
+offset_top = 40.0
+offset_right = 32.0
+offset_bottom = 48.0
+color = Color(1, 1, 0, 1)
+script = ExtResource("4_n5mc5")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("levels")]
 script = ExtResource("4_4tss6")
@@ -303,20 +322,6 @@ rotate_speed = 5
 libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
-
-[node name="WarmupProgressBar" type="ColorRect" parent="Levels"]
-offset_left = -32.0
-offset_top = 36.0
-offset_right = 32.0
-offset_bottom = 44.0
-color = Color(0, 0, 1, 1)
-
-[node name="UpgradeProgressBar" type="ColorRect" parent="Levels"]
-offset_left = -32.0
-offset_top = 36.0
-offset_right = 32.0
-offset_bottom = 44.0
-color = Color(1, 1, 0, 1)
 
 [node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
 

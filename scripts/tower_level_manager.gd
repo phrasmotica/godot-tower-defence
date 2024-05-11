@@ -2,8 +2,6 @@ class_name TowerLevelManager extends Node2D
 
 @onready var firing_line: RayCast2D = $FiringLine
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var warmup_bar: ColorRect = $WarmupProgressBar
-@onready var upgrade_bar: ColorRect = $UpgradeProgressBar
 
 @export var levels: Array[TowerLevel]
 
@@ -11,10 +9,6 @@ var level_index = 0
 
 signal warmed_up
 signal upgraded
-
-func _ready():
-	warmup_bar.hide()
-	upgrade_bar.hide()
 
 func start_warmup():
 	animation_player.play("warmup")
