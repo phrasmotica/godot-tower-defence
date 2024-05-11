@@ -21,7 +21,6 @@ func _process(_delta):
 		new_tower.set_placing()
 
 		new_tower.on_placed.connect(_on_new_tower_placed)
-		new_tower.on_upgrade_start.connect(_on_new_tower_upgrade_start)
 		new_tower.on_selected.connect(_on_new_tower_selected)
 
 		add_child(new_tower)
@@ -32,6 +31,11 @@ func _process(_delta):
 
 		if new_tower:
 			cancel_tower_creation()
+
+	if Input.is_action_just_pressed("tower_upgrade"):
+		if selected_tower:
+			# TODO: prevent this if we don't have enough money
+			upgrade()
 
 func deselect():
 	print("Deselecting tower")
@@ -45,16 +49,18 @@ func cancel_tower_creation():
 	new_tower.queue_free()
 	new_tower = null
 
+func upgrade():
+	print("Upgrading tower")
+
+	var next_level = selected_tower.upgrade()
+	if next_level:
+		tower_upgrade_start.emit(selected_tower, next_level)
+
 func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")
 	new_tower = null
 
 	tower_placed.emit(tower)
-
-func _on_new_tower_upgrade_start(tower: Tower, next_level: TowerLevel):
-	print("Upgrading tower")
-
-	tower_upgrade_start.emit(tower, next_level)
 
 func _on_new_tower_selected(tower: Tower):
 	print("Selected " + tower.name)

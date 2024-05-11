@@ -30,10 +30,6 @@ func _process(delta):
 			if Input.is_action_just_pressed("ui_text_delete"):
 				sell()
 
-			if Input.is_action_just_pressed("tower_upgrade"):
-				# TODO: prevent this if we don't have enough money
-				upgrade()
-
 		scan(delta)
 
 func is_placing():
@@ -96,7 +92,8 @@ func upgrade():
 	var next_level = levels_node.start_upgrade()
 	if next_level:
 		set_upgrading()
-		on_upgrade_start.emit(self, next_level)
+
+	return next_level
 
 func _on_collision_area_mouse_entered():
 	range_node.show()
