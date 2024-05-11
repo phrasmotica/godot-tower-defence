@@ -4,6 +4,8 @@ class_name TowerManager extends Node2D
 
 @onready var path: Path = %PathWaypoints
 
+signal tower_placed(tower: Tower)
+
 var new_tower: Tower = null
 
 func _process(_delta):
@@ -16,6 +18,8 @@ func _process(_delta):
 
 		add_child(new_tower)
 
-func _on_new_tower_placed(_tower: Tower):
+func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")
 	new_tower = null
+
+	tower_placed.emit(tower)
