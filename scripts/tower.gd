@@ -25,21 +25,11 @@ func _ready():
 	deselect()
 
 func _process(delta):
-	if tower_mode == TowerMode.PLACING:
+	if is_placing():
 		position = get_viewport().get_mouse_position()
 
-	if tower_mode == TowerMode.FIRING:
-		if is_selected:
-			if Input.is_action_just_pressed("ui_text_delete"):
-				sell()
-
+	if is_firing():
 		scan(delta)
-
-func is_placing():
-	return tower_mode == TowerMode.PLACING
-
-func can_be_placed():
-	return is_placing() and is_valid_location
 
 func set_warming_up():
 	tower_mode = TowerMode.WARMUP
@@ -48,8 +38,17 @@ func set_warming_up():
 func set_placing():
 	tower_mode = TowerMode.PLACING
 
+func is_placing():
+	return tower_mode == TowerMode.PLACING
+
+func can_be_placed():
+	return is_placing() and is_valid_location
+
 func set_firing():
 	tower_mode = TowerMode.FIRING
+
+func is_firing():
+	return tower_mode == TowerMode.FIRING
 
 func set_upgrading():
 	tower_mode = TowerMode.UPGRADING
