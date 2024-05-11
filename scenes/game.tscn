@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Texture2D" uid="uid://b88llhfu10tyh" path="res://assets/sprites/path.jpg" id="1_hvnhp"]
+[ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
 [ext_resource type="PackedScene" uid="uid://buo64r0x83gru" path="res://scenes/enemy_1.tscn" id="2_s70yg"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="3_c8cdx"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="5_3wfyb"]
@@ -19,6 +20,9 @@ point_count = 2
 [node name="Game" type="Node2D"]
 
 [node name="Managers" type="Node" parent="."]
+
+[node name="BankManager" type="Node" parent="Managers"]
+script = ExtResource("1_rbgcv")
 
 [node name="LivesManager" type="Node" parent="Managers"]
 script = ExtResource("1_6mlow")
