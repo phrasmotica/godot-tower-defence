@@ -8,6 +8,7 @@ signal tower_placed(tower: Tower)
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 
 signal tower_selected(tower: Tower)
+signal tower_deselected
 
 var new_tower: Tower = null
 var selected_tower: Tower = null
@@ -26,8 +27,18 @@ func _process(_delta):
 		add_child(new_tower)
 
 	if Input.is_action_just_pressed("ui_cancel"):
+		if selected_tower:
+			deselect()
+
 		if new_tower:
 			cancel_tower_creation()
+
+func deselect():
+	print("Deselecting tower")
+
+	selected_tower.deselect()
+	selected_tower = null
+	tower_deselected.emit()
 
 func cancel_tower_creation():
 	print("Cancelling tower creation")
@@ -47,6 +58,9 @@ func _on_new_tower_upgrade_start(tower: Tower, next_level: TowerLevel):
 
 func _on_new_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
+
+	if selected_tower:
+		selected_tower.deselect()
 
 	selected_tower = tower
 	tower_selected.emit(tower)

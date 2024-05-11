@@ -27,9 +27,6 @@ func _process(delta):
 
 	if tower_mode == TowerMode.FIRING:
 		if is_selected:
-			if Input.is_action_just_pressed("ui_cancel"):
-				deselect()
-
 			if Input.is_action_just_pressed("ui_text_delete"):
 				sell()
 
