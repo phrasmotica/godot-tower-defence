@@ -296,6 +296,7 @@ projectile = ExtResource("5_ikvgn")
 
 [node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
+price = 2
 
 [node name="Sprite" parent="Levels/Level1" index="0"]
 rotation = 1.5708
@@ -308,6 +309,7 @@ rotate_speed = 4
 
 [node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
+price = 4
 
 [node name="Sprite" parent="Levels/Level2" index="0"]
 rotation = 1.5708

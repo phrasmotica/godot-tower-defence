@@ -14,6 +14,7 @@ var tower_mode = TowerMode.PLACING
 var is_selected = false
 
 signal on_placed(tower: Tower)
+signal on_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal on_selected
 signal on_deselected
 
@@ -33,6 +34,7 @@ func _process(delta):
 				sell()
 
 			if Input.is_action_just_pressed("tower_upgrade"):
+				# TODO: prevent this if we don't have enough money
 				upgrade()
 
 		scan(delta)
@@ -94,8 +96,10 @@ func sell():
 	queue_free()
 
 func upgrade():
-	set_upgrading()
-	levels_node.start_upgrade()
+	var next_level = levels_node.start_upgrade()
+	if next_level:
+		set_upgrading()
+		on_upgrade_start.emit(self, next_level)
 
 func _on_collision_area_mouse_entered():
 	range_node.show()

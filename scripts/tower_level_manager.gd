@@ -16,14 +16,16 @@ func start_warmup():
 func warmup_finished():
 	warmed_up.emit()
 
-func start_upgrade():
-	if not can_upgrade():
-		return
+func start_upgrade() -> TowerLevel:
+	var next_level = get_upgrade()
 
-	animation_player.play("upgrade")
+	if next_level:
+		animation_player.play("upgrade")
+
+	return next_level
 
 func upgrade_finished():
-	if not can_upgrade():
+	if not get_upgrade():
 		return
 
 	level_index += 1
@@ -33,8 +35,11 @@ func upgrade_finished():
 
 	upgraded.emit()
 
-func can_upgrade():
-	return level_index < levels.size() - 1
+func get_upgrade():
+	if level_index < levels.size() - 1:
+		return levels[level_index + 1]
+
+	return null
 
 func should_shoot():
 	return firing_line.is_colliding()
