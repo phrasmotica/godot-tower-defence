@@ -34,11 +34,7 @@ func _process(_delta):
 			cancel_tower_creation()
 
 	if Input.is_action_just_pressed("tower_upgrade"):
-		if selected_tower:
-			var next_level = selected_tower.get_upgrade()
-
-			if next_level and bank.can_afford(next_level.price):
-				upgrade()
+		try_upgrade()
 
 func deselect():
 	print("Deselecting tower")
@@ -52,12 +48,33 @@ func cancel_tower_creation():
 	new_tower.queue_free()
 	new_tower = null
 
+func try_upgrade():
+	if not selected_tower:
+		print("Tower upgrade failed: no tower selected")
+		return false
+
+	var next_level = selected_tower.get_upgrade()
+	if not next_level:
+		print("Tower upgrade failed: no more upgrades")
+		return false
+
+	if selected_tower.is_upgrading():
+		print("Tower upgrade failed: already upgrading")
+		return false
+
+	if not bank.can_afford(next_level.price):
+		print("Tower upgrade failed: cannot afford")
+		return false
+
+	upgrade()
+	return true
+
 func upgrade():
 	print("Upgrading tower")
 
+	# assumes the next level is not null
 	var next_level = selected_tower.upgrade()
-	if next_level:
-		tower_upgrade_start.emit(selected_tower, next_level)
+	tower_upgrade_start.emit(selected_tower, next_level)
 
 func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")

@@ -54,6 +54,9 @@ func set_firing():
 func set_upgrading():
 	tower_mode = TowerMode.UPGRADING
 
+func is_upgrading():
+	return tower_mode == TowerMode.UPGRADING
+
 func set_default_look():
 	range_sprite.modulate = Color.WHITE
 
