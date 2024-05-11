@@ -33,6 +33,10 @@ func upgrade_finished():
 		return
 
 	level_index += 1
+
+	levels[level_index - 1].visible = false
+	levels[level_index].visible = true
+
 	upgraded.emit()
 
 func can_upgrade():
