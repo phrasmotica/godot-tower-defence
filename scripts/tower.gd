@@ -9,6 +9,7 @@ var price: int = 1
 @onready var range_sprite = $Range/RangeSprite
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels
+@onready var animation_player: AnimationPlayer = $Levels/AnimationPlayer
 
 var path: Path
 var tower_mode = TowerMode.PLACING
@@ -100,7 +101,7 @@ func deselect():
 	on_deselected.emit()
 
 func sell():
-	queue_free()
+	animation_player.play("sell")
 
 func get_upgrade():
 	return levels_node.get_upgrade()

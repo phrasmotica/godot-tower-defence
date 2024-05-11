@@ -93,7 +93,7 @@ func sell():
 
 	# assumes a tower is selected
 	# TODO: gain some money from this
-	selected_tower.queue_free()
+	selected_tower.sell()
 	selected_tower = null
 
 	tower_sold.emit()
