@@ -102,6 +102,11 @@ func deselect():
 
 func sell():
 	animation_player.play("sell")
+	return get_sell_price()
+
+func get_sell_price():
+	# TODO: do a sensible calculation
+	return price
 
 func get_upgrade():
 	return levels_node.get_upgrade()

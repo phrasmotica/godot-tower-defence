@@ -103,8 +103,9 @@ func sell():
 	print("Selling tower")
 
 	# assumes a tower is selected
-	# TODO: gain some money from this
-	selected_tower.sell()
+	var sell_value = selected_tower.sell()
+	bank.add_money(sell_value)
+
 	selected_tower = null
 
 	tower_sold.emit()
