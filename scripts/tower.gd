@@ -105,8 +105,8 @@ func sell():
 	return get_sell_price()
 
 func get_sell_price():
-	# TODO: do a sensible calculation
-	return price
+	var upgrade_value = levels_node.get_total_value()
+	return int((price + upgrade_value) / 2)
 
 func get_upgrade():
 	return levels_node.get_upgrade()

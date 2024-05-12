@@ -47,6 +47,18 @@ func should_shoot():
 func get_current_level() -> TowerLevel:
 	return levels[level_index]
 
+func get_total_value():
+	if level_index <= 0 or levels.size() < 2:
+		return 0
+
+	# return sum of prices of purchased upgrades
+	return (
+		levels
+			.slice(1, level_index + 1)
+			.map(func(level): return level.price)
+			.reduce(func(a, b): return a + b)
+	)
+
 func point_towards_enemy(enemy: Enemy, delta: float):
 	var rotate_speed = get_current_level().stats.rotate_speed
 
