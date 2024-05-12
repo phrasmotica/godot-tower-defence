@@ -50,8 +50,10 @@ _data = {
 }
 
 [node name="Enemy1" type="PathFollow2D"]
+rotates = false
 loop = false
 script = ExtResource("1_mx3jq")
+movement_speed = 150
 
 [node name="HealthBar" parent="." instance=ExtResource("2_vr2lm")]
 offset_top = -40.0
