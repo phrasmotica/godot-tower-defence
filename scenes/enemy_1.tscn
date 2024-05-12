@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=10 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
@@ -23,6 +23,32 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qu8x"]
 size = Vector2(64, 64)
 
+[sub_resource type="Animation" id="Animation_vscsi"]
+resource_name = "peek_health"
+length = 2.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HealthBar")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"show"
+}, {
+"args": [],
+"method": &"hide"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
+_data = {
+"peek_health": SubResource("Animation_vscsi")
+}
+
 [node name="Enemy1" type="PathFollow2D"]
 loop = false
 script = ExtResource("1_mx3jq")
@@ -43,5 +69,10 @@ collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource("RectangleShape2D_8qu8x")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_c4ujo")
+}
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
