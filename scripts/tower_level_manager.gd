@@ -63,6 +63,8 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	var rotate_speed = get_current_level().stats.rotate_speed
 
 	# gets the angle we want to face
+	# BUG: sometimes this angle is >180 degrees in one direction. Make it the
+	# equivalent of that in the other direction
 	var angle_to_enemy = global_position.direction_to(enemy.global_position).angle()
 
 	# slowly changes the rotation to face the angle
