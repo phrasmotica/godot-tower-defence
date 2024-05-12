@@ -19,6 +19,7 @@ func _process(delta):
 	move(delta)
 
 func move(delta):
+	# TODO: move in pixels per second instead
 	if progress_ratio < 1.0:
 		progress_ratio += movement_speed * delta
 	else:
