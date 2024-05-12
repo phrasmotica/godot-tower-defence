@@ -16,16 +16,9 @@ var new_tower: Tower = null
 var selected_tower: Tower = null
 
 func _process(_delta):
+	# TODO: move all of these handlers into a child node that emits signals
 	if Input.is_action_just_pressed("tower_1"):
-		new_tower = tower_1.instantiate()
-
-		new_tower.path = path
-		new_tower.set_placing()
-
-		new_tower.on_placed.connect(_on_new_tower_placed)
-		new_tower.on_selected.connect(_on_new_tower_selected)
-
-		add_child(new_tower)
+		try_place(tower_1)
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		if selected_tower:
@@ -39,6 +32,24 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
+
+func try_place(tower_scene: PackedScene):
+	new_tower = tower_scene.instantiate()
+
+	if not bank.can_afford(new_tower.price):
+		print(new_tower.name + " purchase failed: cannot afford")
+		return false
+
+	print("Purchasing " + new_tower.name)
+
+	new_tower.path = path
+	new_tower.set_placing()
+
+	new_tower.on_placed.connect(_on_new_tower_placed)
+	new_tower.on_selected.connect(_on_new_tower_selected)
+
+	add_child(new_tower)
+	return true
 
 func deselect():
 	print("Deselecting tower")
