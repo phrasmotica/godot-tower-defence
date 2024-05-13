@@ -5,5 +5,5 @@ var speed: int = 10
 
 var direction: Vector2
 
-func _process(delta):
+func _process(_delta):
     translate(direction * speed)

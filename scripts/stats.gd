@@ -15,4 +15,5 @@ var range: int = 3
 @export_range(1, 10)
 var rotate_speed: int = 3
 
-# TODO: allow specifying a speed for the projectile
+@export_range(5, 30)
+var projectile_speed: int = 10

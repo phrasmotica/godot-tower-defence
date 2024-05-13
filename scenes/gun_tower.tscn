@@ -365,6 +365,7 @@ projectile = ExtResource("5_ikvgn")
 damage = 2
 fire_rate = 4
 rotate_speed = 5
+projectile_speed = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
 libraries = {
