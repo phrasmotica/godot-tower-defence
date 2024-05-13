@@ -37,4 +37,5 @@ func _on_collision_area_body_entered(body: Projectile):
 	if new_health <= 0:
 		die.emit(self)
 
+	# TODO: add some visual/audio flair to enemy-projectile collision
 	body.queue_free()
