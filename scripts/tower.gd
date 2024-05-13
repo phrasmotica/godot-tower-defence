@@ -90,7 +90,7 @@ func get_near_enemy():
 	# nearest enemies first
 	in_range_enemies.sort_custom(
 		func(e, f):
-			return get_distance_to_enemy(e) - get_distance_to_enemy(f)
+			return get_distance_to_enemy(e) > get_distance_to_enemy(f)
 	)
 
 	return in_range_enemies[0]
