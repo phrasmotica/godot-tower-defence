@@ -1,8 +1,9 @@
-[gd_scene load_steps=25 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=26 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
 [ext_resource type="PackedScene" uid="uid://buo64r0x83gru" path="res://scenes/enemy_1.tscn" id="2_s70yg"]
+[ext_resource type="Script" path="res://scripts/waves_manager.gd" id="3_4t4x5"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="3_c8cdx"]
 [ext_resource type="Texture2D" uid="uid://c5wfvtw4begee" path="res://assets/sprites/background_tilemap.png" id="4_w3iny"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="5_3wfyb"]
@@ -126,6 +127,11 @@ script = ExtResource("1_rbgcv")
 script = ExtResource("1_6mlow")
 starting_lives = 10
 
+[node name="WavesManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
+script = ExtResource("3_4t4x5")
+enemy_scene = ExtResource("2_s70yg")
+
 [node name="Background" type="Node2D" parent="."]
 
 [node name="TileMap" type="TileMap" parent="Background"]
@@ -198,7 +204,6 @@ shape = SubResource("RectangleShape2D_ms6hv")
 unique_name_in_owner = true
 curve = SubResource("Curve2D_0uew2")
 script = ExtResource("3_c8cdx")
-enemy_scene = ExtResource("2_s70yg")
 
 [node name="Towers" type="Node2D" parent="."]
 script = ExtResource("5_rtba5")

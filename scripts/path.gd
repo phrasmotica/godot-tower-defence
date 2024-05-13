@@ -5,13 +5,7 @@ var enemies: Array[Enemy] = []
 signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
 
-@export var enemy_scene: PackedScene
-
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		spawn_enemy()
-
-func spawn_enemy():
+func spawn_enemy(enemy_scene: PackedScene):
 	var enemy: Enemy = enemy_scene.instantiate()
 
 	enemy.die.connect(_on_enemy_die)
