@@ -8,7 +8,7 @@ class_name TowerLevelManager extends Node2D
 var level_index = 0
 
 signal warmed_up
-signal upgraded
+signal upgraded(new_level: TowerLevel)
 
 func start_warmup():
 	animation_player.play("warmup")
@@ -33,7 +33,7 @@ func upgrade_finished():
 	levels[level_index - 1].visible = false
 	levels[level_index].visible = true
 
-	upgraded.emit()
+	upgraded.emit(levels[level_index])
 
 func get_upgrade():
 	if level_index < levels.size() - 1:

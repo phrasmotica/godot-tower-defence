@@ -1,11 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://dennk04qdhx0m"]
+[gd_scene load_steps=2 format=3 uid="uid://dennk04qdhx0m"]
 
 [ext_resource type="Script" path="res://scripts/gun_barrel.gd" id="1_ory0v"]
-[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="2_dfp4u"]
 
 [node name="Barrel" type="Node2D"]
 script = ExtResource("1_ory0v")
-projectile = ExtResource("2_dfp4u")
 
 [node name="ShotTimer" type="Timer" parent="."]
 autostart = true

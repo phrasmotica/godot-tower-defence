@@ -337,6 +337,7 @@ rotation = 1.5708
 
 [node name="Stats" parent="Levels/Level0" index="1"]
 projectile = ExtResource("5_ikvgn")
+fire_rate = 3
 
 [node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
@@ -348,7 +349,7 @@ sprite_frames = SubResource("SpriteFrames_6lplc")
 
 [node name="Stats" parent="Levels/Level1" index="1"]
 projectile = ExtResource("5_ikvgn")
-fire_rate = 2
+fire_rate = 3
 rotate_speed = 4
 
 [node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
@@ -362,7 +363,7 @@ sprite_frames = SubResource("SpriteFrames_rpdrq")
 [node name="Stats" parent="Levels/Level2" index="1"]
 projectile = ExtResource("5_ikvgn")
 damage = 2
-fire_rate = 2
+fire_rate = 4
 rotate_speed = 5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]

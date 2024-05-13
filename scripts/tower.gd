@@ -10,6 +10,7 @@ var price: int = 1
 @onready var selection_node = $Selection
 @onready var levels_node = $Levels
 @onready var animation_player: AnimationPlayer = $Levels/AnimationPlayer
+@onready var barrel: GunBarrel = $Barrel
 
 var path: Path
 var tower_mode = TowerMode.PLACING
@@ -172,10 +173,12 @@ func _on_barrel_shoot():
 
 func _on_levels_warmed_up():
 	print("Gun tower warmup finished")
+	barrel.set_timeout(1.0 / levels_node.get_current_level().stats.fire_rate)
 	set_firing()
 
-func _on_levels_upgraded():
+func _on_levels_upgraded(new_level: TowerLevel):
 	print("Gun tower upgrade finished")
+	barrel.set_timeout(1.0 / new_level.stats.fire_rate)
 	set_firing()
 
 func _on_collision_area_area_entered(_area:Area2D):
