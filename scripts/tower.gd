@@ -73,14 +73,30 @@ func get_near_enemy():
 	if enemies.size() <= 0:
 		return null
 
-	if enemies[0] == null or enemies[0].is_queued_for_deletion():
+	var valid_enemies = enemies.filter(func(e): return e != null and not e.is_queued_for_deletion())
+	if valid_enemies.size() <= 0:
 		return null
 
-	var distance_to_enemy = global_position.distance_to(enemies[0].global_position)
-	if distance_to_enemy > get_range_px():
+	var shooting_range = get_range_px()
+
+	var in_range_enemies = valid_enemies.filter(
+		func(e):
+			return get_distance_to_enemy(e) <= shooting_range
+	)
+
+	if in_range_enemies.size() <= 0:
 		return null
 
-	return enemies[0]
+	# nearest enemies first
+	in_range_enemies.sort_custom(
+		func(e, f):
+			return get_distance_to_enemy(e) - get_distance_to_enemy(f)
+	)
+
+	return in_range_enemies[0]
+
+func get_distance_to_enemy(enemy: Enemy):
+	return global_position.distance_to(enemy.global_position)
 
 func get_range_px():
 	# 1 range => 100px
