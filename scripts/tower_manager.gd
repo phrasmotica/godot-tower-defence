@@ -134,3 +134,6 @@ func _on_start_game_start():
 
 func _on_game_ui_buy_gun_tower_button():
 	try_place(tower_1)
+
+func _on_game_ui_sell_selected_tower():
+	try_sell()
