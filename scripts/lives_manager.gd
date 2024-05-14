@@ -24,6 +24,7 @@ func set_lives(lives):
 	lives_changed.emit(current_lives)
 
 	if current_lives <= 0:
+		print("Ran out of lives!")
 		lives_depleted.emit()
 
 func _on_path_waypoints_enemy_reached_end(enemy: Enemy):
