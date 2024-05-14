@@ -203,7 +203,7 @@ tower_1 = ExtResource("5_3wfyb")
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="StartGame" parent="UICanvas" instance=ExtResource("9_sjprc")]
-visible = false
+z_index = 100
 
 [node name="GameUI" parent="UICanvas" instance=ExtResource("10_gkcsa")]
 offset_left = 960.0
@@ -211,6 +211,7 @@ offset_right = 1280.0
 
 [node name="GameOver" parent="UICanvas" instance=ExtResource("9_2ng1j")]
 visible = false
+z_index = 100
 
 [connection signal="lives_depleted" from="Managers/LivesManager" to="UICanvas/GameOver" method="_on_lives_manager_lives_depleted"]
 [connection signal="enemy_died" from="Enemies/PathWaypoints" to="Managers/BankManager" method="_on_path_waypoints_enemy_died"]
