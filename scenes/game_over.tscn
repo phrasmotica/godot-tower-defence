@@ -1,0 +1,58 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfpflw4sl38vd"]
+
+[ext_resource type="Script" path="res://scripts/game_over.gd" id="1_7ke0v"]
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ke0v")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 1180.0
+offset_bottom = 620.0
+color = Color(0.517647, 0.670588, 0.517647, 0.588235)
+
+[node name="Heading" type="Label" parent="Background"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 1080.0
+offset_bottom = 155.0
+theme_override_font_sizes/font_size = 91
+text = "Game over!"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -374.5
+offset_top = -44.0
+offset_right = 374.5
+offset_bottom = 44.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 64
+text = "You lost all of your lives."
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="Background"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 365.0
+offset_right = 780.0
+offset_bottom = 490.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 72
+text = "Restart"
+
+[connection signal="pressed" from="Background/RestartButton" to="." method="_on_restart_button_pressed"]
