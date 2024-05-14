@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=26 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
@@ -82,22 +82,10 @@ size = Vector2(320, 80)
 size = Vector2(80, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eb2qx"]
-size = Vector2(1200, 80)
+size = Vector2(800, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_awl1k"]
 size = Vector2(80, 240)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_w7nr0"]
-size = Vector2(240, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kr1wk"]
-size = Vector2(80, 160)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_lxich"]
-size = Vector2(160, 80)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1e81g"]
-size = Vector2(80, 160)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_o8p5b"]
 size = Vector2(320, 80)
@@ -106,16 +94,22 @@ size = Vector2(320, 80)
 size = Vector2(80, 320)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wtjo"]
-size = Vector2(640, 80)
+size = Vector2(160, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ms6hv"]
-size = Vector2(80, 80)
+size = Vector2(80, 160)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xnmtq"]
+size = Vector2(160, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_075el"]
+size = Vector2(80, 240)
 
 [sub_resource type="Curve2D" id="Curve2D_0uew2"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -40, 120, 0, 0, 0, 0, 360, 120, 0, 0, 0, 0, 360, 520, 0, 0, 0, 0, 40, 520, 0, 0, 0, 0, 40, 680, 0, 0, 0, 0, 1240, 680, 0, 0, 0, 0, 1240, 440, 0, 0, 0, 0, 1000, 440, 0, 0, 0, 0, 1000, 280, 0, 0, 0, 0, 840, 280, 0, 0, 0, 0, 840, 440, 0, 0, 0, 0, 520, 440, 0, 0, 0, 0, 520, 120, 0, 0, 0, 0, 1160, 120, 0, 0, 0, 0, 1160, -40)
+"points": PackedVector2Array(0, 0, 0, 0, -40, 120, 0, 0, 0, 0, 360, 120, 0, 0, 0, 0, 360, 520, 0, 0, 0, 0, 40, 520, 0, 0, 0, 0, 40, 680, 0, 0, 0, 0, 840, 680, 0, 0, 0, 0, 840, 440, 0, 0, 0, 0, 520, 440, 0, 0, 0, 0, 520, 120, 0, 0, 0, 0, 680, 120, 0, 0, 0, 0, 680, 280, 0, 0, 0, 0, 840, 280, 0, 0, 0, 0, 840, -40)
 }
-point_count = 15
+point_count = 13
 
 [node name="Game" type="Node2D"]
 
@@ -139,7 +133,7 @@ enemy_scene = ExtResource("2_s70yg")
 [node name="TileMap" type="TileMap" parent="Background"]
 tile_set = SubResource("TileSet_4rbar")
 format = 2
-layer_0/tile_data = PackedInt32Array(65536, 65536, 0, 65537, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 0, 262148, 65536, 0, 327684, 65536, 0, 393220, 65536, 0, 393219, 65536, 0, 393218, 65536, 0, 393217, 65536, 0, 393216, 65536, 0, 458752, 65536, 0, 524288, 65536, 0, 524289, 65536, 0, 524290, 65536, 0, 524291, 65536, 0, 524292, 65536, 0, 524293, 65536, 0, 524294, 65536, 0, 524295, 65536, 0, 524296, 65536, 0, 524297, 65536, 0, 524298, 65536, 0, 524299, 65536, 0, 524300, 65536, 0, 524301, 65536, 0, 524302, 65536, 0, 524303, 65536, 0, 458767, 65536, 0, 393231, 65536, 0, 327695, 65536, 0, 327694, 65536, 0, 327693, 65536, 0, 327692, 65536, 0, 262156, 65536, 0, 196620, 65536, 0, 196619, 65536, 0, 196618, 65536, 0, 262154, 65536, 0, 327690, 65536, 0, 327689, 65536, 0, 327688, 65536, 0, 327687, 65536, 0, 327686, 65536, 0, 262150, 65536, 0, 196614, 65536, 0, 131078, 65536, 0, 65542, 65536, 0, 65543, 65536, 0, 65544, 65536, 0, 65545, 65536, 0, 65546, 65536, 0, 65547, 65536, 0, 65548, 65536, 0, 65549, 65536, 0, 65550, 65536, 0, 14, 65536, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 0, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 393230, 0, 0, 393229, 0, 0, 393228, 0, 0, 393227, 0, 0, 327691, 0, 0, 262155, 0, 0, 393226, 0, 0, 393225, 0, 0, 393224, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 327685, 0, 0, 262149, 0, 0, 196613, 0, 0, 131077, 0, 0, 65541, 0, 0, 5, 0, 0, 131075, 0, 0, 131074, 0, 0, 131073, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 327681, 0, 0, 262145, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 262146, 0, 0, 327682, 0, 0, 327683, 0, 0, 262147, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 196617, 0, 0, 196616, 0, 0, 196615, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 196622, 0, 0, 262158, 0, 0, 262157, 0, 0, 196621, 0, 0, 262159, 0, 0, 196623, 0, 0, 131087, 0, 0, 65551, 0, 0, 15, 0, 0, 13, 0, 0, 12, 0, 0, 11, 0, 0, 10, 0, 0, 9, 0, 0, 8, 0, 0, 7, 0, 0, 6, 0, 0, 4, 0, 0, 3, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0)
+layer_0/tile_data = PackedInt32Array(65536, 65536, 0, 65537, 65536, 0, 65538, 65536, 0, 65539, 65536, 0, 65540, 65536, 0, 131076, 65536, 0, 196612, 65536, 0, 262148, 65536, 0, 327684, 65536, 0, 393220, 65536, 0, 393219, 65536, 0, 393218, 65536, 0, 393217, 65536, 0, 393216, 65536, 0, 458752, 65536, 0, 524288, 65536, 0, 524289, 65536, 0, 524290, 65536, 0, 524291, 65536, 0, 524292, 65536, 0, 524293, 65536, 0, 524294, 65536, 0, 524295, 65536, 0, 524296, 65536, 0, 524297, 65536, 0, 524298, 65536, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 0, 0, 524303, 0, 0, 458767, 0, 0, 393231, 0, 0, 327695, 0, 0, 327694, 0, 0, 327693, 0, 0, 327692, 0, 0, 262156, 0, 0, 196620, 0, 0, 196619, 0, 0, 196618, 65536, 0, 262154, 0, 0, 327690, 65536, 0, 327689, 65536, 0, 327688, 65536, 0, 327687, 65536, 0, 327686, 65536, 0, 262150, 65536, 0, 196614, 65536, 0, 131078, 65536, 0, 65542, 65536, 0, 65543, 65536, 0, 65544, 65536, 0, 65545, 0, 0, 65546, 65536, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 14, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 65536, 0, 458763, 0, 0, 458764, 0, 0, 458765, 0, 0, 458766, 0, 0, 393230, 0, 0, 393229, 0, 0, 393228, 0, 0, 393227, 0, 0, 327691, 0, 0, 262155, 0, 0, 393226, 65536, 0, 393225, 0, 0, 393224, 0, 0, 393223, 0, 0, 393222, 0, 0, 393221, 0, 0, 327685, 0, 0, 262149, 0, 0, 196613, 0, 0, 131077, 0, 0, 65541, 0, 0, 5, 0, 0, 131075, 0, 0, 131074, 0, 0, 131073, 0, 0, 131072, 0, 0, 196608, 0, 0, 262144, 0, 0, 327680, 0, 0, 327681, 0, 0, 262145, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 262146, 0, 0, 327682, 0, 0, 327683, 0, 0, 262147, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 196617, 65536, 0, 196616, 65536, 0, 196615, 0, 0, 131079, 0, 0, 131080, 65536, 0, 131081, 0, 0, 131082, 65536, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 196622, 0, 0, 262158, 0, 0, 262157, 0, 0, 196621, 0, 0, 262159, 0, 0, 196623, 0, 0, 131087, 0, 0, 65551, 0, 0, 15, 0, 0, 13, 0, 0, 12, 0, 0, 11, 0, 0, 10, 65536, 0, 9, 0, 0, 8, 0, 0, 7, 0, 0, 6, 0, 0, 4, 0, 0, 3, 0, 0, 2, 0, 0, 1, 0, 0, 0, 0, 0)
 
 [node name="PathArea" type="Area2D" parent="Background"]
 collision_layer = 4
@@ -161,28 +155,12 @@ position = Vector2(40, 640)
 shape = SubResource("RectangleShape2D_q4p4n")
 
 [node name="PathCollider4" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(680, 680)
+position = Vector2(480, 680)
 shape = SubResource("RectangleShape2D_eb2qx")
 
 [node name="PathCollider5" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(1240, 520)
+position = Vector2(840, 520)
 shape = SubResource("RectangleShape2D_awl1k")
-
-[node name="PathCollider6" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(1080, 440)
-shape = SubResource("RectangleShape2D_w7nr0")
-
-[node name="PathCollider7" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(1000, 320)
-shape = SubResource("RectangleShape2D_kr1wk")
-
-[node name="PathCollider8" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(880, 280)
-shape = SubResource("RectangleShape2D_lxich")
-
-[node name="PathCollider9" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(840, 400)
-shape = SubResource("RectangleShape2D_1e81g")
 
 [node name="PathCollider10" type="CollisionShape2D" parent="Background/PathArea"]
 position = Vector2(640, 440)
@@ -193,12 +171,20 @@ position = Vector2(520, 240)
 shape = SubResource("RectangleShape2D_d8lo5")
 
 [node name="PathCollider12" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(880, 120)
+position = Vector2(640, 120)
 shape = SubResource("RectangleShape2D_0wtjo")
 
 [node name="PathCollider13" type="CollisionShape2D" parent="Background/PathArea"]
-position = Vector2(1160, 40)
+position = Vector2(680, 240)
 shape = SubResource("RectangleShape2D_ms6hv")
+
+[node name="PathCollider14" type="CollisionShape2D" parent="Background/PathArea"]
+position = Vector2(800, 280)
+shape = SubResource("RectangleShape2D_xnmtq")
+
+[node name="PathCollider15" type="CollisionShape2D" parent="Background/PathArea"]
+position = Vector2(840, 120)
+shape = SubResource("RectangleShape2D_075el")
 
 [node name="Enemies" type="Node2D" parent="."]
 
