@@ -4,14 +4,22 @@ class_name WavesManager extends Node
 
 @export var enemy_scene: PackedScene
 
-var wave_number = 0
+@export_range(10, 50)
+var last_wave: int = 10
+
+var wave_number: int = 0
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		next()
 
 func next():
+	if wave_number >= last_wave:
+		print("No more waves to send!")
+		return
+
 	wave_number += 1
+	print("Sending wave " + str(wave_number))
 
 	for i in range(wave_number):
 		path.spawn_enemy(enemy_scene)
