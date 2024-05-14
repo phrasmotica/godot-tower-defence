@@ -1,0 +1,121 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4jpggyrn7oc2"]
+
+[ext_resource type="Script" path="res://scripts/start_game.gd" id="1_1nknf"]
+[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_pmmug"]
+[ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="2_oohv1"]
+[ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="3_it5qd"]
+
+[node name="StartGame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1nknf")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 2
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 1180.0
+offset_bottom = 620.0
+color = Color(0.517647, 0.670588, 0.517647, 0.784314)
+
+[node name="Heading" type="Label" parent="Background"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 1080.0
+offset_bottom = 155.0
+theme_override_font_sizes/font_size = 91
+text = "How to Play"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -510.0
+offset_top = -100.0
+offset_right = -30.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Build towers with the \"1\" key. Upgrade them with \"U\"."
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="TowerImage" type="TextureRect" parent="Background/Description"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -92.0
+offset_top = 7.0
+offset_right = -28.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("1_pmmug")
+
+[node name="TowerImage2" type="TextureRect" parent="Background/Description"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = 7.0
+offset_right = 92.0
+offset_bottom = 71.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 1.5708
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("2_oohv1")
+
+[node name="Description2" type="Label" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_top = -100.0
+offset_right = 480.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+text = "Kill all the enemies before you run out of lives!"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="EnemyImage" type="TextureRect" parent="Background/Description2"]
+layout_mode = 0
+offset_left = 208.0
+offset_top = 100.0
+offset_right = 272.0
+offset_bottom = 164.0
+texture = ExtResource("3_it5qd")
+
+[node name="StartButton" type="Button" parent="Background"]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 365.0
+offset_right = 780.0
+offset_bottom = 490.0
+mouse_default_cursor_shape = 2
+theme_override_font_sizes/font_size = 72
+text = "Start"
+
+[connection signal="pressed" from="Background/StartButton" to="." method="_on_start_button_pressed"]
