@@ -2,10 +2,13 @@ class_name GameUI extends Control
 
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
+@onready var sell_button = $ColorRect/SellButton
 
 signal buy_gun_tower_button
 signal sell_selected_tower
 
+func _ready():
+	sell_button.hide()
 
 func _on_gun_tower_button_pressed():
 	print("Buying gun tower from UI")
@@ -24,3 +27,9 @@ func _on_sell_button_pressed():
 	print("Selling selected tower")
 
 	sell_selected_tower.emit()
+
+func _on_towers_tower_selected(_tower:Tower):
+	sell_button.show()
+
+func _on_towers_tower_deselected():
+	sell_button.hide()

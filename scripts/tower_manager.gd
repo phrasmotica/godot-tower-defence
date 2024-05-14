@@ -111,6 +111,7 @@ func sell():
 
 	selected_tower = null
 
+	tower_deselected.emit()
 	tower_sold.emit()
 
 func _on_new_tower_placed(tower: Tower):
