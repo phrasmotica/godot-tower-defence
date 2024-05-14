@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=28 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="5_3wfyb"]
 [ext_resource type="Script" path="res://scripts/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/game_over.tscn" id="9_2ng1j"]
+[ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/start_game.tscn" id="9_sjprc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_onciy"]
 texture = ExtResource("4_w3iny")
@@ -214,6 +215,8 @@ tower_1 = ExtResource("5_3wfyb")
 
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
+[node name="StartGame" parent="UICanvas" instance=ExtResource("9_sjprc")]
+
 [node name="GameOver" parent="UICanvas" instance=ExtResource("9_2ng1j")]
 visible = false
 
@@ -222,3 +225,5 @@ visible = false
 [connection signal="enemy_reached_end" from="Enemies/PathWaypoints" to="Managers/LivesManager" method="_on_path_waypoints_enemy_reached_end"]
 [connection signal="tower_placed" from="Towers" to="Managers/BankManager" method="_on_towers_tower_placed"]
 [connection signal="tower_upgrade_start" from="Towers" to="Managers/BankManager" method="_on_towers_tower_upgrade_start"]
+[connection signal="start" from="UICanvas/StartGame" to="Managers/WavesManager" method="_on_start_game_start"]
+[connection signal="start" from="UICanvas/StartGame" to="Towers" method="_on_start_game_start"]

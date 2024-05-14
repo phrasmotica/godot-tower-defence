@@ -15,6 +15,9 @@ signal tower_sold
 var new_tower: Tower = null
 var selected_tower: Tower = null
 
+func _ready():
+	set_process(false)
+
 func _process(_delta):
 	# TODO: move all of these handlers into a child node that emits signals
 	if Input.is_action_just_pressed("tower_1"):
@@ -124,3 +127,7 @@ func _on_new_tower_selected(tower: Tower):
 
 	selected_tower = tower
 	tower_selected.emit(tower)
+
+func _on_start_game_start():
+	print("Enabling tower manager")
+	set_process(true)
