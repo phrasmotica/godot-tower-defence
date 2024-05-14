@@ -131,3 +131,6 @@ func _on_new_tower_selected(tower: Tower):
 func _on_start_game_start():
 	print("Enabling tower manager")
 	set_process(true)
+
+func _on_game_ui_buy_gun_tower_button():
+	try_place(tower_1)

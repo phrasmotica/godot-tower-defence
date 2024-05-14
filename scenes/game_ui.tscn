@@ -1,10 +1,14 @@
-[gd_scene format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=3 format=3 uid="uid://drho24vtc7gs3"]
+
+[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_02kwm"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
+script = ExtResource("1_7yk5n")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -49,3 +53,15 @@ offset_right = 280.0
 offset_bottom = 45.0
 theme_override_font_sizes/font_size = 32
 text = "10"
+
+[node name="GunTowerButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 140.0
+offset_right = 100.0
+offset_bottom = 220.0
+focus_mode = 0
+icon = ExtResource("1_02kwm")
+icon_alignment = 1
+
+[connection signal="pressed" from="ColorRect/GunTowerButton" to="." method="_on_gun_tower_button_pressed"]
