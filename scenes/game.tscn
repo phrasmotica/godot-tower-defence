@@ -203,6 +203,7 @@ tower_1 = ExtResource("5_3wfyb")
 [node name="UICanvas" type="CanvasLayer" parent="."]
 
 [node name="StartGame" parent="UICanvas" instance=ExtResource("9_sjprc")]
+visible = false
 z_index = 100
 
 [node name="GameUI" parent="UICanvas" instance=ExtResource("10_gkcsa")]
