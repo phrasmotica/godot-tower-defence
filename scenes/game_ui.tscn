@@ -64,6 +64,16 @@ focus_mode = 0
 icon = ExtResource("1_02kwm")
 icon_alignment = 1
 
+[node name="UpgradeButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 520.0
+offset_right = 300.0
+offset_bottom = 600.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Upgrade"
+
 [node name="SellButton" type="Button" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
@@ -75,4 +85,5 @@ theme_override_font_sizes/font_size = 32
 text = "Sell"
 
 [connection signal="pressed" from="ColorRect/GunTowerButton" to="." method="_on_gun_tower_button_pressed"]
+[connection signal="pressed" from="ColorRect/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="ColorRect/SellButton" to="." method="_on_sell_button_pressed"]

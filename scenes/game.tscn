@@ -227,3 +227,4 @@ z_index = 100
 [connection signal="start" from="UICanvas/StartGame" to="Towers" method="_on_start_game_start"]
 [connection signal="buy_gun_tower_button" from="UICanvas/GameUI" to="Towers" method="_on_game_ui_buy_gun_tower_button"]
 [connection signal="sell_selected_tower" from="UICanvas/GameUI" to="Towers" method="_on_game_ui_sell_selected_tower"]
+[connection signal="upgrade_selected_tower" from="UICanvas/GameUI" to="Towers" method="_on_game_ui_upgrade_selected_tower"]
