@@ -206,6 +206,7 @@ tower_1 = ExtResource("5_3wfyb")
 [node name="Foreground" type="Node2D" parent="."]
 
 [node name="GameUI" parent="." instance=ExtResource("10_gkcsa")]
+unique_name_in_owner = true
 offset_left = 960.0
 offset_right = 1280.0
 

@@ -12,6 +12,7 @@ signal upgrade_selected_tower
 signal sell_selected_tower
 
 var placing_tower: Tower = null
+var selected_tower: Tower = null
 
 func _ready():
 	upgrade_button.hide()

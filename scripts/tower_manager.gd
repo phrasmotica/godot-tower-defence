@@ -5,6 +5,9 @@ class_name TowerManager extends Node2D
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
 
+# TODO: eventually decouple this
+@onready var game_ui: GameUI = %GameUI
+
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
@@ -17,9 +20,6 @@ signal tower_sold(sell_value: int)
 
 var new_tower: Tower = null
 
-# TODO: track selected tower in game_ui.gd instead
-var selected_tower: Tower = null
-
 func _ready():
 	set_process(false)
 
@@ -29,7 +29,7 @@ func _process(_delta):
 		try_place(tower_1)
 
 	if Input.is_action_just_pressed("ui_cancel"):
-		if selected_tower:
+		if game_ui.selected_tower:
 			deselect()
 
 		if new_tower:
@@ -64,8 +64,8 @@ func try_place(tower_scene: PackedScene):
 func deselect():
 	print("Deselecting tower")
 
-	selected_tower.deselect()
-	selected_tower = null
+	game_ui.selected_tower.deselect()
+	game_ui.selected_tower = null
 
 	tower_deselected.emit()
 
@@ -78,16 +78,16 @@ func cancel_tower_creation():
 	tower_placing_cancelled.emit()
 
 func try_upgrade():
-	if not selected_tower:
+	if not game_ui.selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return false
 
-	var next_level = selected_tower.get_upgrade()
+	var next_level = game_ui.selected_tower.get_upgrade()
 	if not next_level:
 		print("Tower upgrade failed: no more upgrades")
 		return false
 
-	if selected_tower.is_upgrading():
+	if game_ui.selected_tower.is_upgrading():
 		print("Tower upgrade failed: already upgrading")
 		return false
 
@@ -102,8 +102,8 @@ func upgrade():
 	print("Upgrading tower")
 
 	# assumes a tower is selected and the next level is not null
-	var next_level = selected_tower.upgrade()
-	tower_upgrade_start.emit(selected_tower, next_level)
+	var next_level = game_ui.selected_tower.upgrade()
+	tower_upgrade_start.emit(game_ui.selected_tower, next_level)
 
 func _on_new_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
@@ -111,7 +111,7 @@ func _on_new_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	tower_upgrade_finish.emit(tower, next_level)
 
 func try_sell():
-	if not selected_tower:
+	if not game_ui.selected_tower:
 		print("Tower sell failed: no tower selected")
 		return false
 
@@ -122,9 +122,9 @@ func sell():
 	print("Selling tower")
 
 	# assumes a tower is selected
-	var sell_value = selected_tower.sell()
+	var sell_value = game_ui.selected_tower.sell()
 
-	selected_tower = null
+	game_ui.selected_tower = null
 
 	tower_deselected.emit()
 	tower_sold.emit(sell_value)
@@ -138,10 +138,10 @@ func _on_new_tower_placed(tower: Tower):
 func _on_new_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
 
-	if selected_tower:
-		selected_tower.deselect()
+	if game_ui.selected_tower:
+		game_ui.selected_tower.deselect()
 
-	selected_tower = tower
+	game_ui.selected_tower = tower
 	tower_selected.emit(tower)
 
 func _on_start_game_start():
