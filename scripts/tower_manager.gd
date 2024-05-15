@@ -21,7 +21,7 @@ func _ready():
 	set_process(false)
 
 func _process(_delta):
-	# TODO: move all of these handlers into a child node that emits signals
+	# TODO: handle all of this in game_ui.gd
 	if Input.is_action_just_pressed("tower_1"):
 		try_place(tower_1)
 
