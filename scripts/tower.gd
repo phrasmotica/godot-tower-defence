@@ -26,9 +26,12 @@ func _ready():
 	is_valid_location = true
 	deselect()
 
+	if is_placing():
+		range_node.show()
+
 func _process(delta):
 	if is_placing():
-		position = get_viewport().get_mouse_position()
+		global_position = get_viewport().get_mouse_position()
 
 	if is_firing():
 		scan(delta)
@@ -136,10 +139,11 @@ func upgrade():
 	return next_level
 
 func _on_collision_area_mouse_entered():
-	range_node.show()
+	if not is_placing():
+		range_node.show()
 
 func _on_collision_area_mouse_exited():
-	if not is_selected:
+	if not is_placing() and not is_selected:
 		range_node.hide()
 
 func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):

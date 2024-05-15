@@ -5,6 +5,7 @@ class_name TowerManager extends Node2D
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
 
+signal tower_placing(tower: Tower)
 signal tower_placed(tower: Tower)
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -53,7 +54,8 @@ func try_place(tower_scene: PackedScene):
 	new_tower.on_selected.connect(_on_new_tower_selected)
 	new_tower.on_upgrade_finish.connect(_on_new_tower_on_upgrade_finish)
 
-	add_child(new_tower)
+	tower_placing.emit(new_tower)
+
 	return true
 
 func deselect():
