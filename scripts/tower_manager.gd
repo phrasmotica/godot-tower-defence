@@ -11,7 +11,7 @@ signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal tower_selected(tower: Tower)
 signal tower_deselected
-signal tower_sold
+signal tower_sold(sell_value: int)
 
 var new_tower: Tower = null
 var selected_tower: Tower = null
@@ -114,12 +114,11 @@ func sell():
 
 	# assumes a tower is selected
 	var sell_value = selected_tower.sell()
-	bank.add_money(sell_value)
 
 	selected_tower = null
 
 	tower_deselected.emit()
-	tower_sold.emit()
+	tower_sold.emit(sell_value)
 
 func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")
