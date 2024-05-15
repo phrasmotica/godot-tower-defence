@@ -16,6 +16,8 @@ signal tower_deselected
 signal tower_sold(sell_value: int)
 
 var new_tower: Tower = null
+
+# TODO: track selected tower in game_ui.gd instead
 var selected_tower: Tower = null
 
 func _ready():
