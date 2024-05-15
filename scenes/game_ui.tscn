@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://drho24vtc7gs3"]
+
+[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_02kwm"]
+[ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
+
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 720.0
+script = ExtResource("1_7yk5n")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.762811, 0.392048, 0.370711, 1)
+
+[node name="MoneyLabel" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 125.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 32
+text = "Money"
+
+[node name="Amount" type="Label" parent="ColorRect/MoneyLabel"]
+layout_mode = 0
+offset_left = 240.0
+offset_right = 280.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="LivesLabel" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 80.0
+offset_right = 125.0
+offset_bottom = 125.0
+theme_override_font_sizes/font_size = 32
+text = "Lives
+"
+
+[node name="Amount" type="Label" parent="ColorRect/LivesLabel"]
+layout_mode = 0
+offset_left = 240.0
+offset_right = 280.0
+offset_bottom = 45.0
+theme_override_font_sizes/font_size = 32
+text = "10"
+
+[node name="GunTowerButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 140.0
+offset_right = 100.0
+offset_bottom = 220.0
+focus_mode = 0
+icon = ExtResource("1_02kwm")
+icon_alignment = 1
+
+[node name="UpgradeButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 520.0
+offset_right = 300.0
+offset_bottom = 600.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Upgrade"
+
+[node name="SellButton" type="Button" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 620.0
+offset_right = 300.0
+offset_bottom = 700.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 32
+text = "Sell"
+
+[connection signal="pressed" from="ColorRect/GunTowerButton" to="." method="_on_gun_tower_button_pressed"]
+[connection signal="pressed" from="ColorRect/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="pressed" from="ColorRect/SellButton" to="." method="_on_sell_button_pressed"]

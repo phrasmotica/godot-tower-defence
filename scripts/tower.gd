@@ -18,7 +18,7 @@ var is_selected = false
 var is_valid_location = false
 
 signal on_placed(tower: Tower)
-signal on_upgrade_start(tower: Tower, next_level: TowerLevel)
+signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
 signal on_deselected
 
@@ -181,6 +181,8 @@ func _on_levels_upgraded(new_level: TowerLevel):
 	print("Gun tower upgrade finished")
 	barrel.set_timeout(1.0 / new_level.stats.fire_rate)
 	set_firing()
+
+	on_upgrade_finish.emit(self, new_level)
 
 func _on_collision_area_area_entered(_area:Area2D):
 	print("Gun tower entered path area")
