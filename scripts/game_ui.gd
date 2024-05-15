@@ -45,3 +45,9 @@ func _on_towers_tower_selected(tower: Tower):
 func _on_towers_tower_deselected():
 	upgrade_button.hide()
 	sell_button.hide()
+
+func _on_towers_tower_upgrade_start(_tower:Tower, _next_level:TowerLevel):
+	upgrade_button.disabled = true
+
+func _on_towers_tower_upgrade_finish(tower:Tower, _next_level:TowerLevel):
+	upgrade_button.disabled = tower.get_upgrade() == null
