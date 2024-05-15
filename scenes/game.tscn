@@ -1,7 +1,8 @@
-[gd_scene load_steps=27 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=28 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
+[ext_resource type="Script" path="res://scripts/game_manager.gd" id="2_5lvad"]
 [ext_resource type="PackedScene" uid="uid://buo64r0x83gru" path="res://scenes/enemy_1.tscn" id="2_s70yg"]
 [ext_resource type="Script" path="res://scripts/waves_manager.gd" id="3_4t4x5"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="3_c8cdx"]
@@ -119,6 +120,10 @@ point_count = 13
 [node name="BankManager" type="Node" parent="Managers"]
 unique_name_in_owner = true
 script = ExtResource("1_rbgcv")
+
+[node name="GameManager" type="Node" parent="Managers"]
+unique_name_in_owner = true
+script = ExtResource("2_5lvad")
 
 [node name="LivesManager" type="Node" parent="Managers"]
 script = ExtResource("1_6mlow")
