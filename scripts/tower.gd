@@ -101,7 +101,7 @@ func get_distance_to_enemy(enemy: Enemy):
 
 func get_range_px():
 	# 1 range => 100px
-	return levels_node.get_current_level().stats.range * 100
+	return levels_node.get_current_level().stats.projectile_range * 100
 
 func select():
 	selection_node.show()
@@ -165,7 +165,7 @@ func _on_barrel_shoot():
 
 	var bullet: Projectile = projectile.instantiate()
 	bullet.damage = level.stats.damage
-	bullet.effective_range = level.stats.range
+	bullet.effective_range = level.stats.projectile_range
 	bullet.direction = Vector2.RIGHT.rotated(levels_node.rotation)
 	bullet.speed = level.stats.projectile_speed
 
