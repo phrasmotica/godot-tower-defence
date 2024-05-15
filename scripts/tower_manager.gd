@@ -11,7 +11,6 @@ class_name TowerManager extends Node2D
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
-signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal tower_selected(tower: Tower)
@@ -30,9 +29,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if new_tower:
 			cancel_tower_creation()
-
-	if Input.is_action_just_pressed("tower_upgrade"):
-		try_upgrade()
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
@@ -64,34 +60,6 @@ func cancel_tower_creation():
 	new_tower = null
 
 	tower_placing_cancelled.emit()
-
-func try_upgrade():
-	if not game_ui.selected_tower:
-		print("Tower upgrade failed: no tower selected")
-		return false
-
-	var next_level = game_ui.selected_tower.get_upgrade()
-	if not next_level:
-		print("Tower upgrade failed: no more upgrades")
-		return false
-
-	if game_ui.selected_tower.is_upgrading():
-		print("Tower upgrade failed: already upgrading")
-		return false
-
-	if not bank.can_afford(next_level.price):
-		print("Tower upgrade failed: cannot afford")
-		return false
-
-	upgrade()
-	return true
-
-func upgrade():
-	print("Upgrading tower")
-
-	# assumes a tower is selected and the next level is not null
-	var next_level = game_ui.selected_tower.upgrade()
-	tower_upgrade_start.emit(game_ui.selected_tower, next_level)
 
 func _on_new_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
@@ -138,8 +106,9 @@ func _on_start_game_start():
 func _on_game_ui_buy_gun_tower_button():
 	try_place(tower_1)
 
-func _on_game_ui_upgrade_selected_tower():
-	try_upgrade()
-
 func _on_game_ui_sell_selected_tower():
 	try_sell()
+
+
+func _on_game_ui_tower_upgrade_start(tower:Tower, next_level:TowerLevel):
+	pass # Replace with function body.

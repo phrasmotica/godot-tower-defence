@@ -1,5 +1,7 @@
 class_name GameUI extends Control
 
+@onready var bank: BankManager = %BankManager
+
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
@@ -8,8 +10,9 @@ class_name GameUI extends Control
 @onready var cancel_button = $ColorRect/CancelButton
 
 signal buy_gun_tower_button
-signal upgrade_selected_tower
 signal sell_selected_tower
+
+signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 
 var placing_tower: Tower = null
 var selected_tower: Tower = null
@@ -23,6 +26,9 @@ func _process(_delta):
 		if selected_tower:
 			deselect()
 
+	if Input.is_action_just_pressed("tower_upgrade"):
+		try_upgrade()
+
 func deselect():
 	print("Deselecting tower")
 
@@ -31,6 +37,33 @@ func deselect():
 
 	upgrade_button.hide()
 	sell_button.hide()
+
+func try_upgrade():
+	if not selected_tower:
+		print("Tower upgrade failed: no tower selected")
+		return false
+
+	var next_level = selected_tower.get_upgrade()
+	if not next_level:
+		print("Tower upgrade failed: no more upgrades")
+		return false
+
+	if selected_tower.is_upgrading():
+		print("Tower upgrade failed: already upgrading")
+		return false
+
+	if not bank.can_afford(next_level.price):
+		print("Tower upgrade failed: cannot afford")
+		return false
+
+	print("Upgrading tower")
+
+	upgrade_button.disabled = true
+
+	selected_tower.upgrade()
+	tower_upgrade_start.emit(selected_tower, next_level)
+
+	return true
 
 func _on_gun_tower_button_pressed():
 	print("Buying gun tower from UI")
@@ -50,9 +83,7 @@ func _on_waves_manager_wave_sent(wave_number: int):
 		wave_number_label.text = str(wave_number)
 
 func _on_upgrade_button_pressed():
-	print("Upgrading selected tower")
-
-	upgrade_selected_tower.emit()
+	try_upgrade()
 
 func _on_sell_button_pressed():
 	print("Selling selected tower")
@@ -64,9 +95,6 @@ func _on_towers_tower_selected(tower: Tower):
 	upgrade_button.disabled = tower.get_upgrade() == null
 
 	sell_button.show()
-
-func _on_towers_tower_upgrade_start(_tower:Tower, _next_level:TowerLevel):
-	upgrade_button.disabled = true
 
 func _on_towers_tower_upgrade_finish(tower:Tower, _next_level:TowerLevel):
 	upgrade_button.disabled = tower.get_upgrade() == null
