@@ -165,6 +165,7 @@ func _on_barrel_shoot():
 
 	var bullet: Projectile = projectile.instantiate()
 	bullet.damage = level.stats.damage
+	bullet.effective_range = level.stats.range
 	bullet.direction = Vector2.RIGHT.rotated(levels_node.rotation)
 	bullet.speed = level.stats.projectile_speed
 
