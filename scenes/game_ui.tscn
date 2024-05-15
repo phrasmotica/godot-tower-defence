@@ -23,43 +23,63 @@ color = Color(0.762811, 0.392048, 0.370711, 1)
 layout_mode = 0
 offset_left = 20.0
 offset_top = 20.0
-offset_right = 125.0
-offset_bottom = 65.0
+offset_right = 160.0
+offset_bottom = 80.0
 theme_override_font_sizes/font_size = 32
 text = "Money"
 
 [node name="Amount" type="Label" parent="ColorRect/MoneyLabel"]
 layout_mode = 0
-offset_left = 240.0
+offset_left = 140.0
 offset_right = 280.0
-offset_bottom = 45.0
+offset_bottom = 60.0
 theme_override_font_sizes/font_size = 32
 text = "10"
+horizontal_alignment = 2
 
 [node name="LivesLabel" type="Label" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 80.0
-offset_right = 125.0
-offset_bottom = 125.0
+offset_right = 160.0
+offset_bottom = 140.0
 theme_override_font_sizes/font_size = 32
 text = "Lives
 "
 
 [node name="Amount" type="Label" parent="ColorRect/LivesLabel"]
 layout_mode = 0
-offset_left = 240.0
+offset_left = 140.0
 offset_right = 280.0
-offset_bottom = 45.0
+offset_bottom = 60.0
 theme_override_font_sizes/font_size = 32
 text = "10"
+horizontal_alignment = 2
+
+[node name="WaveLabel" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 140.0
+offset_right = 160.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 32
+text = "Wave"
+
+[node name="Number" type="Label" parent="ColorRect/WaveLabel"]
+layout_mode = 0
+offset_left = 140.0
+offset_right = 280.0
+offset_bottom = 60.0
+theme_override_font_sizes/font_size = 32
+text = "-"
+horizontal_alignment = 2
 
 [node name="GunTowerButton" type="Button" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 140.0
+offset_top = 200.0
 offset_right = 100.0
-offset_bottom = 220.0
+offset_bottom = 280.0
 focus_mode = 0
 icon = ExtResource("1_02kwm")
 icon_alignment = 1

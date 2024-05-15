@@ -9,6 +9,8 @@ var last_wave: int = 10
 
 var wave_number: int = 0
 
+signal wave_sent(wave_number: int)
+
 func _ready():
 	set_process(false)
 
@@ -23,6 +25,8 @@ func next():
 
 	wave_number += 1
 	print("Sending wave " + str(wave_number))
+
+	wave_sent.emit(wave_number)
 
 	for i in range(wave_number):
 		path.spawn_enemy(enemy_scene)

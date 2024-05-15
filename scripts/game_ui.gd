@@ -2,6 +2,7 @@ class_name GameUI extends Control
 
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
+@onready var wave_number_label = $ColorRect/WaveLabel/Number
 @onready var upgrade_button = $ColorRect/UpgradeButton
 @onready var sell_button = $ColorRect/SellButton
 
@@ -25,6 +26,10 @@ func _on_bank_manager_money_changed(new_money:int):
 func _on_lives_manager_lives_changed(new_lives):
 	if lives_amount:
 		lives_amount.text = str(new_lives)
+
+func _on_waves_manager_wave_sent(wave_number: int):
+	if wave_number_label:
+		wave_number_label.text = str(wave_number)
 
 func _on_upgrade_button_pressed():
 	print("Upgrading selected tower")
