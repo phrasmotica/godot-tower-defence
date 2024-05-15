@@ -226,7 +226,6 @@ z_index = 100
 [connection signal="wave_sent" from="Managers/WavesManager" to="GameUI" method="_on_waves_manager_wave_sent"]
 [connection signal="enemy_died" from="Enemies/PathWaypoints" to="Managers/BankManager" method="_on_path_waypoints_enemy_died"]
 [connection signal="enemy_reached_end" from="Enemies/PathWaypoints" to="Managers/LivesManager" method="_on_path_waypoints_enemy_reached_end"]
-[connection signal="tower_deselected" from="Towers" to="GameUI" method="_on_towers_tower_deselected"]
 [connection signal="tower_placed" from="Towers" to="Managers/BankManager" method="_on_towers_tower_placed"]
 [connection signal="tower_placed" from="Towers" to="GameUI" method="_on_towers_tower_placed"]
 [connection signal="tower_placing" from="Towers" to="GameUI" method="_on_towers_tower_placing"]

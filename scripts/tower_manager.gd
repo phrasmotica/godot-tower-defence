@@ -15,7 +15,6 @@ signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal tower_selected(tower: Tower)
-signal tower_deselected
 signal tower_sold(sell_value: int)
 
 var new_tower: Tower = null
@@ -29,9 +28,6 @@ func _process(_delta):
 		try_place(tower_1)
 
 	if Input.is_action_just_pressed("ui_cancel"):
-		if game_ui.selected_tower:
-			deselect()
-
 		if new_tower:
 			cancel_tower_creation()
 
@@ -60,14 +56,6 @@ func try_place(tower_scene: PackedScene):
 	new_tower.on_upgrade_finish.connect(_on_new_tower_on_upgrade_finish)
 
 	return true
-
-func deselect():
-	print("Deselecting tower")
-
-	game_ui.selected_tower.deselect()
-	game_ui.selected_tower = null
-
-	tower_deselected.emit()
 
 func cancel_tower_creation():
 	print("Cancelling tower creation")
@@ -126,7 +114,6 @@ func sell():
 
 	game_ui.selected_tower = null
 
-	tower_deselected.emit()
 	tower_sold.emit(sell_value)
 
 func _on_new_tower_placed(tower: Tower):

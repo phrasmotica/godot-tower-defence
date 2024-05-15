@@ -18,6 +18,20 @@ func _ready():
 	upgrade_button.hide()
 	sell_button.hide()
 
+func _process(_delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		if selected_tower:
+			deselect()
+
+func deselect():
+	print("Deselecting tower")
+
+	selected_tower.deselect()
+	selected_tower = null
+
+	upgrade_button.hide()
+	sell_button.hide()
+
 func _on_gun_tower_button_pressed():
 	print("Buying gun tower from UI")
 
@@ -50,10 +64,6 @@ func _on_towers_tower_selected(tower: Tower):
 	upgrade_button.disabled = tower.get_upgrade() == null
 
 	sell_button.show()
-
-func _on_towers_tower_deselected():
-	upgrade_button.hide()
-	sell_button.hide()
 
 func _on_towers_tower_upgrade_start(_tower:Tower, _next_level:TowerLevel):
 	upgrade_button.disabled = true
