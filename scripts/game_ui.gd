@@ -3,12 +3,15 @@ class_name GameUI extends Control
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
-@onready var upgrade_button = $ColorRect/UpgradeButton
-@onready var sell_button = $ColorRect/SellButton
+@onready var upgrade_button = $ColorRect/SelectedTowerButtons/UpgradeButton
+@onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
+@onready var cancel_button = $ColorRect/CancelButton
 
 signal buy_gun_tower_button
 signal upgrade_selected_tower
 signal sell_selected_tower
+
+var placing_tower: Tower = null
 
 func _ready():
 	upgrade_button.hide()
@@ -58,4 +61,28 @@ func _on_towers_tower_upgrade_finish(tower:Tower, _next_level:TowerLevel):
 	upgrade_button.disabled = tower.get_upgrade() == null
 
 func _on_towers_tower_placing(tower: Tower):
+	placing_tower = tower
+
 	add_child(tower)
+
+	# TODO: parent the tower node to the tower manager once it's placed
+
+	cancel_button.show()
+
+func _on_towers_tower_placed(_tower: Tower):
+	stop_tower_creation()
+
+func _on_towers_tower_placing_cancelled():
+	# tower manager has already freed placing_tower
+
+	stop_tower_creation()
+
+func _on_cancel_button_pressed():
+	# need to free placing_tower ourselves
+	placing_tower.queue_free()
+	placing_tower = null
+
+	stop_tower_creation()
+
+func stop_tower_creation():
+	cancel_button.hide()

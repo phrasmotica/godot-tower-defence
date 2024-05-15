@@ -6,6 +6,7 @@ class_name TowerManager extends Node2D
 @onready var path: Path = %PathWaypoints
 
 signal tower_placing(tower: Tower)
+signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -50,11 +51,11 @@ func try_place(tower_scene: PackedScene):
 	new_tower.path = path
 	new_tower.set_placing()
 
+	tower_placing.emit(new_tower)
+
 	new_tower.on_placed.connect(_on_new_tower_placed)
 	new_tower.on_selected.connect(_on_new_tower_selected)
 	new_tower.on_upgrade_finish.connect(_on_new_tower_on_upgrade_finish)
-
-	tower_placing.emit(new_tower)
 
 	return true
 
@@ -63,12 +64,16 @@ func deselect():
 
 	selected_tower.deselect()
 	selected_tower = null
+
 	tower_deselected.emit()
 
 func cancel_tower_creation():
 	print("Cancelling tower creation")
+
 	new_tower.queue_free()
 	new_tower = null
+
+	tower_placing_cancelled.emit()
 
 func try_upgrade():
 	if not selected_tower:
