@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=11 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
@@ -43,9 +43,37 @@ tracks/0/keys = {
 "method": &"hide"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 0.588235), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qsgl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
 _data = {
+"RESET": SubResource("Animation_qsgl2"),
 "peek_health": SubResource("Animation_vscsi")
 }
 
@@ -66,6 +94,7 @@ script = ExtResource("3_3k5g8")
 starting_health = 5
 
 [node name="CollisionArea" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
