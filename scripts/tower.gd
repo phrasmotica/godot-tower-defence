@@ -26,6 +26,8 @@ func _ready():
 	is_valid_location = true
 	deselect()
 
+	adjust_range(levels_node.get_current_level().stats.projectile_range)
+
 	if is_placing():
 		range_node.show()
 
@@ -143,6 +145,12 @@ func upgrade():
 
 	return next_level
 
+func adjust_range(projectile_range: int):
+	var range_scale := float(projectile_range) / 10
+	range_sprite.scale = Vector2(range_scale, range_scale)
+
+	levels_node.adjust_range(projectile_range)
+
 func _on_collision_area_mouse_entered():
 	if not is_placing():
 		range_node.show()
@@ -186,7 +194,11 @@ func _on_levels_warmed_up():
 
 func _on_levels_upgraded(new_level: TowerLevel):
 	print("Gun tower upgrade finished")
+
 	barrel.start_timer(1.0 / new_level.stats.fire_rate)
+
+	adjust_range(new_level.stats.projectile_range)
+
 	set_firing()
 
 	on_upgrade_finish.emit(self, new_level)

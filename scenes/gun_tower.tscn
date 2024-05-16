@@ -351,6 +351,7 @@ sprite_frames = SubResource("SpriteFrames_6lplc")
 projectile = ExtResource("5_ikvgn")
 fire_rate = 3
 rotate_speed = 4
+projectile_range = 4
 
 [node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
@@ -365,6 +366,7 @@ projectile = ExtResource("5_ikvgn")
 damage = 2
 fire_rate = 4
 rotate_speed = 5
+projectile_range = 4
 projectile_speed = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]

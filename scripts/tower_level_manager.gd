@@ -71,3 +71,6 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 
 	# slowly changes the rotation to face the angle
 	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
+
+func adjust_range(projectile_range: int):
+	firing_line.target_position = Vector2(projectile_range * 100, 0)
