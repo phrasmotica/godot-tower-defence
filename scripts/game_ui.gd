@@ -22,6 +22,9 @@ var placing_tower: Tower:
 
 var selected_tower: Tower:
 	set(value):
+		if selected_tower:
+			selected_tower.deselect()
+
 		selected_tower = value
 
 		if value:
