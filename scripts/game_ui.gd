@@ -1,5 +1,6 @@
 class_name GameUI extends Control
 
+@export var tower_manager: TowerManager
 @export var tower_1: PackedScene
 
 @onready var bank: BankManager = %BankManager
@@ -87,7 +88,6 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
-	# TODO: parent the tower node to the tower manager node once it's placed
 	add_child(placing_tower)
 
 	return true
@@ -101,6 +101,9 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 
 func _on_placing_tower_placed(tower: Tower):
 	print("Placed new tower")
+
+	# ensure the tower is not part of the UI anymore
+	placing_tower.reparent(tower_manager, true)
 
 	stop_tower_creation()
 
@@ -195,7 +198,6 @@ func _on_sell_button_pressed():
 	try_sell()
 
 func _on_cancel_button_pressed():
-	# need to free placing_tower ourselves
 	placing_tower.queue_free()
 
 	stop_tower_creation()
