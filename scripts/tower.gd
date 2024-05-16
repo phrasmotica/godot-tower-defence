@@ -31,6 +31,9 @@ func _ready():
 
 func _process(delta):
 	if is_placing():
+		if not visible:
+			show()
+
 		global_position = get_viewport().get_mouse_position()
 
 	if is_firing():

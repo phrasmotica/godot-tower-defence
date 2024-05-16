@@ -71,12 +71,14 @@ func try_place(tower_scene: PackedScene):
 
 	if not bank.can_afford(placing_tower.price):
 		print(placing_tower.name + " purchase failed: cannot afford")
+		placing_tower = null
 		return false
 
 	print("Purchasing " + placing_tower.name)
 
 	placing_tower.path = path
 	placing_tower.set_placing()
+	placing_tower.hide()
 
 	tower_placing.emit(placing_tower)
 
@@ -84,8 +86,6 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
-	# TODO: fix bug where tower appears at 0,0 relative to the game UI
-	# when it is first instantiated, instead of beneath the mouse
 	add_child(placing_tower)
 
 	return true
