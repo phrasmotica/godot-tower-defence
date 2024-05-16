@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=4 format=3 uid="uid://drho24vtc7gs3"]
 
-[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_02kwm"]
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
+[ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="2_86mwy"]
+[ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/create_tower_button.tscn" id="2_in1v2"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -9,6 +10,7 @@ anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
+tower_1 = ExtResource("2_86mwy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -79,15 +81,12 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="GunTowerButton" type="Button" parent="ColorRect/TowerButtons"]
+[node name="GunTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 200.0
 offset_right = 100.0
 offset_bottom = 280.0
-focus_mode = 0
-icon = ExtResource("1_02kwm")
-icon_alignment = 1
 
 [node name="SelectedTowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
