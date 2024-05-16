@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=6 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="2_86mwy"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/create_tower_button.tscn" id="2_in1v2"]
+[ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
+[ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/slow_tower.tscn" id="5_0g4vg"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -88,6 +90,16 @@ offset_right = 100.0
 offset_bottom = 280.0
 tower = ExtResource("2_86mwy")
 
+[node name="SlowTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 200.0
+offset_right = 200.0
+offset_bottom = 280.0
+icon = ExtResource("4_ydxgj")
+tower = ExtResource("5_0g4vg")
+action_name = &"tower_2"
+
 [node name="SelectedTowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
 offset_right = 40.0
@@ -125,6 +137,7 @@ theme_override_font_sizes/font_size = 32
 text = "Cancel"
 
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
+[connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ColorRect/CancelButton" to="." method="_on_cancel_button_pressed"]
