@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=26 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
@@ -43,6 +43,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yqvqw"]
+radius = 300.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
 atlas = ExtResource("4_gubpj")
@@ -329,6 +332,12 @@ levels = [NodePath("Level0"), NodePath("Level1"), NodePath("Level2")]
 [node name="FiringLine" type="RayCast2D" parent="Levels"]
 target_position = Vector2(300, 2.08165e-12)
 collide_with_areas = true
+
+[node name="EffectArea" type="Area2D" parent="Levels"]
+monitoring = false
+
+[node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
+shape = SubResource("CircleShape2D_yqvqw")
 
 [node name="Level0" parent="Levels" instance=ExtResource("4_t0fww")]
 
