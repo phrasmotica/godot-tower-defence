@@ -313,6 +313,7 @@ script = ExtResource("5_t5pdt")
 levels = [NodePath("Level0")]
 
 [node name="FiringLine" type="RayCast2D" parent="Levels"]
+visible = false
 enabled = false
 target_position = Vector2(200, 0)
 collide_with_areas = true

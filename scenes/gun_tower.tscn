@@ -334,6 +334,7 @@ target_position = Vector2(300, 2.08165e-12)
 collide_with_areas = true
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
+visible = false
 monitoring = false
 
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
