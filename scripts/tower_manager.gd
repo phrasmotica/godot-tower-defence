@@ -108,7 +108,3 @@ func _on_game_ui_buy_gun_tower_button():
 
 func _on_game_ui_sell_selected_tower():
 	try_sell()
-
-
-func _on_game_ui_tower_upgrade_start(tower:Tower, next_level:TowerLevel):
-	pass # Replace with function body.

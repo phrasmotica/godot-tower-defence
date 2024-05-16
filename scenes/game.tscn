@@ -235,6 +235,5 @@ z_index = 100
 [connection signal="buy_gun_tower_button" from="GameUI" to="Towers" method="_on_game_ui_buy_gun_tower_button"]
 [connection signal="sell_selected_tower" from="GameUI" to="Towers" method="_on_game_ui_sell_selected_tower"]
 [connection signal="tower_upgrade_start" from="GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_start"]
-[connection signal="tower_upgrade_start" from="GameUI" to="Towers" method="_on_game_ui_tower_upgrade_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="Managers/WavesManager" method="_on_start_game_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="Towers" method="_on_start_game_start"]
