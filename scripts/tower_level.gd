@@ -7,6 +7,7 @@ class_name TowerLevel extends Node2D
 var price: int = 1
 
 signal created_projectile(projectile: Projectile)
+signal created_effect(effect: Effect)
 
 func fire():
 	try_create_projectile()
@@ -32,5 +33,8 @@ func try_create_effect():
 	if not effect_stats.stats_enabled:
 		return
 
-	# TODO: implement effect
 	print("Creating effect")
+
+	var effect = effect_stats.create()
+
+	created_effect.emit(effect)

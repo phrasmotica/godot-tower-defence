@@ -209,3 +209,6 @@ func _on_levels_created_projectile(projectile: Projectile):
 	print("Adding projectile as child")
 
 	add_child(projectile)
+
+func _on_levels_created_effect(_effect):
+	print("Passing effect to enemy")

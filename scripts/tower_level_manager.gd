@@ -12,10 +12,12 @@ signal warmed_up
 signal upgraded(new_level: TowerLevel)
 
 signal created_projectile(projectile: Projectile)
+signal created_effect(effect: Effect)
 
 func _ready():
 	for level in levels:
 		level.created_projectile.connect(_on_level_created_projectile)
+		level.created_effect.connect(_on_level_created_effect)
 
 func start_warmup():
 	animation_player.play("warmup")
@@ -95,3 +97,8 @@ func _on_level_created_projectile(projectile: Projectile):
 	projectile.direction = Vector2.RIGHT.rotated(rotation)
 
 	created_projectile.emit(projectile)
+
+func _on_level_created_effect(effect: Effect):
+	print("Processing effect")
+
+	created_effect.emit(effect)
