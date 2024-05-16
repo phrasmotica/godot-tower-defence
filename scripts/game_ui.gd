@@ -10,16 +10,29 @@ class_name GameUI extends Control
 @onready var cancel_button = $ColorRect/CancelButton
 
 signal buy_gun_tower_button
-signal sell_selected_tower
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
+signal tower_sold(sell_value: int)
 
 var placing_tower: Tower = null
-var selected_tower: Tower = null
+
+var selected_tower: Tower:
+	set(value):
+		selected_tower = value
+
+		if value:
+			print("Showing buttons")
+			upgrade_button.show()
+			upgrade_button.disabled = value.get_upgrade() == null
+
+			sell_button.show()
+		else:
+			print("Hiding buttons")
+			upgrade_button.hide()
+			sell_button.hide()
 
 func _ready():
-	upgrade_button.hide()
-	sell_button.hide()
+	selected_tower = null
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -29,14 +42,14 @@ func _process(_delta):
 	if Input.is_action_just_pressed("tower_upgrade"):
 		try_upgrade()
 
+	if Input.is_action_just_pressed("ui_text_delete"):
+		try_sell()
+
 func deselect():
 	print("Deselecting tower")
 
 	selected_tower.deselect()
 	selected_tower = null
-
-	upgrade_button.hide()
-	sell_button.hide()
 
 func try_upgrade():
 	if not selected_tower:
@@ -65,6 +78,21 @@ func try_upgrade():
 
 	return true
 
+func try_sell():
+	if not selected_tower:
+		print("Tower sell failed: no tower selected")
+		return false
+
+	print("Selling tower")
+
+	var sell_value = selected_tower.sell()
+
+	selected_tower = null
+
+	tower_sold.emit(sell_value)
+
+	return true
+
 func _on_gun_tower_button_pressed():
 	print("Buying gun tower from UI")
 
@@ -86,15 +114,10 @@ func _on_upgrade_button_pressed():
 	try_upgrade()
 
 func _on_sell_button_pressed():
-	print("Selling selected tower")
-
-	sell_selected_tower.emit()
+	try_sell()
 
 func _on_towers_tower_selected(tower: Tower):
-	upgrade_button.show()
-	upgrade_button.disabled = tower.get_upgrade() == null
-
-	sell_button.show()
+	selected_tower = tower
 
 func _on_towers_tower_upgrade_finish(tower:Tower, _next_level:TowerLevel):
 	upgrade_button.disabled = tower.get_upgrade() == null

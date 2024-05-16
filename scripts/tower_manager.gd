@@ -5,16 +5,12 @@ class_name TowerManager extends Node2D
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
 
-# TODO: eventually decouple this
-@onready var game_ui: GameUI = %GameUI
-
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal tower_selected(tower: Tower)
-signal tower_sold(sell_value: int)
 
 var new_tower: Tower = null
 
@@ -29,9 +25,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if new_tower:
 			cancel_tower_creation()
-
-	if Input.is_action_just_pressed("ui_text_delete"):
-		try_sell()
 
 func try_place(tower_scene: PackedScene):
 	new_tower = tower_scene.instantiate()
@@ -66,24 +59,6 @@ func _on_new_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 
 	tower_upgrade_finish.emit(tower, next_level)
 
-func try_sell():
-	if not game_ui.selected_tower:
-		print("Tower sell failed: no tower selected")
-		return false
-
-	sell()
-	return true
-
-func sell():
-	print("Selling tower")
-
-	# assumes a tower is selected
-	var sell_value = game_ui.selected_tower.sell()
-
-	game_ui.selected_tower = null
-
-	tower_sold.emit(sell_value)
-
 func _on_new_tower_placed(tower: Tower):
 	print("Placed new tower")
 	new_tower = null
@@ -93,10 +68,6 @@ func _on_new_tower_placed(tower: Tower):
 func _on_new_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
 
-	if game_ui.selected_tower:
-		game_ui.selected_tower.deselect()
-
-	game_ui.selected_tower = tower
 	tower_selected.emit(tower)
 
 func _on_start_game_start():
@@ -105,6 +76,3 @@ func _on_start_game_start():
 
 func _on_game_ui_buy_gun_tower_button():
 	try_place(tower_1)
-
-func _on_game_ui_sell_selected_tower():
-	try_sell()
