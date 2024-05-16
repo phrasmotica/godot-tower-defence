@@ -1,7 +1,6 @@
 class_name GameUI extends Control
 
 @export var tower_manager: TowerManager
-@export var tower_1: PackedScene
 
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
@@ -54,9 +53,6 @@ func _ready():
 	set_process(false)
 
 func _process(_delta):
-	if Input.is_action_just_pressed("tower_1"):
-		try_place(tower_1)
-
 	if Input.is_action_just_pressed("ui_cancel"):
 		if selected_tower:
 			deselect()
@@ -88,6 +84,8 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
+	# TODO: fix bug where tower appears at 0,0 relative to the game UI
+	# when it is first instantiated, instead of beneath the mouse
 	add_child(placing_tower)
 
 	return true
@@ -176,8 +174,8 @@ func _on_start_game_start():
 	print("Enabling game UI process")
 	set_process(true)
 
-func _on_gun_tower_button_pressed():
-	try_place(tower_1)
+func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
+	try_place(tower_scene)
 
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:

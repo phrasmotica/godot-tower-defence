@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=27 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
@@ -7,7 +7,6 @@
 [ext_resource type="Script" path="res://scripts/waves_manager.gd" id="3_4t4x5"]
 [ext_resource type="Script" path="res://scripts/path.gd" id="3_c8cdx"]
 [ext_resource type="Texture2D" uid="uid://c5wfvtw4begee" path="res://assets/sprites/background_tilemap.png" id="4_w3iny"]
-[ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="5_3wfyb"]
 [ext_resource type="Script" path="res://scripts/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/start_game.tscn" id="9_sjprc"]
@@ -209,7 +208,6 @@ unique_name_in_owner = true
 offset_left = 960.0
 offset_right = 1280.0
 tower_manager = NodePath("../Towers")
-tower_1 = ExtResource("5_3wfyb")
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 

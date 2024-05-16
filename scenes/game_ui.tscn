@@ -10,7 +10,6 @@ anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
-tower_1 = ExtResource("2_86mwy")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1
@@ -87,6 +86,7 @@ offset_left = 20.0
 offset_top = 200.0
 offset_right = 100.0
 offset_bottom = 280.0
+tower = ExtResource("2_86mwy")
 
 [node name="SelectedTowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
@@ -124,7 +124,7 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 32
 text = "Cancel"
 
-[connection signal="pressed" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_pressed"]
+[connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ColorRect/CancelButton" to="." method="_on_cancel_button_pressed"]
