@@ -152,7 +152,7 @@ func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx
 			set_warming_up()
 			on_placed.emit(self)
 
-		if is_firing():
+		if is_firing() and not is_selected:
 			select()
 
 func _on_barrel_shoot():
