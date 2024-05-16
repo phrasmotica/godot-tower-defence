@@ -22,10 +22,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("tower_1"):
 		try_place(tower_1)
 
-	if Input.is_action_just_pressed("ui_cancel"):
-		if new_tower:
-			cancel_tower_creation()
-
 func try_place(tower_scene: PackedScene):
 	new_tower = tower_scene.instantiate()
 
@@ -45,14 +41,6 @@ func try_place(tower_scene: PackedScene):
 	new_tower.on_upgrade_finish.connect(_on_new_tower_on_upgrade_finish)
 
 	return true
-
-func cancel_tower_creation():
-	print("Cancelling tower creation")
-
-	new_tower.queue_free()
-	new_tower = null
-
-	tower_placing_cancelled.emit()
 
 func _on_new_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
@@ -76,3 +64,7 @@ func _on_start_game_start():
 
 func _on_game_ui_buy_gun_tower_button():
 	try_place(tower_1)
+
+func _on_game_ui_tower_placing_cancelled():
+	# game UI has already freed new_tower
+	new_tower = null

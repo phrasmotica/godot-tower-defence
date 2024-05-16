@@ -11,6 +11,7 @@ class_name GameUI extends Control
 
 signal buy_gun_tower_button
 
+signal tower_placing_cancelled
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_sold(sell_value: int)
 
@@ -43,6 +44,9 @@ func _process(_delta):
 		if selected_tower:
 			deselect()
 
+		if placing_tower:
+			cancel_tower_creation()
+
 	if Input.is_action_just_pressed("tower_upgrade"):
 		try_upgrade()
 
@@ -54,6 +58,14 @@ func deselect():
 
 	selected_tower.deselect()
 	selected_tower = null
+
+func cancel_tower_creation():
+	print("Cancelling tower creation")
+
+	placing_tower.queue_free()
+	placing_tower = null
+
+	tower_placing_cancelled.emit()
 
 func try_upgrade():
 	if not selected_tower:
