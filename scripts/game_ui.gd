@@ -14,7 +14,10 @@ signal buy_gun_tower_button
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_sold(sell_value: int)
 
-var placing_tower: Tower = null
+var placing_tower: Tower:
+	set(value):
+		placing_tower = value
+		cancel_button.visible = placing_tower != null
 
 var selected_tower: Tower:
 	set(value):
@@ -32,6 +35,7 @@ var selected_tower: Tower:
 			sell_button.hide()
 
 func _ready():
+	placing_tower = null
 	selected_tower = null
 
 func _process(_delta):
@@ -129,22 +133,18 @@ func _on_towers_tower_placing(tower: Tower):
 
 	# TODO: parent the tower node to the tower manager once it's placed
 
-	cancel_button.show()
-
 func _on_towers_tower_placed(_tower: Tower):
 	stop_tower_creation()
 
 func _on_towers_tower_placing_cancelled():
 	# tower manager has already freed placing_tower
-
 	stop_tower_creation()
 
 func _on_cancel_button_pressed():
 	# need to free placing_tower ourselves
 	placing_tower.queue_free()
-	placing_tower = null
 
 	stop_tower_creation()
 
 func stop_tower_creation():
-	cancel_button.hide()
+	placing_tower = null
