@@ -1,6 +1,7 @@
 class_name TowerLevelManager extends Node2D
 
 @onready var firing_line: RayCast2D = $FiringLine
+@onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var levels: Array[TowerLevel]
@@ -48,7 +49,14 @@ func get_upgrade():
 	return null
 
 func should_shoot():
-	return firing_line.is_colliding()
+	if firing_line.enabled:
+		return firing_line.is_colliding()
+
+	if effect_area.monitoring:
+		# TODO: check in-range enemies using signals from the effect area instead
+		return effect_area.get_overlapping_areas().size() > 0
+
+	return false
 
 func get_current_level() -> TowerLevel:
 	return levels[level_index]
