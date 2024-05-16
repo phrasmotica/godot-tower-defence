@@ -6,7 +6,6 @@ class_name TowerManager extends Node2D
 @onready var path: Path = %PathWaypoints
 
 signal tower_placing(tower: Tower)
-signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 

@@ -151,10 +151,6 @@ func _on_towers_tower_placing(tower: Tower):
 func _on_towers_tower_placed(_tower: Tower):
 	stop_tower_creation()
 
-func _on_towers_tower_placing_cancelled():
-	# tower manager has already freed placing_tower
-	stop_tower_creation()
-
 func _on_cancel_button_pressed():
 	# need to free placing_tower ourselves
 	placing_tower.queue_free()

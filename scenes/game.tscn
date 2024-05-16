@@ -229,7 +229,6 @@ z_index = 100
 [connection signal="tower_placed" from="Towers" to="Managers/BankManager" method="_on_towers_tower_placed"]
 [connection signal="tower_placed" from="Towers" to="GameUI" method="_on_towers_tower_placed"]
 [connection signal="tower_placing" from="Towers" to="GameUI" method="_on_towers_tower_placing"]
-[connection signal="tower_placing_cancelled" from="Towers" to="GameUI" method="_on_towers_tower_placing_cancelled"]
 [connection signal="tower_selected" from="Towers" to="GameUI" method="_on_towers_tower_selected"]
 [connection signal="tower_upgrade_finish" from="Towers" to="GameUI" method="_on_towers_tower_upgrade_finish"]
 [connection signal="buy_gun_tower_button" from="GameUI" to="Towers" method="_on_game_ui_buy_gun_tower_button"]
