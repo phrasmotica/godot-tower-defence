@@ -177,15 +177,7 @@ func _on_barrel_shoot():
 
 	var level = levels_node.get_current_level()
 
-	var projectile_scene = level.stats.projectile
-
-	var projectile: Projectile = projectile_scene.instantiate()
-	projectile.damage = level.stats.damage
-	projectile.effective_range = level.stats.projectile_range
-	projectile.direction = Vector2.RIGHT.rotated(levels_node.rotation)
-	projectile.speed = level.stats.projectile_speed
-
-	add_child(projectile)
+	level.fire()
 
 func _on_levels_warmed_up():
 	print("Gun tower warmup finished")
@@ -212,3 +204,8 @@ func _on_collision_area_area_exited(_area:Area2D):
 	print("Gun tower exited path area")
 	is_valid_location = true
 	set_default_look()
+
+func _on_levels_created_projectile(projectile: Projectile):
+	print("Adding projectile as child")
+
+	add_child(projectile)

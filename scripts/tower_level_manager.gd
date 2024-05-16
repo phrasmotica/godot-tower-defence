@@ -10,6 +10,12 @@ var level_index = 0
 signal warmed_up
 signal upgraded(new_level: TowerLevel)
 
+signal created_projectile(projectile: Projectile)
+
+func _ready():
+	for level in levels:
+		level.created_projectile.connect(_on_level_created_projectile)
+
 func start_warmup():
 	animation_player.play("warmup")
 
@@ -74,3 +80,10 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 
 func adjust_range(projectile_range: int):
 	firing_line.target_position = Vector2(projectile_range * 100, 0)
+
+func _on_level_created_projectile(projectile: Projectile):
+	print("Rotating projectile")
+
+	projectile.direction = Vector2.RIGHT.rotated(rotation)
+
+	created_projectile.emit(projectile)

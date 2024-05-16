@@ -1,6 +1,9 @@
 class_name TowerLevelStats extends Node
 
 @export
+var stats_enabled := true
+
+@export
 var projectile: PackedScene
 
 @export_range(1, 3)
