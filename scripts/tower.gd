@@ -132,6 +132,8 @@ func get_upgrade():
 	return levels_node.get_upgrade()
 
 func upgrade():
+	barrel.stop_firing()
+
 	var next_level = levels_node.start_upgrade()
 	if next_level:
 		set_upgrading()
@@ -163,28 +165,25 @@ func _on_barrel_shoot():
 		return
 
 	var level = levels_node.get_current_level()
-	print("Current level is " + level.name)
 
-	var projectile = level.stats.projectile
+	var projectile_scene = level.stats.projectile
 
-	var bullet: Projectile = projectile.instantiate()
-	bullet.damage = level.stats.damage
-	bullet.effective_range = level.stats.projectile_range
-	bullet.direction = Vector2.RIGHT.rotated(levels_node.rotation)
-	bullet.speed = level.stats.projectile_speed
+	var projectile: Projectile = projectile_scene.instantiate()
+	projectile.damage = level.stats.damage
+	projectile.effective_range = level.stats.projectile_range
+	projectile.direction = Vector2.RIGHT.rotated(levels_node.rotation)
+	projectile.speed = level.stats.projectile_speed
 
-	print("Projectile now has damage " + str(bullet.damage))
-
-	add_child(bullet)
+	add_child(projectile)
 
 func _on_levels_warmed_up():
 	print("Gun tower warmup finished")
-	barrel.set_timeout(1.0 / levels_node.get_current_level().stats.fire_rate)
+	barrel.start_timer(1.0 / levels_node.get_current_level().stats.fire_rate)
 	set_firing()
 
 func _on_levels_upgraded(new_level: TowerLevel):
 	print("Gun tower upgrade finished")
-	barrel.set_timeout(1.0 / new_level.stats.fire_rate)
+	barrel.start_timer(1.0 / new_level.stats.fire_rate)
 	set_firing()
 
 	on_upgrade_finish.emit(self, new_level)

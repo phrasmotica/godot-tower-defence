@@ -4,9 +4,12 @@ class_name GunBarrel extends Node2D
 
 signal shoot
 
-func set_timeout(timeout: float):
+func start_timer(timeout: float):
 	timer.wait_time = timeout
+	timer.start()
+
+func stop_firing():
+	timer.stop()
 
 func _on_shot_timer_timeout():
-	# TODO: this shouldn't start until the tower has finished warming up/upgrading
 	shoot.emit()
