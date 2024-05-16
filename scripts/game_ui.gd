@@ -1,6 +1,9 @@
 class_name GameUI extends Control
 
+@export var tower_1: PackedScene
+
 @onready var bank: BankManager = %BankManager
+@onready var path: Path = %PathWaypoints
 
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
@@ -9,10 +12,15 @@ class_name GameUI extends Control
 @onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
 @onready var cancel_button = $ColorRect/CancelButton
 
-signal buy_gun_tower_button
-
+signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
+signal tower_placed(tower: Tower)
+
+signal tower_selected(tower: Tower)
+
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
+signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
+
 signal tower_sold(sell_value: int)
 
 var placing_tower: Tower:
@@ -42,7 +50,12 @@ func _ready():
 	placing_tower = null
 	selected_tower = null
 
+	set_process(false)
+
 func _process(_delta):
+	if Input.is_action_just_pressed("tower_1"):
+		try_place(tower_1)
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		if selected_tower:
 			deselect()
@@ -55,6 +68,50 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
+
+func try_place(tower_scene: PackedScene):
+	placing_tower = tower_scene.instantiate()
+
+	if not bank.can_afford(placing_tower.price):
+		print(placing_tower.name + " purchase failed: cannot afford")
+		return false
+
+	print("Purchasing " + placing_tower.name)
+
+	placing_tower.path = path
+	placing_tower.set_placing()
+
+	tower_placing.emit(placing_tower)
+
+	placing_tower.on_placed.connect(_on_placing_tower_placed)
+	placing_tower.on_selected.connect(_on_placing_tower_selected)
+	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
+
+	# TODO: parent the tower node to the tower manager node once it's placed
+	add_child(placing_tower)
+
+	return true
+
+func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
+	print("Selected tower upgrade finished")
+
+	upgrade_button.disabled = tower.get_upgrade() == null
+
+	tower_upgrade_finish.emit(tower, next_level)
+
+func _on_placing_tower_placed(tower: Tower):
+	print("Placed new tower")
+
+	stop_tower_creation()
+
+	tower_placed.emit(tower)
+
+func _on_placing_tower_selected(tower: Tower):
+	print("Selected " + tower.name)
+
+	selected_tower = tower
+
+	tower_selected.emit(tower)
 
 func deselect():
 	print("Deselecting tower")
@@ -112,10 +169,12 @@ func try_sell():
 
 	return true
 
-func _on_gun_tower_button_pressed():
-	print("Buying gun tower from UI")
+func _on_start_game_start():
+	print("Enabling game UI process")
+	set_process(true)
 
-	buy_gun_tower_button.emit()
+func _on_gun_tower_button_pressed():
+	try_place(tower_1)
 
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:
@@ -134,22 +193,6 @@ func _on_upgrade_button_pressed():
 
 func _on_sell_button_pressed():
 	try_sell()
-
-func _on_towers_tower_selected(tower: Tower):
-	selected_tower = tower
-
-func _on_towers_tower_upgrade_finish(tower:Tower, _next_level:TowerLevel):
-	upgrade_button.disabled = tower.get_upgrade() == null
-
-func _on_towers_tower_placing(tower: Tower):
-	placing_tower = tower
-
-	add_child(tower)
-
-	# TODO: parent the tower node to the tower manager once it's placed
-
-func _on_towers_tower_placed(_tower: Tower):
-	stop_tower_creation()
 
 func _on_cancel_button_pressed():
 	# need to free placing_tower ourselves
