@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=23 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_oryv4"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_eu8cm"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
+[ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/slow_effect.tscn" id="8_7bdrw"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="10_4dyam"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
@@ -331,6 +332,9 @@ sprite_frames = SubResource("SpriteFrames_vq0yl")
 
 [node name="Stats" parent="Levels/Level0" index="1"]
 stats_enabled = false
+
+[node name="EffectStats" parent="Levels/Level0" index="2"]
+effect = ExtResource("8_7bdrw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
 libraries = {
