@@ -211,14 +211,18 @@ func _on_levels_created_projectile(projectile: Projectile):
 	add_child(projectile)
 
 func _on_levels_created_effect(effect: Effect):
-	print("Passing effect to enemy")
-
-	add_child(effect)
-
 	# TODO: affect all enemies in range instead of just the nearest one
 	var enemy = get_near_enemy()
-	if enemy:
+	if enemy and effect.can_act(enemy):
+		print("Passing effect to enemy")
+
+		add_child(effect)
+
 		# TODO: trigger enemy animation showing that it's being affected
-		effect.enemy = enemy
+		effect.attached_enemy = enemy
 		effect.set_timer()
 		effect.act_start()
+	else:
+		print("Skipping effect, no valid enemy")
+
+		effect.queue_free()

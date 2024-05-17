@@ -8,6 +8,8 @@ var movement_speed: int = 150
 @onready var stats: EnemyStats = $Stats
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var is_slowed := false
+
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
