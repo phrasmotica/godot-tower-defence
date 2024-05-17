@@ -27,6 +27,17 @@ func move(delta):
 	else:
 		reached_end.emit(self)
 
+func slow(duration: float):
+	is_slowed = true
+	movement_speed /= 2
+
+	var animation_speed = float(1 / duration)
+	animation_player.play("slow", -1, animation_speed)
+
+func end_slow():
+	movement_speed *= 2
+	is_slowed = false
+
 func _on_collision_area_body_entered(body: Projectile):
 	hit.emit(body)
 

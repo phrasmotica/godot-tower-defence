@@ -218,7 +218,6 @@ func _on_levels_created_effect(effect: Effect):
 
 		add_child(effect)
 
-		# TODO: trigger enemy animation showing that it's being affected
 		effect.attached_enemy = enemy
 		effect.set_timer()
 		effect.act_start()
