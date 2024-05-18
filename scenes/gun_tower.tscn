@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=27 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="5_ikvgn"]
 [ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
+[ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
@@ -363,7 +364,7 @@ rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
 
 [node name="Stats" parent="Levels/Level1" index="1"]
-projectile = ExtResource("5_ikvgn")
+projectile = ExtResource("9_gndbw")
 fire_rate = 3
 rotate_speed = 4
 projectile_range = 4
