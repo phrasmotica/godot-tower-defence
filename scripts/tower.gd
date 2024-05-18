@@ -2,6 +2,9 @@ class_name Tower extends Node2D
 
 enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 
+@export
+var tower_name := ""
+
 @export_range(1, 10)
 var price: int = 1
 
@@ -180,12 +183,12 @@ func _on_barrel_shoot():
 	level.fire()
 
 func _on_levels_warmed_up():
-	print("Gun tower warmup finished")
+	print(tower_name + " warmup finished")
 	barrel.start_timer(1.0 / levels_node.get_current_level().stats.fire_rate)
 	set_firing()
 
 func _on_levels_upgraded(new_level: TowerLevel):
-	print("Gun tower upgrade finished")
+	print(tower_name + " upgrade finished")
 
 	barrel.start_timer(1.0 / new_level.stats.fire_rate)
 
@@ -196,12 +199,12 @@ func _on_levels_upgraded(new_level: TowerLevel):
 	on_upgrade_finish.emit(self, new_level)
 
 func _on_collision_area_area_entered(_area:Area2D):
-	print("Gun tower entered path area")
+	print(tower_name + " entered path area")
 	is_valid_location = false
 	set_error_look()
 
 func _on_collision_area_area_exited(_area:Area2D):
-	print("Gun tower exited path area")
+	print(tower_name + " exited path area")
 	is_valid_location = true
 	set_default_look()
 
