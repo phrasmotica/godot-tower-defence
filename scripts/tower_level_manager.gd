@@ -97,6 +97,7 @@ func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
 
 	projectile.direction = Vector2.RIGHT.rotated(rotation)
+	projectile.rotation = rotation
 
 	created_projectile.emit(projectile)
 
