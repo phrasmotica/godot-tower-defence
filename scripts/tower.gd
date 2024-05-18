@@ -5,6 +5,9 @@ enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 @export
 var tower_name := ""
 
+@export_multiline
+var tower_description := ""
+
 @export_range(1, 10)
 var price: int = 1
 
