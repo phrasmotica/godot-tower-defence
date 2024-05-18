@@ -6,7 +6,6 @@ var stats_enabled := true
 @export_range(1, 5)
 var fire_rate := 1
 
-# TODO: use this, instead of stats.gd, if tower is creating an effect
 @export_range(1, 4)
 var effect_range := 2
 

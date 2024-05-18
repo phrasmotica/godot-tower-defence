@@ -54,9 +54,11 @@ func should_shoot():
 	if firing_line.enabled:
 		return firing_line.is_colliding()
 
+	return false
+
+func should_create_effect(enemies: Array[Enemy]):
 	if effect_area.monitoring:
-		# TODO: check in-range enemies using signals from the effect area instead
-		return effect_area.get_overlapping_areas().size() > 0
+		return enemies.size() > 0
 
 	return false
 

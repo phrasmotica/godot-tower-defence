@@ -12,6 +12,9 @@ signal created_effect(effect: Effect)
 func get_fire_rate():
 	return stats.fire_rate
 
+func get_range(for_effect: bool):
+	return effect_stats.effect_range if for_effect else stats.projectile_range
+
 func get_effect_fire_rate():
 	return effect_stats.fire_rate
 

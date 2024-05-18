@@ -76,20 +76,20 @@ func set_error_look():
 	range_sprite.modulate = Color.RED
 
 func scan(delta):
-	var near_enemy = get_near_enemy()
+	var near_enemy = get_near_enemy(false)
 	if near_enemy:
 		levels_node.point_towards_enemy(near_enemy, delta)
 
-func get_near_enemy():
+func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 	var enemies = path.enemies
 	if enemies.size() <= 0:
-		return null
+		return []
 
 	var valid_enemies = enemies.filter(func(e): return e != null and not e.is_queued_for_deletion())
 	if valid_enemies.size() <= 0:
-		return null
+		return []
 
-	var shooting_range = get_range_px()
+	var shooting_range = get_range_px(for_effect)
 
 	var in_range_enemies = valid_enemies.filter(
 		func(e):
@@ -97,7 +97,7 @@ func get_near_enemy():
 	)
 
 	if in_range_enemies.size() <= 0:
-		return null
+		return []
 
 	# nearest enemies first
 	in_range_enemies.sort_custom(
@@ -105,14 +105,21 @@ func get_near_enemy():
 			return get_distance_to_enemy(e) > get_distance_to_enemy(f)
 	)
 
-	return in_range_enemies[0]
+	return in_range_enemies
+
+func get_near_enemy(for_effect: bool):
+	var enemies = get_near_enemies(for_effect)
+	return enemies[0] if enemies.size() > 0 else null
 
 func get_distance_to_enemy(enemy: Enemy):
 	return global_position.distance_to(enemy.global_position)
 
-func get_range_px():
+func get_range_px(for_effect: bool):
+	var current_level = levels_node.get_current_level()
+	var actual_range = current_level.get_range(for_effect)
+
 	# 1 range => 100px
-	return levels_node.get_current_level().stats.projectile_range * 100
+	return actual_range * 100
 
 func select():
 	selection_node.show()
@@ -186,7 +193,8 @@ func _on_barrel_pulse():
 	if not is_firing():
 		return
 
-	if not levels_node.should_shoot():
+	var in_range_enemies = get_near_enemies(true)
+	if not levels_node.should_create_effect(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -228,7 +236,7 @@ func _on_levels_created_projectile(projectile: Projectile):
 
 func _on_levels_created_effect(effect: Effect):
 	# TODO: affect all enemies in range instead of just the nearest one
-	var enemy = get_near_enemy()
+	var enemy = get_near_enemy(true)
 	if enemy and effect.can_act(enemy):
 		print("Passing effect to enemy")
 
