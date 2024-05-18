@@ -3,7 +3,6 @@ class_name EffectStats extends Node
 @export
 var stats_enabled := true
 
-# TODO: use this, instead of stats.gd, if tower is creating an effect
 @export_range(1, 5)
 var fire_rate := 1
 

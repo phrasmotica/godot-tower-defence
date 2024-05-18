@@ -9,9 +9,11 @@ var price: int = 1
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 
-func fire():
-	try_create_projectile()
-	try_create_effect()
+func get_fire_rate():
+	return stats.fire_rate
+
+func get_effect_fire_rate():
+	return effect_stats.fire_rate
 
 func try_create_projectile():
 	if not stats.stats_enabled:

@@ -140,7 +140,7 @@ func get_upgrade():
 	return levels_node.get_upgrade()
 
 func upgrade():
-	barrel.stop_firing()
+	barrel.pause()
 
 	var next_level = levels_node.start_upgrade()
 	if next_level:
@@ -180,17 +180,30 @@ func _on_barrel_shoot():
 
 	var level = levels_node.get_current_level()
 
-	level.fire()
+	level.try_create_projectile()
 
-func _on_levels_warmed_up():
+func _on_barrel_pulse():
+	if not is_firing():
+		return
+
+	if not levels_node.should_shoot():
+		return
+
+	var level = levels_node.get_current_level()
+
+	level.try_create_effect()
+
+func _on_levels_warmed_up(first_level: TowerLevel):
 	print(tower_name + " warmup finished")
-	barrel.start_timer(1.0 / levels_node.get_current_level().stats.fire_rate)
+
+	barrel.setup(first_level)
+
 	set_firing()
 
 func _on_levels_upgraded(new_level: TowerLevel):
 	print(tower_name + " upgrade finished")
 
-	barrel.start_timer(1.0 / new_level.stats.fire_rate)
+	barrel.setup(new_level)
 
 	adjust_range(new_level.stats.projectile_range)
 
