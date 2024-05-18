@@ -18,3 +18,7 @@ func _process(_delta):
 func check_free():
     if global_position.distance_to(start_position) >= effective_range * 100:
         queue_free()
+
+func handle_collision(enemy: Enemy):
+    print("Freeing after collision with " + enemy.name)
+    queue_free()

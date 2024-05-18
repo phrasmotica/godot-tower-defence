@@ -50,4 +50,4 @@ func _on_collision_area_body_entered(body: Projectile):
 	if new_health <= 0:
 		die.emit(self)
 
-	body.queue_free()
+	body.handle_collision(self)

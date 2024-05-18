@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl4stws58mj3o"]
+
+[ext_resource type="Script" path="res://scripts/ricochet_bullet.gd" id="1_jukuo"]
+[ext_resource type="Texture2D" uid="uid://ciowm4a0scvtx" path="res://assets/sprites/ricochet_bullet.png" id="2_134bq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nhoy"]
+atlas = ExtResource("2_134bq")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_24fim"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nhoy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="RicochetBullet" type="StaticBody2D"]
+collision_layer = 2
+script = ExtResource("1_jukuo")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_24fim")
+frame_progress = 0.239812
+
+[node name="Collider" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(6, 0, -6, 6, -2.3, 0, -6, -6)
