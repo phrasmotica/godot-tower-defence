@@ -335,6 +335,7 @@ sprite_frames = SubResource("SpriteFrames_vq0yl")
 stats_enabled = false
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
+effect_duration = 3.0
 effect = ExtResource("8_7bdrw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]

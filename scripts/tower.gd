@@ -219,10 +219,7 @@ func _on_levels_created_effect(effect: Effect):
 	if enemy and effect.can_act(enemy):
 		print("Passing effect to enemy")
 
-		add_child(effect)
-
 		effect.attached_enemy = enemy
-		effect.set_timer()
 		effect.act_start()
 	else:
 		print("Skipping effect, no valid enemy")

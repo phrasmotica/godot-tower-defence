@@ -4,4 +4,3 @@
 
 [node name="SlowEffect" type="Node"]
 script = ExtResource("1_d3ymg")
-duration = 3.0
