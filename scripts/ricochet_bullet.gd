@@ -19,9 +19,15 @@ func handle_collision(enemy: Enemy):
 	queue_free()
 
 ## Rebound into the given enemy's nearest neighbour.
-func ricochet(_enemy: Enemy):
+func ricochet(enemy: Enemy):
 	speed = int(speed * 0.5)
 
-	# TODO: implement change of direction
+	var nearest_enemy = enemy.get_neighbour(effective_range * 100)
+	if nearest_enemy:
+		print("Ricocheting towards " + nearest_enemy.name)
 
-	pass
+		var new_rotation := global_position.direction_to(nearest_enemy.global_position)
+		rotation = new_rotation.angle()
+		direction = new_rotation
+	else:
+		print("No nearby enemy to ricochet towards!")

@@ -13,6 +13,7 @@ func spawn_enemy(enemy_scene: PackedScene):
 
 	add_child(enemy)
 	enemies.append(enemy)
+	enemy.add_to_group("enemies")
 
 func remove_enemy(enemy: Enemy):
 	enemies.erase(enemy)

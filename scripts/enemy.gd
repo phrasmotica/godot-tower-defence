@@ -27,6 +27,18 @@ func move(delta):
 	else:
 		reached_end.emit(self)
 
+func get_neighbour(max_distance_px: float) -> Enemy:
+	var enemies = get_tree().get_nodes_in_group("enemies")
+	enemies.erase(self)
+
+	var nearby_enemies = enemies.filter(func(e): return global_position.distance_to(e.global_position) <= max_distance_px)
+	if nearby_enemies.size() <= 0:
+		return null
+
+	# TODO: sort nearest enemies by distance ascending
+
+	return nearby_enemies[0]
+
 func slow(duration: float):
 	is_slowed = true
 	movement_speed /= 2

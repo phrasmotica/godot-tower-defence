@@ -368,6 +368,7 @@ projectile = ExtResource("9_gndbw")
 fire_rate = 3
 rotate_speed = 4
 projectile_range = 4
+projectile_speed = 20
 
 [node name="EffectStats" parent="Levels/Level1" index="2"]
 stats_enabled = false
