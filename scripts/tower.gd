@@ -235,14 +235,11 @@ func _on_levels_created_projectile(projectile: Projectile):
 	add_child(projectile)
 
 func _on_levels_created_effect(effect: Effect):
-	# TODO: affect all enemies in range instead of just the nearest one
-	var enemy = get_near_enemy(true)
-	if enemy and effect.can_act(enemy):
-		print("Passing effect to enemy")
+	var enemies := get_near_enemies(true)
+	var valid_enemies := enemies.filter(func(e): return effect.can_act(e))
 
-		effect.attached_enemy = enemy
+	if valid_enemies.size() > 0:
+		print("Passing effect to enemies")
+
+		effect.attached_enemies = enemies
 		effect.act_start()
-	else:
-		print("Skipping effect, no valid enemy")
-
-		effect.queue_free()

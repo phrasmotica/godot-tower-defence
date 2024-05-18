@@ -2,7 +2,7 @@ class_name Effect extends Node
 
 var effect_duration: float
 
-var attached_enemy: Enemy
+var attached_enemies: Array[Enemy]
 
 func set_timer(duration: float):
 	print("Effect duration " + str(duration))
