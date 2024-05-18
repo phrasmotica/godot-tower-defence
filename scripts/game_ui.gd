@@ -177,6 +177,9 @@ func _on_start_game_start():
 func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
+func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
+	try_place(tower_scene)
+
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:
 		money_amount.text = str(new_money)

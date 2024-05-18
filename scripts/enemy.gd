@@ -8,6 +8,8 @@ var movement_speed: int = 150
 @onready var stats: EnemyStats = $Stats
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var is_slowed := false
+
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
@@ -24,6 +26,17 @@ func move(delta):
 		progress += movement_speed * delta
 	else:
 		reached_end.emit(self)
+
+func slow(duration: float):
+	is_slowed = true
+	movement_speed /= 2
+
+	var animation_speed = float(1 / duration)
+	animation_player.play("slow", -1, animation_speed)
+
+func end_slow():
+	movement_speed *= 2
+	is_slowed = false
 
 func _on_collision_area_body_entered(body: Projectile):
 	hit.emit(body)

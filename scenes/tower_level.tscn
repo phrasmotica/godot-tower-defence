@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://djj6tjv3p0qo6"]
+[gd_scene load_steps=7 format=3 uid="uid://djj6tjv3p0qo6"]
 
 [ext_resource type="Script" path="res://scripts/tower_level.gd" id="1_p6oa4"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_ws6y7"]
 [ext_resource type="Script" path="res://scripts/stats.gd" id="2_4oole"]
+[ext_resource type="Script" path="res://scripts/effect_stats.gd" id="4_3nipx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
 atlas = ExtResource("1_ws6y7")
@@ -28,3 +29,6 @@ sprite_frames = SubResource("SpriteFrames_nd3ji")
 
 [node name="Stats" type="Node" parent="."]
 script = ExtResource("2_4oole")
+
+[node name="EffectStats" type="Node" parent="."]
+script = ExtResource("4_3nipx")

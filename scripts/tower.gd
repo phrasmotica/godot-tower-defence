@@ -2,6 +2,9 @@ class_name Tower extends Node2D
 
 enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 
+@export
+var tower_name := ""
+
 @export_range(1, 10)
 var price: int = 1
 
@@ -73,20 +76,20 @@ func set_error_look():
 	range_sprite.modulate = Color.RED
 
 func scan(delta):
-	var near_enemy = get_near_enemy()
+	var near_enemy = get_near_enemy(false)
 	if near_enemy:
 		levels_node.point_towards_enemy(near_enemy, delta)
 
-func get_near_enemy():
+func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 	var enemies = path.enemies
 	if enemies.size() <= 0:
-		return null
+		return []
 
 	var valid_enemies = enemies.filter(func(e): return e != null and not e.is_queued_for_deletion())
 	if valid_enemies.size() <= 0:
-		return null
+		return []
 
-	var shooting_range = get_range_px()
+	var shooting_range = get_range_px(for_effect)
 
 	var in_range_enemies = valid_enemies.filter(
 		func(e):
@@ -94,7 +97,7 @@ func get_near_enemy():
 	)
 
 	if in_range_enemies.size() <= 0:
-		return null
+		return []
 
 	# nearest enemies first
 	in_range_enemies.sort_custom(
@@ -102,14 +105,21 @@ func get_near_enemy():
 			return get_distance_to_enemy(e) > get_distance_to_enemy(f)
 	)
 
-	return in_range_enemies[0]
+	return in_range_enemies
+
+func get_near_enemy(for_effect: bool):
+	var enemies = get_near_enemies(for_effect)
+	return enemies[0] if enemies.size() > 0 else null
 
 func get_distance_to_enemy(enemy: Enemy):
 	return global_position.distance_to(enemy.global_position)
 
-func get_range_px():
+func get_range_px(for_effect: bool):
+	var current_level = levels_node.get_current_level()
+	var actual_range = current_level.get_range(for_effect)
+
 	# 1 range => 100px
-	return levels_node.get_current_level().stats.projectile_range * 100
+	return actual_range * 100
 
 func select():
 	selection_node.show()
@@ -137,7 +147,7 @@ func get_upgrade():
 	return levels_node.get_upgrade()
 
 func upgrade():
-	barrel.stop_firing()
+	barrel.pause()
 
 	var next_level = levels_node.start_upgrade()
 	if next_level:
@@ -177,17 +187,31 @@ func _on_barrel_shoot():
 
 	var level = levels_node.get_current_level()
 
-	level.fire()
+	level.try_create_projectile()
 
-func _on_levels_warmed_up():
-	print("Gun tower warmup finished")
-	barrel.start_timer(1.0 / levels_node.get_current_level().stats.fire_rate)
+func _on_barrel_pulse():
+	if not is_firing():
+		return
+
+	var in_range_enemies = get_near_enemies(true)
+	if not levels_node.should_create_effect(in_range_enemies):
+		return
+
+	var level = levels_node.get_current_level()
+
+	level.try_create_effect()
+
+func _on_levels_warmed_up(first_level: TowerLevel):
+	print(tower_name + " warmup finished")
+
+	barrel.setup(first_level)
+
 	set_firing()
 
 func _on_levels_upgraded(new_level: TowerLevel):
-	print("Gun tower upgrade finished")
+	print(tower_name + " upgrade finished")
 
-	barrel.start_timer(1.0 / new_level.stats.fire_rate)
+	barrel.setup(new_level)
 
 	adjust_range(new_level.stats.projectile_range)
 
@@ -196,12 +220,12 @@ func _on_levels_upgraded(new_level: TowerLevel):
 	on_upgrade_finish.emit(self, new_level)
 
 func _on_collision_area_area_entered(_area:Area2D):
-	print("Gun tower entered path area")
+	print(tower_name + " entered path area")
 	is_valid_location = false
 	set_error_look()
 
 func _on_collision_area_area_exited(_area:Area2D):
-	print("Gun tower exited path area")
+	print(tower_name + " exited path area")
 	is_valid_location = true
 	set_default_look()
 
@@ -209,3 +233,13 @@ func _on_levels_created_projectile(projectile: Projectile):
 	print("Adding projectile as child")
 
 	add_child(projectile)
+
+func _on_levels_created_effect(effect: Effect):
+	var enemies := get_near_enemies(true)
+	var valid_enemies := enemies.filter(func(e): return effect.can_act(e))
+
+	if valid_enemies.size() > 0:
+		print("Passing effect to enemies")
+
+		effect.attached_enemies = enemies
+		effect.act_start()

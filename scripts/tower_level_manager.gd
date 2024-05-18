@@ -1,26 +1,29 @@
 class_name TowerLevelManager extends Node2D
 
 @onready var firing_line: RayCast2D = $FiringLine
+@onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var levels: Array[TowerLevel]
 
 var level_index = 0
 
-signal warmed_up
+signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
 
 signal created_projectile(projectile: Projectile)
+signal created_effect(effect: Effect)
 
 func _ready():
 	for level in levels:
 		level.created_projectile.connect(_on_level_created_projectile)
+		level.created_effect.connect(_on_level_created_effect)
 
 func start_warmup():
 	animation_player.play("warmup")
 
 func warmup_finished():
-	warmed_up.emit()
+	warmed_up.emit(get_current_level())
 
 func start_upgrade() -> TowerLevel:
 	var next_level = get_upgrade()
@@ -48,7 +51,16 @@ func get_upgrade():
 	return null
 
 func should_shoot():
-	return firing_line.is_colliding()
+	if firing_line.enabled:
+		return firing_line.is_colliding()
+
+	return false
+
+func should_create_effect(enemies: Array[Enemy]):
+	if effect_area.monitoring:
+		return enemies.size() > 0
+
+	return false
 
 func get_current_level() -> TowerLevel:
 	return levels[level_index]
@@ -87,3 +99,8 @@ func _on_level_created_projectile(projectile: Projectile):
 	projectile.direction = Vector2.RIGHT.rotated(rotation)
 
 	created_projectile.emit(projectile)
+
+func _on_level_created_effect(effect: Effect):
+	print("Processing effect")
+
+	created_effect.emit(effect)

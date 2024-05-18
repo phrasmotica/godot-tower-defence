@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=12 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
@@ -22,6 +22,21 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8qu8x"]
 size = Vector2(64, 64)
+
+[sub_resource type="Animation" id="Animation_qsgl2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_vscsi"]
 resource_name = "peek_health"
@@ -56,8 +71,8 @@ tracks/1/keys = {
 "values": [Color(1, 0, 0, 0.588235), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_qsgl2"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_4vyub"]
+resource_name = "slow"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -65,16 +80,17 @@ tracks/0/path = NodePath("Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
 _data = {
 "RESET": SubResource("Animation_qsgl2"),
-"peek_health": SubResource("Animation_vscsi")
+"peek_health": SubResource("Animation_vscsi"),
+"slow": SubResource("Animation_4vyub")
 }
 
 [node name="Enemy1" type="PathFollow2D"]
