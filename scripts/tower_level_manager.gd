@@ -4,9 +4,9 @@ class_name TowerLevelManager extends Node2D
 @onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var levels: Array[TowerLevel]
+@export var base_level: TowerLevel
 
-var level_index = 0
+var upgrade_path: Array[int] = []
 
 signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
@@ -14,16 +14,14 @@ signal upgraded(new_level: TowerLevel)
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 
-func _ready():
-	for level in levels:
-		level.created_projectile.connect(_on_level_created_projectile)
-		level.created_effect.connect(_on_level_created_effect)
-
 func start_warmup():
 	animation_player.play("warmup")
 
 func warmup_finished():
-	warmed_up.emit(get_current_level())
+	base_level.created_projectile.connect(_on_level_created_projectile)
+	base_level.created_effect.connect(_on_level_created_effect)
+
+	warmed_up.emit(base_level)
 
 func start_upgrade() -> TowerLevel:
 	var next_level = get_upgrade()
@@ -37,18 +35,31 @@ func upgrade_finished():
 	if not get_upgrade():
 		return
 
-	level_index += 1
+	# hide old level
+	var old_level = get_current_level()
+	old_level.visible = false
 
-	levels[level_index - 1].visible = false
-	levels[level_index].visible = true
+	if old_level.created_projectile.is_connected(_on_level_created_projectile):
+		print("Disconnecting _on_level_created_projectile")
+		old_level.created_projectile.disconnect(_on_level_created_projectile)
 
-	upgraded.emit(levels[level_index])
+	if old_level.created_projectile.is_connected(_on_level_created_effect):
+		print("Disconnecting _on_level_created_effect")
+		old_level.created_effect.disconnect(_on_level_created_effect)
+
+	upgrade_path.append(0)
+
+	var new_level = get_current_level()
+
+	new_level.visible = true
+
+	new_level.created_projectile.connect(_on_level_created_projectile)
+	new_level.created_effect.connect(_on_level_created_effect)
+
+	upgraded.emit(new_level)
 
 func get_upgrade():
-	if level_index < levels.size() - 1:
-		return levels[level_index + 1]
-
-	return null
+	return base_level.get_upgrade(upgrade_path)
 
 func should_shoot():
 	if firing_line.enabled:
@@ -63,19 +74,10 @@ func should_create_effect(enemies: Array[Enemy]):
 	return false
 
 func get_current_level() -> TowerLevel:
-	return levels[level_index]
+	return base_level.get_current_level(upgrade_path)
 
-func get_total_value():
-	if level_index <= 0 or levels.size() < 2:
-		return 0
-
-	# return sum of prices of purchased upgrades
-	return (
-		levels
-			.slice(1, level_index + 1)
-			.map(func(level): return level.price)
-			.reduce(func(a, b): return a + b)
-	)
+func get_total_value() -> int:
+	return base_level.get_total_value(upgrade_path)
 
 func point_towards_enemy(enemy: Enemy, delta: float):
 	var rotate_speed = get_current_level().stats.rotate_speed

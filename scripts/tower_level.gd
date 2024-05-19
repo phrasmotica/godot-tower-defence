@@ -9,6 +9,9 @@ var level_description := ""
 @export_range(1, 10)
 var price := 1
 
+@export
+var upgrades: Array[TowerLevel]
+
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 
@@ -20,6 +23,29 @@ func get_range(for_effect: bool):
 
 func get_effect_fire_rate():
 	return effect_stats.fire_rate
+
+func get_current_level(path: Array[int]) -> TowerLevel:
+	if path.size() <= 0:
+		return self
+
+	# TODO: allow specifying upgrade index
+	return upgrades[path[0]].get_current_level(path.slice(1))
+
+func get_upgrade(path: Array[int]) -> TowerLevel:
+	if path.size() <= 0:
+		# TODO: allow specifying upgrade index
+		return upgrades[0]
+
+	return upgrades[path[0]].get_current_level(path.slice(1))
+
+func get_total_value(path: Array[int]) -> int:
+	if path.size() <= 0:
+		return price
+
+	return price + (
+		# TODO: allow specifying upgrade index
+		upgrades[path[0]].get_total_value(path.slice(1))
+	)
 
 func try_create_projectile():
 	if not stats.stats_enabled:

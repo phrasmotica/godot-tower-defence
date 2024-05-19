@@ -330,7 +330,7 @@ script = ExtResource("4_n5mc5")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("levels")]
 script = ExtResource("4_4tss6")
-levels = [NodePath("Level0"), NodePath("Level1"), NodePath("Level2")]
+levels = [NodePath("Level0"), NodePath("Level0/Level00"), NodePath("Level0/Level01")]
 
 [node name="FiringLine" type="RayCast2D" parent="Levels"]
 target_position = Vector2(300, 2.08165e-12)
@@ -355,35 +355,35 @@ fire_rate = 3
 [node name="EffectStats" parent="Levels/Level0" index="2"]
 stats_enabled = false
 
-[node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
+[node name="Level00" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots ricochet bullets instead of regular ones."
 price = 2
 
-[node name="Sprite" parent="Levels/Level1" index="0"]
+[node name="Sprite" parent="Levels/Level0/Level00" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
 
-[node name="Stats" parent="Levels/Level1" index="1"]
+[node name="Stats" parent="Levels/Level0/Level00" index="1"]
 projectile = ExtResource("9_gndbw")
 fire_rate = 3
 rotate_speed = 4
 projectile_range = 4
 projectile_speed = 20
 
-[node name="EffectStats" parent="Levels/Level1" index="2"]
+[node name="EffectStats" parent="Levels/Level0/Level00" index="2"]
 stats_enabled = false
 
-[node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
+[node name="Level01" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Moves and shoots faster!"
 price = 4
 
-[node name="Sprite" parent="Levels/Level2" index="0"]
+[node name="Sprite" parent="Levels/Level0/Level01" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="Stats" parent="Levels/Level2" index="1"]
+[node name="Stats" parent="Levels/Level0/Level01" index="1"]
 projectile = ExtResource("5_ikvgn")
 damage = 2
 fire_rate = 4
@@ -391,7 +391,7 @@ rotate_speed = 5
 projectile_range = 4
 projectile_speed = 20
 
-[node name="EffectStats" parent="Levels/Level2" index="2"]
+[node name="EffectStats" parent="Levels/Level0/Level01" index="2"]
 stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
@@ -413,5 +413,5 @@ libraries = {
 [connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
 
 [editable path="Levels/Level0"]
-[editable path="Levels/Level1"]
-[editable path="Levels/Level2"]
+[editable path="Levels/Level0/Level00"]
+[editable path="Levels/Level0/Level01"]
