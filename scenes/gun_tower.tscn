@@ -357,6 +357,7 @@ stats_enabled = false
 
 [node name="Level1" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
+level_description = "Shoots ricochet bullets instead of regular ones."
 price = 2
 
 [node name="Sprite" parent="Levels/Level1" index="0"]
@@ -375,6 +376,7 @@ stats_enabled = false
 
 [node name="Level2" parent="Levels" instance=ExtResource("4_t0fww")]
 visible = false
+level_description = "Moves and shoots faster!"
 price = 4
 
 [node name="Sprite" parent="Levels/Level2" index="0"]

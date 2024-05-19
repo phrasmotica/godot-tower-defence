@@ -5,6 +5,7 @@ enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
 @export
 var tower_name := ""
 
+# TODO: remove this, set it on the first tower level instead
 @export_multiline
 var tower_description := ""
 
