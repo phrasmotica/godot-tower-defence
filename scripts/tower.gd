@@ -96,7 +96,7 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 
 	var in_range_enemies = valid_enemies.filter(
 		func(e):
-			return get_distance_to_enemy(e) <= shooting_range
+			return e.get_distance_to(global_position) <= shooting_range
 	)
 
 	if in_range_enemies.size() <= 0:
@@ -105,7 +105,7 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 	# nearest enemies first
 	in_range_enemies.sort_custom(
 		func(e, f):
-			return get_distance_to_enemy(e) > get_distance_to_enemy(f)
+			return e.get_distance_to(global_position) < f.get_distance_to(global_position)
 	)
 
 	return in_range_enemies
@@ -113,9 +113,6 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 func get_near_enemy(for_effect: bool):
 	var enemies = get_near_enemies(for_effect)
 	return enemies[0] if enemies.size() > 0 else null
-
-func get_distance_to_enemy(enemy: Enemy):
-	return global_position.distance_to(enemy.global_position)
 
 func get_range_px(for_effect: bool):
 	var current_level = levels_node.get_current_level()
