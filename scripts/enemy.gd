@@ -35,9 +35,16 @@ func get_neighbour(max_distance_px: float) -> Enemy:
 	if nearby_enemies.size() <= 0:
 		return null
 
-	# TODO: sort nearest enemies by distance ascending
+	# nearest enemies first
+	nearby_enemies.sort_custom(
+		func(e, f):
+			return e.get_distance_to(global_position) < f.get_distance_to(global_position)
+	)
 
 	return nearby_enemies[0]
+
+func get_distance_to(pos: Vector2):
+	return pos.distance_to(global_position)
 
 func slow(duration: float):
 	is_slowed = true
