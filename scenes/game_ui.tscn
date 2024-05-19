@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=7 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="2_86mwy"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/create_tower_button.tscn" id="2_in1v2"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
 [ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/slow_tower.tscn" id="5_0g4vg"]
+[ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/upgrade_tower_button.tscn" id="6_ork4b"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -105,15 +106,13 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="UpgradeButton" type="Button" parent="ColorRect/SelectedTowerButtons"]
+[node name="UpgradeButton" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
 offset_top = 520.0
 offset_right = 300.0
 offset_bottom = 600.0
-focus_mode = 0
-theme_override_font_sizes/font_size = 32
-text = "Upgrade"
+action_name = &"tower_upgrade"
 
 [node name="SellButton" type="Button" parent="ColorRect/SelectedTowerButtons"]
 layout_mode = 0
@@ -138,6 +137,6 @@ text = "Cancel"
 
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
-[connection signal="pressed" from="ColorRect/SelectedTowerButtons/UpgradeButton" to="." method="_on_upgrade_button_pressed"]
+[connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
 [connection signal="pressed" from="ColorRect/CancelButton" to="." method="_on_cancel_button_pressed"]

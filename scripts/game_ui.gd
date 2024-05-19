@@ -8,7 +8,7 @@ class_name GameUI extends Control
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
-@onready var upgrade_button = $ColorRect/SelectedTowerButtons/UpgradeButton
+@onready var upgrade_button: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton
 @onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
 @onready var cancel_button = $ColorRect/CancelButton
 
@@ -38,7 +38,7 @@ var selected_tower: Tower:
 		if value:
 			print("Showing buttons")
 			upgrade_button.show()
-			upgrade_button.disabled = value.get_upgrade() == null
+			upgrade_button.set_upgrade_level(value.get_upgrade())
 
 			sell_button.show()
 		else:
@@ -83,22 +83,16 @@ func try_place(tower_scene: PackedScene):
 	tower_placing.emit(placing_tower)
 
 	placing_tower.on_placed.connect(_on_placing_tower_placed)
-	placing_tower.on_selected.connect(_on_placing_tower_selected)
-	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
 	add_child(placing_tower)
 
 	return true
 
-func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
-	print("Selected tower upgrade finished")
-
-	upgrade_button.disabled = tower.get_upgrade() == null
-
-	tower_upgrade_finish.emit(tower, next_level)
-
 func _on_placing_tower_placed(tower: Tower):
 	print("Placed new tower")
+
+	placing_tower.on_selected.connect(_on_placing_tower_selected)
+	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
 	# ensure the tower is not part of the UI anymore
 	placing_tower.reparent(tower_manager, true)
@@ -113,6 +107,13 @@ func _on_placing_tower_selected(tower: Tower):
 	selected_tower = tower
 
 	tower_selected.emit(tower)
+
+func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
+	print("Selected tower upgrade finished")
+
+	upgrade_button.set_upgrade_level(tower.get_upgrade())
+
+	tower_upgrade_finish.emit(tower, next_level)
 
 func deselect():
 	print("Deselecting tower")
@@ -180,6 +181,9 @@ func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
 func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
+func _on_upgrade_button_upgrade_tower(_level: TowerLevel):
+	try_upgrade()
+
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:
 		money_amount.text = str(new_money)
@@ -191,9 +195,6 @@ func _on_lives_manager_lives_changed(new_lives):
 func _on_waves_manager_wave_sent(wave_number: int):
 	if wave_number_label:
 		wave_number_label.text = str(wave_number)
-
-func _on_upgrade_button_pressed():
-	try_upgrade()
 
 func _on_sell_button_pressed():
 	try_sell()

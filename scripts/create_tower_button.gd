@@ -12,7 +12,7 @@ func _ready():
 	var dummy_tower: Tower = tower.instantiate()
 
 	# prefer this to a tooltip so that we can control its appearance
-	# bu mouse enter/exit events rather than by the mouse being idle
+	# by mouse enter/exit events rather than by the mouse being idle
 	description_text.text = dummy_tower.tower_description
 
 	description.hide()

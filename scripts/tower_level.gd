@@ -3,8 +3,11 @@ class_name TowerLevel extends Node2D
 @onready var stats: TowerLevelStats = $Stats
 @onready var effect_stats: EffectStats = $EffectStats
 
+@export_multiline
+var level_description := ""
+
 @export_range(1, 10)
-var price: int = 1
+var price := 1
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
