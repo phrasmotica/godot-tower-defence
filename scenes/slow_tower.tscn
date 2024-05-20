@@ -311,9 +311,9 @@ offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
 script = ExtResource("4_017vf")
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("levels")]
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_t5pdt")
-levels = [NodePath("Level0")]
+base_level = NodePath("Level0")
 
 [node name="FiringLine" type="RayCast2D" parent="Levels"]
 visible = false
