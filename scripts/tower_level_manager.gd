@@ -37,7 +37,6 @@ func upgrade_finished():
 
 	# hide old level
 	var old_level = get_current_level()
-	old_level.visible = false
 
 	if old_level.created_projectile.is_connected(_on_level_created_projectile):
 		print("Disconnecting _on_level_created_projectile")
