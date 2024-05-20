@@ -60,7 +60,7 @@ func _process(_delta):
 		if placing_tower:
 			cancel_tower_creation()
 
-	if Input.is_action_just_pressed("tower_upgrade"):
+	if Input.is_action_just_pressed("tower_upgrade_0"):
 		try_upgrade()
 
 	if Input.is_action_just_pressed("ui_text_delete"):
