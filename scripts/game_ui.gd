@@ -1,6 +1,5 @@
 class_name GameUI extends Control
 
-@export var tower_manager: TowerManager
 @export var game_tint: ColorRect
 
 @onready var bank: BankManager = %BankManager
@@ -20,6 +19,9 @@ signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
 signal tower_deselected
+
+signal next_tower
+signal previous_tower
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -73,16 +75,10 @@ func _process(_delta):
 			cancel_tower_creation()
 
 	if Input.is_action_just_pressed("next_tower"):
-		selected_tower = tower_manager.next_tower()
-
-		if selected_tower:
-			tower_selected.emit(selected_tower)
+		next_tower.emit()
 
 	if Input.is_action_just_pressed("previous_tower"):
-		selected_tower = tower_manager.previous_tower()
-
-		if selected_tower:
-			tower_selected.emit(selected_tower)
+		previous_tower.emit()
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
@@ -115,11 +111,9 @@ func _on_placing_tower_placed(tower: Tower):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
-	tower_manager.add_tower(placing_tower)
+	tower_placed.emit(tower)
 
 	stop_tower_creation()
-
-	tower_placed.emit(tower)
 
 func _on_placing_tower_selected(tower: Tower):
 	print("Selected " + tower.name)

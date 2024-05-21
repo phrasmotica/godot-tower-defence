@@ -203,12 +203,11 @@ script = ExtResource("5_rtba5")
 
 [node name="Foreground" type="Node2D" parent="."]
 
-[node name="GameUI" parent="." node_paths=PackedStringArray("tower_manager", "game_tint") instance=ExtResource("10_gkcsa")]
+[node name="GameUI" parent="." node_paths=PackedStringArray("game_tint") instance=ExtResource("10_gkcsa")]
 unique_name_in_owner = true
 z_index = 500
 offset_left = 960.0
 offset_right = 1280.0
-tower_manager = NodePath("../Towers")
 game_tint = NodePath("GameTint")
 
 [node name="GameTint" type="ColorRect" parent="GameUI"]
@@ -235,8 +234,11 @@ z_index = 1000
 [connection signal="wave_sent" from="Managers/WavesManager" to="GameUI" method="_on_waves_manager_wave_sent"]
 [connection signal="enemy_died" from="Enemies/PathWaypoints" to="Managers/BankManager" method="_on_path_waypoints_enemy_died"]
 [connection signal="enemy_reached_end" from="Enemies/PathWaypoints" to="Managers/LivesManager" method="_on_path_waypoints_enemy_reached_end"]
+[connection signal="next_tower" from="GameUI" to="Towers" method="_on_game_ui_next_tower"]
+[connection signal="previous_tower" from="GameUI" to="Towers" method="_on_game_ui_previous_tower"]
 [connection signal="tower_deselected" from="GameUI" to="Towers" method="_on_game_ui_tower_deselected"]
 [connection signal="tower_placed" from="GameUI" to="Managers/BankManager" method="_on_game_ui_tower_placed"]
+[connection signal="tower_placed" from="GameUI" to="Towers" method="_on_game_ui_tower_placed"]
 [connection signal="tower_selected" from="GameUI" to="Towers" method="_on_game_ui_tower_selected"]
 [connection signal="tower_sold" from="GameUI" to="Managers/BankManager" method="_on_game_ui_tower_sold"]
 [connection signal="tower_upgrade_start" from="GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_start"]
