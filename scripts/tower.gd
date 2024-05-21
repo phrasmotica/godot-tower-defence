@@ -144,13 +144,13 @@ func get_sell_price():
 	var upgrade_value = levels_node.get_total_value()
 	return int((price + upgrade_value) / 2)
 
-func get_upgrade():
-	return levels_node.get_upgrade()
+func get_upgrade(index: int):
+	return levels_node.get_upgrade(index)
 
-func upgrade():
+func upgrade(index: int):
 	barrel.pause()
 
-	var next_level = levels_node.start_upgrade()
+	var next_level = levels_node.start_upgrade(index)
 	if next_level:
 		set_upgrading()
 

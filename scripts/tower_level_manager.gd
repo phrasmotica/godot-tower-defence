@@ -8,6 +8,10 @@ class_name TowerLevelManager extends Node2D
 
 var upgrade_path: Array[int] = []
 
+# TODO: instead of this, ignore the last element of upgrade_path
+# if the tower is in UPGRADING state
+var ongoing_upgrade_index := -1
+
 signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
 
@@ -23,16 +27,17 @@ func warmup_finished():
 
 	warmed_up.emit(base_level)
 
-func start_upgrade() -> TowerLevel:
-	var next_level = get_upgrade()
+func start_upgrade(index: int) -> TowerLevel:
+	var next_level = get_upgrade(index)
 
 	if next_level:
 		animation_player.play("upgrade")
+		ongoing_upgrade_index = index
 
 	return next_level
 
 func upgrade_finished():
-	if not get_upgrade():
+	if ongoing_upgrade_index < 0 or not get_upgrade(ongoing_upgrade_index):
 		return
 
 	# hide old level
@@ -46,7 +51,8 @@ func upgrade_finished():
 		print("Disconnecting _on_level_created_effect")
 		old_level.created_effect.disconnect(_on_level_created_effect)
 
-	upgrade_path.append(0)
+	upgrade_path.append(ongoing_upgrade_index)
+	ongoing_upgrade_index = -1
 
 	var new_level = get_current_level()
 
@@ -57,8 +63,8 @@ func upgrade_finished():
 
 	upgraded.emit(new_level)
 
-func get_upgrade():
-	return base_level.get_upgrade(upgrade_path)
+func get_upgrade(index: int):
+	return base_level.get_upgrade(upgrade_path, index)
 
 func should_shoot():
 	if firing_line.enabled:

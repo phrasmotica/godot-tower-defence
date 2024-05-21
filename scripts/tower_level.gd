@@ -28,26 +28,22 @@ func get_current_level(path: Array[int]) -> TowerLevel:
 	if path.size() <= 0:
 		return self
 
-	# TODO: allow specifying upgrade index
 	return upgrades[path[0]].get_current_level(path.slice(1))
 
-func get_upgrade(path: Array[int]) -> TowerLevel:
+func get_upgrade(path: Array[int], index: int) -> TowerLevel:
 	if path.size() <= 0:
 		if upgrades.size() <= 0:
 			return null
 
-		# TODO: allow specifying upgrade index
-		return upgrades[0]
+		return upgrades[index]
 
-	# TODO: allow specifying upgrade index
-	return upgrades[path[0]].get_upgrade(path.slice(1))
+	return upgrades[path[0]].get_upgrade(path.slice(1), index)
 
 func get_total_value(path: Array[int]) -> int:
 	if path.size() <= 0:
 		return price
 
 	return price + (
-		# TODO: allow specifying upgrade index
 		upgrades[path[0]].get_total_value(path.slice(1))
 	)
 

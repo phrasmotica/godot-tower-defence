@@ -1,16 +1,17 @@
 class_name UpgradeTowerButton extends Button
 
 @export var action_name: StringName
+@export var upgrade_index := 0
 
 @onready var description = $TowerDescription
 @onready var description_text = $TowerDescription/Label
 
 var upgrade_level: TowerLevel
 
-signal upgrade_tower(level: TowerLevel)
+signal upgrade_tower(index: int)
 
-func set_upgrade_level(level: TowerLevel):
-	upgrade_level = level
+func set_upgrade_level(tower: Tower):
+	upgrade_level = tower.get_upgrade(upgrade_index)
 
 	if upgrade_level:
 		disabled = false
@@ -19,13 +20,14 @@ func set_upgrade_level(level: TowerLevel):
 		# by mouse enter/exit events rather than by the mouse being idle
 		description_text.text = upgrade_level.level_description
 	else:
+		# TODO: hide the button if there's no upgrade available?
 		disabled = true
 
 	description.hide()
 
 func upgrade():
 	description.hide()
-	upgrade_tower.emit(upgrade_level)
+	upgrade_tower.emit(upgrade_index)
 
 func _process(_delta):
 	if Input.is_action_just_pressed(action_name):
