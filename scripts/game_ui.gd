@@ -1,6 +1,7 @@
 class_name GameUI extends Control
 
 @export var tower_manager: TowerManager
+@export var game_tint: ColorRect
 
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
@@ -18,6 +19,7 @@ signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
+signal tower_deselected
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -45,6 +47,8 @@ var selected_tower: Tower:
 			upgrade_button_1.set_upgrade_level(value)
 
 			sell_button.show()
+
+			game_tint.show()
 		else:
 			print("Hiding buttons")
 			upgrade_button_0.hide()
@@ -130,6 +134,10 @@ func deselect():
 	selected_tower.deselect()
 	selected_tower = null
 
+	game_tint.hide()
+
+	tower_deselected.emit()
+
 func cancel_tower_creation():
 	print("Cancelling tower creation")
 
@@ -176,6 +184,8 @@ func try_sell():
 	var sell_value = selected_tower.sell()
 
 	selected_tower = null
+
+	tower_deselected.emit()
 
 	tower_sold.emit(sell_value)
 
