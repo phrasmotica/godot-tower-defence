@@ -38,13 +38,16 @@ var selected_tower: Tower:
 
 		selected_tower = value
 
-		if value:
+		if selected_tower:
+			selected_tower.select()
+
 			print("Showing buttons")
+
 			upgrade_button_0.show()
-			upgrade_button_0.set_upgrade_level(value)
+			upgrade_button_0.set_upgrade_level(selected_tower)
 
 			upgrade_button_1.show()
-			upgrade_button_1.set_upgrade_level(value)
+			upgrade_button_1.set_upgrade_level(selected_tower)
 
 			sell_button.show()
 
@@ -69,8 +72,17 @@ func _process(_delta):
 		if placing_tower:
 			cancel_tower_creation()
 
-	if Input.is_action_just_pressed("tower_upgrade_0"):
-		try_upgrade(0)
+	if Input.is_action_just_pressed("next_tower"):
+		selected_tower = tower_manager.next_tower()
+
+		if selected_tower:
+			tower_selected.emit(selected_tower)
+
+	if Input.is_action_just_pressed("previous_tower"):
+		selected_tower = tower_manager.previous_tower()
+
+		if selected_tower:
+			tower_selected.emit(selected_tower)
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
@@ -103,8 +115,7 @@ func _on_placing_tower_placed(tower: Tower):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
-	# ensure the tower is not part of the UI anymore
-	placing_tower.reparent(tower_manager, true)
+	tower_manager.add_tower(placing_tower)
 
 	stop_tower_creation()
 
@@ -131,7 +142,6 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 func deselect():
 	print("Deselecting tower")
 
-	selected_tower.deselect()
 	selected_tower = null
 
 	game_tint.hide()
