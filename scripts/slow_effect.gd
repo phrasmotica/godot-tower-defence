@@ -10,7 +10,8 @@ func act_end():
 	print("Slowing enemies END")
 
 	for enemy in attached_enemies:
-		enemy.end_slow()
+		if is_instance_valid(enemy):
+			enemy.end_slow()
 
 func can_act(enemy: Enemy):
 	return not enemy.is_slowed

@@ -1,6 +1,7 @@
 class_name GameUI extends Control
 
 @export var tower_manager: TowerManager
+@export var game_tint: ColorRect
 
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
@@ -8,7 +9,8 @@ class_name GameUI extends Control
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
-@onready var upgrade_button: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton
+@onready var upgrade_button_0: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton0
+@onready var upgrade_button_1: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton1
 @onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
 @onready var cancel_button = $ColorRect/CancelButton
 
@@ -17,6 +19,7 @@ signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
+signal tower_deselected
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -35,15 +38,24 @@ var selected_tower: Tower:
 
 		selected_tower = value
 
-		if value:
+		if selected_tower:
+			selected_tower.select()
+
 			print("Showing buttons")
-			upgrade_button.show()
-			upgrade_button.set_upgrade_level(value.get_upgrade())
+
+			upgrade_button_0.show()
+			upgrade_button_0.set_upgrade_level(selected_tower)
+
+			upgrade_button_1.show()
+			upgrade_button_1.set_upgrade_level(selected_tower)
 
 			sell_button.show()
+
+			game_tint.show()
 		else:
 			print("Hiding buttons")
-			upgrade_button.hide()
+			upgrade_button_0.hide()
+			upgrade_button_1.hide()
 			sell_button.hide()
 
 func _ready():
@@ -60,8 +72,17 @@ func _process(_delta):
 		if placing_tower:
 			cancel_tower_creation()
 
-	if Input.is_action_just_pressed("tower_upgrade"):
-		try_upgrade()
+	if Input.is_action_just_pressed("next_tower"):
+		selected_tower = tower_manager.next_tower()
+
+		if selected_tower:
+			tower_selected.emit(selected_tower)
+
+	if Input.is_action_just_pressed("previous_tower"):
+		selected_tower = tower_manager.previous_tower()
+
+		if selected_tower:
+			tower_selected.emit(selected_tower)
 
 	if Input.is_action_just_pressed("ui_text_delete"):
 		try_sell()
@@ -94,8 +115,7 @@ func _on_placing_tower_placed(tower: Tower):
 	placing_tower.on_selected.connect(_on_placing_tower_selected)
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
-	# ensure the tower is not part of the UI anymore
-	placing_tower.reparent(tower_manager, true)
+	tower_manager.add_tower(placing_tower)
 
 	stop_tower_creation()
 
@@ -111,15 +131,22 @@ func _on_placing_tower_selected(tower: Tower):
 func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
 
-	upgrade_button.set_upgrade_level(tower.get_upgrade())
+	upgrade_button_0.disabled = false
+	upgrade_button_0.set_upgrade_level(tower)
+
+	upgrade_button_1.disabled = false
+	upgrade_button_1.set_upgrade_level(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)
 
 func deselect():
 	print("Deselecting tower")
 
-	selected_tower.deselect()
 	selected_tower = null
+
+	game_tint.hide()
+
+	tower_deselected.emit()
 
 func cancel_tower_creation():
 	print("Cancelling tower creation")
@@ -129,12 +156,12 @@ func cancel_tower_creation():
 
 	tower_placing_cancelled.emit()
 
-func try_upgrade():
+func try_upgrade(index: int):
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return false
 
-	var next_level = selected_tower.get_upgrade()
+	var next_level = selected_tower.get_upgrade(index)
 	if not next_level:
 		print("Tower upgrade failed: no more upgrades")
 		return false
@@ -149,9 +176,10 @@ func try_upgrade():
 
 	print("Upgrading tower")
 
-	upgrade_button.disabled = true
+	upgrade_button_0.disabled = true
+	upgrade_button_1.disabled = true
 
-	selected_tower.upgrade()
+	selected_tower.upgrade(index)
 	tower_upgrade_start.emit(selected_tower, next_level)
 
 	return true
@@ -167,6 +195,8 @@ func try_sell():
 
 	selected_tower = null
 
+	tower_deselected.emit()
+
 	tower_sold.emit(sell_value)
 
 	return true
@@ -181,8 +211,8 @@ func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
 func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
-func _on_upgrade_button_upgrade_tower(_level: TowerLevel):
-	try_upgrade()
+func _on_upgrade_button_upgrade_tower(index: int):
+	try_upgrade(index)
 
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:
