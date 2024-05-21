@@ -116,7 +116,10 @@ func _on_placing_tower_selected(tower: Tower):
 func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
 
+	upgrade_button_0.disabled = false
 	upgrade_button_0.set_upgrade_level(tower)
+
+	upgrade_button_1.disabled = false
 	upgrade_button_1.set_upgrade_level(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)

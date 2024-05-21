@@ -14,14 +14,13 @@ func set_upgrade_level(tower: Tower):
 	upgrade_level = tower.get_upgrade(upgrade_index)
 
 	if upgrade_level:
-		disabled = false
+		show()
 
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
 		description_text.text = upgrade_level.level_description
 	else:
-		# TODO: hide the button if there's no upgrade available?
-		disabled = true
+		hide()
 
 	description.hide()
 
@@ -40,6 +39,7 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	if not disabled:
+		# TODO: might want to see the info even if we can't afford it?
 		description.show()
 
 func _on_mouse_exited():
