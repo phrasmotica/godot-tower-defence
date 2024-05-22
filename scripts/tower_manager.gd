@@ -10,8 +10,11 @@ const default_z_index := 100
 const selected_z_index := 600
 
 signal selected_tower_changed(tower: Tower)
+signal tower_deselected
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
+
+signal tower_sold(sell_value: int)
 
 func next_tower():
     if all_towers.size() <= 0:
@@ -73,6 +76,23 @@ func try_upgrade(index: int):
 
     tower_upgrade_start.emit(selected_tower, next_level)
 
+func try_sell():
+    if not selected_tower:
+        print("Tower sell failed: no tower selected")
+        return
+
+    print("Selling tower")
+
+    unhighlight()
+
+    var sell_value = selected_tower.sell()
+
+    selected_tower = null
+
+    tower_deselected.emit()
+
+    tower_sold.emit(sell_value)
+
 func highlight():
     if selected_tower:
         selected_tower.z_index = selected_z_index
@@ -112,3 +132,6 @@ func _on_game_ui_previous_tower():
 
 func _on_game_ui_upgrade_tower(index: int):
     try_upgrade(index)
+
+func _on_game_ui_sell_tower():
+    try_sell()

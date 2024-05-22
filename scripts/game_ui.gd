@@ -27,7 +27,7 @@ signal upgrade_tower(index: int)
 
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
-signal tower_sold(sell_value: int)
+signal sell_tower
 
 var placing_tower: Tower:
 	set(value):
@@ -45,6 +45,8 @@ func _ready():
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if selected_tower:
+			# TODO: move this to tower manager script.
+			# There's already an appropriate event there
 			deselect()
 
 		if placing_tower:
@@ -57,7 +59,7 @@ func _process(_delta):
 		previous_tower.emit()
 
 	if Input.is_action_just_pressed("ui_text_delete"):
-		try_sell()
+		sell_tower.emit()
 
 func try_place(tower_scene: PackedScene):
 	placing_tower = tower_scene.instantiate()
@@ -122,22 +124,6 @@ func cancel_tower_creation():
 
 	tower_placing_cancelled.emit()
 
-func try_sell():
-	# TODO: move this into tower_manager.gd
-	if not selected_tower:
-		print("Tower sell failed: no tower selected")
-		return false
-
-	print("Selling tower")
-
-	var sell_value = selected_tower.sell()
-
-	tower_deselected.emit()
-
-	tower_sold.emit(sell_value)
-
-	return true
-
 func _on_start_game_start():
 	print("Enabling game UI process")
 	set_process(true)
@@ -164,7 +150,7 @@ func _on_waves_manager_wave_sent(wave_number: int):
 		wave_number_label.text = str(wave_number)
 
 func _on_sell_button_pressed():
-	try_sell()
+	sell_tower.emit()
 
 func _on_cancel_button_pressed():
 	placing_tower.queue_free()
@@ -195,11 +181,20 @@ func _on_towers_selected_tower_changed(tower: Tower):
 
 		game_tint.show()
 	else:
-		print("Hiding buttons")
-		upgrade_button_0.hide()
-		upgrade_button_1.hide()
-		sell_button.hide()
+		hide_ui()
 
 func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
 	upgrade_button_0.disabled = true
 	upgrade_button_1.disabled = true
+
+func _on_towers_tower_sold(_sell_value:int):
+	hide_ui()
+
+func hide_ui():
+	print("Hiding selected tower UI")
+
+	upgrade_button_0.hide()
+	upgrade_button_1.hide()
+	sell_button.hide()
+
+	game_tint.hide()
