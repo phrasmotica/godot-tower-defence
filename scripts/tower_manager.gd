@@ -1,5 +1,7 @@
 class_name TowerManager extends Node2D
 
+@onready var bank: BankManager = %BankManager
+
 var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
@@ -8,6 +10,8 @@ const default_z_index := 100
 const selected_z_index := 600
 
 signal selected_tower_changed(tower: Tower)
+
+signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 
 func next_tower():
     if all_towers.size() <= 0:
@@ -45,6 +49,30 @@ func previous_tower():
 
     highlight()
 
+func try_upgrade(index: int):
+    if not selected_tower:
+        print("Tower upgrade failed: no tower selected")
+        return
+
+    var next_level = selected_tower.get_upgrade(index)
+    if not next_level:
+        print("Tower upgrade failed: no more upgrades")
+        return
+
+    if selected_tower.is_upgrading():
+        print("Tower upgrade failed: already upgrading")
+        return
+
+    if not bank.can_afford(next_level.price):
+        print("Tower upgrade failed: cannot afford")
+        return
+
+    print("Upgrading tower")
+
+    selected_tower.upgrade(index)
+
+    tower_upgrade_start.emit(selected_tower, next_level)
+
 func highlight():
     if selected_tower:
         selected_tower.z_index = selected_z_index
@@ -81,3 +109,6 @@ func _on_game_ui_next_tower():
 
 func _on_game_ui_previous_tower():
     previous_tower()
+
+func _on_game_ui_upgrade_tower(index: int):
+    try_upgrade(index)

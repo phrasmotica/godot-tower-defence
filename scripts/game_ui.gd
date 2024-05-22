@@ -23,6 +23,8 @@ signal tower_deselected
 signal next_tower
 signal previous_tower
 
+signal upgrade_tower(index: int)
+
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
@@ -121,35 +123,6 @@ func cancel_tower_creation():
 
 	tower_placing_cancelled.emit()
 
-func try_upgrade(index: int):
-	# TODO: move this into tower_manager.gd
-	if not selected_tower:
-		print("Tower upgrade failed: no tower selected")
-		return false
-
-	var next_level = selected_tower.get_upgrade(index)
-	if not next_level:
-		print("Tower upgrade failed: no more upgrades")
-		return false
-
-	if selected_tower.is_upgrading():
-		print("Tower upgrade failed: already upgrading")
-		return false
-
-	if not bank.can_afford(next_level.price):
-		print("Tower upgrade failed: cannot afford")
-		return false
-
-	print("Upgrading tower")
-
-	upgrade_button_0.disabled = true
-	upgrade_button_1.disabled = true
-
-	selected_tower.upgrade(index)
-	tower_upgrade_start.emit(selected_tower, next_level)
-
-	return true
-
 func try_sell():
 	# TODO: move this into tower_manager.gd
 	if not selected_tower:
@@ -177,7 +150,7 @@ func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
 func _on_upgrade_button_upgrade_tower(index: int):
-	try_upgrade(index)
+	upgrade_tower.emit(index)
 
 func _on_bank_manager_money_changed(new_money:int):
 	if money_amount:
@@ -227,3 +200,7 @@ func _on_towers_selected_tower_changed(tower: Tower):
 		upgrade_button_0.hide()
 		upgrade_button_1.hide()
 		sell_button.hide()
+
+func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
+	upgrade_button_0.disabled = true
+	upgrade_button_1.disabled = true
