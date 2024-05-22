@@ -7,29 +7,43 @@ var selected_tower: Tower = null
 const default_z_index := 100
 const selected_z_index := 600
 
+signal selected_tower_changed(tower: Tower)
+
 func next_tower():
     if all_towers.size() <= 0:
-        return null
+        return
+
+    if all_towers.size() == 1 and selected_tower:
+        return
 
     print("Selecting next tower")
 
-    if not selected_tower:
-        return all_towers[selected_idx]
+    if selected_tower:
+        unhighlight()
+        selected_idx = (selected_idx + 1) % all_towers.size()
 
-    selected_idx = (selected_idx + 1) % all_towers.size()
     selected_tower = all_towers[selected_idx]
+    selected_tower_changed.emit(selected_tower)
+
+    highlight()
 
 func previous_tower():
     if all_towers.size() <= 0:
-        return null
+        return
+
+    if all_towers.size() == 1 and selected_tower:
+        return
 
     print("Selecting previous tower")
 
-    if not selected_tower:
-        return all_towers[selected_idx]
+    if selected_tower:
+        unhighlight()
+        selected_idx = (selected_idx - 1) % all_towers.size()
 
-    selected_idx = (selected_idx - 1) % all_towers.size()
     selected_tower = all_towers[selected_idx]
+    selected_tower_changed.emit(selected_tower)
+
+    highlight()
 
 func highlight():
     if selected_tower:
@@ -52,6 +66,7 @@ func _on_game_ui_tower_selected(tower: Tower):
     unhighlight()
 
     selected_tower = tower
+    selected_tower_changed.emit(selected_tower)
 
     highlight()
 
@@ -59,17 +74,10 @@ func _on_game_ui_tower_deselected():
     unhighlight()
 
     selected_tower = null
+    selected_tower_changed.emit(null)
 
 func _on_game_ui_next_tower():
-    unhighlight()
-
     next_tower()
 
-    highlight()
-
 func _on_game_ui_previous_tower():
-    unhighlight()
-
     previous_tower()
-
-    highlight()

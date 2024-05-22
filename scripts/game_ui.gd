@@ -33,32 +33,7 @@ var placing_tower: Tower:
 		placing_tower = value
 		cancel_button.visible = placing_tower != null
 
-var selected_tower: Tower:
-	set(value):
-		if selected_tower:
-			selected_tower.deselect()
-
-		selected_tower = value
-
-		if selected_tower:
-			selected_tower.select()
-
-			print("Showing buttons")
-
-			upgrade_button_0.show()
-			upgrade_button_0.set_upgrade_level(selected_tower)
-
-			upgrade_button_1.show()
-			upgrade_button_1.set_upgrade_level(selected_tower)
-
-			sell_button.show()
-
-			game_tint.show()
-		else:
-			print("Hiding buttons")
-			upgrade_button_0.hide()
-			upgrade_button_1.hide()
-			sell_button.hide()
+var selected_tower: Tower = null
 
 func _ready():
 	placing_tower = null
@@ -118,8 +93,6 @@ func _on_placing_tower_placed(tower: Tower):
 func _on_placing_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
 
-	selected_tower = tower
-
 	tower_selected.emit(tower)
 
 func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
@@ -136,8 +109,6 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 func deselect():
 	print("Deselecting tower")
 
-	selected_tower = null
-
 	game_tint.hide()
 
 	tower_deselected.emit()
@@ -151,6 +122,7 @@ func cancel_tower_creation():
 	tower_placing_cancelled.emit()
 
 func try_upgrade(index: int):
+	# TODO: move this into tower_manager.gd
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return false
@@ -179,6 +151,7 @@ func try_upgrade(index: int):
 	return true
 
 func try_sell():
+	# TODO: move this into tower_manager.gd
 	if not selected_tower:
 		print("Tower sell failed: no tower selected")
 		return false
@@ -186,8 +159,6 @@ func try_sell():
 	print("Selling tower")
 
 	var sell_value = selected_tower.sell()
-
-	selected_tower = null
 
 	tower_deselected.emit()
 
@@ -230,3 +201,29 @@ func _on_cancel_button_pressed():
 
 func stop_tower_creation():
 	placing_tower = null
+
+func _on_towers_selected_tower_changed(tower: Tower):
+	if selected_tower:
+		selected_tower.deselect()
+
+	selected_tower = tower
+
+	if selected_tower:
+		selected_tower.select()
+
+		print("Showing buttons")
+
+		upgrade_button_0.show()
+		upgrade_button_0.set_upgrade_level(selected_tower)
+
+		upgrade_button_1.show()
+		upgrade_button_1.set_upgrade_level(selected_tower)
+
+		sell_button.show()
+
+		game_tint.show()
+	else:
+		print("Hiding buttons")
+		upgrade_button_0.hide()
+		upgrade_button_1.hide()
+		sell_button.hide()
