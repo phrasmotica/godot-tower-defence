@@ -25,7 +25,6 @@ signal previous_tower
 
 signal upgrade_tower(index: int)
 
-signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal tower_sold(sell_value: int)
