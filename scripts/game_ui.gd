@@ -162,6 +162,7 @@ func stop_tower_creation():
 
 func _on_towers_selected_tower_changed(tower: Tower):
 	if selected_tower:
+		# BUG: error if last selected tower was since sold
 		selected_tower.deselect()
 
 	selected_tower = tower
