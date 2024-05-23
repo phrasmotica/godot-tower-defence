@@ -53,13 +53,14 @@ func previous_tower():
 	highlight()
 
 func try_deselect():
-	print("Deselecting tower")
+	if selected_tower:
+		print("Deselecting tower")
 
-	unhighlight()
+		unhighlight()
 
-	selected_tower = null
+		selected_tower = null
 
-	tower_deselected.emit()
+		tower_deselected.emit()
 
 func try_upgrade(index: int):
 	if not selected_tower:

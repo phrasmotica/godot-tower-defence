@@ -46,7 +46,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		try_deselect()
+		deselect_tower.emit()
 
 		if placing_tower:
 			cancel_tower_creation()
@@ -108,12 +108,6 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 
 	tower_upgrade_finish.emit(tower, next_level)
 
-func try_deselect():
-	if selected_tower:
-		game_tint.hide()
-
-		deselect_tower.emit()
-
 func cancel_tower_creation():
 	print("Cancelling tower creation")
 
@@ -166,6 +160,8 @@ func _on_towers_selected_tower_changed(tower: Tower):
 	handle_selected_tower_changed(tower)
 
 func _on_towers_tower_deselected():
+	game_tint.hide()
+
 	handle_selected_tower_changed(null)
 
 func _on_towers_tower_sold(_sell_value:int):
