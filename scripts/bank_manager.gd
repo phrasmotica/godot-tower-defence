@@ -28,8 +28,8 @@ func _on_path_waypoints_enemy_died(_enemy:Enemy):
 func _on_game_ui_tower_placed(tower: Tower):
 	current_money -= tower.price
 
-func _on_game_ui_tower_upgrade_start(_tower: Tower, next_level: TowerLevel):
+func _on_towers_tower_upgrade_start(_tower:Tower, next_level:TowerLevel):
 	current_money -= next_level.price
 
-func _on_game_ui_tower_sold(sell_value:int):
+func _on_towers_tower_sold(sell_value:int):
 	current_money += sell_value
