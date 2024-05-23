@@ -17,122 +17,121 @@ signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_sold(sell_value: int)
 
 func next_tower():
-    if all_towers.size() <= 0:
-        return
+	if all_towers.size() <= 0:
+		return
 
-    if all_towers.size() == 1 and selected_tower:
-        return
+	if all_towers.size() == 1 and selected_tower:
+		return
 
-    print("Selecting next tower")
+	print("Selecting next tower")
 
-    if selected_tower:
-        unhighlight()
-        selected_idx = (selected_idx + 1) % all_towers.size()
+	if selected_tower:
+		unhighlight()
+		selected_idx = (selected_idx + 1) % all_towers.size()
 
-    selected_tower = all_towers[selected_idx]
-    selected_tower_changed.emit(selected_tower)
+	selected_tower = all_towers[selected_idx]
+	selected_tower_changed.emit(selected_tower)
 
-    highlight()
+	highlight()
 
 func previous_tower():
-    if all_towers.size() <= 0:
-        return
+	if all_towers.size() <= 0:
+		return
 
-    if all_towers.size() == 1 and selected_tower:
-        return
+	if all_towers.size() == 1 and selected_tower:
+		return
 
-    print("Selecting previous tower")
+	print("Selecting previous tower")
 
-    if selected_tower:
-        unhighlight()
-        selected_idx = (selected_idx - 1) % all_towers.size()
+	if selected_tower:
+		unhighlight()
+		selected_idx = (selected_idx - 1) % all_towers.size()
 
-    selected_tower = all_towers[selected_idx]
-    selected_tower_changed.emit(selected_tower)
+	selected_tower = all_towers[selected_idx]
+	selected_tower_changed.emit(selected_tower)
 
-    highlight()
+	highlight()
 
 func try_upgrade(index: int):
-    if not selected_tower:
-        print("Tower upgrade failed: no tower selected")
-        return
+	if not selected_tower:
+		print("Tower upgrade failed: no tower selected")
+		return
 
-    var next_level = selected_tower.get_upgrade(index)
-    if not next_level:
-        print("Tower upgrade failed: no more upgrades")
-        return
+	var next_level = selected_tower.get_upgrade(index)
+	if not next_level:
+		print("Tower upgrade failed: no more upgrades")
+		return
 
-    if selected_tower.is_upgrading():
-        print("Tower upgrade failed: already upgrading")
-        return
+	if selected_tower.is_upgrading():
+		print("Tower upgrade failed: already upgrading")
+		return
 
-    if not bank.can_afford(next_level.price):
-        print("Tower upgrade failed: cannot afford")
-        return
+	if not bank.can_afford(next_level.price):
+		print("Tower upgrade failed: cannot afford")
+		return
 
-    print("Upgrading tower")
+	print("Upgrading tower")
 
-    selected_tower.upgrade(index)
+	selected_tower.upgrade(index)
 
-    tower_upgrade_start.emit(selected_tower, next_level)
+	tower_upgrade_start.emit(selected_tower, next_level)
 
 func try_sell():
-    if not selected_tower:
-        print("Tower sell failed: no tower selected")
-        return
+	if not selected_tower:
+		print("Tower sell failed: no tower selected")
+		return
 
-    print("Selling tower")
+	print("Selling tower")
 
-    unhighlight()
+	unhighlight()
 
-    var sell_value = selected_tower.sell()
+	var sell_value = selected_tower.sell()
 
-    all_towers.remove_at(selected_idx)
-    selected_tower = null
+	selected_tower = null
 
-    tower_deselected.emit()
+	tower_deselected.emit()
 
-    tower_sold.emit(sell_value)
+	tower_sold.emit(sell_value)
 
 func highlight():
-    if selected_tower:
-        selected_tower.z_index = selected_z_index
+	if selected_tower:
+		selected_tower.z_index = selected_z_index
 
 func unhighlight():
-    if selected_tower:
-        selected_tower.z_index = default_z_index
+	if selected_tower:
+		selected_tower.z_index = default_z_index
 
 func _on_game_ui_tower_placed(tower: Tower):
-    # ensure the tower is not part of the UI anymore
-    tower.reparent(self, true)
+	# ensure the tower is not part of the UI anymore
+	tower.reparent(self, true)
 
-    tower.on_warmed_up.connect(
-        func(t, _first_level):
-            all_towers.append(t)
-    )
+	tower.on_warmed_up.connect(
+		func(t, _first_level):
+			all_towers.append(t)
+	)
 
 func _on_game_ui_tower_selected(tower: Tower):
-    unhighlight()
+	unhighlight()
 
-    selected_tower = tower
-    selected_tower_changed.emit(selected_tower)
+	selected_tower = tower
+	selected_tower_changed.emit(selected_tower)
 
-    highlight()
+	highlight()
 
 func _on_game_ui_tower_deselected():
-    unhighlight()
+	unhighlight()
 
-    selected_tower = null
-    selected_tower_changed.emit(null)
+	selected_tower = null
+	selected_tower_changed.emit(null)
 
 func _on_game_ui_next_tower():
-    next_tower()
+	next_tower()
 
 func _on_game_ui_previous_tower():
-    previous_tower()
+	previous_tower()
 
 func _on_game_ui_upgrade_tower(index: int):
-    try_upgrade(index)
+	try_upgrade(index)
 
 func _on_game_ui_sell_tower():
-    try_sell()
+	try_sell()
