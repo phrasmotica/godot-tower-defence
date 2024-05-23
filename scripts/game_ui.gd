@@ -34,11 +34,8 @@ var placing_tower: Tower:
 		placing_tower = value
 		cancel_button.visible = placing_tower != null
 
-var selected_tower: Tower = null
-
 func _ready():
 	placing_tower = null
-	selected_tower = null
 
 	hide_ui()
 
@@ -165,26 +162,19 @@ func _on_towers_tower_deselected():
 	handle_selected_tower_changed(null)
 
 func _on_towers_tower_sold(_sell_value:int):
-	selected_tower = null
-
 	hide_ui()
 
 func handle_selected_tower_changed(tower: Tower):
-	if selected_tower:
-		selected_tower.deselect()
-
-	selected_tower = tower
-
-	if selected_tower:
-		selected_tower.select()
+	if tower:
+		tower.select()
 
 		print("Showing buttons")
 
 		upgrade_button_0.show()
-		upgrade_button_0.set_upgrade_level(selected_tower)
+		upgrade_button_0.set_upgrade_level(tower)
 
 		upgrade_button_1.show()
-		upgrade_button_1.set_upgrade_level(selected_tower)
+		upgrade_button_1.set_upgrade_level(tower)
 
 		sell_button.show()
 

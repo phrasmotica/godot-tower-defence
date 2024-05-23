@@ -26,13 +26,10 @@ func next_tower():
 	print("Selecting next tower")
 
 	if selected_tower:
-		unhighlight()
 		selected_idx = (selected_idx + 1) % all_towers.size()
 
-	selected_tower = all_towers[selected_idx]
-	selected_tower_changed.emit(selected_tower)
-
-	highlight()
+	var new_tower = all_towers[selected_idx]
+	select_tower(new_tower)
 
 func previous_tower():
 	if all_towers.size() <= 0:
@@ -44,23 +41,21 @@ func previous_tower():
 	print("Selecting previous tower")
 
 	if selected_tower:
-		unhighlight()
 		selected_idx = (selected_idx - 1) % all_towers.size()
 
-	selected_tower = all_towers[selected_idx]
-	selected_tower_changed.emit(selected_tower)
+	var new_tower = all_towers[selected_idx]
+	select_tower(new_tower)
 
-	highlight()
+func deselect_tower():
+	if selected_tower == null:
+		print("No tower is selected!")
+		return
 
-func try_deselect():
-	if selected_tower:
-		print("Deselecting tower")
+	unhighlight()
+	selected_tower.deselect()
+	selected_tower = null
 
-		unhighlight()
-
-		selected_tower = null
-
-		tower_deselected.emit()
+	tower_deselected.emit()
 
 func try_upgrade(index: int):
 	if not selected_tower:
@@ -93,13 +88,9 @@ func try_sell():
 
 	print("Selling tower")
 
-	unhighlight()
-
 	var sell_value = selected_tower.sell()
 
-	selected_tower = null
-
-	tower_deselected.emit()
+	deselect_tower()
 
 	tower_sold.emit(sell_value)
 
@@ -110,6 +101,23 @@ func highlight():
 func unhighlight():
 	if selected_tower:
 		selected_tower.z_index = default_z_index
+
+func select_tower(tower: Tower):
+	if tower == selected_tower:
+		print("This tower is already selected!")
+		return
+
+	if selected_tower:
+		unhighlight()
+		selected_tower.deselect()
+
+	selected_tower = tower
+
+	if selected_tower:
+		selected_tower.select()
+		highlight()
+
+	selected_tower_changed.emit(selected_tower)
 
 func _on_game_ui_tower_placed(tower: Tower):
 	# ensure the tower is not part of the UI anymore
@@ -123,16 +131,14 @@ func _on_game_ui_tower_placed(tower: Tower):
 func _on_game_ui_tower_selected(tower: Tower):
 	unhighlight()
 
-	selected_tower = tower
-	selected_tower_changed.emit(selected_tower)
+	select_tower(tower)
 
 	highlight()
 
 func _on_game_ui_tower_deselected():
 	unhighlight()
 
-	selected_tower = null
-	selected_tower_changed.emit(null)
+	select_tower(null)
 
 func _on_game_ui_next_tower():
 	next_tower()
@@ -144,7 +150,7 @@ func _on_game_ui_upgrade_tower(index: int):
 	try_upgrade(index)
 
 func _on_game_ui_deselect_tower():
-	try_deselect()
+	deselect_tower()
 
 func _on_game_ui_sell_tower():
 	try_sell()
