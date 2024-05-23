@@ -18,10 +18,10 @@ signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
-signal tower_deselected
 
 signal next_tower
 signal previous_tower
+signal deselect_tower
 
 signal upgrade_tower(index: int)
 
@@ -46,10 +46,7 @@ func _ready():
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		if selected_tower:
-			# TODO: move this to tower manager script.
-			# There's already an appropriate event there
-			deselect()
+		try_deselect()
 
 		if placing_tower:
 			cancel_tower_creation()
@@ -111,12 +108,11 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 
 	tower_upgrade_finish.emit(tower, next_level)
 
-func deselect():
-	print("Deselecting tower")
+func try_deselect():
+	if selected_tower:
+		game_tint.hide()
 
-	game_tint.hide()
-
-	tower_deselected.emit()
+		deselect_tower.emit()
 
 func cancel_tower_creation():
 	print("Cancelling tower creation")
@@ -162,7 +158,22 @@ func _on_cancel_button_pressed():
 func stop_tower_creation():
 	placing_tower = null
 
+func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
+	upgrade_button_0.disabled = true
+	upgrade_button_1.disabled = true
+
 func _on_towers_selected_tower_changed(tower: Tower):
+	handle_selected_tower_changed(tower)
+
+func _on_towers_tower_deselected():
+	handle_selected_tower_changed(null)
+
+func _on_towers_tower_sold(_sell_value:int):
+	selected_tower = null
+
+	hide_ui()
+
+func handle_selected_tower_changed(tower: Tower):
 	if selected_tower:
 		selected_tower.deselect()
 
@@ -184,15 +195,6 @@ func _on_towers_selected_tower_changed(tower: Tower):
 		game_tint.show()
 	else:
 		hide_ui()
-
-func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
-	upgrade_button_0.disabled = true
-	upgrade_button_1.disabled = true
-
-func _on_towers_tower_sold(_sell_value:int):
-	selected_tower = null
-
-	hide_ui()
 
 func hide_ui():
 	print("Hiding selected tower UI")

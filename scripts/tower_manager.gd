@@ -52,6 +52,15 @@ func previous_tower():
 
 	highlight()
 
+func try_deselect():
+	print("Deselecting tower")
+
+	unhighlight()
+
+	selected_tower = null
+
+	tower_deselected.emit()
+
 func try_upgrade(index: int):
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
@@ -132,6 +141,9 @@ func _on_game_ui_previous_tower():
 
 func _on_game_ui_upgrade_tower(index: int):
 	try_upgrade(index)
+
+func _on_game_ui_deselect_tower():
+	try_deselect()
 
 func _on_game_ui_sell_tower():
 	try_sell()
