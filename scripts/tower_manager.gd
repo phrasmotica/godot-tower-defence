@@ -90,6 +90,7 @@ func try_sell():
 
 	var sell_value = selected_tower.sell()
 
+	all_towers.remove_at(selected_idx)
 	deselect_tower()
 
 	tower_sold.emit(sell_value)
