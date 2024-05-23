@@ -21,6 +21,7 @@ var price: int = 1
 
 var path: Path
 var tower_mode = TowerMode.PLACING
+var just_placed := false
 var is_selected = false
 var is_valid_location = false
 
@@ -161,17 +162,24 @@ func adjust_range(projectile_range: int):
 
 	levels_node.adjust_range(projectile_range)
 
-func _on_collision_area_mouse_entered():
+func _on_detect_mouse_mouse_entered():
 	if not is_placing():
 		range_node.show()
 
-func _on_collision_area_mouse_exited():
-	if not is_placing() and not is_selected:
+func _on_detect_mouse_mouse_exited():
+	# this fires before mouse_entered after we have just placed the tower,
+	# so make sure we don't hide the range right after placing the tower
+	if not is_placing() and not just_placed and not is_selected:
 		range_node.hide()
 
-func _on_collision_area_input_event(_viewport:Node, event:InputEvent, _shape_idx:int):
+	if just_placed:
+		just_placed = false
+
+func _on_detect_mouse_gui_input(event: InputEvent):
 	if event.is_pressed():
 		if can_be_placed():
+			just_placed = true
+
 			set_warming_up()
 			on_placed.emit(self)
 
