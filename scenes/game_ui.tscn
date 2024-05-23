@@ -101,6 +101,16 @@ icon = ExtResource("4_ydxgj")
 tower = ExtResource("5_0g4vg")
 action_name = &"tower_2"
 
+[node name="TowerNameLabel" type="Label" parent="ColorRect"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 460.0
+offset_right = 300.0
+offset_bottom = 520.0
+theme_override_font_sizes/font_size = 32
+text = "Tower Name"
+vertical_alignment = 1
+
 [node name="SelectedTowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
 offset_right = 40.0

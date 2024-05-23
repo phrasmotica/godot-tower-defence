@@ -8,6 +8,7 @@ class_name GameUI extends Control
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
+@onready var tower_name_label: Label = $ColorRect/TowerNameLabel
 @onready var upgrade_button_0: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton0
 @onready var upgrade_button_1: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton1
 @onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
@@ -157,8 +158,6 @@ func _on_towers_selected_tower_changed(tower: Tower):
 	handle_selected_tower_changed(tower)
 
 func _on_towers_tower_deselected():
-	game_tint.hide()
-
 	handle_selected_tower_changed(null)
 
 func _on_towers_tower_sold(_sell_value:int):
@@ -166,24 +165,29 @@ func _on_towers_tower_sold(_sell_value:int):
 
 func handle_selected_tower_changed(tower: Tower):
 	if tower:
-		tower.select()
-
-		print("Showing buttons")
-
-		upgrade_button_0.show()
-		upgrade_button_0.set_upgrade_level(tower)
-
-		upgrade_button_1.show()
-		upgrade_button_1.set_upgrade_level(tower)
-
-		sell_button.show()
-
-		game_tint.show()
+		show_ui(tower)
 	else:
 		hide_ui()
 
+func show_ui(tower: Tower):
+	print("Showing selected tower UI")
+
+	tower_name_label.text = tower.tower_name
+
+	upgrade_button_0.show()
+	upgrade_button_0.set_upgrade_level(tower)
+
+	upgrade_button_1.show()
+	upgrade_button_1.set_upgrade_level(tower)
+
+	sell_button.show()
+
+	game_tint.show()
+
 func hide_ui():
 	print("Hiding selected tower UI")
+
+	tower_name_label.text = ""
 
 	upgrade_button_0.hide()
 	upgrade_button_1.hide()
