@@ -68,7 +68,6 @@ func get_upgrade(index: int):
 
 func should_shoot():
 	if firing_line.enabled:
-		# BUG: this returns true if there's another tower in the firing line
 		return firing_line.is_colliding()
 
 	return false

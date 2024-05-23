@@ -338,7 +338,9 @@ collide_with_areas = true
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
 visible = false
+collision_layer = 16
 monitoring = false
+monitorable = false
 
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
