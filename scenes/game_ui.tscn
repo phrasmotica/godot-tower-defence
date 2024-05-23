@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=8 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="2_86mwy"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
 [ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/slow_tower.tscn" id="5_0g4vg"]
 [ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/upgrade_tower_button.tscn" id="6_ork4b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
+size = Vector2(280, 60)
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -154,11 +157,19 @@ offset_right = 300.0
 offset_bottom = 700.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 24
-text = "Cancel"
+text = "Move here to cancel"
+
+[node name="CancelArea" type="Area2D" parent="ColorRect/CancelButton"]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColorRect/CancelButton/CancelArea"]
+position = Vector2(140, 30)
+shape = SubResource("RectangleShape2D_b1ksy")
 
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
-[connection signal="pressed" from="ColorRect/CancelButton" to="." method="_on_cancel_button_pressed"]
+[connection signal="area_entered" from="ColorRect/CancelButton/CancelArea" to="." method="_on_cancel_area_area_entered"]

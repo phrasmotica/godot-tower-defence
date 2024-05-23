@@ -142,7 +142,7 @@ func _on_waves_manager_wave_sent(wave_number: int):
 func _on_sell_button_pressed():
 	sell_tower.emit()
 
-func _on_cancel_button_pressed():
+func _on_cancel_area_area_entered(_area:Area2D):
 	placing_tower.queue_free()
 
 	stop_tower_creation()

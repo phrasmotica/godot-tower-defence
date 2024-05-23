@@ -66,6 +66,7 @@ previous_tower={
 2d_physics/layer_2="Projectiles"
 2d_physics/layer_3="Towers; path area"
 2d_physics/layer_5="Tower effect areas"
+2d_physics/layer_6="Game UI"
 
 [rendering]
 
