@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
 
 [node name="UpgradeTowerButton" type="Button"]
+offset_top = 20.0
 offset_right = 180.0
 offset_bottom = 80.0
 focus_mode = 0
@@ -20,14 +21,14 @@ offset_bottom = 80.0
 [node name="Background" type="ColorRect" parent="TowerDescription"]
 layout_mode = 0
 offset_right = 200.0
-offset_bottom = 80.0
+offset_bottom = 60.0
 color = Color(0.235294, 0.329412, 0.462745, 0.784314)
 
 [node name="Label" type="Label" parent="TowerDescription"]
 layout_mode = 0
 offset_left = 5.0
 offset_right = 195.0
-offset_bottom = 80.0
+offset_bottom = 60.0
 theme_override_font_sizes/font_size = 16
 text = "Upgrade description goes here, and will be altered by whichever tower the button is for."
 autowrap_mode = 2

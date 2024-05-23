@@ -104,9 +104,9 @@ action_name = &"tower_2"
 [node name="TowerNameLabel" type="Label" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 460.0
+offset_top = 500.0
 offset_right = 300.0
-offset_bottom = 520.0
+offset_bottom = 560.0
 theme_override_font_sizes/font_size = 32
 text = "Tower Name"
 vertical_alignment = 1
@@ -119,16 +119,16 @@ offset_bottom = 40.0
 [node name="UpgradeButton0" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 520.0
+offset_top = 560.0
 offset_right = 200.0
-offset_bottom = 600.0
+offset_bottom = 620.0
 text = "Upgrade 0"
 action_name = &"tower_upgrade_0"
 
 [node name="UpgradeButton1" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 620.0
+offset_top = 640.0
 offset_right = 200.0
 offset_bottom = 700.0
 text = "Upgrade 1"
@@ -138,7 +138,7 @@ upgrade_index = 1
 [node name="SellButton" type="Button" parent="ColorRect/SelectedTowerButtons"]
 layout_mode = 0
 offset_left = 220.0
-offset_top = 620.0
+offset_top = 640.0
 offset_right = 300.0
 offset_bottom = 700.0
 focus_mode = 0
@@ -149,11 +149,11 @@ text = "Sell"
 visible = false
 layout_mode = 0
 offset_left = 20.0
-offset_top = 620.0
+offset_top = 640.0
 offset_right = 300.0
 offset_bottom = 700.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 24
 text = "Cancel"
 
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
