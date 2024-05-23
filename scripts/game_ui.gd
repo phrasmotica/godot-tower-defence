@@ -40,6 +40,8 @@ func _ready():
 	placing_tower = null
 	selected_tower = null
 
+	hide_ui()
+
 	set_process(false)
 
 func _process(_delta):
