@@ -104,6 +104,15 @@ icon = ExtResource("4_ydxgj")
 tower = ExtResource("5_0g4vg")
 action_name = &"tower_2"
 
+[node name="CannonTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
+layout_mode = 0
+offset_left = 220.0
+offset_top = 200.0
+offset_right = 300.0
+offset_bottom = 280.0
+icon = null
+action_name = &"tower_3"
+
 [node name="TowerNameLabel" type="Label" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
@@ -169,6 +178,7 @@ shape = SubResource("RectangleShape2D_b1ksy")
 
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
+[connection signal="create_tower" from="ColorRect/TowerButtons/CannonTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
