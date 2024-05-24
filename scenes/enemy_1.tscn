@@ -93,7 +93,7 @@ _data = {
 "slow": SubResource("Animation_4vyub")
 }
 
-[node name="Enemy1" type="PathFollow2D"]
+[node name="Enemy1" type="PathFollow2D" groups=["enemies"]]
 rotates = false
 loop = false
 script = ExtResource("1_mx3jq")

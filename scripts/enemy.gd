@@ -27,11 +27,19 @@ func move(delta):
 	else:
 		reached_end.emit(self)
 
-func get_neighbour(max_distance_px: float) -> Enemy:
+func get_neighbours(max_distance_px: float):
 	var enemies = get_tree().get_nodes_in_group("enemies")
 	enemies.erase(self)
 
-	var nearby_enemies = enemies.filter(func(e): return global_position.distance_to(e.global_position) <= max_distance_px)
+	if enemies.size() <= 0:
+		return []
+
+	var neighbours = enemies.filter(func(e): return global_position.distance_to(e.global_position) <= max_distance_px)
+
+	return neighbours
+
+func get_neighbour(max_distance_px: float) -> Enemy:
+	var nearby_enemies = get_neighbours(max_distance_px)
 	if nearby_enemies.size() <= 0:
 		return null
 
@@ -58,6 +66,13 @@ func end_slow():
 	is_slowed = false
 
 func _on_collision_area_body_entered(body: Projectile):
+	handle_strike(body, true)
+
+func handle_aoe(body: Projectile):
+	# body has triggered this call so we don't want infinite recursion
+	handle_strike(body, false)
+
+func handle_strike(body: Projectile, propagate: bool):
 	hit.emit(body)
 
 	var new_health = stats.take_damage(body.damage)
@@ -69,4 +84,5 @@ func _on_collision_area_body_entered(body: Projectile):
 	if new_health <= 0:
 		die.emit(self)
 
-	body.handle_collision(self)
+	if propagate:
+		body.handle_collision(self)

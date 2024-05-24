@@ -124,6 +124,9 @@ func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
 func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
+func _on_cannon_tower_button_create_tower(tower_scene:PackedScene):
+	try_place(tower_scene)
+
 func _on_upgrade_button_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
