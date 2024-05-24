@@ -345,6 +345,7 @@ sprite_frames = SubResource("SpriteFrames_0svqt")
 [node name="Stats" parent="Levels/Level0" index="1"]
 projectile = ExtResource("11_m47vg")
 damage = 3
+projectile_knockback = 80.0
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
 stats_enabled = false

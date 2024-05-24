@@ -60,6 +60,7 @@ func try_create_projectile():
 	projectile.damage = stats.damage
 	projectile.effective_range = stats.projectile_range
 	projectile.speed = stats.projectile_speed
+	projectile.knockback = stats.projectile_knockback
 
 	created_projectile.emit(projectile)
 

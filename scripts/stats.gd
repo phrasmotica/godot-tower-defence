@@ -20,3 +20,8 @@ var projectile_range: int = 3
 
 @export_range(5, 30)
 var projectile_speed: int = 10
+
+## The amount by which the struck enemy's movement speed should be reduced by
+## (0 = no reduction, 100 = completely stop the enemy)
+@export_range(0.0, 100.0)
+var projectile_knockback := 0.0

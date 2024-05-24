@@ -2,6 +2,7 @@ class_name Projectile extends Node2D
 
 var damage := 1
 var speed := 10
+var knockback := 0.0
 
 var direction: Vector2
 var start_position: Vector2

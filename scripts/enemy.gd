@@ -76,10 +76,11 @@ func _on_collision_area_body_entered(body: Projectile):
 	handle_strike(body, true)
 
 func handle_aoe(body: Projectile):
-	# body has triggered this call so we don't want infinite recursion
-	handle_strike(body, false)
+	# gentler knockback for an indirect hit. Also don't re-trigger the
+	# projectile's collision handler
+	handle_strike(body, false, 0.5)
 
-func handle_strike(body: Projectile, propagate: bool):
+func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 	hit.emit(body)
 
 	var new_health = stats.take_damage(body.damage)
@@ -90,6 +91,11 @@ func handle_strike(body: Projectile, propagate: bool):
 
 	if new_health <= 0:
 		die.emit(self)
+
+	if knockback_mult > 0:
+		var knockback_factor = body.knockback * knockback_mult
+		print("Knocking enemy back by factor of " + str(knockback_factor))
+		current_speed = current_speed * (1 - (knockback_factor / 100.0))
 
 	if propagate:
 		body.handle_collision(self)
