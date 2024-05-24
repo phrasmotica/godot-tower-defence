@@ -25,7 +25,6 @@ size = Vector2(25, 12)
 [node name="Cannonball" type="StaticBody2D" node_paths=PackedStringArray("explosion")]
 collision_layer = 2
 script = ExtResource("1_o16qq")
-area_radius = null
 explosion = NodePath("Explosion")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]

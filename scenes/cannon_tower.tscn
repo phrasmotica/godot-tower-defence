@@ -336,7 +336,8 @@ monitorable = false
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
 
-[node name="Level0" parent="Levels" instance=ExtResource("6_1fwj3")]
+[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("6_1fwj3")]
+upgrades = [NodePath("Level1")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
@@ -345,9 +346,28 @@ sprite_frames = SubResource("SpriteFrames_0svqt")
 [node name="Stats" parent="Levels/Level0" index="1"]
 projectile = ExtResource("11_m47vg")
 damage = 3
+rotate_speed = 2
 projectile_knockback = 80.0
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
+stats_enabled = false
+
+[node name="Level1" parent="Levels/Level0" instance=ExtResource("6_1fwj3")]
+visible = false
+
+[node name="Sprite" parent="Levels/Level0/Level1" index="0"]
+modulate = Color(1, 0, 0, 1)
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_0svqt")
+
+[node name="Stats" parent="Levels/Level0/Level1" index="1"]
+projectile = ExtResource("11_m47vg")
+damage = 3
+rotate_speed = 2
+projectile_range = 5
+projectile_knockback = 80.0
+
+[node name="EffectStats" parent="Levels/Level0/Level1" index="2"]
 stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
@@ -369,3 +389,4 @@ libraries = {
 [connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
 
 [editable path="Levels/Level0"]
+[editable path="Levels/Level0/Level1"]

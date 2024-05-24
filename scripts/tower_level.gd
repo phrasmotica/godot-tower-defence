@@ -35,6 +35,9 @@ func get_upgrade(path: Array[int], index: int) -> TowerLevel:
 		if upgrades.size() <= 0:
 			return null
 
+		if upgrades.size() <= index:
+			return null
+
 		return upgrades[index]
 
 	return upgrades[path[0]].get_upgrade(path.slice(1), index)
