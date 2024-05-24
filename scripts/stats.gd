@@ -9,8 +9,8 @@ var projectile: PackedScene
 @export_range(1, 3)
 var damage: int = 1
 
-@export_range(1, 10)
-var fire_rate: int = 1
+@export_range(0.1, 10)
+var fire_rate := 1.0
 
 @export_range(1, 10)
 var rotate_speed: int = 3
