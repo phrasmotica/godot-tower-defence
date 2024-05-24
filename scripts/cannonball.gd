@@ -6,12 +6,12 @@ class_name Cannonball extends Projectile
 var area_radius := 3
 
 func handle_collision(enemy: Enemy):
-	var neighbours := enemy.get_neighbours(100 * area_radius)
+	var neighbours = enemy.get_neighbours(100 * area_radius)
 
 	print("Affecting " + str(neighbours.size()) + " neighbour(s) in radius " + str(area_radius))
 
 	for e in neighbours:
-		e.handle_aoe(self)
+		(e as Enemy).handle_aoe(self)
 
 	print("Freeing after collision with " + enemy.name)
 	queue_free()
