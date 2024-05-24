@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d04f2klaib01w"]
+[gd_scene load_steps=7 format=3 uid="uid://d04f2klaib01w"]
 
 [ext_resource type="Script" path="res://scripts/cannonball.gd" id="1_o16qq"]
 [ext_resource type="Texture2D" uid="uid://dco13fcvhkn8n" path="res://assets/sprites/bomb.png" id="2_003oa"]
+[ext_resource type="PackedScene" uid="uid://c53efmy8mksei" path="res://scenes/explosion.tscn" id="3_c5tgk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8s53h"]
 atlas = ExtResource("2_003oa")
@@ -21,9 +22,11 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i3qb3"]
 size = Vector2(25, 12)
 
-[node name="Cannonball" type="StaticBody2D"]
+[node name="Cannonball" type="StaticBody2D" node_paths=PackedStringArray("explosion")]
 collision_layer = 2
 script = ExtResource("1_o16qq")
+area_radius = null
+explosion = NodePath("Explosion")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.4, 0.4)
@@ -33,3 +36,7 @@ frame_progress = 0.239812
 [node name="Collider" type="CollisionShape2D" parent="."]
 position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_i3qb3")
+
+[node name="Explosion" parent="." instance=ExtResource("3_c5tgk")]
+visible = false
+scale = Vector2(0.75, 0.75)

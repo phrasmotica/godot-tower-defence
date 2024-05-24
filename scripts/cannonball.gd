@@ -5,7 +5,17 @@ class_name Cannonball extends Projectile
 @export_range(3, 6)
 var area_radius := 3
 
+@export
+var explosion: Explosion = null
+
+@onready var sprite: AnimatedSprite2D = $Sprite
+@onready var collider: CollisionShape2D = $Collider
+
 func handle_collision(enemy: Enemy):
+	if explosion:
+		explosion.show()
+		explosion.explode()
+
 	var neighbours = enemy.get_neighbours(100 * area_radius)
 
 	print("Affecting " + str(neighbours.size()) + " neighbour(s) in radius " + str(area_radius))
@@ -13,5 +23,5 @@ func handle_collision(enemy: Enemy):
 	for e in neighbours:
 		(e as Enemy).handle_aoe(self)
 
-	print("Freeing after collision with " + enemy.name)
-	queue_free()
+	sprite.hide()
+	collider.set_deferred("disabled", true)
