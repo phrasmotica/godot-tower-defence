@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=27 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
@@ -11,7 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
 [ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
-[ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/cannonball.tscn" id="11_wh3qa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
@@ -355,7 +354,7 @@ monitorable = false
 shape = SubResource("CircleShape2D_yqvqw")
 
 [node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
-upgrades = [NodePath("Level00"), NodePath("Level02")]
+upgrades = [NodePath("Level00"), NodePath("Level01")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
@@ -406,22 +405,6 @@ projectile_speed = 20
 [node name="EffectStats" parent="Levels/Level0/Level01" index="2"]
 stats_enabled = false
 
-[node name="Level02" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
-visible = false
-level_description = "Shoots cannonballs, which affect a large area."
-price = 4
-
-[node name="Sprite" parent="Levels/Level0/Level02" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_rpdrq")
-
-[node name="Stats" parent="Levels/Level0/Level02" index="1"]
-projectile = ExtResource("11_wh3qa")
-damage = 3
-
-[node name="EffectStats" parent="Levels/Level0/Level02" index="2"]
-stats_enabled = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
 libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
@@ -443,4 +426,3 @@ libraries = {
 [editable path="Levels/Level0"]
 [editable path="Levels/Level0/Level00"]
 [editable path="Levels/Level0/Level01"]
-[editable path="Levels/Level0/Level02"]
