@@ -8,6 +8,7 @@ var movement_speed: int = 150
 @onready var stats: EnemyStats = $Stats
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+var current_speed := 0.0
 var is_slowed := false
 
 signal hit(body:Node2D)
@@ -22,10 +23,16 @@ func _process(delta):
 	move(delta)
 
 func move(delta):
+	accelerate(delta)
+
 	if progress_ratio < 1.0:
-		progress += movement_speed * delta
+		progress += current_speed * delta
 	else:
 		reached_end.emit(self)
+
+func accelerate(delta):
+	if current_speed < movement_speed:
+		current_speed = move_toward(current_speed, movement_speed, delta * movement_speed)
 
 func get_neighbours(max_distance_px: float):
 	var enemies = get_tree().get_nodes_in_group("enemies")
