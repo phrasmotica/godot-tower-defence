@@ -17,6 +17,7 @@ signal upgraded(new_level: TowerLevel)
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
+signal created_bolt
 
 func start_warmup():
 	animation_player.play("warmup")
@@ -24,6 +25,7 @@ func start_warmup():
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
+	base_level.created_bolt.connect(_on_level_created_bolt)
 
 	warmed_up.emit(base_level)
 
@@ -60,6 +62,7 @@ func upgrade_finished():
 
 	new_level.created_projectile.connect(_on_level_created_projectile)
 	new_level.created_effect.connect(_on_level_created_effect)
+	new_level.created_bolt.connect(_on_level_created_bolt)
 
 	upgraded.emit(new_level)
 
@@ -112,3 +115,8 @@ func _on_level_created_effect(effect: Effect):
 	print("Processing effect")
 
 	created_effect.emit(effect)
+
+func _on_level_created_bolt():
+	print("Processing bolt")
+
+	created_bolt.emit()

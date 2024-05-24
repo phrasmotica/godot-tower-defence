@@ -6,7 +6,7 @@ var stats_enabled := true
 @export
 var projectile: PackedScene
 
-@export_range(1, 3)
+@export_range(1, 5)
 var damage: int = 1
 
 @export_range(0.1, 10)

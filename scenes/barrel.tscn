@@ -9,5 +9,8 @@ script = ExtResource("1_ory0v")
 
 [node name="PulseTimer" type="Timer" parent="."]
 
+[node name="BoltTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="PulseTimer" to="." method="_on_pulse_timer_timeout"]
+[connection signal="timeout" from="BoltTimer" to="." method="_on_bolt_timer_timeout"]
