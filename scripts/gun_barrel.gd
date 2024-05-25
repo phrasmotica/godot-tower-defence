@@ -39,6 +39,9 @@ func start_bolt_timer(level: TowerLevel):
 	bolt_timer.wait_time = 1.0 / level.get_fire_rate()
 	bolt_timer.start()
 
+# TODO: stop barrel if there are no enemies in range after the next timeout.
+# Resume it once enemies come back in range, immediately firing it if enough
+# time has passed since it was stopped
 func pause():
 	if enable_shoot:
 		shoot_timer.stop()
