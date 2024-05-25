@@ -80,8 +80,11 @@ func handle_aoe(body: Projectile):
 	# projectile's collision handler
 	handle_strike(body, false, 0.5)
 
-func handle_bolt(damage: int):
-	handle_damage(damage)
+func handle_bolt(bolt_stats: TowerLevelStats):
+	# TODO: emit some variant of the hit signal?
+
+	handle_damage(bolt_stats.damage)
+	handle_knockback(bolt_stats.projectile_knockback)
 
 func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 	hit.emit(body)
@@ -102,7 +105,7 @@ func handle_damage(amount: int):
 	animation_player.stop()
 	animation_player.play("peek_health")
 
-func handle_knockback(amount: float, mult):
+func handle_knockback(amount: float, mult := 1.0):
 	if mult > 0:
 		var knockback_factor = amount * mult
 		print("Knocking enemy back by factor of " + str(knockback_factor))

@@ -120,9 +120,9 @@ func _on_level_created_effect(effect: Effect):
 
 	created_effect.emit(effect)
 
-func _on_level_created_bolt():
+func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	print("Processing bolt")
 
-	firing_line.fire()
+	firing_line.fire(bolt_stats)
 
 	created_bolt.emit()

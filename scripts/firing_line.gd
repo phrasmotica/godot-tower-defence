@@ -15,16 +15,14 @@ func set_target(projectile_range: int):
 func can_see_enemies():
 	return ray_cast.is_colliding()
 
-func fire():
+func fire(bolt_stats: TowerLevelStats):
 	animation_player.play("fire")
 
 	var enemy_collider = ray_cast.get_collider()
 
 	while enemy_collider != null:
 		var enemy := (enemy_collider as CollisionObject2D).get_parent() as Enemy
-
-		# TODO: take the correct amount of damage
-		enemy.handle_bolt(5)
+		enemy.handle_bolt(bolt_stats)
 
 		# find the next enemy in the firing line
 		ray_cast.add_exception(enemy_collider)
