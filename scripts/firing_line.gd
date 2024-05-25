@@ -15,6 +15,7 @@ func set_target(projectile_range: int):
 func can_see_enemies():
 	return ray_cast.is_colliding()
 
+# TODO: move all of this enemy-damaging logic to a child node
 func fire(bolt_stats: TowerLevelStats):
 	animation_player.play("fire")
 
