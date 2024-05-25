@@ -17,6 +17,9 @@ func can_see_enemies():
 	return ray_cast.is_colliding()
 
 func fire(bolt_stats: TowerLevelStats):
+	# TODO: instantiate a line when we fire, rather than maintaining one
+	# throughout our lifespan. This way the line can stay put after the
+	# tower rotates away from where it just fired
 	animation_player.play("fire")
 
 	ray_cast_damage.process_enemies(ray_cast, bolt_stats)
