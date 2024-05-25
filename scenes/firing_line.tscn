@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b80wrboq0yfrq"]
+[gd_scene load_steps=6 format=3 uid="uid://b80wrboq0yfrq"]
 
 [ext_resource type="Script" path="res://scripts/firing_line.gd" id="1_x0rca"]
+[ext_resource type="Script" path="res://scripts/ray_cast_damage.gd" id="2_hd0wa"]
 
 [sub_resource type="Animation" id="Animation_unfqi"]
 resource_name = "fire"
@@ -73,6 +74,9 @@ collide_with_areas = true
 [node name="Line" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 400, 0)
 width = 4.0
+
+[node name="RayCastDamage" type="Node" parent="."]
+script = ExtResource("2_hd0wa")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
