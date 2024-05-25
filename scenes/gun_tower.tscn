@@ -386,7 +386,7 @@ stats_enabled = false
 
 [node name="Level01" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
 visible = false
-level_description = "Moves and shoots faster!"
+level_description = "Shoots faster, and bullets can hit two enemies!"
 price = 4
 
 [node name="Sprite" parent="Levels/Level0/Level01" index="0"]
@@ -400,6 +400,7 @@ fire_rate = 4.0
 rotate_speed = 5
 projectile_range = 4
 projectile_speed = 20
+penetration_count = 1
 
 [node name="EffectStats" parent="Levels/Level0/Level01" index="2"]
 stats_enabled = false
