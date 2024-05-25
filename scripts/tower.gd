@@ -267,5 +267,3 @@ func _on_levels_created_effect(effect: Effect):
 
 func _on_levels_created_bolt():
 	print("Affecting all enemies in firing line")
-
-	# HIGH: damage all enemies in firing line
