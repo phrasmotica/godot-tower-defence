@@ -20,13 +20,23 @@ func fire(bolt_stats: TowerLevelStats):
 
 	var enemy_collider = ray_cast.get_collider()
 
-	while enemy_collider != null:
-		var enemy := (enemy_collider as CollisionObject2D).get_parent() as Enemy
-		enemy.handle_bolt(bolt_stats)
-
-		# find the next enemy in the firing line
-		ray_cast.add_exception(enemy_collider)
-		ray_cast.force_raycast_update()
-		enemy_collider = ray_cast.get_collider()
+	if bolt_stats.infinite_penetration:
+		while enemy_collider != null:
+			enemy_collider = process_enemy(enemy_collider, bolt_stats)
+	else:
+		process_enemy(enemy_collider, bolt_stats)
 
 	ray_cast.clear_exceptions()
+
+func process_enemy(enemy_collider: CollisionObject2D, bolt_stats: TowerLevelStats):
+	damage_enemy(enemy_collider, bolt_stats)
+	return next_enemy()
+
+func damage_enemy(enemy_collider: CollisionObject2D, bolt_stats: TowerLevelStats):
+	var enemy := (enemy_collider as CollisionObject2D).get_parent() as Enemy
+	enemy.handle_bolt(bolt_stats)
+	ray_cast.add_exception(enemy_collider)
+
+func next_enemy():
+	ray_cast.force_raycast_update()
+	return ray_cast.get_collider()

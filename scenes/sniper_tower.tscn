@@ -344,6 +344,7 @@ fire_rate = 0.4
 rotate_speed = 5
 projectile_range = 4
 projectile_knockback = 90.0
+infinite_penetration = true
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
 stats_enabled = false
