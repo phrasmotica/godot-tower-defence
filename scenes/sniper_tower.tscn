@@ -1,23 +1,20 @@
-[gd_scene load_steps=28 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=22 format=3 uid="uid://dgqvlr3p36r22"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
-[ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_ryqgt"]
-[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="4_4tss6"]
-[ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_n5mc5"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="4_t0fww"]
-[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="5_ikvgn"]
-[ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
-[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_dxx5i"]
-[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
-[ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
+[ext_resource type="Script" path="res://scripts/tower.gd" id="1_ta74e"]
+[ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_nvfga"]
+[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_sg6wu"]
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_6jpne"]
+[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_0kjs1"]
+[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_5un4q"]
+[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_r2dx8"]
+[ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="7_l2h3t"]
+[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="11_l3rgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
-atlas = ExtResource("2_ryqgt")
+atlas = ExtResource("2_nvfga")
 region = Rect2(0, 0, 2000, 2000)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ocubu"]
@@ -32,7 +29,7 @@ animations = [{
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
-atlas = ExtResource("3_ksutm")
+atlas = ExtResource("3_sg6wu")
 region = Rect2(0, 0, 72, 72)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7prn5"]
@@ -49,30 +46,11 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_yqvqw"]
 radius = 300.0
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
-atlas = ExtResource("4_gubpj")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6lplc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8dqj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8x2l0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0rfb"]
-atlas = ExtResource("5_kp04t")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_rpdrq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t0rfb")
+"texture": ExtResource("7_l2h3t")
 }],
 "loop": true,
 "name": &"default",
@@ -286,11 +264,11 @@ _data = {
 "warmup": SubResource("Animation_dfao1")
 }
 
-[node name="GunTower" type="Node2D"]
-script = ExtResource("1_v8t2a")
-tower_name = "Gun Tower"
-tower_description = "Shoots simple bullets at enemies."
-price = 2
+[node name="SniperTower" type="Node2D"]
+script = ExtResource("1_ta74e")
+tower_name = "Sniper"
+tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
+price = 5
 
 [node name="DetectMouse" type="Control" parent="."]
 layout_mode = 3
@@ -310,7 +288,7 @@ shape = SubResource("RectangleShape2D_p0cbx")
 [node name="Range" type="Node2D" parent="."]
 
 [node name="RangeSprite" type="AnimatedSprite2D" parent="Range"]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_ocubu")
 
 [node name="Selection" type="Node2D" parent="."]
@@ -327,7 +305,7 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(0, 0, 1, 1)
-script = ExtResource("4_n5mc5")
+script = ExtResource("4_6jpne")
 
 [node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
 offset_left = -32.0
@@ -335,13 +313,13 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
-script = ExtResource("4_n5mc5")
+script = ExtResource("4_6jpne")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
-script = ExtResource("4_4tss6")
+script = ExtResource("5_0kjs1")
 base_level = NodePath("Level0")
 
-[node name="FiringLine" parent="Levels" instance=ExtResource("6_dxx5i")]
+[node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
 visible = false
@@ -352,57 +330,45 @@ monitorable = false
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
 
-[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
-upgrades = [NodePath("Level00"), NodePath("Level01")]
+[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("6_5un4q")]
+upgrades = [NodePath("Level1")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_o8dqj")
 
 [node name="Stats" parent="Levels/Level0" index="1"]
-projectile = ExtResource("5_ikvgn")
-fire_rate = 3.0
+stats_enabled = false
+damage = 4
+fire_rate = 0.4
+rotate_speed = 5
+projectile_range = 4
+projectile_knockback = 90.0
+penetration_count = 1
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
 stats_enabled = false
 
-[node name="Level00" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
+[node name="Level1" parent="Levels/Level0" instance=ExtResource("6_5un4q")]
 visible = false
-level_description = "Shoots ricochet bullets instead of regular ones."
-price = 2
+level_description = "Bolt can penetrate through all enemies!"
+price = 5
 
-[node name="Sprite" parent="Levels/Level0/Level00" index="0"]
+[node name="Sprite" parent="Levels/Level0/Level1" index="0"]
+modulate = Color(0.266667, 1, 1, 1)
 rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_6lplc")
+sprite_frames = SubResource("SpriteFrames_o8dqj")
 
-[node name="Stats" parent="Levels/Level0/Level00" index="1"]
-projectile = ExtResource("9_gndbw")
-fire_rate = 3.0
-rotate_speed = 4
-projectile_range = 4
-projectile_speed = 20
-
-[node name="EffectStats" parent="Levels/Level0/Level00" index="2"]
+[node name="Stats" parent="Levels/Level0/Level1" index="1"]
 stats_enabled = false
-
-[node name="Level01" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
-visible = false
-level_description = "Shoots faster, and bullets can hit two enemies!"
-price = 4
-
-[node name="Sprite" parent="Levels/Level0/Level01" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_rpdrq")
-
-[node name="Stats" parent="Levels/Level0/Level01" index="1"]
-projectile = ExtResource("5_ikvgn")
-damage = 2
-fire_rate = 4.0
+damage = 4
+fire_rate = 0.4
 rotate_speed = 5
 projectile_range = 4
-projectile_speed = 20
-penetration_count = 1
+projectile_knockback = 90.0
+infinite_penetration = true
 
-[node name="EffectStats" parent="Levels/Level0/Level01" index="2"]
+[node name="EffectStats" parent="Levels/Level0/Level1" index="2"]
 stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
@@ -410,19 +376,23 @@ libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
+[node name="Barrel" parent="." instance=ExtResource("11_l3rgg")]
+enable_shoot = false
+enable_bolt = true
 
 [connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
 [connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]
 [connection signal="mouse_exited" from="DetectMouse" to="." method="_on_detect_mouse_mouse_exited"]
 [connection signal="area_entered" from="CollisionArea" to="." method="_on_collision_area_area_entered"]
 [connection signal="area_exited" from="CollisionArea" to="." method="_on_collision_area_area_exited"]
+[connection signal="created_bolt" from="Levels" to="." method="_on_levels_created_bolt"]
 [connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
+[connection signal="created_line" from="Levels/FiringLine" to="." method="_on_firing_line_created_line"]
+[connection signal="created_line" from="Levels/FiringLine" to="Levels" method="_on_firing_line_created_line"]
+[connection signal="bolt" from="Barrel" to="." method="_on_barrel_bolt"]
 
 [editable path="Levels/Level0"]
-[editable path="Levels/Level0/Level00"]
-[editable path="Levels/Level0/Level01"]
+[editable path="Levels/Level0/Level1"]

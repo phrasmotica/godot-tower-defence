@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=12 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/gun_tower.tscn" id="2_86mwy"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/upgrade_tower_button.tscn" id="6_ork4b"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="6_x8q0o"]
 [ext_resource type="PackedScene" uid="uid://8o1qoddn66j5" path="res://scenes/cannon_tower.tscn" id="7_b1mpf"]
+[ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="8_s1j88"]
+[ext_resource type="PackedScene" uid="uid://dgqvlr3p36r22" path="res://scenes/sniper_tower.tscn" id="9_egjws"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
 size = Vector2(280, 60)
@@ -116,6 +118,16 @@ icon = ExtResource("6_x8q0o")
 tower = ExtResource("7_b1mpf")
 action_name = &"tower_3"
 
+[node name="SniperTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 300.0
+offset_right = 100.0
+offset_bottom = 380.0
+icon = ExtResource("8_s1j88")
+tower = ExtResource("9_egjws")
+action_name = &"tower_4"
+
 [node name="TowerNameLabel" type="Label" parent="ColorRect"]
 layout_mode = 0
 offset_left = 20.0
@@ -182,6 +194,7 @@ shape = SubResource("RectangleShape2D_b1ksy")
 [connection signal="create_tower" from="ColorRect/TowerButtons/GunTowerButton" to="." method="_on_gun_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/CannonTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
+[connection signal="create_tower" from="ColorRect/TowerButtons/SniperTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]

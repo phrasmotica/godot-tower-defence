@@ -209,6 +209,17 @@ func _on_barrel_pulse():
 
 	level.try_create_effect()
 
+func _on_barrel_bolt():
+	if not is_firing():
+		return
+
+	if not levels_node.should_shoot():
+		return
+
+	var level = levels_node.get_current_level()
+
+	level.try_shoot_bolt()
+
 func _on_levels_warmed_up(first_level: TowerLevel):
 	print(tower_name + " warmup finished")
 
@@ -253,3 +264,11 @@ func _on_levels_created_effect(effect: Effect):
 
 		effect.attached_enemies = enemies
 		effect.act_start()
+
+func _on_levels_created_bolt():
+	print("Affecting all enemies in firing line")
+
+func _on_firing_line_created_line(bolt_line: Line2D):
+	print("Adding bolt line as child")
+
+	add_child(bolt_line)

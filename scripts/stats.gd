@@ -6,11 +6,11 @@ var stats_enabled := true
 @export
 var projectile: PackedScene
 
-@export_range(1, 3)
+@export_range(1, 5)
 var damage: int = 1
 
-@export_range(1, 10)
-var fire_rate: int = 1
+@export_range(0.1, 10)
+var fire_rate := 1.0
 
 @export_range(1, 10)
 var rotate_speed: int = 3
@@ -25,3 +25,12 @@ var projectile_speed: int = 10
 ## (0 = no reduction, 100 = completely stop the enemy)
 @export_range(0.0, 100.0)
 var projectile_knockback := 0.0
+
+## Whether the projectile will survive all collisions with enemies it.
+## Enabling will cause the penetration_count setting to be ignored.
+@export
+var infinite_penetration := false
+
+## How many collisions with enemies the projectile will survive.
+@export
+var penetration_count := 0

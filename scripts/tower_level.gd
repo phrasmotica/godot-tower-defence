@@ -14,6 +14,7 @@ var upgrades: Array[TowerLevel]
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
+signal created_bolt(bolt_stats: TowerLevelStats)
 
 func get_fire_rate():
 	return stats.fire_rate
@@ -64,6 +65,7 @@ func try_create_projectile():
 	projectile.effective_range = stats.projectile_range
 	projectile.speed = stats.projectile_speed
 	projectile.knockback = stats.projectile_knockback
+	projectile.penetration_count = stats.penetration_count
 
 	created_projectile.emit(projectile)
 
@@ -76,3 +78,8 @@ func try_create_effect():
 	var effect = effect_stats.create()
 
 	created_effect.emit(effect)
+
+func try_shoot_bolt():
+	print("Shooting a bolt")
+
+	created_bolt.emit(stats)

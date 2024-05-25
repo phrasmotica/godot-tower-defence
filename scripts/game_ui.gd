@@ -59,6 +59,9 @@ func _process(_delta):
 		sell_tower.emit()
 
 func try_place(tower_scene: PackedScene):
+	if placing_tower:
+		cancel_tower_creation()
+
 	placing_tower = tower_scene.instantiate()
 
 	if not bank.can_afford(placing_tower.price):

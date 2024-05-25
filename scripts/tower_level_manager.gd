@@ -1,6 +1,6 @@
 class_name TowerLevelManager extends Node2D
 
-@onready var firing_line: RayCast2D = $FiringLine
+@onready var firing_line: FiringLine = $FiringLine
 @onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -17,6 +17,7 @@ signal upgraded(new_level: TowerLevel)
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
+signal created_bolt
 
 func start_warmup():
 	animation_player.play("warmup")
@@ -24,6 +25,7 @@ func start_warmup():
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
+	base_level.created_bolt.connect(_on_level_created_bolt)
 
 	warmed_up.emit(base_level)
 
@@ -51,6 +53,10 @@ func upgrade_finished():
 		print("Disconnecting _on_level_created_effect")
 		old_level.created_effect.disconnect(_on_level_created_effect)
 
+	if old_level.created_projectile.is_connected(_on_level_created_bolt):
+		print("Disconnecting _on_level_created_bolt")
+		old_level.created_bolt.disconnect(_on_level_created_bolt)
+
 	upgrade_path.append(ongoing_upgrade_index)
 	ongoing_upgrade_index = -1
 
@@ -60,6 +66,7 @@ func upgrade_finished():
 
 	new_level.created_projectile.connect(_on_level_created_projectile)
 	new_level.created_effect.connect(_on_level_created_effect)
+	new_level.created_bolt.connect(_on_level_created_bolt)
 
 	upgraded.emit(new_level)
 
@@ -68,7 +75,7 @@ func get_upgrade(index: int):
 
 func should_shoot():
 	if firing_line.enabled:
-		return firing_line.is_colliding()
+		return firing_line.can_see_enemies()
 
 	return false
 
@@ -98,7 +105,7 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
 
 func adjust_range(projectile_range: int):
-	firing_line.target_position = Vector2(projectile_range * 100, 0)
+	firing_line.set_target(projectile_range)
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
@@ -112,3 +119,15 @@ func _on_level_created_effect(effect: Effect):
 	print("Processing effect")
 
 	created_effect.emit(effect)
+
+func _on_level_created_bolt(bolt_stats: TowerLevelStats):
+	print("Processing bolt")
+
+	firing_line.fire(bolt_stats)
+
+	created_bolt.emit()
+
+func _on_firing_line_created_line(bolt_line:Line2D):
+	print("Rotating bolt line")
+
+	bolt_line.rotation = rotation
