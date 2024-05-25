@@ -80,22 +80,30 @@ func handle_aoe(body: Projectile):
 	# projectile's collision handler
 	handle_strike(body, false, 0.5)
 
+func handle_bolt(damage: int):
+	handle_damage(damage)
+
 func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 	hit.emit(body)
 
-	var new_health = stats.take_damage(body.damage)
-	health_bar.draw_health(new_health)
+	handle_damage(body.damage)
+	handle_knockback(body.knockback, knockback_mult)
 
-	animation_player.stop()
-	animation_player.play("peek_health")
+	if propagate:
+		body.handle_collision(self)
+
+func handle_damage(amount: int):
+	var new_health = stats.take_damage(amount)
+	health_bar.draw_health(new_health)
 
 	if new_health <= 0:
 		die.emit(self)
 
-	if knockback_mult > 0:
-		var knockback_factor = body.knockback * knockback_mult
+	animation_player.stop()
+	animation_player.play("peek_health")
+
+func handle_knockback(amount: float, mult):
+	if mult > 0:
+		var knockback_factor = amount * mult
 		print("Knocking enemy back by factor of " + str(knockback_factor))
 		current_speed = current_speed * (1 - (knockback_factor / 100.0))
-
-	if propagate:
-		body.handle_collision(self)
