@@ -53,6 +53,10 @@ func upgrade_finished():
 		print("Disconnecting _on_level_created_effect")
 		old_level.created_effect.disconnect(_on_level_created_effect)
 
+	if old_level.created_projectile.is_connected(_on_level_created_bolt):
+		print("Disconnecting _on_level_created_bolt")
+		old_level.created_bolt.disconnect(_on_level_created_bolt)
+
 	upgrade_path.append(ongoing_upgrade_index)
 	ongoing_upgrade_index = -1
 
