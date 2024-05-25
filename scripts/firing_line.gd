@@ -19,7 +19,16 @@ func fire():
 	animation_player.play("fire")
 
 	var enemy_collider = ray_cast.get_collider()
-	var enemy := (enemy_collider as CollisionObject2D).get_parent() as Enemy
 
-	# TODO: take the correct amount of damage
-	enemy.handle_bolt(5)
+	while enemy_collider != null:
+		var enemy := (enemy_collider as CollisionObject2D).get_parent() as Enemy
+
+		# TODO: take the correct amount of damage
+		enemy.handle_bolt(5)
+
+		# find the next enemy in the firing line
+		ray_cast.add_exception(enemy_collider)
+		ray_cast.force_raycast_update()
+		enemy_collider = ray_cast.get_collider()
+
+	ray_cast.clear_exceptions()
