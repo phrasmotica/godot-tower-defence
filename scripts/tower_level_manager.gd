@@ -1,6 +1,6 @@
 class_name TowerLevelManager extends Node2D
 
-@onready var firing_line: RayCast2D = $FiringLine
+@onready var firing_line: FiringLine = $FiringLine
 @onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -71,7 +71,7 @@ func get_upgrade(index: int):
 
 func should_shoot():
 	if firing_line.enabled:
-		return firing_line.is_colliding()
+		return firing_line.can_see_enemies()
 
 	return false
 
@@ -101,7 +101,7 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
 
 func adjust_range(projectile_range: int):
-	firing_line.target_position = Vector2(projectile_range * 100, 0)
+	firing_line.set_target(projectile_range)
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
@@ -118,5 +118,7 @@ func _on_level_created_effect(effect: Effect):
 
 func _on_level_created_bolt():
 	print("Processing bolt")
+
+	firing_line.fire()
 
 	created_bolt.emit()
