@@ -1,84 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://b80wrboq0yfrq"]
+[gd_scene load_steps=4 format=3 uid="uid://b80wrboq0yfrq"]
 
 [ext_resource type="Script" path="res://scripts/firing_line.gd" id="1_x0rca"]
+[ext_resource type="PackedScene" uid="uid://mfvhoc1kpcc0" path="res://scenes/bolt_line.tscn" id="2_1ds31"]
 [ext_resource type="Script" path="res://scripts/ray_cast_damage.gd" id="2_hd0wa"]
-
-[sub_resource type="Animation" id="Animation_unfqi"]
-resource_name = "fire"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Line:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Line:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-
-[sub_resource type="Animation" id="Animation_nqggw"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Line:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Line:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_akr1h"]
-_data = {
-"RESET": SubResource("Animation_nqggw"),
-"fire": SubResource("Animation_unfqi")
-}
 
 [node name="FiringLine" type="Node2D"]
 script = ExtResource("1_x0rca")
+bolt_line = ExtResource("2_1ds31")
 
 [node name="RayCast" type="RayCast2D" parent="."]
 target_position = Vector2(400, 0)
 collide_with_areas = true
 
-[node name="Line" type="Line2D" parent="."]
-points = PackedVector2Array(0, 0, 400, 0)
-width = 4.0
+[node name="ExampleBoltLine" parent="." instance=ExtResource("2_1ds31")]
 
 [node name="RayCastDamage" type="Node" parent="."]
 script = ExtResource("2_hd0wa")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_akr1h")
-}

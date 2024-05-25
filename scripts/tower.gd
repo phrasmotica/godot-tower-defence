@@ -267,3 +267,8 @@ func _on_levels_created_effect(effect: Effect):
 
 func _on_levels_created_bolt():
 	print("Affecting all enemies in firing line")
+
+func _on_firing_line_created_line(bolt_line: Line2D):
+	print("Adding bolt line as child")
+
+	add_child(bolt_line)

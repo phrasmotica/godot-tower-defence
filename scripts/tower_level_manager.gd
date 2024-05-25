@@ -126,3 +126,8 @@ func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	firing_line.fire(bolt_stats)
 
 	created_bolt.emit()
+
+func _on_firing_line_created_line(bolt_line:Line2D):
+	print("Rotating bolt line")
+
+	bolt_line.rotation = rotation
