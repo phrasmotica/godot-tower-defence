@@ -1,10 +1,11 @@
-[gd_scene load_steps=23 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=24 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_oryv4"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_c5d30"]
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_017vf"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
+[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_bxxxn"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_eu8cm"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
 [ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/slow_effect.tscn" id="8_7bdrw"]
@@ -323,11 +324,8 @@ script = ExtResource("4_017vf")
 script = ExtResource("5_t5pdt")
 base_level = NodePath("Level0")
 
-[node name="FiringLine" type="RayCast2D" parent="Levels"]
+[node name="FiringLine" parent="Levels" instance=ExtResource("6_bxxxn")]
 visible = false
-enabled = false
-target_position = Vector2(200, 0)
-collide_with_areas = true
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
 collision_layer = 16
