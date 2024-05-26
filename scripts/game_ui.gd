@@ -167,7 +167,10 @@ func stop_tower_creation():
 
 func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
 	upgrade_button_0.disabled = true
+	upgrade_button_0.disable_button()
+
 	upgrade_button_1.disabled = true
+	upgrade_button_1.disable_button()
 
 func _on_towers_selected_tower_changed(tower: Tower):
 	handle_selected_tower_changed(tower)

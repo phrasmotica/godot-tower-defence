@@ -24,6 +24,12 @@ func set_upgrade_level(tower: Tower):
 
 	description.hide()
 
+func enable_button():
+	set_process(true)
+
+func disable_button():
+	set_process(false)
+
 func upgrade():
 	description.hide()
 	upgrade_tower.emit(upgrade_index)
