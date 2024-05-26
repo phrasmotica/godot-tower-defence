@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://scripts/paralyse_effect.gd" id="1_f4ctf"]
 
 [node name="ParalyseEffect" type="Node"]
+process_mode = 4
 script = ExtResource("1_f4ctf")
