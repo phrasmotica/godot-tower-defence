@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=27 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_oryv4"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
 [ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/slow_effect.tscn" id="8_7bdrw"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="10_4dyam"]
+[ext_resource type="Texture2D" uid="uid://bngv7y86ypnm4" path="res://assets/sprites/slowerTower.png" id="10_4rxji"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
@@ -56,6 +57,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_mdq5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nis1n"]
+atlas = ExtResource("10_4rxji")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0mumw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nis1n")
 }],
 "loop": true,
 "name": &"default",
@@ -333,7 +349,8 @@ collision_layer = 16
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_2ou6o")
 
-[node name="Level0" parent="Levels" instance=ExtResource("6_eu8cm")]
+[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("6_eu8cm")]
+upgrades = [NodePath("Level00")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
@@ -344,6 +361,21 @@ stats_enabled = false
 
 [node name="EffectStats" parent="Levels/Level0" index="2"]
 effect_duration = 3.0
+effect = ExtResource("8_7bdrw")
+
+[node name="Level00" parent="Levels/Level0" instance=ExtResource("6_eu8cm")]
+visible = false
+level_description = "Slows enemies for longer."
+
+[node name="Sprite" parent="Levels/Level0/Level00" index="0"]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_0mumw")
+
+[node name="Stats" parent="Levels/Level0/Level00" index="1"]
+stats_enabled = false
+
+[node name="EffectStats" parent="Levels/Level0/Level00" index="2"]
+effect_duration = 5.0
 effect = ExtResource("8_7bdrw")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
@@ -367,3 +399,4 @@ enable_pulse = true
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
 
 [editable path="Levels/Level0"]
+[editable path="Levels/Level0/Level00"]
