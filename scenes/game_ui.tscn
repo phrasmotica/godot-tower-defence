@@ -130,7 +130,7 @@ icon = ExtResource("8_s1j88")
 tower = ExtResource("9_egjws")
 action_name = &"tower_4"
 
-[node name="SniperTowerButton2" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
+[node name="PoisonTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 120.0
 offset_top = 300.0
@@ -207,7 +207,7 @@ shape = SubResource("RectangleShape2D_b1ksy")
 [connection signal="create_tower" from="ColorRect/TowerButtons/SlowTowerButton" to="." method="_on_slow_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/CannonTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
 [connection signal="create_tower" from="ColorRect/TowerButtons/SniperTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
-[connection signal="create_tower" from="ColorRect/TowerButtons/SniperTowerButton2" to="." method="_on_cannon_tower_button_create_tower"]
+[connection signal="create_tower" from="ColorRect/TowerButtons/PoisonTowerButton" to="." method="_on_cannon_tower_button_create_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="upgrade_tower" from="ColorRect/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="ColorRect/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
