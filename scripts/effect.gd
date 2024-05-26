@@ -4,6 +4,9 @@ var effect_duration: float
 
 var attached_enemies: Array[Enemy]
 
+func _process(delta):
+	act_process(delta)
+
 func set_timer(duration: float):
 	print("Effect duration " + str(duration))
 
@@ -15,6 +18,10 @@ func set_timer(duration: float):
 	timer.timeout.connect(queue_free)
 
 func act_start():
+	# implemented in child classes
+	pass
+
+func act_process(_delta):
 	# implemented in child classes
 	pass
 
