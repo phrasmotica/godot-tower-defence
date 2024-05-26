@@ -135,6 +135,7 @@ _data = {
 rotates = false
 loop = false
 script = ExtResource("1_snwv5")
+movement_speed = 100
 
 [node name="HealthBar" parent="." instance=ExtResource("2_u2ie8")]
 offset_top = -40.0
