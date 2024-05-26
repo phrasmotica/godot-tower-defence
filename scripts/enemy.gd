@@ -11,6 +11,7 @@ var movement_speed: int = 150
 var current_speed := 0.0
 var is_slowed := false
 var is_paralysed := false
+var is_poisoned := false
 
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
@@ -91,6 +92,18 @@ func paralyse(duration: float):
 
 func end_paralyse():
 	is_paralysed = false
+
+func poison(duration: float):
+	is_poisoned = true
+
+	# TODO: implement poison damage
+
+	# TODO: create poison animation
+	var animation_speed = float(1 / duration)
+	animation_player.play("slow", -1, animation_speed)
+
+func end_poison():
+	is_poisoned = false
 
 func _on_collision_area_body_entered(body: Projectile):
 	handle_strike(body, true)
