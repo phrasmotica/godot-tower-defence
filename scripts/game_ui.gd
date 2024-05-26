@@ -146,6 +146,12 @@ func _on_bank_manager_money_changed(new_money:int):
 	for ctb in create_tower_buttons:
 		ctb.update_affordability(new_money)
 
+	if upgrade_button_0:
+		upgrade_button_0.update_affordability(new_money)
+
+	if upgrade_button_1:
+		upgrade_button_1.update_affordability(new_money)
+
 func _on_lives_manager_lives_changed(new_lives):
 	if lives_amount:
 		lives_amount.text = str(new_lives)

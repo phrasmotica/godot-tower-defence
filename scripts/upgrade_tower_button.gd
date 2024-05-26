@@ -7,6 +7,7 @@ class_name UpgradeTowerButton extends Button
 @onready var description_text = $TowerDescription/Label
 
 var upgrade_level: TowerLevel
+var upgrade_price := 0
 
 signal upgrade_tower(index: int)
 
@@ -15,6 +16,8 @@ func set_upgrade_level(tower: Tower):
 
 	if upgrade_level:
 		show()
+
+		upgrade_price = upgrade_level.price
 
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
@@ -29,6 +32,14 @@ func enable_button():
 
 func disable_button():
 	set_process(false)
+
+func update_affordability(money: int):
+	if upgrade_price > money:
+		disabled = true
+		disable_button()
+	else:
+		disabled = false
+		enable_button()
 
 func upgrade():
 	description.hide()
