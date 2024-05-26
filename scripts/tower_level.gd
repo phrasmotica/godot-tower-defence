@@ -12,6 +12,10 @@ var price := 1
 @export
 var upgrades: Array[TowerLevel]
 
+## Whether the tower should points towards the targeted enemy.
+@export
+var point_towards_enemy := true
+
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt(bolt_stats: TowerLevelStats)

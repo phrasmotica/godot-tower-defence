@@ -92,7 +92,11 @@ func get_total_value() -> int:
 	return base_level.get_total_value(upgrade_path)
 
 func point_towards_enemy(enemy: Enemy, delta: float):
-	var rotate_speed = get_current_level().stats.rotate_speed
+	var current_level = get_current_level()
+	if not current_level.point_towards_enemy:
+		return
+
+	var rotate_speed = current_level.stats.rotate_speed
 
 	# gets the angle we want to face
 	var angle_to_enemy = global_position.direction_to(enemy.global_position).angle()
