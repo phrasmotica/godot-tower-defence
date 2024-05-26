@@ -61,6 +61,8 @@ func _process(_delta):
 
 func try_place(tower_scene: PackedScene):
 	if placing_tower:
+		# TODO: return if tower_scene is the same as the one used to
+		# create the current placing tower
 		cancel_tower_creation()
 
 	placing_tower = tower_scene.instantiate()
