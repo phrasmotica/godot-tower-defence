@@ -96,8 +96,6 @@ func end_paralyse():
 func poison(duration: float):
 	is_poisoned = true
 
-	# TODO: implement poison damage
-
 	# TODO: create poison animation
 	var animation_speed = float(1 / duration)
 	animation_player.play("slow", -1, animation_speed)
@@ -128,7 +126,7 @@ func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 	if propagate:
 		body.handle_collision(self)
 
-func handle_damage(amount: int):
+func handle_damage(amount: float):
 	var new_health = stats.take_damage(amount)
 	health_bar.draw_health(new_health)
 
