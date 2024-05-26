@@ -334,7 +334,7 @@ collision_layer = 16
 shape = SubResource("CircleShape2D_2ou6o")
 
 [node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("7_1pyih")]
-upgrades = [NodePath(""), NodePath("")]
+upgrades = [null, null]
 point_towards_enemy = false
 
 [node name="Sprite" parent="Levels/Level0" index="0"]

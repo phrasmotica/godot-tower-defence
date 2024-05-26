@@ -2,6 +2,7 @@ class_name WavesManager extends Node
 
 @onready var path = %PathWaypoints
 
+@export var boss_enemy_scene: PackedScene
 @export var enemy_scene: PackedScene
 
 @export_range(10, 50)
@@ -28,8 +29,12 @@ func next():
 
 	wave_sent.emit(wave_number)
 
-	for i in range(wave_number):
-		path.spawn_enemy(enemy_scene)
+	var is_boss_wave := wave_number % 5 == 0
+	var spawn_count := wave_number / 5 if is_boss_wave else wave_number
+	var enemy_to_spawn := boss_enemy_scene if is_boss_wave else enemy_scene
+
+	for i in range(spawn_count):
+		path.spawn_enemy(enemy_to_spawn)
 		await get_tree().create_timer(1.0).timeout
 
 func _on_start_game_start():
