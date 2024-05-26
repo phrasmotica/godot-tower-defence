@@ -69,7 +69,6 @@ func slow(duration: float):
 	animation_player.play("slow", -1, animation_speed)
 
 func end_slow():
-	current_speed *= 2
 	is_slowed = false
 
 func _on_collision_area_body_entered(body: Projectile):
