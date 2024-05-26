@@ -15,8 +15,9 @@ func act_process(delta):
 	var damage = delta * damage_per_second
 
 	for enemy in attached_enemies:
-		print("Damaging " + str(damage))
-		enemy.handle_damage(damage)
+		if is_instance_valid(enemy):
+			print("Damaging " + str(damage))
+			enemy.handle_damage(damage)
 
 func act_end():
 	print("Poisoning enemies END")
