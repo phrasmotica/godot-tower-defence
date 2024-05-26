@@ -367,6 +367,7 @@ effect = ExtResource("8_7bdrw")
 [node name="Level00" parent="Levels/Level0" instance=ExtResource("6_eu8cm")]
 visible = false
 level_description = "Slows enemies for longer."
+price = 3
 point_towards_enemy = false
 
 [node name="Sprite" parent="Levels/Level0/Level00" index="0"]
