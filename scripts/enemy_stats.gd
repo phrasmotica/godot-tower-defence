@@ -1,6 +1,6 @@
 class_name EnemyStats extends Node
 
-@export_range(1.0, 5.0)
+@export_range(1.0, 20.0)
 var starting_health := 5.0
 
 var current_health: float
