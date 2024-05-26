@@ -10,6 +10,7 @@ var movement_speed: int = 150
 
 var current_speed := 0.0
 var is_slowed := false
+var is_paralysed := false
 
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
@@ -23,16 +24,23 @@ func _process(delta):
 	move(delta)
 
 func move(delta):
-	accelerate(delta)
+	if can_move():
+		accelerate(delta)
 
-	if progress_ratio < 1.0:
-		progress += current_speed * delta
-	else:
-		reached_end.emit(self)
+		if progress_ratio < 1.0:
+			progress += current_speed * delta
+		else:
+			reached_end.emit(self)
 
 func accelerate(delta):
-	if not is_slowed and current_speed < movement_speed:
+	if can_accelerate():
 		current_speed = move_toward(current_speed, movement_speed, delta * movement_speed)
+
+func can_move():
+	return not is_paralysed
+
+func can_accelerate():
+	return not (is_slowed or is_paralysed) and current_speed < movement_speed
 
 func get_neighbours(max_distance_px: float):
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -61,6 +69,8 @@ func get_neighbour(max_distance_px: float) -> Enemy:
 func get_distance_to(pos: Vector2):
 	return pos.distance_to(global_position)
 
+# TODO: execute these effects' logic in their scripts, not here.
+# Will still need to trigger the animations here though...
 func slow(duration: float):
 	is_slowed = true
 	current_speed /= 2
@@ -70,6 +80,17 @@ func slow(duration: float):
 
 func end_slow():
 	is_slowed = false
+
+func paralyse(duration: float):
+	is_paralysed = true
+	current_speed = 0
+
+	# TODO: create paralyse animation
+	var animation_speed = float(1 / duration)
+	animation_player.play("slow", -1, animation_speed)
+
+func end_paralyse():
+	is_paralysed = false
 
 func _on_collision_area_body_entered(body: Projectile):
 	handle_strike(body, true)
