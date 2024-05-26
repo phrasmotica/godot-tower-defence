@@ -1,6 +1,7 @@
 class_name GameUI extends Control
 
 @export var game_tint: ColorRect
+@export var create_tower_buttons: Array[CreateTowerButton]
 
 @onready var bank: BankManager = %BankManager
 @onready var path: Path = %PathWaypoints
@@ -120,6 +121,9 @@ func cancel_tower_creation():
 func _on_start_game_start():
 	print("Enabling game UI process")
 	set_process(true)
+
+	for ctb in create_tower_buttons:
+		ctb.enable_button()
 
 func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)

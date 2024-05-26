@@ -16,12 +16,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
 size = Vector2(280, 60)
 
-[node name="GameUI" type="Control"]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("create_tower_buttons")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
+create_tower_buttons = [NodePath("ColorRect/TowerButtons/GunTowerButton"), NodePath("ColorRect/TowerButtons/SlowTowerButton"), NodePath("ColorRect/TowerButtons/CannonTowerButton"), NodePath("ColorRect/TowerButtons/SniperTowerButton"), NodePath("ColorRect/TowerButtons/PoisonTowerButton")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 1

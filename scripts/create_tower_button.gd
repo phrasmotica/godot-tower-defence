@@ -17,9 +17,13 @@ func _ready():
 		description_text.text = dummy_tower.tower_description
 	else:
 		disabled = true
-		set_process(false)
 
 	description.hide()
+
+	set_process(false)
+
+func enable_button():
+	set_process(true)
 
 func create():
 	description.hide()
