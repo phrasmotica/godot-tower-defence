@@ -31,7 +31,7 @@ func move(delta):
 		reached_end.emit(self)
 
 func accelerate(delta):
-	if current_speed < movement_speed:
+	if not is_slowed and current_speed < movement_speed:
 		current_speed = move_toward(current_speed, movement_speed, delta * movement_speed)
 
 func get_neighbours(max_distance_px: float):
@@ -63,13 +63,13 @@ func get_distance_to(pos: Vector2):
 
 func slow(duration: float):
 	is_slowed = true
-	movement_speed /= 2
+	current_speed /= 2
 
 	var animation_speed = float(1 / duration)
 	animation_player.play("slow", -1, animation_speed)
 
 func end_slow():
-	movement_speed *= 2
+	current_speed *= 2
 	is_slowed = false
 
 func _on_collision_area_body_entered(body: Projectile):
