@@ -110,9 +110,6 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	upgrade_button_1.disabled = false
 	upgrade_button_1.set_upgrade_level(tower)
 
-	# TODO: disable upgrade buttons if we can't afford the upgrade(s).
-	# Need to pass in the current money somehow
-
 	tower_upgrade_finish.emit(tower, next_level)
 
 func cancel_tower_creation():

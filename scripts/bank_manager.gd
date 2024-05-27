@@ -33,3 +33,7 @@ func _on_towers_tower_upgrade_start(_tower:Tower, next_level:TowerLevel):
 
 func _on_towers_tower_sold(sell_value:int):
 	current_money += sell_value
+
+func _on_game_ui_tower_upgrade_finish(_tower: Tower, _next_level: TowerLevel):
+	# allows tower upgrade buttons to update their state
+	money_changed.emit(current_money)
