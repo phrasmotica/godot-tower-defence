@@ -204,9 +204,6 @@ func show_ui(tower: Tower):
 	upgrade_button_1.show()
 	upgrade_button_1.set_upgrade_level(tower)
 
-	# TODO: disable upgrade buttons if we can't afford the upgrade(s).
-	# Need to pass in the current money somehow
-
 	sell_button.show()
 
 	game_tint.show()
