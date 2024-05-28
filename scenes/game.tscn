@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=29 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://c5wfvtw4begee" path="res://assets/sprites/background_tilemap.png" id="4_w3iny"]
 [ext_resource type="Script" path="res://scripts/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="PackedScene" uid="uid://brbdisl4wehyt" path="res://scenes/enemy_boss.tscn" id="5_w1r6e"]
+[ext_resource type="Resource" uid="uid://yh7obycpwwoe" path="res://waves/waves_path0.tres" id="7_kcxo6"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/start_game.tscn" id="9_sjprc"]
 [ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/game_ui.tscn" id="10_gkcsa"]
@@ -135,6 +136,7 @@ script = ExtResource("3_4t4x5")
 boss_enemy_scene = ExtResource("5_w1r6e")
 enemy_scene = ExtResource("2_s70yg")
 last_wave = 30
+waves = ExtResource("7_kcxo6")
 
 [node name="Background" type="Node2D" parent="."]
 

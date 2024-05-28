@@ -10,6 +10,9 @@ var last_wave: int = 10
 
 var wave_number: int = 0
 
+@export
+var waves: WaveCollection
+
 signal wave_sent(wave_number: int)
 
 func _ready():
@@ -31,11 +34,21 @@ func next():
 
 	var is_boss_wave := wave_number % 5 == 0
 	var spawn_count := wave_number / 5 if is_boss_wave else wave_number
+	var spawn_frequency := 1.0
 	var enemy_to_spawn := boss_enemy_scene if is_boss_wave else enemy_scene
+
+	if wave_number <= waves.count():
+		var wave := waves.get_wave(wave_number)
+
+		print("Using " + str(wave.resource_path) + " resource")
+
+		spawn_count = wave.spawn_count
+		spawn_frequency = wave.spawn_frequency
+		enemy_to_spawn = wave.enemy
 
 	for i in range(spawn_count):
 		path.spawn_enemy(enemy_to_spawn)
-		await get_tree().create_timer(1.0).timeout
+		await get_tree().create_timer(1.0 / spawn_frequency).timeout
 
 func _on_start_game_start():
 	print("Enabling waves manager")
