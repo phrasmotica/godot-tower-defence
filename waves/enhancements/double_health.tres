@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="WaveEnhancement" load_steps=2 format=3 uid="uid://bskgosokjkxw2"]
+
+[ext_resource type="Script" path="res://scripts/wave_enhancement.gd" id="1_xpux2"]
+
+[resource]
+script = ExtResource("1_xpux2")
+health_mult = 2.0
