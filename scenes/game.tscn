@@ -136,7 +136,7 @@ script = ExtResource("3_4t4x5")
 boss_enemy_scene = ExtResource("5_w1r6e")
 enemy_scene = ExtResource("2_s70yg")
 last_wave = 30
-waves = ExtResource("7_kcxo6")
+wave_collection = ExtResource("7_kcxo6")
 
 [node name="Background" type="Node2D" parent="."]
 

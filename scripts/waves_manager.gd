@@ -11,7 +11,7 @@ var last_wave: int = 10
 var wave_number: int = 0
 
 @export
-var waves: WaveCollection
+var wave_collection: WaveCollection
 
 signal wave_sent(wave_number: int)
 
@@ -37,8 +37,8 @@ func next():
 	var spawn_frequency := 1.0
 	var enemy_to_spawn := boss_enemy_scene if is_boss_wave else enemy_scene
 
-	if wave_number <= waves.count():
-		var wave := waves.get_wave(wave_number)
+	if wave_number <= wave_collection.count():
+		var wave := wave_collection.get_wave(wave_number)
 
 		print("Using " + str(wave.resource_path) + " resource")
 
