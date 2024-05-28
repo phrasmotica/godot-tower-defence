@@ -37,6 +37,8 @@ func next():
 	var spawn_frequency := 1.0
 	var enemy_to_spawn := boss_enemy_scene if is_boss_wave else enemy_scene
 
+	var enhancements: Array[WaveEnhancement] = []
+
 	if wave_number <= wave_collection.count():
 		var wave := wave_collection.get_wave(wave_number)
 
@@ -46,8 +48,14 @@ func next():
 		spawn_frequency = wave.spawn_frequency
 		enemy_to_spawn = wave.enemy
 
+		enhancements = wave.enhancements
+
 	for i in range(spawn_count):
-		path.spawn_enemy(enemy_to_spawn)
+		var enemy = path.spawn_enemy(enemy_to_spawn)
+
+		for e in enhancements:
+			e.act(enemy)
+
 		await get_tree().create_timer(1.0 / spawn_frequency).timeout
 
 func _on_start_game_start():

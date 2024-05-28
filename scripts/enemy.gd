@@ -24,6 +24,12 @@ func _ready():
 func _process(delta):
 	move(delta)
 
+func set_max_health(amount: float):
+	stats.starting_health = amount
+	stats.current_health = amount
+
+	health_bar.set_max_health(amount)
+
 func move(delta):
 	if can_move():
 		accelerate(delta)
