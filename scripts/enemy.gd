@@ -37,6 +37,9 @@ func set_max_health(amount: float):
 func set_max_speed(amount: float):
 	movement_speed = amount
 
+func set_bounty(amount: int):
+	bounty = amount
+
 func move(delta):
 	if can_move():
 		accelerate(delta)
