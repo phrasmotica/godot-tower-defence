@@ -120,6 +120,9 @@ func select_tower(tower: Tower):
 
 	selected_tower_changed.emit(selected_tower)
 
+func _on_game_ui_tower_placing(_tower: Tower):
+	deselect_tower()
+
 func _on_game_ui_tower_placed(tower: Tower):
 	# ensure the tower is not part of the UI anymore
 	tower.reparent(self, true)
