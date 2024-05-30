@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brbdisl4wehyt"]
+[gd_scene load_steps=16 format=3 uid="uid://brbdisl4wehyt"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_snwv5"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/health_bar.tscn" id="2_u2ie8"]
@@ -86,11 +86,93 @@ tracks/0/keys = {
 "values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_5j8vb"]
+resource_name = "die"
+length = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -0.349066]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.05),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-10, 10)]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.05),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("HealthBar:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
 _data = {
 "RESET": SubResource("Animation_qsgl2"),
+"die": SubResource("Animation_5j8vb"),
 "peek_health": SubResource("Animation_vscsi"),
 "slow": SubResource("Animation_4vyub")
+}
+
+[sub_resource type="Animation" id="Animation_2tbic"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_mamad"]
@@ -110,21 +192,6 @@ tracks/0/keys = {
 "values": [0.0, 0.139626, -0.139626, 3.48787e-16]
 }
 
-[sub_resource type="Animation" id="Animation_2tbic"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_q6o1o"]
 _data = {
 "RESET": SubResource("Animation_2tbic"),
@@ -138,6 +205,7 @@ script = ExtResource("1_snwv5")
 movement_speed = 100
 
 [node name="HealthBar" parent="." instance=ExtResource("2_u2ie8")]
+visible = false
 offset_top = -40.0
 offset_bottom = -40.0
 

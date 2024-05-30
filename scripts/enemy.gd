@@ -140,7 +140,12 @@ func handle_damage(amount: float):
 	health_bar.draw_health(new_health)
 
 	if new_health <= 0:
+		animation_player.stop()
+		animation_player.play("die")
+
 		die.emit(self)
+
+		return
 
 	animation_player.stop()
 	animation_player.play("peek_health")

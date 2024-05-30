@@ -18,7 +18,6 @@ func spawn_enemy(enemy_scene: PackedScene):
 
 func remove_enemy(enemy: Enemy):
 	enemies.erase(enemy)
-	enemy.queue_free()
 
 func _on_enemy_die(enemy: Enemy):
 	remove_enemy(enemy)
