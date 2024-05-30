@@ -11,3 +11,7 @@ var spawn_count := 1
 ## The number of enemies to spawn each second.
 @export_range(1, 10)
 var spawn_frequency := 1
+
+## Any enhancements to add to the wave.
+@export
+var enhancements: Array[WaveEnhancement]

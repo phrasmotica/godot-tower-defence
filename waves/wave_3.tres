@@ -8,3 +8,4 @@ script = ExtResource("2_xuwli")
 enemy = ExtResource("1_smpv8")
 spawn_count = 20
 spawn_frequency = 2
+enhancements = Array[Resource("res://scripts/wave_enhancement.gd")]([])

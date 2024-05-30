@@ -14,6 +14,8 @@ func spawn_enemy(enemy_scene: PackedScene):
 	add_child(enemy)
 	enemies.append(enemy)
 
+	return enemy
+
 func remove_enemy(enemy: Enemy):
 	enemies.erase(enemy)
 	enemy.queue_free()
