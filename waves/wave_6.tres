@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_votmo")
+description = "Regular enemies but with twice their usual health!"
 enemy = ExtResource("1_d15jm")
 spawn_count = 20
 spawn_frequency = 1

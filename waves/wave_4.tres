@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_wcicy")
+description = "More enemies!!"
 enemy = ExtResource("1_5tas2")
 spawn_count = 30
 spawn_frequency = 1

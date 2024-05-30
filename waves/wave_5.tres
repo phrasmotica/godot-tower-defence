@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_hb5cv")
+description = "How about a boss wave?"
 enemy = ExtResource("1_l11l4")
 spawn_count = 5
 spawn_frequency = 1

@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_xuwli")
+description = "Let's speed things up a bit."
 enemy = ExtResource("1_smpv8")
 spawn_count = 20
 spawn_frequency = 2

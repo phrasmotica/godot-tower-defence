@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource("3_yi3hf")
+description = "Lots of tough enemies, but you will be rewarded."
 enemy = ExtResource("1_rdi5a")
 spawn_count = 40
 spawn_frequency = 2

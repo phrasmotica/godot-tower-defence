@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("1_vrqlw")
+description = "Regular enemies with a 50% speed boost!"
 enemy = ExtResource("1_x25h1")
 spawn_count = 20
 spawn_frequency = 1

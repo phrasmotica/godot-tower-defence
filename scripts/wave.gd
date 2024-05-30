@@ -1,5 +1,8 @@
 class_name Wave extends Resource
 
+@export_multiline
+var description := ""
+
 ## The enemy to spawn.
 @export
 var enemy: PackedScene
@@ -14,4 +17,6 @@ var spawn_frequency := 1
 
 ## Any enhancements to add to the wave.
 @export
-var enhancements: Array[WaveEnhancement]
+var enhancements: Array[WaveEnhancement] = []
+
+var number := 0

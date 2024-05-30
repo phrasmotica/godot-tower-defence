@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("4_ieomn")
+description = "They have health boosts, and there are lots of them."
 enemy = ExtResource("1_haabk")
 spawn_count = 40
 spawn_frequency = 2

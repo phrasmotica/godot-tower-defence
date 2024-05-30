@@ -7,6 +7,7 @@
 
 [resource]
 script = ExtResource("3_yqvcg")
+description = "Both health and speed boosts!!"
 enemy = ExtResource("1_ewxmp")
 spawn_count = 20
 spawn_frequency = 1

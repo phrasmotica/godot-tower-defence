@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("2_xe1d0")
+description = "More enemies than the last wave!"
 enemy = ExtResource("1_50jlk")
 spawn_count = 10
 spawn_frequency = 1

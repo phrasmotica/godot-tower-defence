@@ -84,6 +84,8 @@ layout_mode = 0
 offset_left = 140.0
 offset_right = 280.0
 offset_bottom = 60.0
+tooltip_text = "You'll see a description of the current wave here."
+mouse_filter = 0
 theme_override_font_sizes/font_size = 32
 text = "-"
 horizontal_alignment = 2
@@ -155,7 +157,7 @@ offset_bottom = 720.0
 [node name="UpgradeButton0" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 0
+offset_top = 0.0
 offset_right = 200.0
 offset_bottom = 60.0
 text = "Upgrade 0"

@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource("2_ko7fj")
+description = "The bosses are back, and they're tougher..."
 enemy = ExtResource("1_5gtnj")
 spawn_count = 10
 spawn_frequency = 2

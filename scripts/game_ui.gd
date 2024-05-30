@@ -156,9 +156,10 @@ func _on_lives_manager_lives_changed(new_lives):
 	if lives_amount:
 		lives_amount.text = str(new_lives)
 
-func _on_waves_manager_wave_sent(wave_number: int):
+func _on_waves_manager_wave_sent(wave: Wave):
 	if wave_number_label:
-		wave_number_label.text = str(wave_number)
+		wave_number_label.text = str(wave.number)
+		wave_number_label.tooltip_text = wave.description
 
 func _on_sell_button_pressed():
 	sell_tower.emit()
