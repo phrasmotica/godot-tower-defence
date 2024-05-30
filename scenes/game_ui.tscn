@@ -90,23 +90,20 @@ horizontal_alignment = 2
 
 [node name="TowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 200.0
+offset_right = 320.0
+offset_bottom = 380.0
 
 [node name="GunTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 200.0
 offset_right = 100.0
-offset_bottom = 280.0
 tower = ExtResource("2_86mwy")
 
 [node name="SlowTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 120.0
-offset_top = 200.0
 offset_right = 200.0
-offset_bottom = 280.0
 icon = ExtResource("4_ydxgj")
 tower = ExtResource("5_0g4vg")
 action_name = &"tower_2"
@@ -114,9 +111,7 @@ action_name = &"tower_2"
 [node name="CannonTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 220.0
-offset_top = 200.0
 offset_right = 300.0
-offset_bottom = 280.0
 icon = ExtResource("6_x8q0o")
 tower = ExtResource("7_b1mpf")
 action_name = &"tower_3"
@@ -124,9 +119,9 @@ action_name = &"tower_3"
 [node name="SniperTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 300.0
+offset_top = 100.0
 offset_right = 100.0
-offset_bottom = 380.0
+offset_bottom = 180.0
 icon = ExtResource("8_s1j88")
 tower = ExtResource("9_egjws")
 action_name = &"tower_4"
@@ -134,9 +129,9 @@ action_name = &"tower_4"
 [node name="PoisonTowerButton" parent="ColorRect/TowerButtons" instance=ExtResource("2_in1v2")]
 layout_mode = 0
 offset_left = 120.0
-offset_top = 300.0
+offset_top = 100.0
 offset_right = 200.0
-offset_bottom = 380.0
+offset_bottom = 180.0
 icon = ExtResource("10_gtikd")
 tower = ExtResource("11_sj5n7")
 action_name = &"tower_5"
@@ -153,24 +148,25 @@ vertical_alignment = 1
 
 [node name="SelectedTowerButtons" type="Control" parent="ColorRect"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_top = 560.0
+offset_right = 320.0
+offset_bottom = 720.0
 
 [node name="UpgradeButton0" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 560.0
+offset_top = 0
 offset_right = 200.0
-offset_bottom = 620.0
+offset_bottom = 60.0
 text = "Upgrade 0"
 action_name = &"tower_upgrade_0"
 
 [node name="UpgradeButton1" parent="ColorRect/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
 layout_mode = 0
 offset_left = 20.0
-offset_top = 640.0
+offset_top = 80.0
 offset_right = 200.0
-offset_bottom = 700.0
+offset_bottom = 140.0
 text = "Upgrade 1"
 action_name = &"tower_upgrade_1"
 upgrade_index = 1
@@ -178,9 +174,9 @@ upgrade_index = 1
 [node name="SellButton" type="Button" parent="ColorRect/SelectedTowerButtons"]
 layout_mode = 0
 offset_left = 220.0
-offset_top = 640.0
+offset_top = 80.0
 offset_right = 300.0
-offset_bottom = 700.0
+offset_bottom = 140.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 24
 text = "Sell"
