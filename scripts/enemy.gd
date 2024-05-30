@@ -1,8 +1,8 @@
 class_name Enemy extends PathFollow2D
 
 ## Movement speed in pixels per second.
-@export_range(100, 300)
-var movement_speed: int = 150
+@export_range(100.0, 300.0)
+var movement_speed := 150.0
 
 @onready var health_bar: HealthBar = $HealthBar
 @onready var stats: EnemyStats = $Stats
@@ -29,6 +29,9 @@ func set_max_health(amount: float):
 	stats.current_health = amount
 
 	health_bar.set_max_health(amount)
+
+func set_max_speed(amount: float):
+	movement_speed = amount
 
 func move(delta):
 	if can_move():
