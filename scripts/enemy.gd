@@ -4,6 +4,10 @@ class_name Enemy extends PathFollow2D
 @export_range(100.0, 300.0)
 var movement_speed := 150.0
 
+## Amount of money rewarded for killing this enemy.
+@export_range(1, 5)
+var bounty := 1
+
 @onready var health_bar: HealthBar = $HealthBar
 @onready var stats: EnemyStats = $Stats
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

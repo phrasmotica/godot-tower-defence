@@ -22,8 +22,9 @@ func reset_money():
 func can_afford(amount: int):
 	return current_money >= amount
 
-func _on_path_waypoints_enemy_died(_enemy:Enemy):
-	current_money += 1
+func _on_path_waypoints_enemy_died(enemy: Enemy):
+	print("Bounty: " + str(enemy.bounty))
+	current_money += enemy.bounty
 
 func _on_game_ui_tower_placed(tower: Tower):
 	current_money -= tower.price
