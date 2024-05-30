@@ -26,5 +26,6 @@ func _on_enemy_die(enemy: Enemy):
 
 func _on_enemy_reached_end(enemy: Enemy):
 	remove_enemy(enemy)
+	enemy.queue_free()
 
 	enemy_reached_end.emit(enemy)
