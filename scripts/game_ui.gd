@@ -1,6 +1,6 @@
 class_name GameUI extends Control
 
-@export var path: Path
+@export var path_manager: PathManager
 @export var game_tint: ColorRect
 @export var create_tower_buttons: Array[CreateTowerButton]
 
@@ -73,7 +73,7 @@ func try_place(tower_scene: PackedScene):
 
 	print("Purchasing " + placing_tower.name)
 
-	placing_tower.path = path
+	placing_tower.path = path_manager.get_active_path()
 	placing_tower.set_placing()
 	placing_tower.hide()
 

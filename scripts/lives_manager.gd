@@ -27,6 +27,6 @@ func set_lives(lives):
 		print("Ran out of lives!")
 		lives_depleted.emit()
 
-func _on_path_waypoints_enemy_reached_end(enemy: Enemy):
+func _on_path_manager_enemy_reached_end(enemy: Enemy):
 	print(enemy.name + " reached end of path")
 	add_lives(-1)

@@ -22,10 +22,6 @@ func reset_money():
 func can_afford(amount: int):
 	return current_money >= amount
 
-func _on_path_waypoints_enemy_died(enemy: Enemy):
-	print("Bounty: " + str(enemy.bounty))
-	current_money += enemy.bounty
-
 func _on_game_ui_tower_placed(tower: Tower):
 	current_money -= tower.price
 
@@ -42,3 +38,7 @@ func _on_game_ui_tower_upgrade_finish(_tower: Tower, _next_level: TowerLevel):
 func _on_towers_selected_tower_changed(_tower:Tower):
 	# allows tower upgrade buttons to update their state
 	money_changed.emit(current_money)
+
+func _on_path_manager_enemy_died(enemy: Enemy):
+	print("Bounty: " + str(enemy.bounty))
+	current_money += enemy.bounty
