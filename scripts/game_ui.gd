@@ -1,11 +1,10 @@
 class_name GameUI extends Control
 
+@export var path_manager: PathManager
 @export var game_tint: ColorRect
 @export var create_tower_buttons: Array[CreateTowerButton]
 
 @onready var bank: BankManager = %BankManager
-@onready var path: Path = %PathWaypoints
-
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
@@ -74,7 +73,7 @@ func try_place(tower_scene: PackedScene):
 
 	print("Purchasing " + placing_tower.name)
 
-	placing_tower.path = path
+	placing_tower.path = path_manager.get_active_path()
 	placing_tower.set_placing()
 	placing_tower.hide()
 
@@ -120,7 +119,7 @@ func cancel_tower_creation():
 
 	tower_placing_cancelled.emit()
 
-func _on_start_game_start():
+func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
 	set_process(true)
 

@@ -1,7 +1,6 @@
 class_name WavesManager extends Node
 
-@onready var path = %PathWaypoints
-
+@export var path_manager: PathManager
 @export var boss_enemy_scene: PackedScene
 @export var enemy_scene: PackedScene
 
@@ -55,13 +54,13 @@ func next():
 		print("Using " + str(wave.resource_path) + " resource")
 
 	for i in range(wave.spawn_count):
-		var enemy = path.spawn_enemy(wave.enemy)
+		var enemy = path_manager.spawn_enemy(wave.enemy)
 
 		for e in wave.enhancements:
 			e.act(enemy)
 
 		await get_tree().create_timer(1.0 / wave.spawn_frequency).timeout
 
-func _on_start_game_start():
+func _on_start_game_start(_path_index: int):
 	print("Enabling waves manager")
 	set_process(true)
