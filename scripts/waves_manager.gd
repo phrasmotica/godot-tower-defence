@@ -61,6 +61,6 @@ func next():
 
 		await get_tree().create_timer(1.0 / wave.spawn_frequency).timeout
 
-func _on_start_game_start():
+func _on_start_game_start(_path_index: int):
 	print("Enabling waves manager")
 	set_process(true)

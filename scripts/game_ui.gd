@@ -119,7 +119,7 @@ func cancel_tower_creation():
 
 	tower_placing_cancelled.emit()
 
-func _on_start_game_start():
+func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
 	set_process(true)
 

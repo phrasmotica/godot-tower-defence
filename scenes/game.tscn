@@ -104,5 +104,7 @@ z_index = 1000
 [connection signal="tower_selected" from="GameUI" to="Towers" method="_on_game_ui_tower_selected"]
 [connection signal="tower_upgrade_finish" from="GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_finish"]
 [connection signal="upgrade_tower" from="GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
+[connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="Managers/WavesManager" method="_on_start_game_start"]
+[connection signal="start" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="GameUI" method="_on_start_game_start"]

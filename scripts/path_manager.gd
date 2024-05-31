@@ -28,8 +28,11 @@ func set_active_path():
 			paths[i].enable_path()
 
 			if not Engine.is_editor_hint():
-				paths[i].enemy_died.connect(_on_path_enemy_died)
-				paths[i].enemy_reached_end.connect(_on_path_enemy_reached_end)
+				if not paths[i].enemy_died.is_connected(_on_path_enemy_died):
+					paths[i].enemy_died.connect(_on_path_enemy_died)
+
+				if not paths[i].enemy_reached_end.is_connected(_on_path_enemy_reached_end):
+					paths[i].enemy_reached_end.connect(_on_path_enemy_reached_end)
 		else:
 			paths[i].disable_path()
 
@@ -45,3 +48,9 @@ func _on_path_enemy_died(enemy: Enemy):
 
 func _on_path_enemy_reached_end(enemy: Enemy):
 	enemy_reached_end.emit(enemy)
+
+func _on_start_game_preview(path_index:int):
+	active_path_index = path_index
+
+func _on_start_game_start(path_index: int):
+	active_path_index = path_index
