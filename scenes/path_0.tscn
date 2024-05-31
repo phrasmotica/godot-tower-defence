@@ -103,8 +103,9 @@ _data = {
 }
 point_count = 13
 
-[node name="Path0" type="Node2D" node_paths=PackedStringArray("path_waypoints")]
+[node name="Path0" type="Node2D" node_paths=PackedStringArray("path_area", "path_waypoints")]
 script = ExtResource("1_076ov")
+path_area = NodePath("PathArea")
 path_waypoints = NodePath("Waypoints")
 
 [node name="TileMap" type="TileMap" parent="."]

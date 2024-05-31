@@ -25,13 +25,13 @@ func set_active_path():
 
 	for i in range(paths.size()):
 		if i == active_path_index:
-			paths[i].show()
+			paths[i].enable_path()
 
 			if not Engine.is_editor_hint():
 				paths[i].enemy_died.connect(_on_path_enemy_died)
 				paths[i].enemy_reached_end.connect(_on_path_enemy_reached_end)
 		else:
-			paths[i].hide()
+			paths[i].disable_path()
 
 func get_active_path():
 	return paths[active_path_index]
