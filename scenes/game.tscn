@@ -43,11 +43,11 @@ wave_collection = ExtResource("7_kcxo6")
 [node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths")]
 script = ExtResource("8_wg70s")
 paths = [NodePath("Path0"), NodePath("Path1")]
-initial_path_index = 1
 
 [node name="Path0" parent="PathManager" instance=ExtResource("9_f2e1u")]
 
 [node name="Path1" parent="PathManager" instance=ExtResource("10_q42hf")]
+visible = false
 
 [node name="Towers" type="Node2D" parent="."]
 script = ExtResource("5_rtba5")
