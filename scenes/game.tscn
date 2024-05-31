@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=15 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" path="res://scripts/lives_manager.gd" id="1_6mlow"]
 [ext_resource type="Script" path="res://scripts/bank_manager.gd" id="1_rbgcv"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/path_0.tscn" id="9_f2e1u"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/start_game.tscn" id="9_sjprc"]
 [ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/game_ui.tscn" id="10_gkcsa"]
+[ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/path_1.tscn" id="10_q42hf"]
 
 [node name="Game" type="Node2D"]
 
@@ -41,9 +42,12 @@ wave_collection = ExtResource("7_kcxo6")
 
 [node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths")]
 script = ExtResource("8_wg70s")
-paths = [NodePath("Path0")]
+paths = [NodePath("Path0"), NodePath("Path1")]
+initial_path_index = 1
 
 [node name="Path0" parent="PathManager" instance=ExtResource("9_f2e1u")]
+
+[node name="Path1" parent="PathManager" instance=ExtResource("10_q42hf")]
 
 [node name="Towers" type="Node2D" parent="."]
 script = ExtResource("5_rtba5")
