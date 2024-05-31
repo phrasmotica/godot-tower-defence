@@ -1,7 +1,6 @@
 class_name WavesManager extends Node
 
-@onready var path = %PathWaypoints
-
+@export var path: Path
 @export var boss_enemy_scene: PackedScene
 @export var enemy_scene: PackedScene
 

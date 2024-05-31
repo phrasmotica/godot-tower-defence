@@ -1,11 +1,10 @@
 class_name GameUI extends Control
 
+@export var path: Path
 @export var game_tint: ColorRect
 @export var create_tower_buttons: Array[CreateTowerButton]
 
 @onready var bank: BankManager = %BankManager
-@onready var path: Path = %PathWaypoints
-
 @onready var money_amount = $ColorRect/MoneyLabel/Amount
 @onready var lives_amount = $ColorRect/LivesLabel/Amount
 @onready var wave_number_label = $ColorRect/WaveLabel/Number
