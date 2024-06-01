@@ -14,6 +14,10 @@ var active_path_index: int:
 		active_path_index = value
 		set_active_path()
 
+## The collision layer for the path tilesets.
+@export_flags_2d_physics
+var path_collision_layer := 4
+
 signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
 
@@ -25,7 +29,7 @@ func set_active_path():
 
 	for i in range(paths.size()):
 		if i == active_path_index:
-			paths[i].enable_path()
+			paths[i].enable_path(path_collision_layer)
 
 			if not Engine.is_editor_hint():
 				if not paths[i].enemy_died.is_connected(_on_path_enemy_died):
