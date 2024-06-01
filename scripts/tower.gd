@@ -240,12 +240,14 @@ func _on_levels_upgraded(new_level: TowerLevel):
 
 	on_upgrade_finish.emit(self, new_level)
 
-func _on_collision_area_area_entered(_area:Area2D):
+# NOTE: Area2D handling a collision with a TileSet's physics layer
+# must use body_entered/exited rather than area_entered/exited!!
+func _on_collision_area_body_entered(_body: Node2D):
 	print(tower_name + " entered path area")
 	is_valid_location = false
 	set_error_look()
 
-func _on_collision_area_area_exited(_area:Area2D):
+func _on_collision_area_body_exited(_body: Node2D):
 	print(tower_name + " exited path area")
 	is_valid_location = true
 	set_default_look()
