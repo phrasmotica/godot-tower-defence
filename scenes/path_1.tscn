@@ -170,10 +170,11 @@ _data = {
 }
 point_count = 12
 
-[node name="Path1" type="Node2D" node_paths=PackedStringArray("tile_map", "path_waypoints")]
+[node name="Path1" type="Node2D" node_paths=PackedStringArray("tile_map", "path_waypoints", "start_arrow")]
 script = ExtResource("2_swkys")
 tile_map = NodePath("TileMap")
 path_waypoints = NodePath("Waypoints")
+start_arrow = NodePath("StartArrow")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_nr3rg")

@@ -58,3 +58,7 @@ func _on_start_game_preview(path_index:int):
 
 func _on_start_game_start(path_index: int):
 	active_path_index = path_index
+
+	# TODO: instead of hiding the start arrow immediately, only
+	# hide it once the first wave has been called
+	get_active_path().start_game()
