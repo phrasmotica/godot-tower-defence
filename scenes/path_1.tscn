@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://b456ocmarcb75"]
+[gd_scene load_steps=7 format=3 uid="uid://b456ocmarcb75"]
 
 [ext_resource type="Script" path="res://scripts/path.gd" id="2_swkys"]
 [ext_resource type="Texture2D" uid="uid://c5wfvtw4begee" path="res://assets/sprites/background_tilemap.png" id="2_sxaun"]
+[ext_resource type="PackedScene" uid="uid://dme44yv1l5j5q" path="res://scenes/start_arrow.tscn" id="3_g5tu1"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5vidl"]
 texture = ExtResource("2_sxaun")
@@ -182,3 +183,7 @@ layer_0/tile_data = PackedInt32Array(0, 65536, 0, 65536, 65536, 0, 131072, 65536
 [node name="Waypoints" type="Path2D" parent="."]
 position = Vector2(-80, 0)
 curve = SubResource("Curve2D_h81tm")
+
+[node name="StartArrow" parent="." instance=ExtResource("3_g5tu1")]
+position = Vector2(840, 40)
+rotation = 1.5708
