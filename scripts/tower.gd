@@ -19,7 +19,7 @@ var price: int = 1
 @onready var animation_player: AnimationPlayer = $Levels/AnimationPlayer
 @onready var barrel: GunBarrel = $Barrel
 
-var path: Path
+var path_manager: PathManager
 var tower_mode = TowerMode.PLACING
 var just_placed := false
 var is_selected = false
@@ -90,7 +90,7 @@ func scan(delta):
 		levels_node.point_towards_enemy(near_enemy, delta)
 
 func get_near_enemies(for_effect: bool) -> Array[Enemy]:
-	var enemies = path.enemies
+	var enemies = path_manager.enemies
 	if enemies.size() <= 0:
 		return []
 

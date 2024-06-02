@@ -73,7 +73,7 @@ func try_place(tower_scene: PackedScene):
 
 	print("Purchasing " + placing_tower.name)
 
-	placing_tower.path = path_manager.get_active_path()
+	placing_tower.path_manager = path_manager
 	placing_tower.set_placing()
 	placing_tower.hide()
 
