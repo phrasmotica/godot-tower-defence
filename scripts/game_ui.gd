@@ -30,6 +30,8 @@ signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 
 signal sell_tower
 
+var current_tower_scene_id := 0
+
 var placing_tower: Tower:
 	set(value):
 		placing_tower = value
@@ -37,6 +39,7 @@ var placing_tower: Tower:
 
 func _ready():
 	placing_tower = null
+	current_tower_scene_id = 0
 
 	hide_ui()
 
@@ -59,16 +62,22 @@ func _process(_delta):
 		sell_tower.emit()
 
 func try_place(tower_scene: PackedScene):
+	var new_id := tower_scene.get_instance_id()
+
+	if current_tower_scene_id == new_id:
+		print("Already placing tower with ID " + str(new_id))
+		return
+
 	if placing_tower:
-		# TODO: return if tower_scene is the same as the one used to
-		# create the current placing tower
 		cancel_tower_creation()
 
 	placing_tower = tower_scene.instantiate()
+	current_tower_scene_id = new_id
 
 	if not bank.can_afford(placing_tower.price):
 		print(placing_tower.name + " purchase failed: cannot afford")
 		placing_tower = null
+		current_tower_scene_id = 0
 		return false
 
 	print("Purchasing " + placing_tower.name)
@@ -116,6 +125,7 @@ func cancel_tower_creation():
 
 	placing_tower.queue_free()
 	placing_tower = null
+	current_tower_scene_id = 0
 
 	tower_placing_cancelled.emit()
 
@@ -170,6 +180,7 @@ func _on_cancel_area_area_entered(_area:Area2D):
 
 func stop_tower_creation():
 	placing_tower = null
+	current_tower_scene_id = 0
 
 func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
 	upgrade_button_0.disabled = true
