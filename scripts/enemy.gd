@@ -17,6 +17,7 @@ var is_slowed := false
 var is_paralysed := false
 var is_poisoned := false
 
+signal bolted
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
@@ -126,7 +127,7 @@ func handle_aoe(body: Projectile):
 	handle_strike(body, false, 0.5)
 
 func handle_bolt(bolt_stats: TowerLevelStats):
-	# TODO: emit some variant of the hit signal?
+	bolted.emit()
 
 	handle_damage(bolt_stats.damage)
 	handle_knockback(bolt_stats.projectile_knockback)
