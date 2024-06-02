@@ -1,6 +1,6 @@
 class_name Tower extends Node2D
 
-enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING }
+enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING, DISABLED }
 
 @export
 var tower_name := ""
@@ -74,6 +74,9 @@ func set_upgrading():
 
 func is_upgrading():
 	return tower_mode == TowerMode.UPGRADING
+
+func set_disabled():
+	tower_mode = TowerMode.DISABLED
 
 func set_default_look():
 	range_sprite.modulate = Color.WHITE

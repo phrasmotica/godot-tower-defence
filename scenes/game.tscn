@@ -83,6 +83,7 @@ z_index = 1000
 
 [connection signal="money_changed" from="Managers/BankManager" to="GameUI" method="_on_bank_manager_money_changed"]
 [connection signal="lives_changed" from="Managers/LivesManager" to="GameUI" method="_on_lives_manager_lives_changed"]
+[connection signal="lives_depleted" from="Managers/LivesManager" to="Towers" method="_on_lives_manager_lives_depleted"]
 [connection signal="lives_depleted" from="Managers/LivesManager" to="OverlayCanvas/GameOver" method="_on_lives_manager_lives_depleted"]
 [connection signal="wave_sent" from="Managers/WavesManager" to="GameUI" method="_on_waves_manager_wave_sent"]
 [connection signal="enemy_died" from="PathManager" to="Managers/BankManager" method="_on_path_manager_enemy_died"]
