@@ -4,6 +4,7 @@ extends Node
 var starting_lives: int
 
 var current_lives = starting_lives
+var is_dead := false
 
 signal lives_changed(new_lives: int)
 signal lives_depleted
@@ -25,8 +26,12 @@ func set_lives(lives):
 
 	if current_lives <= 0:
 		print("Ran out of lives!")
+		is_dead = true
 		lives_depleted.emit()
 
 func _on_path_manager_enemy_reached_end(enemy: Enemy):
+	if is_dead:
+		return
+
 	print(enemy.name + " reached end of path")
 	add_lives(-1)
