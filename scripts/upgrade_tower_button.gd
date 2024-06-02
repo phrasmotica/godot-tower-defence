@@ -55,9 +55,7 @@ func _on_pressed():
 	upgrade()
 
 func _on_mouse_entered():
-	if not disabled:
-		# TODO: might want to see the info even if we can't afford it?
-		description.show()
+	description.show()
 
 func _on_mouse_exited():
 	description.hide()
