@@ -86,8 +86,6 @@ func get_neighbour(max_distance_px: float) -> Enemy:
 func get_distance_to(pos: Vector2):
 	return pos.distance_to(global_position)
 
-# TODO: execute these effects' logic in their scripts, not here.
-# Will still need to trigger the animations here though...
 func slow(duration: float):
 	is_slowed = true
 	current_speed /= 2

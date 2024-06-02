@@ -8,8 +8,6 @@ class_name TowerLevelManager extends Node2D
 
 var upgrade_path: Array[int] = []
 
-# TODO: instead of this, ignore the last element of upgrade_path
-# if the tower is in UPGRADING state
 var ongoing_upgrade_index := -1
 
 signal warmed_up(first_level: TowerLevel)
