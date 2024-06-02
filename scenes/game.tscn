@@ -86,6 +86,7 @@ z_index = 1000
 [connection signal="lives_depleted" from="Managers/LivesManager" to="Towers" method="_on_lives_manager_lives_depleted"]
 [connection signal="lives_depleted" from="Managers/LivesManager" to="OverlayCanvas/GameOver" method="_on_lives_manager_lives_depleted"]
 [connection signal="wave_sent" from="Managers/WavesManager" to="GameUI" method="_on_waves_manager_wave_sent"]
+[connection signal="waves_began" from="Managers/WavesManager" to="PathManager" method="_on_waves_manager_waves_began"]
 [connection signal="enemy_died" from="PathManager" to="Managers/BankManager" method="_on_path_manager_enemy_died"]
 [connection signal="enemy_reached_end" from="PathManager" to="Managers/LivesManager" method="_on_path_manager_enemy_reached_end"]
 [connection signal="selected_tower_changed" from="Towers" to="Managers/BankManager" method="_on_towers_selected_tower_changed"]

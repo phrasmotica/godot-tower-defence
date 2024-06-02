@@ -7,11 +7,12 @@ class_name WavesManager extends Node
 @export_range(10, 50)
 var last_wave: int = 10
 
-var wave_number: int = 0
+var wave_number := 0
 
 @export
 var wave_collection: WaveCollection
 
+signal waves_began
 signal wave_sent(wave: Wave)
 
 func _ready():
@@ -37,6 +38,9 @@ func get_next() -> Wave:
 	return dummy_wave
 
 func next():
+	if wave_number == 0:
+		waves_began.emit()
+
 	wave_number += 1
 
 	var wave := get_next()
