@@ -118,7 +118,11 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 		angle_to_enemy -= (2 * PI)
 
 	# slowly changes the rotation to face the angle
-	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
+	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
+	rotation = new_rotation
+
+	# ensure the tower sprite does the same
+	base_level.rotation = new_rotation
 
 func show_range():
 	range_node.show()
