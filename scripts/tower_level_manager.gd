@@ -1,10 +1,21 @@
+@tool
 class_name TowerLevelManager extends Node2D
 
 @onready var firing_line: FiringLine = $FiringLine
 @onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-@export var base_level: TowerLevel
+@export var base_level: TowerLevel:
+	set(value):
+		print("Base level")
+		base_level = value
+
+		# TODO: connect these to the base level's upgrades too, recursively
+		if not base_level.adjust_range.is_connected(adjust_range):
+			base_level.adjust_range.connect(adjust_range)
+
+		if not base_level.adjust_effect_range.is_connected(adjust_effect_range):
+			base_level.adjust_effect_range.connect(adjust_effect_range)
 
 var upgrade_path: Array[int] = []
 
@@ -107,7 +118,13 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
 
 func adjust_range(projectile_range: int):
-	firing_line.set_target(projectile_range)
+	# TODO: bring range sprite under the level manager, so it can
+	# be adjusted here also
+	firing_line.shooting_range = projectile_range
+
+func adjust_effect_range(_effect_range: int):
+	# TODO: adjust size of effect area in editor
+	pass
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")

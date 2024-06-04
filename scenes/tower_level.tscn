@@ -32,3 +32,6 @@ script = ExtResource("2_4oole")
 
 [node name="EffectStats" type="Node" parent="."]
 script = ExtResource("4_3nipx")
+
+[connection signal="adjust_range" from="Stats" to="." method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="EffectStats" to="." method="_on_effect_stats_adjust_range"]

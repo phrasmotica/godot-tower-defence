@@ -1,3 +1,4 @@
+@tool
 class_name TowerLevel extends Node2D
 
 @onready var stats: TowerLevelStats = $Stats
@@ -15,6 +16,9 @@ var upgrades: Array[TowerLevel]
 ## Whether the tower should points towards the targeted enemy.
 @export
 var point_towards_enemy := true
+
+signal adjust_range(range: int)
+signal adjust_effect_range(range: int)
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
@@ -87,3 +91,11 @@ func try_shoot_bolt():
 	print("Shooting a bolt")
 
 	created_bolt.emit(stats)
+
+func _on_stats_adjust_range(stats_range: int):
+	print("Level Stats Range " + str(stats_range))
+	adjust_range.emit(stats_range)
+
+func _on_effect_stats_adjust_range(stats_range: int):
+	print("Level EffectStats Range " + str(stats_range))
+	adjust_effect_range.emit(stats_range)
