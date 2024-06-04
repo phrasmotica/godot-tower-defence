@@ -5,7 +5,6 @@ class_name TowerLevelManager extends Node2D
 @onready var range_sprite: AnimatedSprite2D = $Range/RangeSprite
 @onready var firing_line: FiringLine = $FiringLine
 @onready var effect_area: Area2D = $EffectArea
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export var base_level: TowerLevel:
 	set(value):
@@ -36,9 +35,6 @@ func set_default_look():
 func set_error_look():
 	range_sprite.modulate = Color.RED
 
-func start_warmup():
-	animation_player.play("warmup")
-
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
@@ -50,7 +46,6 @@ func start_upgrade(index: int) -> TowerLevel:
 	var next_level = get_upgrade(index)
 
 	if next_level:
-		animation_player.play("upgrade")
 		ongoing_upgrade_index = index
 
 	return next_level

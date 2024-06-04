@@ -84,19 +84,19 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("../ProgressBars/WarmupProgressBar:size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(64, 8)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -108,26 +108,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/2/path = NodePath("..:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 8)]
+"values": [Vector2(1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("..:scale")
+tracks/3/path = NodePath("../Level0:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ujsix"]
@@ -163,25 +163,13 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_ytq2c"]
 resource_name = "upgrade"
 length = 3.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -189,25 +177,25 @@ tracks/1/keys = {
 "method": &"upgrade_finished"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 8), Vector2(64, 8)]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../ProgressBars/UpgradeProgressBar")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -218,29 +206,29 @@ tracks/3/keys = {
 "method": &"hide"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_dfao1"]
-resource_name = "warmup"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Level0:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_dfao1"]
+resource_name = "warmup"
+length = 3.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -248,25 +236,25 @@ tracks/1/keys = {
 "method": &"warmup_finished"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 8), Vector2(64, 8)]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../ProgressBars/WarmupProgressBar")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -276,6 +264,18 @@ tracks/3/keys = {
 "args": [],
 "method": &"hide"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../Level0:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
@@ -333,7 +333,7 @@ script = ExtResource("4_n5mc5")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("4_4tss6")
-base_level = NodePath("Level0")
+base_level = NodePath("../Level0")
 
 [node name="Range" type="Node2D" parent="Levels"]
 
@@ -352,49 +352,49 @@ monitorable = false
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
 
-[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
+[node name="Level0" parent="." node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
 upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
 
-[node name="Sprite" parent="Levels/Level0" index="0"]
+[node name="Sprite" parent="Level0" index="0"]
 rotation = 1.5708
 
-[node name="Stats" parent="Levels/Level0" index="1"]
+[node name="Stats" parent="Level0" index="1"]
 projectile = ExtResource("5_ikvgn")
 fire_rate = 3.0
 
-[node name="EffectStats" parent="Levels/Level0" index="2"]
+[node name="EffectStats" parent="Level0" index="2"]
 stats_enabled = false
 
-[node name="Ricochet" parent="Levels/Level0" instance=ExtResource("4_t0fww")]
+[node name="Ricochet" parent="Level0" instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots ricochet bullets instead of regular ones."
 price = 2
 
-[node name="Sprite" parent="Levels/Level0/Ricochet" index="0"]
+[node name="Sprite" parent="Level0/Ricochet" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
 
-[node name="Stats" parent="Levels/Level0/Ricochet" index="1"]
+[node name="Stats" parent="Level0/Ricochet" index="1"]
 projectile = ExtResource("9_gndbw")
 fire_rate = 3.0
 rotate_speed = 4
 projectile_range = 4
 projectile_speed = 20
 
-[node name="EffectStats" parent="Levels/Level0/Ricochet" index="2"]
+[node name="EffectStats" parent="Level0/Ricochet" index="2"]
 stats_enabled = false
 
-[node name="SpeedAndPierce" parent="Levels/Level0" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
+[node name="SpeedAndPierce" parent="Level0" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots faster, and bullets can hit two enemies!"
 price = 4
 upgrades = [NodePath("MoreSpeedAndPierce")]
 
-[node name="Sprite" parent="Levels/Level0/SpeedAndPierce" index="0"]
+[node name="Sprite" parent="Level0/SpeedAndPierce" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="Stats" parent="Levels/Level0/SpeedAndPierce" index="1"]
+[node name="Stats" parent="Level0/SpeedAndPierce" index="1"]
 projectile = ExtResource("5_ikvgn")
 fire_rate = 4.0
 rotate_speed = 5
@@ -403,20 +403,20 @@ projectile_speed = 20
 projectile_knockback = 20.0
 penetration_count = 1
 
-[node name="EffectStats" parent="Levels/Level0/SpeedAndPierce" index="2"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce" index="2"]
 stats_enabled = false
 
-[node name="MoreSpeedAndPierce" parent="Levels/Level0/SpeedAndPierce" instance=ExtResource("4_t0fww")]
+[node name="MoreSpeedAndPierce" parent="Level0/SpeedAndPierce" instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots even faster and increased penetration."
 price = 6
 
-[node name="Sprite" parent="Levels/Level0/SpeedAndPierce/MoreSpeedAndPierce" index="0"]
+[node name="Sprite" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="0"]
 modulate = Color(0.784314, 0.227451, 0.368627, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="Stats" parent="Levels/Level0/SpeedAndPierce/MoreSpeedAndPierce" index="1"]
+[node name="Stats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="1"]
 projectile = ExtResource("5_ikvgn")
 fire_rate = 5.0
 rotate_speed = 6
@@ -425,10 +425,11 @@ projectile_speed = 30
 projectile_knockback = 20.0
 penetration_count = 2
 
-[node name="EffectStats" parent="Levels/Level0/SpeedAndPierce/MoreSpeedAndPierce" index="2"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="2"]
 stats_enabled = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Levels")
 libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
@@ -446,7 +447,7 @@ libraries = {
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
 
-[editable path="Levels/Level0"]
-[editable path="Levels/Level0/Ricochet"]
-[editable path="Levels/Level0/SpeedAndPierce"]
-[editable path="Levels/Level0/SpeedAndPierce/MoreSpeedAndPierce"]
+[editable path="Level0"]
+[editable path="Level0/Ricochet"]
+[editable path="Level0/SpeedAndPierce"]
+[editable path="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
