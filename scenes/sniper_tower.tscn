@@ -320,6 +320,7 @@ script = ExtResource("5_0kjs1")
 base_level = NodePath("Level0")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
+shooting_range = 4
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
 visible = false

@@ -4,15 +4,18 @@
 [ext_resource type="PackedScene" uid="uid://mfvhoc1kpcc0" path="res://scenes/bolt_line.tscn" id="2_1ds31"]
 [ext_resource type="Script" path="res://scripts/ray_cast_damage.gd" id="2_hd0wa"]
 
-[node name="FiringLine" type="Node2D"]
+[node name="FiringLine" type="Node2D" node_paths=PackedStringArray("ray_cast", "example_bolt_line")]
 script = ExtResource("1_x0rca")
+ray_cast = NodePath("RayCast")
+example_bolt_line = NodePath("ExampleBoltLine")
 bolt_line = ExtResource("2_1ds31")
 
 [node name="RayCast" type="RayCast2D" parent="."]
-target_position = Vector2(400, 0)
+target_position = Vector2(300, 0)
 collide_with_areas = true
 
 [node name="ExampleBoltLine" parent="." instance=ExtResource("2_1ds31")]
+points = PackedVector2Array(0, 0, 300, 0)
 
 [node name="RayCastDamage" type="Node" parent="."]
 script = ExtResource("2_hd0wa")
