@@ -1,6 +1,8 @@
 @tool
 class_name TowerLevelManager extends Node2D
 
+@onready var range_node: Node2D = $Range
+@onready var range_sprite: AnimatedSprite2D = $Range/RangeSprite
 @onready var firing_line: FiringLine = $FiringLine
 @onready var effect_area: Area2D = $EffectArea
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -27,6 +29,12 @@ signal upgraded(new_level: TowerLevel)
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt
+
+func set_default_look():
+	range_sprite.modulate = Color.WHITE
+
+func set_error_look():
+	range_sprite.modulate = Color.RED
 
 func start_warmup():
 	animation_player.play("warmup")
@@ -117,9 +125,16 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	# slowly changes the rotation to face the angle
 	rotation = move_toward(rotation, angle_to_enemy, delta * rotate_speed)
 
+func show_range():
+	range_node.show()
+
+func hide_range():
+	range_node.hide()
+
 func adjust_range(projectile_range: int):
-	# TODO: bring range sprite under the level manager, so it can
-	# be adjusted here also
+	var range_scale := float(projectile_range) / 10
+	range_sprite.scale = Vector2(range_scale, range_scale)
+
 	firing_line.shooting_range = projectile_range
 
 func adjust_effect_range(_effect_range: int):

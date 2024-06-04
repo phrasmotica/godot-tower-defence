@@ -14,21 +14,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
-atlas = ExtResource("2_mmj6w")
-region = Rect2(0, 0, 2000, 2000)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ocubu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xedab")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
 atlas = ExtResource("3_so6nu")
 region = Rect2(0, 0, 72, 72)
@@ -38,6 +23,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fxpcc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
+atlas = ExtResource("2_mmj6w")
+region = Rect2(0, 0, 2000, 2000)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ocubu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xedab")
 }],
 "loop": true,
 "name": &"default",
@@ -290,12 +290,6 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Range" type="Node2D" parent="."]
-
-[node name="RangeSprite" type="AnimatedSprite2D" parent="Range"]
-scale = Vector2(0.3, 0.3)
-sprite_frames = SubResource("SpriteFrames_ocubu")
-
 [node name="Selection" type="Node2D" parent="."]
 visible = false
 
@@ -323,6 +317,12 @@ script = ExtResource("4_bn6n1")
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_3jave")
 base_level = NodePath("Level0")
+
+[node name="Range" type="Node2D" parent="Levels"]
+
+[node name="RangeSprite" type="AnimatedSprite2D" parent="Levels/Range"]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_ocubu")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_ngtcq")]
 
