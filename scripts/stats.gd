@@ -16,8 +16,8 @@ var fire_rate := 1.0
 @export_range(1, 10)
 var rotate_speed: int = 3
 
-@export_range(3, 6)
-var projectile_range: int = 3:
+@export_range(1.0, 10.0)
+var projectile_range := 3.0:
     set(value):
         projectile_range = value
         print("Stats Range " + str(value))
@@ -40,4 +40,4 @@ var infinite_penetration := false
 @export
 var penetration_count := 0
 
-signal adjust_range(stats_range: int)
+signal adjust_range(stats_range: float)

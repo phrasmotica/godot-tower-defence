@@ -129,7 +129,7 @@ func show_range():
 func hide_range():
 	range_node.hide()
 
-func adjust_range(projectile_range: int):
+func adjust_range(projectile_range: float):
 	range_node.radius = projectile_range
 
 	firing_line.shooting_range = projectile_range

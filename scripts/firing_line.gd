@@ -9,8 +9,8 @@ class_name FiringLine extends Node2D
 @export var enabled := true
 @export var bolt_line: PackedScene
 
-@export_range(1, 10)
-var shooting_range := 3:
+@export_range(1.0, 10.0)
+var shooting_range := 3.0:
 	set(value):
 		shooting_range = value
 		set_target(value)
@@ -26,7 +26,7 @@ func _ready():
 
 	set_target(shooting_range)
 
-func set_target(projectile_range: int):
+func set_target(projectile_range: float):
 	ray_cast.target_position = Vector2(projectile_range * 100, 0)
 
 func can_see_enemies():
