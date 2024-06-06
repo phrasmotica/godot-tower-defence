@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciydhlp5id3lj"]
+
+[ext_resource type="Script" path="res://scripts/effect_area.gd" id="1_7bitf"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yqvqw"]
+radius = 300.0
+
+[node name="EffectArea" type="Node2D" node_paths=PackedStringArray("collision_area", "collision_shape")]
+script = ExtResource("1_7bitf")
+collision_area = NodePath("Area2D")
+collision_shape = NodePath("Area2D/EffectAreaShape")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 16
+
+[node name="EffectAreaShape" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_yqvqw")

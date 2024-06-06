@@ -3,7 +3,7 @@ class_name TowerLevelManager extends Node2D
 
 @onready var range_node: RangeArea = $RangeArea
 @onready var firing_line: FiringLine = $FiringLine
-@onready var effect_area: Area2D = $EffectArea
+@onready var effect_area: EffectArea = $EffectArea
 
 @export var base_level: TowerLevel:
 	set(value):
@@ -91,7 +91,7 @@ func should_shoot():
 	return false
 
 func should_create_effect(enemies: Array[Enemy]):
-	if effect_area.monitoring:
+	if effect_area.enabled:
 		return enemies.size() > 0
 
 	return false

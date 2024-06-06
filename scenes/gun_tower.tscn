@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/range_area.tscn" id="5_u7xd8"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_dxx5i"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
+[ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/effect_area.tscn" id="7_urgd6"]
 [ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
@@ -30,9 +31,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_yqvqw"]
-radius = 300.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
 atlas = ExtResource("4_gubpj")
@@ -324,14 +322,8 @@ base_level = NodePath("../Level0")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_dxx5i")]
 
-[node name="EffectArea" type="Area2D" parent="Levels"]
-visible = false
-collision_layer = 16
-monitoring = false
-monitorable = false
-
-[node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
-shape = SubResource("CircleShape2D_yqvqw")
+[node name="EffectArea" parent="Levels" instance=ExtResource("7_urgd6")]
+enabled = false
 
 [node name="Level0" parent="." node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
 upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
