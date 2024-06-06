@@ -18,7 +18,7 @@ var upgrades: Array[TowerLevel]
 var point_towards_enemy := true
 
 signal adjust_range(range: float)
-signal adjust_effect_range(range: int)
+signal adjust_effect_range(range: float)
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
@@ -96,6 +96,6 @@ func _on_stats_adjust_range(stats_range: float):
 	print("Level Stats Range " + str(stats_range))
 	adjust_range.emit(stats_range)
 
-func _on_effect_stats_adjust_range(stats_range: int):
+func _on_effect_stats_adjust_range(stats_range: float):
 	print("Level EffectStats Range " + str(stats_range))
 	adjust_effect_range.emit(stats_range)

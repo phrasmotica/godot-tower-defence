@@ -17,8 +17,8 @@ var enabled := true:
 		collision_area.monitorable = value
 		collision_area.monitoring = value
 
-@export_range(1, 10)
-var radius := 3:
+@export_range(1.0, 10.0)
+var radius := 3.0:
 	set(value):
 		radius = value
 		adjust_range(value)
@@ -31,5 +31,5 @@ func _ready():
 
 	adjust_range(radius)
 
-func adjust_range(projectile_range: int):
-	circle_shape.radius = float(100 * projectile_range)
+func adjust_range(projectile_range: float):
+	circle_shape.radius = 100 * projectile_range

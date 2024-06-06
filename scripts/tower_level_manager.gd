@@ -134,9 +134,8 @@ func adjust_range(projectile_range: float):
 
 	firing_line.shooting_range = projectile_range
 
-func adjust_effect_range(_effect_range: int):
-	# TODO: adjust size of effect area in editor
-	pass
+func adjust_effect_range(effect_range: float):
+	effect_area.radius = effect_range
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")

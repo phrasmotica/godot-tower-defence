@@ -7,8 +7,8 @@ var stats_enabled := true
 @export_range(1, 5)
 var fire_rate := 1
 
-@export_range(1, 4)
-var effect_range := 2:
+@export_range(1.0, 10.0)
+var effect_range := 2.0:
     set(value):
         effect_range = value
         print("EffectStats Range " + str(value))
@@ -21,7 +21,7 @@ var effect_duration := 1.0
 @export
 var effect: PackedScene
 
-signal adjust_range(stats_range: int)
+signal adjust_range(stats_range: float)
 
 func create():
     var new_effect: Effect = effect.instantiate()
