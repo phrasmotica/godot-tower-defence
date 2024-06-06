@@ -13,7 +13,7 @@ class_name FiringLine extends Node2D
 var shooting_range := 3:
 	set(value):
 		shooting_range = value
-		ray_cast.target_position.x = 100 * value
+		set_target(value)
 
 		if Engine.is_editor_hint():
 			example_bolt_line.points[1].x = 100 * value
@@ -23,6 +23,8 @@ signal created_line(bolt_line: Line2D)
 func _ready():
 	if not Engine.is_editor_hint():
 		example_bolt_line.hide()
+
+	set_target(shooting_range)
 
 func set_target(projectile_range: int):
 	ray_cast.target_position = Vector2(projectile_range * 100, 0)

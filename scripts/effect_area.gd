@@ -27,6 +27,9 @@ func _ready():
 	circle_shape = collision_shape.shape as CircleShape2D
 	if not circle_shape:
 		push_error("EffectArea collision shape is not a CircleShape2D!")
+		return
+
+	adjust_range(radius)
 
 func adjust_range(projectile_range: int):
 	circle_shape.radius = float(100 * projectile_range)

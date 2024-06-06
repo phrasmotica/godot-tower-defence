@@ -9,6 +9,9 @@ var radius := 3:
 		radius = value
 		adjust_range(value)
 
+func _ready():
+	adjust_range(radius)
+
 func adjust_range(projectile_range: int):
 	var range_scale := float(projectile_range) / 10
 	range_sprite.scale = Vector2(range_scale, range_scale)
