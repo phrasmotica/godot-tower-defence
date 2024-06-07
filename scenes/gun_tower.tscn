@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=27 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_dxx5i"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/effect_area.tscn" id="7_urgd6"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="9_drkpt"]
 [ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
@@ -325,81 +326,89 @@ base_level = NodePath("../Level0")
 [node name="EffectArea" parent="Levels" instance=ExtResource("7_urgd6")]
 enabled = false
 
-[node name="Level0" parent="." node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
+[node name="Level0" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
+projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
 
 [node name="Sprite" parent="Level0" index="0"]
 rotation = 1.5708
 
-[node name="Stats" parent="Level0" index="1"]
-projectile = ExtResource("5_ikvgn")
-fire_rate = 3.0
-
 [node name="EffectStats" parent="Level0" index="2"]
 stats_enabled = false
 
-[node name="Ricochet" parent="Level0" instance=ExtResource("4_t0fww")]
+[node name="TowerLevelStats" type="Node" parent="Level0"]
+script = ExtResource("9_drkpt")
+projectile = ExtResource("5_ikvgn")
+fire_rate = 3.0
+
+[node name="Ricochet" parent="Level0" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots ricochet bullets instead of regular ones."
 price = 2
+projectile_stats = NodePath("TowerLevelStats")
 
 [node name="Sprite" parent="Level0/Ricochet" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
 
-[node name="Stats" parent="Level0/Ricochet" index="1"]
-projectile = ExtResource("9_gndbw")
-fire_rate = 3.0
-rotate_speed = 4
-projectile_range = 4
-projectile_speed = 20
-
 [node name="EffectStats" parent="Level0/Ricochet" index="2"]
 stats_enabled = false
 
-[node name="SpeedAndPierce" parent="Level0" node_paths=PackedStringArray("upgrades") instance=ExtResource("4_t0fww")]
+[node name="TowerLevelStats" type="Node" parent="Level0/Ricochet"]
+script = ExtResource("9_drkpt")
+projectile = ExtResource("9_gndbw")
+fire_rate = 3.0
+rotate_speed = 4
+projectile_range = 4.0
+projectile_speed = 20
+
+[node name="SpeedAndPierce" parent="Level0" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots faster, and bullets can hit two enemies!"
 price = 4
+projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("MoreSpeedAndPierce")]
 
 [node name="Sprite" parent="Level0/SpeedAndPierce" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="Stats" parent="Level0/SpeedAndPierce" index="1"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce" index="2"]
+stats_enabled = false
+
+[node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce"]
+script = ExtResource("9_drkpt")
 projectile = ExtResource("5_ikvgn")
 fire_rate = 4.0
 rotate_speed = 5
-projectile_range = 4
+projectile_range = 4.0
 projectile_speed = 20
 projectile_knockback = 20.0
 penetration_count = 1
 
-[node name="EffectStats" parent="Level0/SpeedAndPierce" index="2"]
-stats_enabled = false
-
-[node name="MoreSpeedAndPierce" parent="Level0/SpeedAndPierce" instance=ExtResource("4_t0fww")]
+[node name="MoreSpeedAndPierce" parent="Level0/SpeedAndPierce" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
 visible = false
 level_description = "Shoots even faster and increased penetration."
 price = 6
+projectile_stats = NodePath("TowerLevelStats")
 
 [node name="Sprite" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="0"]
 modulate = Color(0.784314, 0.227451, 0.368627, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="Stats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="1"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="2"]
+stats_enabled = false
+
+[node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
+script = ExtResource("9_drkpt")
 projectile = ExtResource("5_ikvgn")
 fire_rate = 5.0
 rotate_speed = 6
-projectile_range = 4
+projectile_range = 4.0
 projectile_speed = 30
 projectile_knockback = 20.0
 penetration_count = 2
-
-[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="2"]
-stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Levels")
