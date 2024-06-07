@@ -36,7 +36,7 @@ func _ready():
 	is_valid_location = true
 	deselect()
 
-	adjust_range(levels_node.get_current_level().get_range(false))
+	adjust_range(levels_node.get_current_level().get_range(true))
 
 	if is_placing():
 		levels_node.show_range()
@@ -239,7 +239,7 @@ func _on_levels_upgraded(new_level: TowerLevel):
 
 	barrel.setup(new_level)
 
-	adjust_range(new_level.get_range(false))
+	adjust_range(new_level.get_range(true))
 
 	set_firing()
 

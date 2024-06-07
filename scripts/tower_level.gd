@@ -50,8 +50,8 @@ func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0
 
 func get_range(for_effect: bool):
-	if for_effect:
-		return effect_stats.effect_range if effect_stats else 0.0
+	if for_effect and effect_stats:
+		return effect_stats.effect_range
 
 	return projectile_stats.projectile_range if projectile_stats else 0.0
 
