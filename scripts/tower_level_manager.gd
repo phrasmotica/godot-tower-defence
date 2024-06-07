@@ -1,9 +1,14 @@
 @tool
 class_name TowerLevelManager extends Node2D
 
-@onready var range_node: RangeArea = $RangeArea
-@onready var firing_line: FiringLine = $FiringLine
-@onready var effect_area: EffectArea = $EffectArea
+@export
+var range_node: RangeArea
+
+@export
+var firing_line: FiringLine
+
+@export
+var effect_area: EffectArea
 
 @export var base_level: TowerLevel:
 	set(value):
@@ -29,10 +34,12 @@ signal created_effect(effect: Effect)
 signal created_bolt
 
 func set_default_look():
-	range_node.set_default_look()
+	if range_node:
+		range_node.set_default_look()
 
 func set_error_look():
-	range_node.set_error_look()
+	if range_node:
+		range_node.set_error_look()
 
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
@@ -124,18 +131,23 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	base_level.rotation = new_rotation
 
 func show_range():
-	range_node.show()
+	if range_node:
+		range_node.show()
 
 func hide_range():
-	range_node.hide()
+	if range_node:
+		range_node.hide()
 
 func adjust_range(projectile_range: float):
-	range_node.radius = projectile_range
+	if range_node:
+		range_node.radius = projectile_range
 
-	firing_line.shooting_range = projectile_range
+	if firing_line:
+		firing_line.shooting_range = projectile_range
 
 func adjust_effect_range(effect_range: float):
-	effect_area.radius = effect_range
+	if effect_area:
+		effect_area.radius = effect_range
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
