@@ -17,10 +17,20 @@ var sprite: SpriteFrames:
 		animated_sprite.sprite_frames = value
 
 @export
-var projectile_stats: TowerLevelStats
+var projectile_stats: TowerLevelStats:
+	set(value):
+		projectile_stats = value
+
+		if projectile_stats and not projectile_stats.adjust_range.is_connected(emit_adjust_range):
+			projectile_stats.adjust_range.connect(emit_adjust_range)
 
 @export
-var effect_stats: EffectStats
+var effect_stats: EffectStats:
+	set(value):
+		effect_stats = value
+
+		if effect_stats and not effect_stats.adjust_range.is_connected(emit_adjust_effect_range):
+			effect_stats.adjust_range.connect(emit_adjust_effect_range)
 
 @export
 var upgrades: Array[TowerLevel]
@@ -107,10 +117,10 @@ func try_shoot_bolt():
 
 	created_bolt.emit(projectile_stats)
 
-func _on_stats_adjust_range(stats_range: float):
+func emit_adjust_range(stats_range: float):
 	print("Level Stats Range " + str(stats_range))
 	adjust_range.emit(stats_range)
 
-func _on_effect_stats_adjust_range(stats_range: float):
+func emit_adjust_effect_range(stats_range: float):
 	print("Level EffectStats Range " + str(stats_range))
 	adjust_effect_range.emit(stats_range)
