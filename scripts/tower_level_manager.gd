@@ -92,14 +92,14 @@ func get_upgrade(index: int):
 	return base_level.get_upgrade(upgrade_path, index)
 
 func should_shoot():
-	if firing_line.enabled:
-		return firing_line.can_see_enemies()
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
 
 	return false
 
 func should_create_effect(enemies: Array[Enemy]):
-	if effect_area.enabled:
-		return enemies.size() > 0
+	if effect_area:
+		return effect_area.enabled and enemies.size() > 0
 
 	return false
 
