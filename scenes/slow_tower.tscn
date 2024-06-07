@@ -1,13 +1,13 @@
-[gd_scene load_steps=32 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=29 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
-[ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_oryv4"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_c5d30"]
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_017vf"]
+[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/range_area.tscn" id="5_7dlap"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
-[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_bxxxn"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_eu8cm"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
+[ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/effect_area.tscn" id="7_50fd5"]
 [ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/slow_effect.tscn" id="8_7bdrw"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="10_4dyam"]
 [ext_resource type="Texture2D" uid="uid://bngv7y86ypnm4" path="res://assets/sprites/slowerTower.png" id="10_4rxji"]
@@ -32,24 +32,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
-atlas = ExtResource("2_oryv4")
-region = Rect2(0, 0, 2000, 2000)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ocubu"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xedab")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2ou6o"]
-radius = 200.998
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mdq5s"]
 atlas = ExtResource("7_34jkt")
@@ -101,19 +83,19 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath("../ProgressBars/WarmupProgressBar:size")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 1)]
+"values": [Vector2(64, 8)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -125,26 +107,26 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/2/path = NodePath("..:scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 8)]
+"values": [Vector2(1, 1)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("..:scale")
+tracks/3/path = NodePath("../BaseLevel:modulate")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ujsix"]
@@ -180,25 +162,13 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_ytq2c"]
 resource_name = "upgrade"
 length = 3.0
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -206,25 +176,25 @@ tracks/1/keys = {
 "method": &"upgrade_finished"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 8), Vector2(64, 8)]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../ProgressBars/UpgradeProgressBar")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -235,29 +205,29 @@ tracks/3/keys = {
 "method": &"hide"
 }]
 }
-
-[sub_resource type="Animation" id="Animation_dfao1"]
-resource_name = "warmup"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BaseLevel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
+
+[sub_resource type="Animation" id="Animation_dfao1"]
+resource_name = "warmup"
+length = 3.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
@@ -265,25 +235,25 @@ tracks/1/keys = {
 "method": &"warmup_finished"
 }]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar:size")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, 8), Vector2(64, 8)]
 }
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../ProgressBars/WarmupProgressBar")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -293,6 +263,18 @@ tracks/3/keys = {
 "args": [],
 "method": &"hide"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../BaseLevel:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
@@ -348,72 +330,57 @@ offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
 script = ExtResource("4_017vf")
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "effect_area", "base_level")]
 script = ExtResource("5_t5pdt")
-base_level = NodePath("Level0")
+range_node = NodePath("RangeArea")
+effect_area = NodePath("EffectArea")
+base_level = NodePath("../BaseLevel")
 
-[node name="Range" type="Node2D" parent="Levels"]
+[node name="RangeArea" parent="Levels" instance=ExtResource("5_7dlap")]
+radius = 2.0
 
-[node name="RangeSprite" type="AnimatedSprite2D" parent="Levels/Range"]
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_ocubu")
+[node name="EffectArea" parent="Levels" instance=ExtResource("7_50fd5")]
+radius = 2.0
 
-[node name="FiringLine" parent="Levels" instance=ExtResource("6_bxxxn")]
-visible = false
-
-[node name="EffectArea" type="Area2D" parent="Levels"]
-collision_layer = 16
-
-[node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
-shape = SubResource("CircleShape2D_2ou6o")
-
-[node name="Level0" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
+[node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
+sprite = SubResource("SpriteFrames_vq0yl")
 effect_stats = NodePath("EffectStats")
 upgrades = [NodePath("Slower"), NodePath("Paralyse")]
 point_towards_enemy = false
 
-[node name="Sprite" parent="Levels/Level0" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_vq0yl")
-
-[node name="EffectStats" type="Node" parent="Levels/Level0"]
+[node name="EffectStats" type="Node" parent="BaseLevel"]
 script = ExtResource("10_bd5or")
 effect_duration = 3.0
 effect = ExtResource("8_7bdrw")
 
-[node name="Slower" parent="Levels/Level0" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
+[node name="Slower" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
 level_description = "Slows enemies for longer."
 price = 3
+sprite = SubResource("SpriteFrames_0mumw")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="Sprite" parent="Levels/Level0/Slower" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_0mumw")
-
-[node name="EffectStats" type="Node" parent="Levels/Level0/Slower"]
+[node name="EffectStats" type="Node" parent="BaseLevel/Slower"]
 script = ExtResource("10_bd5or")
 effect_duration = 5.0
 effect = ExtResource("8_7bdrw")
 
-[node name="Paralyse" parent="Levels/Level0" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
+[node name="Paralyse" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
 level_description = "Paralyses enemies for a short time!"
 price = 4
+sprite = SubResource("SpriteFrames_i164d")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="Sprite" parent="Levels/Level0/Paralyse" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_i164d")
-
-[node name="EffectStats" type="Node" parent="Levels/Level0/Paralyse"]
+[node name="EffectStats" type="Node" parent="BaseLevel/Paralyse"]
 script = ExtResource("10_bd5or")
 effect_duration = 3.0
 effect = ExtResource("12_2doa4")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Levels")
 libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
@@ -431,11 +398,7 @@ enable_pulse = true
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="adjust_range" from="Levels/Level0/EffectStats" to="Levels/Level0" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Levels/Level0/Slower/EffectStats" to="Levels/Level0/Slower" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Levels/Level0/Paralyse/EffectStats" to="Levels/Level0/Paralyse" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="BaseLevel/EffectStats" to="BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="BaseLevel/Slower/EffectStats" to="BaseLevel/Slower" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="BaseLevel/Paralyse/EffectStats" to="BaseLevel/Paralyse" method="_on_effect_stats_adjust_range"]
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
-
-[editable path="Levels/Level0"]
-[editable path="Levels/Level0/Slower"]
-[editable path="Levels/Level0/Paralyse"]

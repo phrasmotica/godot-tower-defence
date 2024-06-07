@@ -32,4 +32,5 @@ func _ready():
 	adjust_range(radius)
 
 func adjust_range(projectile_range: float):
-	circle_shape.radius = 100 * projectile_range
+	if circle_shape:
+		circle_shape.radius = 100 * projectile_range
