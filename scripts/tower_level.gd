@@ -1,14 +1,17 @@
 @tool
 class_name TowerLevel extends Node2D
 
-@onready var stats: TowerLevelStats = $Stats
-@onready var effect_stats: EffectStats = $EffectStats
-
 @export_multiline
 var level_description := ""
 
 @export_range(1, 10)
 var price := 1
+
+@export
+var projectile_stats: TowerLevelStats
+
+@export
+var effect_stats: EffectStats
 
 @export
 var upgrades: Array[TowerLevel]
@@ -25,13 +28,16 @@ signal created_effect(effect: Effect)
 signal created_bolt(bolt_stats: TowerLevelStats)
 
 func get_fire_rate():
-	return stats.fire_rate
+	return projectile_stats.fire_rate if projectile_stats else 0.0
 
 func get_range(for_effect: bool):
-	return effect_stats.effect_range if for_effect else stats.projectile_range
+	if for_effect:
+		return effect_stats.effect_range if effect_stats else 0.0
+
+	return projectile_stats.projectile_range if projectile_stats else 0.0
 
 func get_effect_fire_rate():
-	return effect_stats.fire_rate
+	return effect_stats.fire_rate if effect_stats else 0
 
 func get_current_level(path: Array[int]) -> TowerLevel:
 	if path.size() <= 0:
@@ -60,25 +66,25 @@ func get_total_value(path: Array[int]) -> int:
 	)
 
 func try_create_projectile():
-	if not stats.stats_enabled:
+	if not projectile_stats:
 		return
 
 	print("Creating projectile")
 
-	var projectile_scene = stats.projectile
+	var projectile_scene = projectile_stats.projectile
 
 	var projectile: Projectile = projectile_scene.instantiate()
 
-	projectile.damage = stats.damage
-	projectile.effective_range = stats.projectile_range
-	projectile.speed = stats.projectile_speed
-	projectile.knockback = stats.projectile_knockback
-	projectile.penetration_count = stats.penetration_count
+	projectile.damage = projectile_stats.damage
+	projectile.effective_range = projectile_stats.projectile_range
+	projectile.speed = projectile_stats.projectile_speed
+	projectile.knockback = projectile_stats.projectile_knockback
+	projectile.penetration_count = projectile_stats.penetration_count
 
 	created_projectile.emit(projectile)
 
 func try_create_effect():
-	if not effect_stats.stats_enabled:
+	if not effect_stats:
 		return
 
 	print("Creating effect")
@@ -90,7 +96,7 @@ func try_create_effect():
 func try_shoot_bolt():
 	print("Shooting a bolt")
 
-	created_bolt.emit(stats)
+	created_bolt.emit(projectile_stats)
 
 func _on_stats_adjust_range(stats_range: float):
 	print("Level Stats Range " + str(stats_range))

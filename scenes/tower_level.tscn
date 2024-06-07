@@ -20,9 +20,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Level" type="Node2D"]
+[node name="Level" type="Node2D" node_paths=PackedStringArray("projectile_stats", "effect_stats")]
 z_index = 100
 script = ExtResource("1_p6oa4")
+projectile_stats = NodePath("Stats")
+effect_stats = NodePath("EffectStats")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_nd3ji")
