@@ -7,7 +7,7 @@ var penetration_count := 0
 
 var direction: Vector2
 var start_position: Vector2
-var effective_range: int
+var effective_range: float
 
 func _ready():
     start_position = global_position
