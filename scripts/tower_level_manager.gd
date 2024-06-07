@@ -91,11 +91,11 @@ func upgrade_finished():
 func get_upgrade(index: int):
 	return base_level.get_upgrade(upgrade_path, index)
 
-func should_shoot():
+func should_shoot(enemies: Array[Enemy]):
 	if firing_line:
 		return firing_line.enabled && firing_line.can_see_enemies()
 
-	return false
+	return enemies.size() > 0
 
 func should_create_effect(enemies: Array[Enemy]):
 	if effect_area:

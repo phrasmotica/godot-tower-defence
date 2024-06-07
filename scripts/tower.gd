@@ -192,7 +192,8 @@ func _on_barrel_shoot():
 	if not is_firing():
 		return
 
-	if not levels_node.should_shoot():
+	var in_range_enemies = get_near_enemies(false)
+	if not levels_node.should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -215,7 +216,9 @@ func _on_barrel_bolt():
 	if not is_firing():
 		return
 
-	if not levels_node.should_shoot():
+	var in_range_enemies = get_near_enemies(false)
+	# TODO: create a should_bolt(...) method
+	if not levels_node.should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
