@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=30 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/effect_area.tscn" id="7_urgd6"]
 [ext_resource type="Script" path="res://scripts/stats.gd" id="9_drkpt"]
 [ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
+[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="9_ja0ml"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
@@ -27,6 +28,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_fxpcc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
+atlas = ExtResource("9_ja0ml")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e2as7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p5m64")
 }],
 "loop": true,
 "name": &"default",
@@ -327,11 +343,9 @@ base_level = NodePath("../Level0")
 enabled = false
 
 [node name="Level0" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
+sprite = SubResource("SpriteFrames_e2as7")
 projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
-
-[node name="Sprite" parent="Level0" index="0"]
-rotation = 1.5708
 
 [node name="TowerLevelStats" type="Node" parent="Level0"]
 script = ExtResource("9_drkpt")
@@ -342,11 +356,8 @@ fire_rate = 3.0
 visible = false
 level_description = "Shoots ricochet bullets instead of regular ones."
 price = 2
+sprite = SubResource("SpriteFrames_6lplc")
 projectile_stats = NodePath("TowerLevelStats")
-
-[node name="Sprite" parent="Level0/Ricochet" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_6lplc")
 
 [node name="TowerLevelStats" type="Node" parent="Level0/Ricochet"]
 script = ExtResource("9_drkpt")
@@ -360,12 +371,9 @@ projectile_speed = 20
 visible = false
 level_description = "Shoots faster, and bullets can hit two enemies!"
 price = 4
+sprite = SubResource("SpriteFrames_rpdrq")
 projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("MoreSpeedAndPierce")]
-
-[node name="Sprite" parent="Level0/SpeedAndPierce" index="0"]
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_rpdrq")
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce"]
 script = ExtResource("9_drkpt")
@@ -379,14 +387,11 @@ penetration_count = 1
 
 [node name="MoreSpeedAndPierce" parent="Level0/SpeedAndPierce" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
 visible = false
+modulate = Color(0.784314, 0.227451, 0.368627, 1)
 level_description = "Shoots even faster and increased penetration."
 price = 6
+sprite = SubResource("SpriteFrames_rpdrq")
 projectile_stats = NodePath("TowerLevelStats")
-
-[node name="Sprite" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="0"]
-modulate = Color(0.784314, 0.227451, 0.368627, 1)
-rotation = 1.5708
-sprite_frames = SubResource("SpriteFrames_rpdrq")
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
 script = ExtResource("9_drkpt")
@@ -416,8 +421,3 @@ libraries = {
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
-
-[editable path="Level0"]
-[editable path="Level0/Ricochet"]
-[editable path="Level0/SpeedAndPierce"]
-[editable path="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
