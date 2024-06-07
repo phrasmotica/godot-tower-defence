@@ -8,6 +8,15 @@ var level_description := ""
 var price := 1
 
 @export
+var animated_sprite: AnimatedSprite2D
+
+@export
+var sprite: SpriteFrames:
+	set(value):
+		sprite = value
+		animated_sprite.sprite_frames = value
+
+@export
 var projectile_stats: TowerLevelStats
 
 @export
