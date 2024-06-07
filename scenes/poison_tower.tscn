@@ -335,7 +335,7 @@ collision_layer = 16
 shape = SubResource("CircleShape2D_2ou6o")
 
 [node name="Level0" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
-effect_stats = NodePath("EffectStats2")
+effect_stats = NodePath("EffectStats")
 upgrades = [null, null]
 point_towards_enemy = false
 
@@ -343,11 +343,7 @@ point_towards_enemy = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_8pydf")
 
-[node name="EffectStats" parent="Levels/Level0" index="1"]
-effect_duration = 3.0
-effect = ExtResource("9_by8rj")
-
-[node name="EffectStats2" type="Node" parent="Levels/Level0"]
+[node name="EffectStats" type="Node" parent="Levels/Level0"]
 script = ExtResource("10_t6u3a")
 effect_duration = 3.0
 effect = ExtResource("9_by8rj")
@@ -370,7 +366,7 @@ enable_pulse = true
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="adjust_range" from="Levels/Level0/EffectStats2" to="Levels/Level0" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/Level0/EffectStats" to="Levels/Level0" method="_on_effect_stats_adjust_range"]
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
 
 [editable path="Levels/Level0"]

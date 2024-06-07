@@ -340,9 +340,6 @@ upgrades = [NodePath("Level1")]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
 
-[node name="EffectStats" parent="Levels/Level0" index="1"]
-stats_enabled = false
-
 [node name="TowerLevelStats" type="Node" parent="Levels/Level0"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
@@ -363,9 +360,6 @@ projectile_stats = NodePath("TowerLevelStats")
 modulate = Color(0.266667, 1, 1, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
-
-[node name="EffectStats" parent="Levels/Level0/Level1" index="1"]
-stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Levels/Level0/Level1"]
 script = ExtResource("9_gb23g")

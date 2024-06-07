@@ -333,9 +333,6 @@ upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
 [node name="Sprite" parent="Level0" index="0"]
 rotation = 1.5708
 
-[node name="EffectStats" parent="Level0" index="1"]
-stats_enabled = false
-
 [node name="TowerLevelStats" type="Node" parent="Level0"]
 script = ExtResource("9_drkpt")
 projectile = ExtResource("5_ikvgn")
@@ -350,9 +347,6 @@ projectile_stats = NodePath("TowerLevelStats")
 [node name="Sprite" parent="Level0/Ricochet" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
-
-[node name="EffectStats" parent="Level0/Ricochet" index="1"]
-stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/Ricochet"]
 script = ExtResource("9_drkpt")
@@ -372,9 +366,6 @@ upgrades = [NodePath("MoreSpeedAndPierce")]
 [node name="Sprite" parent="Level0/SpeedAndPierce" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
-
-[node name="EffectStats" parent="Level0/SpeedAndPierce" index="1"]
-stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce"]
 script = ExtResource("9_drkpt")
@@ -396,9 +387,6 @@ projectile_stats = NodePath("TowerLevelStats")
 modulate = Color(0.784314, 0.227451, 0.368627, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
-
-[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="1"]
-stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
 script = ExtResource("9_drkpt")
