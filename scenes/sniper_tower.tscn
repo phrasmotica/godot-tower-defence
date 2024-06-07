@@ -340,6 +340,9 @@ upgrades = [NodePath("Level1")]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
 
+[node name="EffectStats" parent="Levels/Level0" index="1"]
+stats_enabled = false
+
 [node name="TowerLevelStats" type="Node" parent="Levels/Level0"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
@@ -349,18 +352,6 @@ rotate_speed = 5
 projectile_range = 4.0
 projectile_knockback = 90.0
 penetration_count = 1
-
-[node name="Stats" parent="Levels/Level0" index="2"]
-stats_enabled = false
-damage = 4
-fire_rate = 0.4
-rotate_speed = 5
-projectile_range = 4.0
-projectile_knockback = 90.0
-penetration_count = 1
-
-[node name="EffectStats" parent="Levels/Level0" index="3"]
-stats_enabled = false
 
 [node name="Level1" parent="Levels/Level0" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
 visible = false
@@ -373,6 +364,9 @@ modulate = Color(0.266667, 1, 1, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
 
+[node name="EffectStats" parent="Levels/Level0/Level1" index="1"]
+stats_enabled = false
+
 [node name="TowerLevelStats" type="Node" parent="Levels/Level0/Level1"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
@@ -382,18 +376,6 @@ rotate_speed = 5
 projectile_range = 4.0
 projectile_knockback = 90.0
 infinite_penetration = true
-
-[node name="Stats" parent="Levels/Level0/Level1" index="2"]
-stats_enabled = false
-damage = 4
-fire_rate = 0.4
-rotate_speed = 5
-projectile_range = 4.0
-projectile_knockback = 90.0
-infinite_penetration = true
-
-[node name="EffectStats" parent="Levels/Level0/Level1" index="3"]
-stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
 libraries = {

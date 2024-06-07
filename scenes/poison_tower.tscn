@@ -341,10 +341,7 @@ point_towards_enemy = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_8pydf")
 
-[node name="Stats" parent="Levels/Level0" index="1"]
-stats_enabled = false
-
-[node name="EffectStats" parent="Levels/Level0" index="2"]
+[node name="EffectStats" parent="Levels/Level0" index="1"]
 effect_duration = 3.0
 effect = ExtResource("9_by8rj")
 

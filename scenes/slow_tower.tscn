@@ -374,10 +374,7 @@ point_towards_enemy = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_vq0yl")
 
-[node name="Stats" parent="Levels/Level0" index="1"]
-stats_enabled = false
-
-[node name="EffectStats" parent="Levels/Level0" index="2"]
+[node name="EffectStats" parent="Levels/Level0" index="1"]
 effect_duration = 3.0
 effect = ExtResource("8_7bdrw")
 
@@ -391,10 +388,7 @@ point_towards_enemy = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_0mumw")
 
-[node name="Stats" parent="Levels/Level0/Slower" index="1"]
-stats_enabled = false
-
-[node name="EffectStats" parent="Levels/Level0/Slower" index="2"]
+[node name="EffectStats" parent="Levels/Level0/Slower" index="1"]
 effect_duration = 5.0
 effect = ExtResource("8_7bdrw")
 
@@ -408,10 +402,7 @@ point_towards_enemy = false
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_i164d")
 
-[node name="Stats" parent="Levels/Level0/Paralyse" index="1"]
-stats_enabled = false
-
-[node name="EffectStats" parent="Levels/Level0/Paralyse" index="2"]
+[node name="EffectStats" parent="Levels/Level0/Paralyse" index="1"]
 effect_duration = 3.0
 effect = ExtResource("12_2doa4")
 

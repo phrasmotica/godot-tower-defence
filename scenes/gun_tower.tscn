@@ -333,7 +333,7 @@ upgrades = [NodePath("Ricochet"), NodePath("SpeedAndPierce")]
 [node name="Sprite" parent="Level0" index="0"]
 rotation = 1.5708
 
-[node name="EffectStats" parent="Level0" index="2"]
+[node name="EffectStats" parent="Level0" index="1"]
 stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0"]
@@ -351,7 +351,7 @@ projectile_stats = NodePath("TowerLevelStats")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_6lplc")
 
-[node name="EffectStats" parent="Level0/Ricochet" index="2"]
+[node name="EffectStats" parent="Level0/Ricochet" index="1"]
 stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/Ricochet"]
@@ -373,7 +373,7 @@ upgrades = [NodePath("MoreSpeedAndPierce")]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="EffectStats" parent="Level0/SpeedAndPierce" index="2"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce" index="1"]
 stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce"]
@@ -397,7 +397,7 @@ modulate = Color(0.784314, 0.227451, 0.368627, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_rpdrq")
 
-[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="2"]
+[node name="EffectStats" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce" index="1"]
 stats_enabled = false
 
 [node name="TowerLevelStats" type="Node" parent="Level0/SpeedAndPierce/MoreSpeedAndPierce"]
