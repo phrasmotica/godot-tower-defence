@@ -334,7 +334,8 @@ script = ExtResource("4_4tss6")
 range_node = NodePath("RangeArea")
 base_level = NodePath("../BaseLevel")
 
-[node name="RangeArea" parent="Levels" instance=ExtResource("5_u7xd8")]
+[node name="RangeArea" parent="Levels" node_paths=PackedStringArray("range_sprite") instance=ExtResource("5_u7xd8")]
+range_sprite = NodePath("RangeSprite")
 
 [node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
 sprite = SubResource("SpriteFrames_e2as7")

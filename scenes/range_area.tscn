@@ -18,8 +18,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RangeArea" type="Node2D"]
+[node name="RangeArea" type="Node2D" node_paths=PackedStringArray("range_sprite")]
 script = ExtResource("1_gs8lo")
+range_sprite = NodePath("RangeSprite")
 
 [node name="RangeSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ocubu")
