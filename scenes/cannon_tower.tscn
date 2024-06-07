@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=25 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_bjpxi"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_mmj6w"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_1fwj3"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_ngtcq"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="9_7e7tl"]
 [ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/cannonball.tscn" id="11_m47vg"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="12_nqfhp"]
 
@@ -335,38 +336,55 @@ monitorable = false
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
 
-[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("6_1fwj3")]
+[node name="Level0" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
+projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("Level1")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_0svqt")
 
-[node name="Stats" parent="Levels/Level0" index="1"]
+[node name="TowerLevelStats" type="Node" parent="Levels/Level0"]
+script = ExtResource("9_7e7tl")
 projectile = ExtResource("11_m47vg")
 damage = 3
 rotate_speed = 2
 projectile_knockback = 80.0
 
-[node name="EffectStats" parent="Levels/Level0" index="2"]
+[node name="Stats" parent="Levels/Level0" index="2"]
+projectile = ExtResource("11_m47vg")
+damage = 3
+rotate_speed = 2
+projectile_knockback = 80.0
+
+[node name="EffectStats" parent="Levels/Level0" index="3"]
 stats_enabled = false
 
-[node name="Level1" parent="Levels/Level0" instance=ExtResource("6_1fwj3")]
+[node name="Level1" parent="Levels/Level0" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
 visible = false
+projectile_stats = NodePath("TowerLevelStats")
 
 [node name="Sprite" parent="Levels/Level0/Level1" index="0"]
 modulate = Color(1, 0, 0, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_0svqt")
 
-[node name="Stats" parent="Levels/Level0/Level1" index="1"]
+[node name="TowerLevelStats" type="Node" parent="Levels/Level0/Level1"]
+script = ExtResource("9_7e7tl")
 projectile = ExtResource("11_m47vg")
 damage = 3
 rotate_speed = 2
-projectile_range = 5
+projectile_range = 5.0
 projectile_knockback = 80.0
 
-[node name="EffectStats" parent="Levels/Level0/Level1" index="2"]
+[node name="Stats" parent="Levels/Level0/Level1" index="2"]
+projectile = ExtResource("11_m47vg")
+damage = 3
+rotate_speed = 2
+projectile_range = 5.0
+projectile_knockback = 80.0
+
+[node name="EffectStats" parent="Levels/Level0/Level1" index="3"]
 stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]

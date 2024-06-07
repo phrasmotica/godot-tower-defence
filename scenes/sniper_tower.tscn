@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=23 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_ta74e"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="2_nvfga"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_5un4q"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_r2dx8"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="7_l2h3t"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="9_gb23g"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="11_l3rgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
@@ -320,7 +321,7 @@ scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_ocubu")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
-shooting_range = 4
+shooting_range = 4.0
 
 [node name="EffectArea" type="Area2D" parent="Levels"]
 visible = false
@@ -331,45 +332,67 @@ monitorable = false
 [node name="EffectAreaShape" type="CollisionShape2D" parent="Levels/EffectArea"]
 shape = SubResource("CircleShape2D_yqvqw")
 
-[node name="Level0" parent="Levels" node_paths=PackedStringArray("upgrades") instance=ExtResource("6_5un4q")]
+[node name="Level0" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
+projectile_stats = NodePath("TowerLevelStats")
 upgrades = [NodePath("Level1")]
 
 [node name="Sprite" parent="Levels/Level0" index="0"]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
 
-[node name="Stats" parent="Levels/Level0" index="1"]
+[node name="TowerLevelStats" type="Node" parent="Levels/Level0"]
+script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
 fire_rate = 0.4
 rotate_speed = 5
-projectile_range = 4
+projectile_range = 4.0
 projectile_knockback = 90.0
 penetration_count = 1
 
-[node name="EffectStats" parent="Levels/Level0" index="2"]
+[node name="Stats" parent="Levels/Level0" index="2"]
+stats_enabled = false
+damage = 4
+fire_rate = 0.4
+rotate_speed = 5
+projectile_range = 4.0
+projectile_knockback = 90.0
+penetration_count = 1
+
+[node name="EffectStats" parent="Levels/Level0" index="3"]
 stats_enabled = false
 
-[node name="Level1" parent="Levels/Level0" instance=ExtResource("6_5un4q")]
+[node name="Level1" parent="Levels/Level0" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
 visible = false
 level_description = "Bolt can penetrate through all enemies!"
 price = 5
+projectile_stats = NodePath("TowerLevelStats")
 
 [node name="Sprite" parent="Levels/Level0/Level1" index="0"]
 modulate = Color(0.266667, 1, 1, 1)
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_o8dqj")
 
-[node name="Stats" parent="Levels/Level0/Level1" index="1"]
+[node name="TowerLevelStats" type="Node" parent="Levels/Level0/Level1"]
+script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
 fire_rate = 0.4
 rotate_speed = 5
-projectile_range = 4
+projectile_range = 4.0
 projectile_knockback = 90.0
 infinite_penetration = true
 
-[node name="EffectStats" parent="Levels/Level0/Level1" index="2"]
+[node name="Stats" parent="Levels/Level0/Level1" index="2"]
+stats_enabled = false
+damage = 4
+fire_rate = 0.4
+rotate_speed = 5
+projectile_range = 4.0
+projectile_knockback = 90.0
+infinite_penetration = true
+
+[node name="EffectStats" parent="Levels/Level0/Level1" index="3"]
 stats_enabled = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Levels"]
@@ -393,6 +416,8 @@ enable_bolt = true
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="created_line" from="Levels/FiringLine" to="." method="_on_firing_line_created_line"]
 [connection signal="created_line" from="Levels/FiringLine" to="Levels" method="_on_firing_line_created_line"]
+[connection signal="adjust_range" from="Levels/Level0/TowerLevelStats" to="Levels/Level0" method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/Level0/Level1/TowerLevelStats" to="Levels/Level0/Level1" method="_on_stats_adjust_range"]
 [connection signal="bolt" from="Barrel" to="." method="_on_barrel_bolt"]
 
 [editable path="Levels/Level0"]
