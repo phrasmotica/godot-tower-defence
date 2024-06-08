@@ -1,24 +1,21 @@
-[gd_scene load_steps=28 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=21 format=3 uid="uid://8o1qoddn66j5"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
-[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="4_4tss6"]
-[ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_n5mc5"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="4_t0fww"]
-[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/bullet.tscn" id="5_ikvgn"]
-[ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
-[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/range_area.tscn" id="5_u7xd8"]
-[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="7_mplx0"]
-[ext_resource type="Script" path="res://scripts/stats.gd" id="9_drkpt"]
-[ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/ricochet_bullet.tscn" id="9_gndbw"]
-[ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="9_ja0ml"]
+[ext_resource type="Script" path="res://scripts/tower.gd" id="1_bjpxi"]
+[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_so6nu"]
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_bn6n1"]
+[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_3jave"]
+[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="5_d8tio"]
+[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_1fwj3"]
+[ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
+[ext_resource type="Script" path="res://scripts/stats.gd" id="9_7e7tl"]
+[ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball.tscn" id="11_m47vg"]
+[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="12_nqfhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
-atlas = ExtResource("3_ksutm")
+atlas = ExtResource("3_so6nu")
 region = Rect2(0, 0, 72, 72)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7prn5"]
@@ -32,45 +29,15 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
-atlas = ExtResource("9_ja0ml")
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyg1t"]
+atlas = ExtResource("7_j030q")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_e2as7"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_0svqt"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_p5m64")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
-atlas = ExtResource("4_gubpj")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6lplc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8x2l0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0rfb"]
-atlas = ExtResource("5_kp04t")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_rpdrq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t0rfb")
+"texture": SubResource("AtlasTexture_pyg1t")
 }],
 "loop": true,
 "name": &"default",
@@ -284,11 +251,11 @@ _data = {
 "warmup": SubResource("Animation_dfao1")
 }
 
-[node name="GunTower" type="Node2D"]
-script = ExtResource("1_v8t2a")
-tower_name = "Gun Tower"
-tower_description = "Shoots simple bullets at enemies."
-price = 2
+[node name="CannonTower" type="Node2D"]
+script = ExtResource("1_bjpxi")
+tower_name = "Cannon Tower"
+tower_description = "Fires cannonballs, which affect all enemies in an area."
+price = 4
 
 [node name="DetectMouse" type="Control" parent="."]
 layout_mode = 3
@@ -319,7 +286,7 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(0, 0, 1, 1)
-script = ExtResource("4_n5mc5")
+script = ExtResource("4_bn6n1")
 
 [node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
 offset_left = -32.0
@@ -327,75 +294,41 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
-script = ExtResource("4_n5mc5")
+script = ExtResource("4_bn6n1")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "base_level")]
-script = ExtResource("4_4tss6")
+script = ExtResource("5_3jave")
 range_node = NodePath("RangeArea")
 base_level = NodePath("../BaseLevel")
 
-[node name="RangeArea" parent="Levels" instance=ExtResource("5_u7xd8")]
+[node name="RangeArea" parent="Levels" instance=ExtResource("5_d8tio")]
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
-sprite = SubResource("SpriteFrames_e2as7")
+[node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
+sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
-upgrades = [NodePath("RicochetBullets"), NodePath("SpeedAndPierce")]
+upgrades = [NodePath("IncreasedRange")]
 
 [node name="Stats" type="Node" parent="BaseLevel"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 3.0
+script = ExtResource("9_7e7tl")
+projectile = ExtResource("11_m47vg")
+damage = 3
+rotate_speed = 2
+projectile_knockback = 80.0
 
-[node name="RicochetBullets" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
+[node name="IncreasedRange" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
 visible = false
-level_description = "Shoots ricochet bullets instead of regular ones."
-price = 2
-sprite = SubResource("SpriteFrames_6lplc")
+modulate = Color(1, 0, 0, 1)
+level_description = "Increased range."
+sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="BaseLevel/RicochetBullets"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("9_gndbw")
-fire_rate = 3.0
-rotate_speed = 4
-projectile_range = 4.0
-projectile_speed = 20
-
-[node name="SpeedAndPierce" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
-visible = false
-level_description = "Shoots faster, and bullets can hit two enemies!"
-price = 4
-sprite = SubResource("SpriteFrames_rpdrq")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("MoreSpeedAndPierce")]
-
-[node name="Stats" type="Node" parent="BaseLevel/SpeedAndPierce"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 4.0
-rotate_speed = 5
-projectile_range = 4.0
-projectile_speed = 20
-projectile_knockback = 20.0
-penetration_count = 1
-
-[node name="MoreSpeedAndPierce" parent="BaseLevel/SpeedAndPierce" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
-visible = false
-modulate = Color(0.784314, 0.227451, 0.368627, 1)
-level_description = "Shoots even faster and increased penetration."
-price = 6
-sprite = SubResource("SpriteFrames_rpdrq")
-projectile_stats = NodePath("Stats")
-
-[node name="Stats" type="Node" parent="BaseLevel/SpeedAndPierce/MoreSpeedAndPierce"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 5.0
-rotate_speed = 6
-projectile_range = 4.0
-projectile_speed = 30
-projectile_knockback = 20.0
-penetration_count = 2
+[node name="Stats" type="Node" parent="BaseLevel/IncreasedRange"]
+script = ExtResource("9_7e7tl")
+projectile = ExtResource("11_m47vg")
+damage = 3
+rotate_speed = 2
+projectile_range = 5.0
+projectile_knockback = 80.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Levels")
@@ -403,7 +336,7 @@ libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
+[node name="Barrel" parent="." instance=ExtResource("12_nqfhp")]
 
 [connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
 [connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]

@@ -1,27 +1,27 @@
-[gd_scene load_steps=16 format=3 uid="uid://brbdisl4wehyt"]
+[gd_scene load_steps=13 format=3 uid="uid://buo64r0x83gru"]
 
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_snwv5"]
-[ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/health_bar.tscn" id="2_u2ie8"]
-[ext_resource type="Texture2D" uid="uid://rdopl1ep0uqy" path="res://assets/sprites/dark-moon.png" id="3_cv2ie"]
-[ext_resource type="Script" path="res://scripts/enemy_stats.gd" id="4_qrl0g"]
+[ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
+[ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_vr2lm"]
+[ext_resource type="Script" path="res://scripts/enemy_stats.gd" id="3_3k5g8"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vfwm1"]
-atlas = ExtResource("3_cv2ie")
+[sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
+atlas = ExtResource("1_fkgmj")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_n7b52"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_rm0dq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vfwm1")
+"texture": SubResource("AtlasTexture_t5xpf")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_x05kw"]
-radius = 32.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qu8x"]
+size = Vector2(64, 64)
 
 [sub_resource type="Animation" id="Animation_qsgl2"]
 length = 0.001
@@ -37,10 +37,47 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HealthBar:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
-[sub_resource type="Animation" id="Animation_5j8vb"]
+[sub_resource type="Animation" id="Animation_msyps"]
 resource_name = "die"
 length = 0.05
+step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -155,84 +192,37 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
 _data = {
 "RESET": SubResource("Animation_qsgl2"),
-"die": SubResource("Animation_5j8vb"),
+"die": SubResource("Animation_msyps"),
 "peek_health": SubResource("Animation_vscsi"),
 "slow": SubResource("Animation_4vyub")
 }
 
-[sub_resource type="Animation" id="Animation_2tbic"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
-[sub_resource type="Animation" id="Animation_mamad"]
-resource_name = "move"
-length = 0.8
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.6, 0.8),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.0, 0.139626, -0.139626, 3.48787e-16]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6o1o"]
-_data = {
-"RESET": SubResource("Animation_2tbic"),
-"move": SubResource("Animation_mamad")
-}
-
-[node name="EnemyBoss" type="PathFollow2D" groups=["enemies"]]
+[node name="Enemy1" type="PathFollow2D" groups=["enemies"]]
 rotates = false
 loop = false
-script = ExtResource("1_snwv5")
-movement_speed = 100.0
-bounty = 5
+script = ExtResource("1_mx3jq")
 
-[node name="HealthBar" parent="." instance=ExtResource("2_u2ie8")]
+[node name="HealthBar" parent="." instance=ExtResource("2_vr2lm")]
 visible = false
 offset_top = -40.0
 offset_bottom = -40.0
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_n7b52")
-frame_progress = 0.734405
+sprite_frames = SubResource("SpriteFrames_rm0dq")
 
 [node name="Stats" type="Node" parent="."]
-script = ExtResource("4_qrl0g")
-starting_health = 20.0
+script = ExtResource("3_3k5g8")
 
 [node name="CollisionArea" type="Area2D" parent="."]
+visible = false
 collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
-shape = SubResource("CircleShape2D_x05kw")
+shape = SubResource("RectangleShape2D_8qu8x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_c4ujo")
 }
-
-[node name="MoveAnimation" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_q6o1o")
-}
-autoplay = "move"
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]

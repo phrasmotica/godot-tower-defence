@@ -4,12 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_sg6wu"]
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_6jpne"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_0kjs1"]
-[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/range_area.tscn" id="5_vn8wl"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_5un4q"]
-[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/firing_line.tscn" id="6_r2dx8"]
+[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="5_vn8wl"]
+[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_5un4q"]
+[ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/towers/components/firing_line.tscn" id="6_r2dx8"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="7_l2h3t"]
 [ext_resource type="Script" path="res://scripts/stats.gd" id="9_gb23g"]
-[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="11_l3rgg"]
+[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="11_l3rgg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)

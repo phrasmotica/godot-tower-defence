@@ -1,21 +1,25 @@
-[gd_scene load_steps=21 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=29 format=3 uid="uid://b8qu4bxbhapgl"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_bjpxi"]
-[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_so6nu"]
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_bn6n1"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_3jave"]
-[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/range_area.tscn" id="5_d8tio"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/tower_level.tscn" id="6_1fwj3"]
-[ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
-[ext_resource type="Script" path="res://scripts/stats.gd" id="9_7e7tl"]
-[ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/cannonball.tscn" id="11_m47vg"]
-[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/barrel.tscn" id="12_nqfhp"]
+[ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
+[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_c5d30"]
+[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_017vf"]
+[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="5_7dlap"]
+[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
+[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_eu8cm"]
+[ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
+[ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="7_50fd5"]
+[ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/effects/slow_effect.tscn" id="8_7bdrw"]
+[ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="10_4dyam"]
+[ext_resource type="Texture2D" uid="uid://bngv7y86ypnm4" path="res://assets/sprites/slowerTower.png" id="10_4rxji"]
+[ext_resource type="Script" path="res://scripts/effect_stats.gd" id="10_bd5or"]
+[ext_resource type="Texture2D" uid="uid://b1gc0k4nw34um" path="res://assets/sprites/paralyseTower.png" id="11_bl7ld"]
+[ext_resource type="PackedScene" uid="uid://c8ef3082f0jwl" path="res://scenes/effects/paralyse_effect.tscn" id="12_2doa4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
-atlas = ExtResource("3_so6nu")
+atlas = ExtResource("3_c5d30")
 region = Rect2(0, 0, 72, 72)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7prn5"]
@@ -29,15 +33,45 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pyg1t"]
-atlas = ExtResource("7_j030q")
+[sub_resource type="AtlasTexture" id="AtlasTexture_mdq5s"]
+atlas = ExtResource("7_34jkt")
 region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_0svqt"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_vq0yl"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pyg1t")
+"texture": SubResource("AtlasTexture_mdq5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nis1n"]
+atlas = ExtResource("10_4rxji")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0mumw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nis1n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3hqx"]
+atlas = ExtResource("11_bl7ld")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_i164d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3hqx")
 }],
 "loop": true,
 "name": &"default",
@@ -251,11 +285,11 @@ _data = {
 "warmup": SubResource("Animation_dfao1")
 }
 
-[node name="CannonTower" type="Node2D"]
-script = ExtResource("1_bjpxi")
-tower_name = "Cannon Tower"
-tower_description = "Fires cannonballs, which affect all enemies in an area."
-price = 4
+[node name="SlowTower" type="Node2D"]
+script = ExtResource("1_c2mwh")
+tower_name = "Slow Tower"
+tower_description = "Slows enemy movement speed temporarily."
+price = 3
 
 [node name="DetectMouse" type="Control" parent="."]
 layout_mode = 3
@@ -286,7 +320,7 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(0, 0, 1, 1)
-script = ExtResource("4_bn6n1")
+script = ExtResource("4_017vf")
 
 [node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
 offset_left = -32.0
@@ -294,41 +328,56 @@ offset_top = 40.0
 offset_right = 32.0
 offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
-script = ExtResource("4_bn6n1")
+script = ExtResource("4_017vf")
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "base_level")]
-script = ExtResource("5_3jave")
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "effect_area", "base_level")]
+script = ExtResource("5_t5pdt")
 range_node = NodePath("RangeArea")
+effect_area = NodePath("EffectArea")
 base_level = NodePath("../BaseLevel")
 
-[node name="RangeArea" parent="Levels" instance=ExtResource("5_d8tio")]
+[node name="RangeArea" parent="Levels" instance=ExtResource("5_7dlap")]
+radius = 2.0
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
-sprite = SubResource("SpriteFrames_0svqt")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("IncreasedRange")]
+[node name="EffectArea" parent="Levels" instance=ExtResource("7_50fd5")]
+radius = 2.0
 
-[node name="Stats" type="Node" parent="BaseLevel"]
-script = ExtResource("9_7e7tl")
-projectile = ExtResource("11_m47vg")
-damage = 3
-rotate_speed = 2
-projectile_knockback = 80.0
+[node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
+sprite = SubResource("SpriteFrames_vq0yl")
+effect_stats = NodePath("EffectStats")
+upgrades = [NodePath("Slower"), NodePath("Paralyse")]
+point_towards_enemy = false
 
-[node name="IncreasedRange" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
+[node name="EffectStats" type="Node" parent="BaseLevel"]
+script = ExtResource("10_bd5or")
+effect_duration = 3.0
+effect = ExtResource("8_7bdrw")
+
+[node name="Slower" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
-modulate = Color(1, 0, 0, 1)
-level_description = "Increased range."
-sprite = SubResource("SpriteFrames_0svqt")
-projectile_stats = NodePath("Stats")
+level_description = "Slows enemies for longer."
+price = 3
+sprite = SubResource("SpriteFrames_0mumw")
+effect_stats = NodePath("EffectStats")
+point_towards_enemy = false
 
-[node name="Stats" type="Node" parent="BaseLevel/IncreasedRange"]
-script = ExtResource("9_7e7tl")
-projectile = ExtResource("11_m47vg")
-damage = 3
-rotate_speed = 2
-projectile_range = 5.0
-projectile_knockback = 80.0
+[node name="EffectStats" type="Node" parent="BaseLevel/Slower"]
+script = ExtResource("10_bd5or")
+effect_duration = 5.0
+effect = ExtResource("8_7bdrw")
+
+[node name="Paralyse" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
+visible = false
+level_description = "Paralyses enemies for a short time!"
+price = 4
+sprite = SubResource("SpriteFrames_i164d")
+effect_stats = NodePath("EffectStats")
+point_towards_enemy = false
+
+[node name="EffectStats" type="Node" parent="BaseLevel/Paralyse"]
+script = ExtResource("10_bd5or")
+effect_duration = 3.0
+effect = ExtResource("12_2doa4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Levels")
@@ -336,7 +385,9 @@ libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Barrel" parent="." instance=ExtResource("12_nqfhp")]
+[node name="Barrel" parent="." instance=ExtResource("10_4dyam")]
+enable_shoot = false
+enable_pulse = true
 
 [connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
 [connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]
@@ -347,4 +398,7 @@ libraries = {
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
+[connection signal="adjust_range" from="BaseLevel/EffectStats" to="BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="BaseLevel/Slower/EffectStats" to="BaseLevel/Slower" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="BaseLevel/Paralyse/EffectStats" to="BaseLevel/Paralyse" method="_on_effect_stats_adjust_range"]
+[connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
