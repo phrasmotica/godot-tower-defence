@@ -6,9 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
 [ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_n5mc5"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="4_t0fww"]
+[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_tichb"]
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="5_ikvgn"]
 [ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
-[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="5_u7xd8"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="7_mplx0"]
 [ext_resource type="Script" path="res://scripts/stats.gd" id="9_drkpt"]
 [ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/projectiles/ricochet_bullet.tscn" id="9_gndbw"]
@@ -329,12 +329,11 @@ offset_bottom = 48.0
 color = Color(1, 1, 0, 1)
 script = ExtResource("4_n5mc5")
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "base_level")]
-script = ExtResource("4_4tss6")
-range_node = NodePath("RangeArea")
-base_level = NodePath("../BaseLevel")
+[node name="Visualiser" parent="." instance=ExtResource("4_tichb")]
 
-[node name="RangeArea" parent="Levels" instance=ExtResource("5_u7xd8")]
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+script = ExtResource("4_4tss6")
+base_level = NodePath("../BaseLevel")
 
 [node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
 sprite = SubResource("SpriteFrames_e2as7")
@@ -410,6 +409,8 @@ libraries = {
 [connection signal="mouse_exited" from="DetectMouse" to="." method="_on_detect_mouse_mouse_exited"]
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="body_exited" from="CollisionArea" to="." method="_on_collision_area_body_exited"]
+[connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
+[connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
 [connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]

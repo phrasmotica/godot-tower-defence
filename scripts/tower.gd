@@ -12,6 +12,7 @@ var tower_description := ""
 var price: int = 1
 
 @onready var selection_node = $Selection
+@onready var visualiser: TowerVisualiser = $Visualiser
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var barrel: GunBarrel = $Barrel
@@ -39,7 +40,7 @@ func _ready():
 	adjust_range(levels_node.get_current_level().get_range(true))
 
 	if is_placing():
-		levels_node.show_range()
+		visualiser.show_range()
 
 func _process(delta):
 	if is_placing():
@@ -80,10 +81,10 @@ func set_disabled():
 	tower_mode = TowerMode.DISABLED
 
 func set_default_look():
-	levels_node.set_default_look()
+	visualiser.set_default_look()
 
 func set_error_look():
-	levels_node.set_error_look()
+	visualiser.set_error_look()
 
 func scan(delta):
 	var near_enemy = get_near_enemy(false)
@@ -130,12 +131,12 @@ func get_range_px(for_effect: bool):
 
 func select():
 	selection_node.show()
-	levels_node.show_range()
+	visualiser.show_range()
 	is_selected = true
 
 func deselect():
 	selection_node.hide()
-	levels_node.hide_range()
+	visualiser.hide_range()
 	is_selected = false
 
 	on_deselected.emit()
@@ -162,17 +163,17 @@ func upgrade(index: int):
 	return next_level
 
 func adjust_range(projectile_range: int):
-	levels_node.adjust_range(projectile_range)
+	visualiser.adjust_range(projectile_range)
 
 func _on_detect_mouse_mouse_entered():
 	if not is_placing():
-		levels_node.show_range()
+		visualiser.show_range()
 
 func _on_detect_mouse_mouse_exited():
 	# this fires before mouse_entered after we have just placed the tower,
 	# so make sure we don't hide the range right after placing the tower
 	if not is_placing() and not just_placed and not is_selected:
-		levels_node.hide_range()
+		visualiser.hide_range()
 
 	if just_placed:
 		just_placed = false

@@ -2,9 +2,6 @@
 class_name TowerLevelManager extends Node2D
 
 @export
-var range_node: RangeArea
-
-@export
 var firing_line: FiringLine
 
 @export
@@ -16,11 +13,11 @@ var effect_area: EffectArea
 		base_level = value
 
 		# TODO: connect these to the base level's upgrades too, recursively
-		if not base_level.adjust_range.is_connected(adjust_range):
-			base_level.adjust_range.connect(adjust_range)
+		if not base_level.adjust_range.is_connected(level_adjust_range):
+			base_level.adjust_range.connect(level_adjust_range)
 
-		if not base_level.adjust_effect_range.is_connected(adjust_effect_range):
-			base_level.adjust_effect_range.connect(adjust_effect_range)
+		if not base_level.adjust_effect_range.is_connected(level_adjust_effect_range):
+			base_level.adjust_effect_range.connect(level_adjust_effect_range)
 
 var upgrade_path: Array[int] = []
 
@@ -29,17 +26,12 @@ var ongoing_upgrade_index := -1
 signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
 
+signal adjust_range(range: float)
+signal adjust_effect_range(range: float)
+
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt
-
-func set_default_look():
-	if range_node:
-		range_node.set_default_look()
-
-func set_error_look():
-	if range_node:
-		range_node.set_error_look()
 
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
@@ -130,24 +122,13 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	# ensure the tower sprite does the same
 	base_level.rotation = new_rotation
 
-func show_range():
-	if range_node:
-		range_node.show()
+func level_adjust_range(projectile_range: float):
+	print("Level adjusting projectile range")
+	adjust_range.emit(projectile_range)
 
-func hide_range():
-	if range_node:
-		range_node.hide()
-
-func adjust_range(projectile_range: float):
-	if range_node:
-		range_node.radius = projectile_range
-
-	if firing_line:
-		firing_line.shooting_range = projectile_range
-
-func adjust_effect_range(effect_range: float):
-	if effect_area:
-		effect_area.radius = effect_range
+func level_adjust_effect_range(effect_range: float):
+	print("Level adjusting effect range")
+	adjust_effect_range.emit(effect_range)
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
