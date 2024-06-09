@@ -4,9 +4,6 @@ class_name TowerLevelManager extends Node2D
 @export
 var firing_line: FiringLine
 
-@export
-var effect_area: EffectArea
-
 @export var base_level: TowerLevel:
 	set(value):
 		print("Base level")
@@ -88,12 +85,6 @@ func should_shoot(enemies: Array[Enemy]):
 		return firing_line.enabled && firing_line.can_see_enemies()
 
 	return enemies.size() > 0
-
-func should_create_effect(enemies: Array[Enemy]):
-	if effect_area:
-		return effect_area.enabled and enemies.size() > 0
-
-	return false
 
 func get_current_level() -> TowerLevel:
 	return base_level.get_current_level(upgrade_path)

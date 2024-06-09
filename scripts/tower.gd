@@ -15,6 +15,7 @@ var price: int = 1
 @onready var visualiser: TowerVisualiser = $Visualiser
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var effect_area: EffectArea = $EffectArea
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
@@ -165,6 +166,12 @@ func upgrade(index: int):
 func adjust_range(projectile_range: int):
 	visualiser.adjust_range(projectile_range)
 
+func should_create_effect(enemies: Array[Enemy]):
+	if effect_area:
+		return effect_area.enabled and enemies.size() > 0
+
+	return false
+
 func _on_detect_mouse_mouse_entered():
 	if not is_placing():
 		visualiser.show_range()
@@ -206,7 +213,7 @@ func _on_barrel_pulse():
 		return
 
 	var in_range_enemies = get_near_enemies(true)
-	if not levels_node.should_create_effect(in_range_enemies):
+	if not should_create_effect(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
