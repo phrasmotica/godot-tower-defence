@@ -1,12 +1,18 @@
 @tool
 class_name TowerLevelManager extends Node2D
 
+const normal_colour := Color.WHITE
+
+# TODO: make this configurable in the editor
+const progress_colour := Color8(255, 255, 255, 80)
+
 @export var base_level: TowerLevel:
 	set(value):
 		print("Base level")
 		base_level = value
 
-		# TODO: connect these to the base level's upgrades too, recursively
+		# TODO: connect these to the base level's upgrades too, recursively.
+		# Or, allow choosing which level the visualiser should visualise...
 		if not base_level.adjust_range.is_connected(level_adjust_range):
 			base_level.adjust_range.connect(level_adjust_range)
 
@@ -27,7 +33,12 @@ signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt(stats: TowerLevelStats)
 
+func warmup_started():
+	base_level.modulate = progress_colour
+
 func warmup_finished():
+	base_level.modulate = normal_colour
+
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
 	base_level.created_bolt.connect(_on_level_created_bolt)
@@ -41,6 +52,9 @@ func start_upgrade(index: int) -> TowerLevel:
 		ongoing_upgrade_index = index
 
 	return next_level
+
+func upgrade_started():
+	base_level.modulate = progress_colour
 
 func upgrade_finished():
 	if ongoing_upgrade_index < 0 or not get_upgrade(ongoing_upgrade_index):
@@ -71,6 +85,8 @@ func upgrade_finished():
 	new_level.created_projectile.connect(_on_level_created_projectile)
 	new_level.created_effect.connect(_on_level_created_effect)
 	new_level.created_bolt.connect(_on_level_created_bolt)
+
+	base_level.modulate = normal_colour
 
 	upgraded.emit(new_level)
 
@@ -130,8 +146,14 @@ func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 
 	created_bolt.emit(bolt_stats)
 
+func _on_warmup_progress_bar_started():
+	warmup_started()
+
 func _on_warmup_progress_bar_finished():
 	warmup_finished()
+
+func _on_upgrade_progress_bar_started():
+	upgrade_started()
 
 func _on_upgrade_progress_bar_finished():
 	upgrade_finished()

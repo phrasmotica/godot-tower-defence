@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+class_name TowerProgressBar extends Node2D
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
@@ -14,6 +14,7 @@ var colour: Color = Color.BLUE:
 	get:
 		return color_rect.color
 
+signal started
 signal finished
 
 func _ready():
@@ -22,6 +23,8 @@ func _ready():
 		color_rect.hide()
 
 func animate():
+	started.emit()
+
 	animation_player.play("progress")
 
 func finish():
