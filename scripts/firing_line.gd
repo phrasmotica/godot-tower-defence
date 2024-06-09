@@ -14,7 +14,7 @@ var shooting_range := 3.0:
 
 		set_target(value)
 
-signal created_line(bolt_line: Line2D)
+signal created_line(bolt_line: BoltLine)
 
 func _ready():
 	set_target(shooting_range)
@@ -28,7 +28,10 @@ func can_see_enemies():
 func fire(bolt_stats: TowerLevelStats):
 	ray_cast_damage.process_enemies(ray_cast, bolt_stats)
 
-	var line: Line2D = bolt_line.instantiate()
-	line.points[1] = ray_cast.target_position
+	var new_line: BoltLine = bolt_line.instantiate()
+	new_line.line.points[1] = ray_cast.target_position
 
-	created_line.emit(line)
+	created_line.emit(new_line)
+
+func _on_levels_adjust_range(projectile_range: float):
+	shooting_range = projectile_range

@@ -1,9 +1,6 @@
 @tool
 class_name TowerLevelManager extends Node2D
 
-@export
-var firing_line: FiringLine
-
 @export var base_level: TowerLevel:
 	set(value):
 		print("Base level")
@@ -28,7 +25,7 @@ signal adjust_effect_range(range: float)
 
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
-signal created_bolt
+signal created_bolt(stats: TowerLevelStats)
 
 func warmup_finished():
 	base_level.created_projectile.connect(_on_level_created_projectile)
@@ -79,12 +76,6 @@ func upgrade_finished():
 
 func get_upgrade(index: int):
 	return base_level.get_upgrade(upgrade_path, index)
-
-func should_shoot(enemies: Array[Enemy]):
-	if firing_line:
-		return firing_line.enabled && firing_line.can_see_enemies()
-
-	return enemies.size() > 0
 
 func get_current_level() -> TowerLevel:
 	return base_level.get_current_level(upgrade_path)
@@ -137,11 +128,4 @@ func _on_level_created_effect(effect: Effect):
 func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	print("Processing bolt")
 
-	firing_line.fire(bolt_stats)
-
-	created_bolt.emit()
-
-func _on_firing_line_created_line(bolt_line:Line2D):
-	print("Rotating bolt line")
-
-	bolt_line.rotation = rotation
+	created_bolt.emit(bolt_stats)

@@ -35,7 +35,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath(".")
+tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -53,8 +53,9 @@ _data = {
 "fire": SubResource("Animation_7hule")
 }
 
-[node name="BoltLine" type="Node2D"]
+[node name="BoltLine" type="Node2D" node_paths=PackedStringArray("line")]
 script = ExtResource("1_2fu0e")
+line = NodePath("Line2D")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 300, 0)

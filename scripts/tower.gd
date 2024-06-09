@@ -15,6 +15,7 @@ var price: int = 1
 @onready var visualiser: TowerVisualiser = $Visualiser
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var firing_line: FiringLine = $Levels/FiringLine
 @onready var effect_area: EffectArea = $EffectArea
 @onready var barrel: GunBarrel = $Barrel
 
@@ -42,6 +43,7 @@ func _ready():
 
 	if is_placing():
 		visualiser.show_range()
+		visualiser.show_bolt_line = false
 
 func _process(delta):
 	if is_placing():
@@ -163,8 +165,15 @@ func upgrade(index: int):
 
 	return next_level
 
-func adjust_range(projectile_range: int):
+func adjust_range(projectile_range: float):
 	visualiser.adjust_range(projectile_range)
+	firing_line.shooting_range = projectile_range
+
+func should_shoot(enemies: Array[Enemy]):
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
+
+	return enemies.size() > 0
 
 func should_create_effect(enemies: Array[Enemy]):
 	if effect_area:
@@ -201,7 +210,7 @@ func _on_barrel_shoot():
 		return
 
 	var in_range_enemies = get_near_enemies(false)
-	if not levels_node.should_shoot(in_range_enemies):
+	if not should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -225,8 +234,9 @@ func _on_barrel_bolt():
 		return
 
 	var in_range_enemies = get_near_enemies(false)
+
 	# TODO: create a should_bolt(...) method
-	if not levels_node.should_shoot(in_range_enemies):
+	if not should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -280,10 +290,14 @@ func _on_levels_created_effect(effect: Effect):
 		effect.attached_enemies = enemies
 		effect.act_start()
 
-func _on_levels_created_bolt():
+func _on_levels_created_bolt(bolt_stats: TowerLevelStats):
 	print("Affecting all enemies in firing line")
 
-func _on_firing_line_created_line(bolt_line: Line2D):
+	firing_line.fire(bolt_stats)
+
+func _on_firing_line_created_line(bolt_line: BoltLine):
 	print("Adding bolt line as child")
+
+	bolt_line.rotation = levels_node.rotation
 
 	add_child(bolt_line)
