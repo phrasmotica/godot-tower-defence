@@ -1,10 +1,9 @@
-[gd_scene load_steps=28 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=27 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="4_4tss6"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_n5mc5"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="4_t0fww"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_tichb"]
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="5_ikvgn"]
@@ -82,46 +81,22 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 8)]
+"values": [Vector2(1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/1/path = NodePath("../BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 8)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("..:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -178,39 +153,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
+tracks/1/path = NodePath("../BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 8), Vector2(64, 8)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show"
-}, {
-"args": [],
-"method": &"hide"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -237,39 +183,10 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/1/path = NodePath("../BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 8), Vector2(64, 8)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show"
-}, {
-"args": [],
-"method": &"hide"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0, 3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
@@ -312,22 +229,6 @@ visible = false
 sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="ProgressBars" type="Node2D" parent="."]
-
-[node name="WarmupProgressBar" type="ColorRect" parent="ProgressBars"]
-offset_left = -32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 48.0
-color = Color(0, 0, 1, 1)
-script = ExtResource("4_n5mc5")
-
-[node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
-offset_left = -32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 48.0
-color = Color(1, 1, 0, 1)
-script = ExtResource("4_n5mc5")
 
 [node name="Visualiser" parent="." instance=ExtResource("4_tichb")]
 

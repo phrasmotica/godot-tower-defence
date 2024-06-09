@@ -129,3 +129,9 @@ func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	print("Processing bolt")
 
 	created_bolt.emit(bolt_stats)
+
+func _on_warmup_progress_bar_finished():
+	warmup_finished()
+
+func _on_upgrade_progress_bar_finished():
+	upgrade_finished()
