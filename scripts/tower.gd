@@ -167,7 +167,9 @@ func upgrade(index: int):
 
 func adjust_range(projectile_range: float):
 	visualiser.adjust_range(projectile_range)
-	firing_line.shooting_range = projectile_range
+
+	if firing_line:
+		firing_line.shooting_range = projectile_range
 
 func should_shoot(enemies: Array[Enemy]):
 	if firing_line:
