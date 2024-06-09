@@ -299,5 +299,6 @@ func _on_firing_line_created_line(bolt_line: BoltLine):
 	print("Adding bolt line as child")
 
 	bolt_line.rotation = levels_node.rotation
+	bolt_line.fire()
 
 	add_child(bolt_line)

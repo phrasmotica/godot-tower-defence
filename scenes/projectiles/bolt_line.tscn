@@ -53,9 +53,10 @@ _data = {
 "fire": SubResource("Animation_7hule")
 }
 
-[node name="BoltLine" type="Node2D" node_paths=PackedStringArray("line")]
+[node name="BoltLine" type="Node2D" node_paths=PackedStringArray("line", "animation_player")]
 script = ExtResource("1_2fu0e")
 line = NodePath("Line2D")
+animation_player = NodePath("Line2D/AnimationPlayer")
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 300, 0)
@@ -65,4 +66,3 @@ width = 4.0
 libraries = {
 "": SubResource("AnimationLibrary_akr1h")
 }
-autoplay = "fire"
