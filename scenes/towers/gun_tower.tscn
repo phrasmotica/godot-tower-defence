@@ -343,7 +343,6 @@ upgrades = [NodePath("RicochetBullets"), NodePath("SpeedAndPierce")]
 [node name="Stats" type="Node" parent="BaseLevel"]
 script = ExtResource("9_drkpt")
 projectile = ExtResource("5_ikvgn")
-fire_rate = 3.0
 
 [node name="RicochetBullets" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
 visible = false
