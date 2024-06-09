@@ -4,8 +4,6 @@ class_name FiringLine extends Node2D
 @onready var ray_cast_damage: RayCastDamage = $RayCastDamage
 
 @export var ray_cast: RayCast2D
-@export var example_bolt_line: Line2D
-
 @export var enabled := true
 @export var bolt_line: PackedScene
 
@@ -13,17 +11,12 @@ class_name FiringLine extends Node2D
 var shooting_range := 3.0:
 	set(value):
 		shooting_range = value
-		set_target(value)
 
-		if Engine.is_editor_hint():
-			example_bolt_line.points[1].x = 100 * value
+		set_target(value)
 
 signal created_line(bolt_line: Line2D)
 
 func _ready():
-	if not Engine.is_editor_hint():
-		example_bolt_line.hide()
-
 	set_target(shooting_range)
 
 func set_target(projectile_range: float):
