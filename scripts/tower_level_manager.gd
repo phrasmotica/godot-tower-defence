@@ -119,9 +119,6 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
 	rotation = new_rotation
 
-	# ensure the tower sprite does the same
-	base_level.rotation = new_rotation
-
 func level_adjust_range(projectile_range: float):
 	print("Level adjusting projectile range")
 	adjust_range.emit(projectile_range)

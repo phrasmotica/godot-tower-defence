@@ -62,7 +62,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BaseLevel:modulate")
+tracks/1/path = NodePath("BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -122,7 +122,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BaseLevel:modulate")
+tracks/1/path = NodePath("BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -152,7 +152,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../BaseLevel:modulate")
+tracks/1/path = NodePath("BaseLevel:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -203,18 +203,18 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_aaghm")
-base_level = NodePath("../BaseLevel")
+base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Levels" instance=ExtResource("5_amh81")]
 radius = 2.0
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
+[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
 sprite = SubResource("SpriteFrames_8pydf")
 effect_stats = NodePath("EffectStats")
 upgrades = [null, null]
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="BaseLevel"]
+[node name="EffectStats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("10_t6u3a")
 effect_duration = 3.0
 effect = ExtResource("9_by8rj")
@@ -244,5 +244,5 @@ enable_pulse = true
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="adjust_range" from="BaseLevel/EffectStats" to="BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]

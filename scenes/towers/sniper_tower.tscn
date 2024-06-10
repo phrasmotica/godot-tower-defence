@@ -125,17 +125,17 @@ show_bolt_line = true
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_0kjs1")
-base_level = NodePath("../BaseLevel")
+base_level = NodePath("BaseLevel")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
 shooting_range = 4.0
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
+[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
 sprite = SubResource("SpriteFrames_o8dqj")
 projectile_stats = NodePath("Stats")
 upgrades = [NodePath("InfinitePenetration")]
 
-[node name="Stats" type="Node" parent="BaseLevel"]
+[node name="Stats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
@@ -145,7 +145,7 @@ projectile_range = 4.0
 projectile_knockback = 90.0
 penetration_count = 1
 
-[node name="InfinitePenetration" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
+[node name="InfinitePenetration" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
 visible = false
 modulate = Color(0.266667, 1, 1, 1)
 level_description = "Bolt can penetrate through all enemies!"
@@ -153,7 +153,7 @@ price = 5
 sprite = SubResource("SpriteFrames_o8dqj")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="BaseLevel/InfinitePenetration"]
+[node name="Stats" type="Node" parent="Levels/BaseLevel/InfinitePenetration"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
@@ -191,6 +191,6 @@ enable_bolt = true
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="created_line" from="Levels/FiringLine" to="." method="_on_firing_line_created_line"]
-[connection signal="adjust_range" from="BaseLevel/Stats" to="BaseLevel" method="_on_stats_adjust_range"]
-[connection signal="adjust_range" from="BaseLevel/InfinitePenetration/Stats" to="BaseLevel/InfinitePenetration" method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/Stats" to="Levels/BaseLevel" method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/InfinitePenetration/Stats" to="Levels/BaseLevel/InfinitePenetration" method="_on_stats_adjust_range"]
 [connection signal="bolt" from="Barrel" to="." method="_on_barrel_bolt"]

@@ -162,23 +162,23 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_t5pdt")
-base_level = NodePath("../BaseLevel")
+base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Levels" instance=ExtResource("7_50fd5")]
 radius = 2.0
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
+[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
 sprite = SubResource("SpriteFrames_vq0yl")
 effect_stats = NodePath("EffectStats")
 upgrades = [NodePath("Slower"), NodePath("Paralyse")]
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="BaseLevel"]
+[node name="EffectStats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("10_bd5or")
 effect_duration = 3.0
 effect = ExtResource("8_7bdrw")
 
-[node name="Slower" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
+[node name="Slower" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
 level_description = "Slows enemies for longer."
 price = 3
@@ -186,12 +186,12 @@ sprite = SubResource("SpriteFrames_0mumw")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="BaseLevel/Slower"]
+[node name="EffectStats" type="Node" parent="Levels/BaseLevel/Slower"]
 script = ExtResource("10_bd5or")
 effect_duration = 5.0
 effect = ExtResource("8_7bdrw")
 
-[node name="Paralyse" parent="BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
+[node name="Paralyse" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
 level_description = "Paralyses enemies for a short time!"
 price = 4
@@ -199,7 +199,7 @@ sprite = SubResource("SpriteFrames_i164d")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="BaseLevel/Paralyse"]
+[node name="EffectStats" type="Node" parent="Levels/BaseLevel/Paralyse"]
 script = ExtResource("10_bd5or")
 effect_duration = 3.0
 effect = ExtResource("12_2doa4")
@@ -229,7 +229,7 @@ enable_pulse = true
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="adjust_range" from="BaseLevel/EffectStats" to="BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="BaseLevel/Slower/EffectStats" to="BaseLevel/Slower" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="BaseLevel/Paralyse/EffectStats" to="BaseLevel/Paralyse" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/Slower/EffectStats" to="Levels/BaseLevel/Slower" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/Paralyse/EffectStats" to="Levels/BaseLevel/Paralyse" method="_on_effect_stats_adjust_range"]
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
