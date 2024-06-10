@@ -159,6 +159,7 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 [node name="ProgressBars" parent="." instance=ExtResource("3_r7mld")]
 
 [node name="Visualiser" parent="." instance=ExtResource("4_pmf8q")]
+radius = 2.0
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_t5pdt")

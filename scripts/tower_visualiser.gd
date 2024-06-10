@@ -19,6 +19,14 @@ var show_bolt_line := false:
 		show_bolt_line = value
 		bolt_line.visible = value
 
+@export
+var radius := 3.0:
+	set(value):
+		radius = value
+
+		range_area.radius = value
+		bolt_line.shooting_range = value
+
 func set_default_look():
 	range_area.set_default_look()
 
@@ -31,13 +39,8 @@ func show_range():
 func hide_range():
 	range_area.hide()
 
-func adjust_range(projectile_range: float):
-	# TODO: create an exported property to store the range value
-	range_area.radius = projectile_range
-	bolt_line.shooting_range = projectile_range
-
 func _on_levels_adjust_effect_range(effect_range: float):
-	adjust_range(effect_range)
+	radius = effect_range
 
 func _on_levels_adjust_range(projectile_range: float):
-	adjust_range(projectile_range)
+	radius = projectile_range

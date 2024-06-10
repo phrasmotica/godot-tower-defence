@@ -167,7 +167,7 @@ func upgrade(index: int):
 	return next_level
 
 func adjust_range(projectile_range: float):
-	visualiser.adjust_range(projectile_range)
+	visualiser.radius = projectile_range
 
 	if firing_line:
 		firing_line.shooting_range = projectile_range

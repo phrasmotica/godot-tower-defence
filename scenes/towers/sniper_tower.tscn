@@ -122,6 +122,7 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="Visualiser" parent="." instance=ExtResource("4_s7iwo")]
 show_bolt_line = true
+radius = 4.0
 
 [node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_0kjs1")
