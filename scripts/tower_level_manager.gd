@@ -6,6 +6,8 @@ const normal_colour := Color.WHITE
 # TODO: make this configurable in the editor
 const progress_colour := Color8(255, 255, 255, 80)
 
+@onready var effect_area: EffectArea = $EffectArea
+
 @export var base_level: TowerLevel:
 	set(value):
 		print("Base level")
@@ -126,6 +128,10 @@ func level_adjust_range(projectile_range: float):
 
 func level_adjust_effect_range(effect_range: float):
 	print("Level adjusting effect range")
+
+	if effect_area:
+		effect_area.adjust_range(effect_range)
+
 	adjust_effect_range.emit(effect_range)
 
 func _on_level_created_projectile(projectile: Projectile):

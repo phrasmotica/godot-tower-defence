@@ -205,6 +205,9 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 script = ExtResource("5_aaghm")
 base_level = NodePath("../BaseLevel")
 
+[node name="EffectArea" parent="Levels" instance=ExtResource("5_amh81")]
+radius = 2.0
+
 [node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
 sprite = SubResource("SpriteFrames_8pydf")
 effect_stats = NodePath("EffectStats")
@@ -221,9 +224,6 @@ root_node = NodePath("../Levels")
 libraries = {
 "": SubResource("AnimationLibrary_qnhh7")
 }
-
-[node name="EffectArea" parent="." instance=ExtResource("5_amh81")]
-radius = 2.0
 
 [node name="Barrel" parent="." instance=ExtResource("13_k5en1")]
 enable_shoot = false

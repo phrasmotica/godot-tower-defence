@@ -32,6 +32,7 @@ func hide_range():
 	range_area.hide()
 
 func adjust_range(projectile_range: float):
+	# TODO: create an exported property to store the range value
 	range_area.radius = projectile_range
 	bolt_line.shooting_range = projectile_range
 

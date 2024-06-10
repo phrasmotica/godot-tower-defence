@@ -17,7 +17,7 @@ var price: int = 1
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var firing_line: FiringLine = $Levels/FiringLine
-@onready var effect_area: EffectArea = $EffectArea
+@onready var effect_area: EffectArea = $Levels/EffectArea
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
@@ -171,6 +171,9 @@ func adjust_range(projectile_range: float):
 
 	if firing_line:
 		firing_line.shooting_range = projectile_range
+
+	if effect_area:
+		effect_area.adjust_range(projectile_range)
 
 func should_shoot(enemies: Array[Enemy]):
 	if firing_line:

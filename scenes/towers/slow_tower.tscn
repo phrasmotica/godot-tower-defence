@@ -164,6 +164,9 @@ sprite_frames = SubResource("SpriteFrames_7prn5")
 script = ExtResource("5_t5pdt")
 base_level = NodePath("../BaseLevel")
 
+[node name="EffectArea" parent="Levels" instance=ExtResource("7_50fd5")]
+radius = 2.0
+
 [node name="BaseLevel" parent="." node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
 sprite = SubResource("SpriteFrames_vq0yl")
 effect_stats = NodePath("EffectStats")
@@ -210,9 +213,6 @@ libraries = {
 [node name="Barrel" parent="." instance=ExtResource("10_4dyam")]
 enable_shoot = false
 enable_pulse = true
-
-[node name="EffectArea" parent="." instance=ExtResource("7_50fd5")]
-radius = 2.0
 
 [connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
 [connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]
