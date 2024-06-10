@@ -13,8 +13,7 @@ var price: int = 1
 
 @onready var selection_node = $Selection
 @onready var visualiser: TowerVisualiser = $Visualiser
-@onready var warmup_progress_bar: TowerProgressBar = $ProgressBars/WarmupProgressBar
-@onready var upgrade_progress_bar: TowerProgressBar = $ProgressBars/UpgradeProgressBar
+@onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var firing_line: FiringLine = $Levels/FiringLine
@@ -163,7 +162,7 @@ func upgrade(index: int):
 	if next_level:
 		set_upgrading()
 
-		upgrade_progress_bar.animate()
+		progress_bars.do_upgrade()
 
 	return next_level
 
@@ -205,7 +204,7 @@ func _on_detect_mouse_gui_input(event: InputEvent):
 
 			set_warming_up()
 
-			warmup_progress_bar.animate()
+			progress_bars.do_warmup()
 
 			on_placed.emit(self)
 
