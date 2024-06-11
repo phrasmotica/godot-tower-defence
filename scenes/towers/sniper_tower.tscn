@@ -1,10 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=16 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_ta74e"]
-[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_sg6wu"]
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="4_6jpne"]
+[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_pmdjk"]
+[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_8t556"]
+[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_s7iwo"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_0kjs1"]
-[ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="5_vn8wl"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_5un4q"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/towers/components/firing_line.tscn" id="6_r2dx8"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="7_l2h3t"]
@@ -13,21 +13,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
-atlas = ExtResource("3_sg6wu")
-region = Rect2(0, 0, 72, 72)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7prn5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fxpcc")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8dqj"]
 animations = [{
@@ -45,50 +30,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../ProgressBars/WarmupProgressBar:size")
+tracks/0/path = NodePath("..:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(64, 8)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(64, 8)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("..:scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
 "values": [Vector2(1, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ujsix"]
@@ -121,130 +70,10 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_ytq2c"]
-resource_name = "upgrade"
-length = 3.0
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"upgrade_finished"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/UpgradeProgressBar:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 8), Vector2(64, 8)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/UpgradeProgressBar")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show"
-}, {
-"args": [],
-"method": &"hide"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_dfao1"]
-resource_name = "warmup"
-length = 3.0
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(3),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"warmup_finished"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../ProgressBars/WarmupProgressBar:size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 8), Vector2(64, 8)]
-}
-tracks/2/type = "method"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("../ProgressBars/WarmupProgressBar")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"show"
-}, {
-"args": [],
-"method": &"hide"
-}]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../BaseLevel:modulate")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 3),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [Color(1, 1, 1, 0.313726), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
 "RESET": SubResource("Animation_qk45j"),
-"sell": SubResource("Animation_ujsix"),
-"upgrade": SubResource("Animation_ytq2c"),
-"warmup": SubResource("Animation_dfao1")
+"sell": SubResource("Animation_ujsix")
 }
 
 [node name="SniperTower" type="Node2D"]
@@ -253,13 +82,7 @@ tower_name = "Sniper"
 tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
 price = 5
 
-[node name="DetectMouse" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+[node name="Selection" parent="." instance=ExtResource("2_pmdjk")]
 
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_layer = 4
@@ -268,48 +91,25 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Selection" type="Node2D" parent="."]
-visible = false
+[node name="ProgressBars" parent="." instance=ExtResource("3_8t556")]
 
-[node name="SelectionSprite" type="AnimatedSprite2D" parent="Selection"]
-sprite_frames = SubResource("SpriteFrames_7prn5")
-
-[node name="ProgressBars" type="Node2D" parent="."]
-
-[node name="WarmupProgressBar" type="ColorRect" parent="ProgressBars"]
-offset_left = -32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 48.0
-color = Color(0, 0, 1, 1)
-script = ExtResource("4_6jpne")
-
-[node name="UpgradeProgressBar" type="ColorRect" parent="ProgressBars"]
-offset_left = -32.0
-offset_top = 40.0
-offset_right = 32.0
-offset_bottom = 48.0
-color = Color(1, 1, 0, 1)
-script = ExtResource("4_6jpne")
-
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("range_node", "firing_line", "base_level")]
-script = ExtResource("5_0kjs1")
-range_node = NodePath("RangeArea")
-firing_line = NodePath("FiringLine")
-base_level = NodePath("../BaseLevel")
-
-[node name="RangeArea" parent="Levels" instance=ExtResource("5_vn8wl")]
+[node name="Visualiser" parent="." instance=ExtResource("4_s7iwo")]
+show_bolt_line = true
 radius = 4.0
+
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+script = ExtResource("5_0kjs1")
+base_level = NodePath("BaseLevel")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
 shooting_range = 4.0
 
-[node name="BaseLevel" parent="." node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
+[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
 sprite = SubResource("SpriteFrames_o8dqj")
 projectile_stats = NodePath("Stats")
 upgrades = [NodePath("InfinitePenetration")]
 
-[node name="Stats" type="Node" parent="BaseLevel"]
+[node name="Stats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
@@ -319,7 +119,7 @@ projectile_range = 4.0
 projectile_knockback = 90.0
 penetration_count = 1
 
-[node name="InfinitePenetration" parent="BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
+[node name="InfinitePenetration" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
 visible = false
 modulate = Color(0.266667, 1, 1, 1)
 level_description = "Bolt can penetrate through all enemies!"
@@ -327,7 +127,7 @@ price = 5
 sprite = SubResource("SpriteFrames_o8dqj")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="BaseLevel/InfinitePenetration"]
+[node name="Stats" type="Node" parent="Levels/BaseLevel/InfinitePenetration"]
 script = ExtResource("9_gb23g")
 stats_enabled = false
 damage = 4
@@ -347,18 +147,24 @@ libraries = {
 enable_shoot = false
 enable_bolt = true
 
-[connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
-[connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]
-[connection signal="mouse_exited" from="DetectMouse" to="." method="_on_detect_mouse_mouse_exited"]
+[connection signal="gui_input" from="Selection" to="." method="_on_selection_gui_input"]
+[connection signal="mouse_entered" from="Selection" to="." method="_on_selection_mouse_entered"]
+[connection signal="mouse_exited" from="Selection" to="." method="_on_selection_mouse_exited"]
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="body_exited" from="CollisionArea" to="." method="_on_collision_area_body_exited"]
+[connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]
+[connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
+[connection signal="warmup_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_finished"]
+[connection signal="warmup_started" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_started"]
+[connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
+[connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
+[connection signal="adjust_range" from="Levels" to="Levels/FiringLine" method="_on_levels_adjust_range"]
 [connection signal="created_bolt" from="Levels" to="." method="_on_levels_created_bolt"]
 [connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="created_line" from="Levels/FiringLine" to="." method="_on_firing_line_created_line"]
-[connection signal="created_line" from="Levels/FiringLine" to="Levels" method="_on_firing_line_created_line"]
-[connection signal="adjust_range" from="BaseLevel/Stats" to="BaseLevel" method="_on_stats_adjust_range"]
-[connection signal="adjust_range" from="BaseLevel/InfinitePenetration/Stats" to="BaseLevel/InfinitePenetration" method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/Stats" to="Levels/BaseLevel" method="_on_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/InfinitePenetration/Stats" to="Levels/BaseLevel/InfinitePenetration" method="_on_stats_adjust_range"]
 [connection signal="bolt" from="Barrel" to="." method="_on_barrel_bolt"]

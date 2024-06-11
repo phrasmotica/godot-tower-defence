@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsqy7xfg6a4le"]
+
+[ext_resource type="Script" path="res://scripts/tower_progress_bars.gd" id="1_ca1rh"]
+[ext_resource type="PackedScene" uid="uid://di7bq577a2xqr" path="res://scenes/towers/components/progress_bar.tscn" id="1_fyllk"]
+
+[node name="ProgressBars" type="Node2D"]
+position = Vector2(0, 40)
+script = ExtResource("1_ca1rh")
+
+[node name="WarmupProgressBar" parent="." instance=ExtResource("1_fyllk")]
+
+[node name="UpgradeProgressBar" parent="." instance=ExtResource("1_fyllk")]
+visible = false
+colour = Color(1, 1, 0, 1)
+
+[connection signal="finished" from="WarmupProgressBar" to="." method="_on_warmup_progress_bar_finished"]
+[connection signal="started" from="WarmupProgressBar" to="." method="_on_warmup_progress_bar_started"]
+[connection signal="finished" from="UpgradeProgressBar" to="." method="_on_upgrade_progress_bar_finished"]
+[connection signal="started" from="UpgradeProgressBar" to="." method="_on_upgrade_progress_bar_started"]

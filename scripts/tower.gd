@@ -11,9 +11,13 @@ var tower_description := ""
 @export_range(1, 10)
 var price: int = 1
 
-@onready var selection_node = $Selection
+@onready var selection: TowerSelection = $Selection
+@onready var visualiser: TowerVisualiser = $Visualiser
+@onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var firing_line: FiringLine = $Levels/FiringLine
+@onready var effect_area: EffectArea = $Levels/EffectArea
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
@@ -28,10 +32,6 @@ signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
 signal on_deselected
 
-# HIGH: continue refactoring tower structure and testing it
-# in the gun tower scene. Once it's finished, update the other
-# towers.
-
 func _ready():
 	is_valid_location = true
 	deselect()
@@ -39,7 +39,10 @@ func _ready():
 	adjust_range(levels_node.get_current_level().get_range(true))
 
 	if is_placing():
-		levels_node.show_range()
+		selection.selection_visible = false
+
+		visualiser.show_range()
+		visualiser.show_bolt_line = false
 
 func _process(delta):
 	if is_placing():
@@ -53,7 +56,6 @@ func _process(delta):
 
 func set_warming_up():
 	tower_mode = TowerMode.WARMUP
-	animation_player.play("warmup")
 
 func set_placing():
 	tower_mode = TowerMode.PLACING
@@ -80,10 +82,10 @@ func set_disabled():
 	tower_mode = TowerMode.DISABLED
 
 func set_default_look():
-	levels_node.set_default_look()
+	visualiser.set_default_look()
 
 func set_error_look():
-	levels_node.set_error_look()
+	visualiser.set_error_look()
 
 func scan(delta):
 	var near_enemy = get_near_enemy(false)
@@ -129,13 +131,13 @@ func get_range_px(for_effect: bool):
 	return actual_range * 100
 
 func select():
-	selection_node.show()
-	levels_node.show_range()
+	selection.selection_visible = true
+	visualiser.show_range()
 	is_selected = true
 
 func deselect():
-	selection_node.hide()
-	levels_node.hide_range()
+	selection.selection_visible = false
+	visualiser.hide_range()
 	is_selected = false
 
 	on_deselected.emit()
@@ -156,33 +158,55 @@ func upgrade(index: int):
 
 	var next_level = levels_node.start_upgrade(index)
 	if next_level:
-		animation_player.play("upgrade")
 		set_upgrading()
+
+		progress_bars.do_upgrade()
 
 	return next_level
 
-func adjust_range(projectile_range: int):
-	levels_node.adjust_range(projectile_range)
+func adjust_range(projectile_range: float):
+	visualiser.radius = projectile_range
 
-func _on_detect_mouse_mouse_entered():
+	if firing_line:
+		firing_line.shooting_range = projectile_range
+
+	if effect_area:
+		effect_area.adjust_range(projectile_range)
+
+func should_shoot(enemies: Array[Enemy]):
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
+
+	return enemies.size() > 0
+
+func should_create_effect(enemies: Array[Enemy]):
+	if effect_area:
+		return effect_area.enabled and enemies.size() > 0
+
+	return false
+
+func _on_selection_mouse_entered():
 	if not is_placing():
-		levels_node.show_range()
+		visualiser.show_range()
 
-func _on_detect_mouse_mouse_exited():
+func _on_selection_mouse_exited():
 	# this fires before mouse_entered after we have just placed the tower,
 	# so make sure we don't hide the range right after placing the tower
 	if not is_placing() and not just_placed and not is_selected:
-		levels_node.hide_range()
+		visualiser.hide_range()
 
 	if just_placed:
 		just_placed = false
 
-func _on_detect_mouse_gui_input(event: InputEvent):
+func _on_selection_gui_input(event: InputEvent):
 	if event.is_pressed():
 		if can_be_placed():
 			just_placed = true
 
 			set_warming_up()
+
+			progress_bars.do_warmup()
+
 			on_placed.emit(self)
 
 		if is_firing() and not is_selected:
@@ -193,7 +217,7 @@ func _on_barrel_shoot():
 		return
 
 	var in_range_enemies = get_near_enemies(false)
-	if not levels_node.should_shoot(in_range_enemies):
+	if not should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -205,7 +229,7 @@ func _on_barrel_pulse():
 		return
 
 	var in_range_enemies = get_near_enemies(true)
-	if not levels_node.should_create_effect(in_range_enemies):
+	if not should_create_effect(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -217,8 +241,9 @@ func _on_barrel_bolt():
 		return
 
 	var in_range_enemies = get_near_enemies(false)
+
 	# TODO: create a should_bolt(...) method
-	if not levels_node.should_shoot(in_range_enemies):
+	if not should_shoot(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
@@ -272,10 +297,15 @@ func _on_levels_created_effect(effect: Effect):
 		effect.attached_enemies = enemies
 		effect.act_start()
 
-func _on_levels_created_bolt():
+func _on_levels_created_bolt(bolt_stats: TowerLevelStats):
 	print("Affecting all enemies in firing line")
 
-func _on_firing_line_created_line(bolt_line: Line2D):
+	firing_line.fire(bolt_stats)
+
+func _on_firing_line_created_line(bolt_line: BoltLine):
 	print("Adding bolt line as child")
+
+	bolt_line.rotation = levels_node.rotation
+	bolt_line.fire()
 
 	add_child(bolt_line)

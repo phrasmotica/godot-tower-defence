@@ -1,26 +1,25 @@
 @tool
 class_name TowerLevelManager extends Node2D
 
-@export
-var range_node: RangeArea
+const normal_colour := Color.WHITE
 
-@export
-var firing_line: FiringLine
+# TODO: make this configurable in the editor
+const progress_colour := Color8(255, 255, 255, 80)
 
-@export
-var effect_area: EffectArea
+@onready var effect_area: EffectArea = $EffectArea
 
 @export var base_level: TowerLevel:
 	set(value):
 		print("Base level")
 		base_level = value
 
-		# TODO: connect these to the base level's upgrades too, recursively
-		if not base_level.adjust_range.is_connected(adjust_range):
-			base_level.adjust_range.connect(adjust_range)
+		# TODO: connect these to the base level's upgrades too, recursively.
+		# Or, allow choosing which level the visualiser should visualise...
+		if not base_level.adjust_range.is_connected(level_adjust_range):
+			base_level.adjust_range.connect(level_adjust_range)
 
-		if not base_level.adjust_effect_range.is_connected(adjust_effect_range):
-			base_level.adjust_effect_range.connect(adjust_effect_range)
+		if not base_level.adjust_effect_range.is_connected(level_adjust_effect_range):
+			base_level.adjust_effect_range.connect(level_adjust_effect_range)
 
 var upgrade_path: Array[int] = []
 
@@ -29,19 +28,19 @@ var ongoing_upgrade_index := -1
 signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
 
+signal adjust_range(range: float)
+signal adjust_effect_range(range: float)
+
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
-signal created_bolt
+signal created_bolt(stats: TowerLevelStats)
 
-func set_default_look():
-	if range_node:
-		range_node.set_default_look()
-
-func set_error_look():
-	if range_node:
-		range_node.set_error_look()
+func warmup_started():
+	base_level.modulate = progress_colour
 
 func warmup_finished():
+	base_level.modulate = normal_colour
+
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
 	base_level.created_bolt.connect(_on_level_created_bolt)
@@ -55,6 +54,9 @@ func start_upgrade(index: int) -> TowerLevel:
 		ongoing_upgrade_index = index
 
 	return next_level
+
+func upgrade_started():
+	base_level.modulate = progress_colour
 
 func upgrade_finished():
 	if ongoing_upgrade_index < 0 or not get_upgrade(ongoing_upgrade_index):
@@ -86,22 +88,12 @@ func upgrade_finished():
 	new_level.created_effect.connect(_on_level_created_effect)
 	new_level.created_bolt.connect(_on_level_created_bolt)
 
+	base_level.modulate = normal_colour
+
 	upgraded.emit(new_level)
 
 func get_upgrade(index: int):
 	return base_level.get_upgrade(upgrade_path, index)
-
-func should_shoot(enemies: Array[Enemy]):
-	if firing_line:
-		return firing_line.enabled && firing_line.can_see_enemies()
-
-	return enemies.size() > 0
-
-func should_create_effect(enemies: Array[Enemy]):
-	if effect_area:
-		return effect_area.enabled and enemies.size() > 0
-
-	return false
 
 func get_current_level() -> TowerLevel:
 	return base_level.get_current_level(upgrade_path)
@@ -127,27 +119,17 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
 	rotation = new_rotation
 
-	# ensure the tower sprite does the same
-	base_level.rotation = new_rotation
+func level_adjust_range(projectile_range: float):
+	print("Level adjusting projectile range")
+	adjust_range.emit(projectile_range)
 
-func show_range():
-	if range_node:
-		range_node.show()
+func level_adjust_effect_range(effect_range: float):
+	print("Level adjusting effect range")
 
-func hide_range():
-	if range_node:
-		range_node.hide()
-
-func adjust_range(projectile_range: float):
-	if range_node:
-		range_node.radius = projectile_range
-
-	if firing_line:
-		firing_line.shooting_range = projectile_range
-
-func adjust_effect_range(effect_range: float):
 	if effect_area:
-		effect_area.radius = effect_range
+		effect_area.adjust_range(effect_range)
+
+	adjust_effect_range.emit(effect_range)
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
@@ -165,11 +147,16 @@ func _on_level_created_effect(effect: Effect):
 func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	print("Processing bolt")
 
-	firing_line.fire(bolt_stats)
+	created_bolt.emit(bolt_stats)
 
-	created_bolt.emit()
+func _on_progress_bars_warmup_started():
+	warmup_started()
 
-func _on_firing_line_created_line(bolt_line:Line2D):
-	print("Rotating bolt line")
+func _on_progress_bars_warmup_finished():
+	warmup_finished()
 
-	bolt_line.rotation = rotation
+func _on_progress_bars_upgrade_started():
+	upgrade_started()
+
+func _on_progress_bars_upgrade_finished():
+	upgrade_finished()
