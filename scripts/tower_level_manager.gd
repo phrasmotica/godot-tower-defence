@@ -3,8 +3,8 @@ class_name TowerLevelManager extends Node2D
 
 const normal_colour := Color.WHITE
 
-# TODO: make this configurable in the editor
-const progress_colour := Color8(255, 255, 255, 80)
+@export
+var progress_colour := Color8(255, 255, 255, 80)
 
 @onready var effect_area: EffectArea = $EffectArea
 
