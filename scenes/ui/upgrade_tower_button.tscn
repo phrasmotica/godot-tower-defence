@@ -1,5 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://dx8exrpefyqrk"]
+[gd_scene load_steps=3 format=3 uid="uid://dx8exrpefyqrk"]
 
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_0hbru"]
 [ext_resource type="Script" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
 
 [node name="UpgradeTowerButton" type="Button"]
@@ -7,7 +8,7 @@ offset_top = 20.0
 offset_right = 180.0
 offset_bottom = 80.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("1_0hbru")
 text = "Upgrade"
 script = ExtResource("1_o1ho0")
 
@@ -18,18 +19,17 @@ offset_left = -205.0
 offset_right = -5.0
 offset_bottom = 80.0
 
-[node name="Background" type="ColorRect" parent="TowerDescription"]
+[node name="Background" type="PanelContainer" parent="TowerDescription"]
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 60.0
-color = Color(0.235294, 0.329412, 0.462745, 0.784314)
 
-[node name="Label" type="Label" parent="TowerDescription"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 195.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 16
+[node name="MarginContainer" type="MarginContainer" parent="TowerDescription/Background"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TowerDescription/Background/MarginContainer"]
+custom_minimum_size = Vector2(0, 53)
+layout_mode = 2
 text = "Upgrade description goes here, and will be altered by whichever tower the button is for."
 autowrap_mode = 2
 text_overrun_behavior = 3

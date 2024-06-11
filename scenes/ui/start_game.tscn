@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4jpggyrn7oc2"]
+[gd_scene load_steps=6 format=3 uid="uid://c4jpggyrn7oc2"]
 
 [ext_resource type="Script" path="res://scripts/start_game.gd" id="1_1nknf"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_pmmug"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="2_oohv1"]
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="3_it5qd"]
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="5_8fbss"]
 
 [node name="StartGame" type="Control"]
 layout_mode = 3
@@ -115,6 +116,7 @@ offset_top = 380.0
 offset_right = 520.0
 offset_bottom = 500.0
 mouse_default_cursor_shape = 2
+theme = ExtResource("5_8fbss")
 theme_override_font_sizes/font_size = 72
 text = "Play path 0"
 
@@ -125,6 +127,7 @@ offset_top = 380.0
 offset_right = 1060.0
 offset_bottom = 500.0
 mouse_default_cursor_shape = 2
+theme = ExtResource("5_8fbss")
 theme_override_font_sizes/font_size = 72
 text = "Play path 1"
 

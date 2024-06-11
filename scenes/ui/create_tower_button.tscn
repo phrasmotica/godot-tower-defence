@@ -1,16 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://b33exbjvcsol6"]
+[gd_scene load_steps=4 format=3 uid="uid://b33exbjvcsol6"]
 
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_7nris"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_gsfqf"]
 [ext_resource type="Script" path="res://scripts/create_tower_button.gd" id="2_8baml"]
 
-[node name="CreateTowerButton" type="Button"]
+[node name="CreateTowerButton" type="Button" node_paths=PackedStringArray("description_text")]
 offset_right = 80.0
 offset_bottom = 80.0
 focus_mode = 0
+theme = ExtResource("1_7nris")
 icon = ExtResource("1_gsfqf")
 icon_alignment = 1
 script = ExtResource("2_8baml")
 action_name = &"tower_1"
+description_text = NodePath("TowerDescription/Background/MarginContainer/Label")
 
 [node name="TowerDescription" type="Control" parent="."]
 anchors_preset = 0
@@ -18,19 +21,19 @@ offset_left = -205.0
 offset_right = -5.0
 offset_bottom = 80.0
 
-[node name="Background" type="ColorRect" parent="TowerDescription"]
+[node name="Background" type="PanelContainer" parent="TowerDescription"]
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 80.0
-color = Color(0.235294, 0.329412, 0.462745, 0.784314)
+theme = ExtResource("1_7nris")
 
-[node name="Label" type="Label" parent="TowerDescription"]
-layout_mode = 0
-offset_left = 5.0
-offset_right = 195.0
-offset_bottom = 80.0
-theme_override_font_sizes/font_size = 16
-text = "Tower description goes here, and will be altered by whichever tower the button is for."
+[node name="MarginContainer" type="MarginContainer" parent="TowerDescription/Background"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TowerDescription/Background/MarginContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+text = "Shoots simple bullets at enemies."
 autowrap_mode = 2
 text_overrun_behavior = 3
 

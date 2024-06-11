@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=15 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_px4ul"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/towers/gun_tower.tscn" id="2_86mwy"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/ui/create_tower_button.tscn" id="2_in1v2"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
@@ -180,6 +181,7 @@ offset_top = 80.0
 offset_right = 300.0
 offset_bottom = 140.0
 focus_mode = 0
+theme = ExtResource("1_px4ul")
 theme_override_font_sizes/font_size = 24
 text = "Sell"
 
@@ -191,7 +193,8 @@ offset_top = 640.0
 offset_right = 300.0
 offset_bottom = 700.0
 focus_mode = 0
-theme_override_font_sizes/font_size = 24
+theme = ExtResource("1_px4ul")
+theme_type_variation = &"ButtonArea"
 text = "Move here to cancel"
 
 [node name="CancelArea" type="Area2D" parent="ColorRect/CancelButton"]

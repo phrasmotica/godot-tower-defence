@@ -4,7 +4,9 @@ class_name CreateTowerButton extends Button
 @export var action_name: StringName
 
 @onready var description = $TowerDescription
-@onready var description_text = $TowerDescription/Label
+
+@export
+var description_text: Label
 
 var tower_price := 0
 
