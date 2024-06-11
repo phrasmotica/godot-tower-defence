@@ -54,13 +54,14 @@ script = ExtResource("5_rtba5")
 
 [node name="Foreground" type="Node2D" parent="."]
 
-[node name="GameUI" parent="." node_paths=PackedStringArray("path_manager", "game_tint") instance=ExtResource("10_gkcsa")]
+[node name="GameUI" parent="." node_paths=PackedStringArray("path_manager", "game_tint", "bank") instance=ExtResource("10_gkcsa")]
 unique_name_in_owner = true
 z_index = 500
 offset_left = 960.0
 offset_right = 1280.0
 path_manager = NodePath("../PathManager")
 game_tint = NodePath("GameTint")
+bank = NodePath("../Managers/BankManager")
 
 [node name="GameTint" type="ColorRect" parent="GameUI"]
 visible = false

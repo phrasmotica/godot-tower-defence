@@ -1,18 +1,41 @@
+@tool
 class_name GameUI extends Control
 
-@export var path_manager: PathManager
-@export var game_tint: ColorRect
-@export var create_tower_buttons: Array[CreateTowerButton]
+@export
+var path_manager: PathManager
 
-@onready var bank: BankManager = %BankManager
-@onready var money_amount = $ColorRect/MoneyLabel/Amount
-@onready var lives_amount = $ColorRect/LivesLabel/Amount
-@onready var wave_number_label = $ColorRect/WaveLabel/Number
-@onready var tower_name_label: Label = $ColorRect/TowerNameLabel
-@onready var upgrade_button_0: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton0
-@onready var upgrade_button_1: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton1
-@onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
-@onready var cancel_button = $ColorRect/CancelButton
+@export
+var game_tint: ColorRect
+
+@export
+var bank: BankManager
+
+@export
+var money_amount: Label
+
+@export
+var lives_amount: Label
+
+@export
+var wave_number_label: Label
+
+@export
+var tower_name_label: Label
+
+@export
+var create_tower_buttons: Array[CreateTowerButton]
+
+@export
+var upgrade_button_0: UpgradeTowerButton
+
+@export
+var upgrade_button_1: UpgradeTowerButton
+
+@export
+var sell_button: Button
+
+@export
+var cancel_button: Button
 
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
@@ -38,6 +61,9 @@ var placing_tower: Tower:
 		cancel_button.visible = placing_tower != null
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+
 	placing_tower = null
 	current_tower_scene_id = 0
 
@@ -46,6 +72,9 @@ func _ready():
 	set_process(false)
 
 func _process(_delta):
+	if Engine.is_editor_hint():
+		return
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		deselect_tower.emit()
 

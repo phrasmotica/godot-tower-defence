@@ -3,7 +3,7 @@
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_0hbru"]
 [ext_resource type="Script" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
 
-[node name="UpgradeTowerButton" type="Button"]
+[node name="UpgradeTowerButton" type="Button" node_paths=PackedStringArray("description", "description_text")]
 offset_top = 20.0
 offset_right = 180.0
 offset_bottom = 80.0
@@ -11,8 +11,11 @@ focus_mode = 0
 theme = ExtResource("1_0hbru")
 text = "Upgrade"
 script = ExtResource("1_o1ho0")
+description = NodePath("TowerDescription")
+description_text = NodePath("TowerDescription/Background/MarginContainer/Label")
 
 [node name="TowerDescription" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = -205.0

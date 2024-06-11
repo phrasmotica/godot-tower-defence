@@ -1,18 +1,31 @@
+@tool
 class_name CreateTowerButton extends Button
 
 @export var tower: PackedScene
 @export var action_name: StringName
 
-@onready var description = $TowerDescription
+@export
+var description: Control
 
 @export
 var description_text: Label
+
+@export
+var show_description := false:
+	set(value):
+		description.visible = value
+
+	get:
+		return description.visible
 
 var tower_price := 0
 
 signal create_tower(tower_scene: PackedScene)
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+
 	if tower:
 		var dummy_tower: Tower = tower.instantiate()
 
@@ -47,6 +60,9 @@ func update_affordability(money: int):
 		enable_button()
 
 func _process(_delta):
+	if Engine.is_editor_hint():
+		return
+
 	if Input.is_action_just_pressed(action_name):
 		print("Creating tower via shortcut")
 		create()

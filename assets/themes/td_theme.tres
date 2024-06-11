@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bqnr1830yqwqe"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bqnr1830yqwqe"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uvb4"]
 bg_color = Color(0, 0.419608, 0.486275, 0.392157)
@@ -52,6 +52,9 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uufy"]
+bg_color = Color(0.763, 0.392, 0.371, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26c2h"]
 bg_color = Color(0.235294, 0.329412, 0.462745, 0.784314)
 border_width_left = 2
@@ -72,6 +75,8 @@ Button/styles/pressed = SubResource("StyleBoxFlat_celpd")
 ButtonArea/base_type = &"Button"
 ButtonArea/colors/font_color = Color(1, 1, 1, 0.498039)
 ButtonArea/styles/normal = SubResource("StyleBoxFlat_xnvu8")
+FlatPanelContainer/base_type = &"PanelContainer"
+FlatPanelContainer/styles/panel = SubResource("StyleBoxFlat_1uufy")
 Label/font_sizes/font_size = 15
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
