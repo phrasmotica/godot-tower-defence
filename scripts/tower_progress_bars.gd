@@ -28,28 +28,40 @@ signal warmup_finished
 signal upgrade_started
 signal upgrade_finished
 
-# TODO: don't allow starting warmup/upgrade if the other one is in progress
+var is_busy := false
 
 func do_warmup():
+	if is_busy:
+		print("Cannot do warmup, currently busy")
+		return
+
 	show_warmup = true
 	show_upgrade = false
 
 	warmup_bar.animate()
 
 func do_upgrade():
+	if is_busy:
+		print("Cannot do upgrade, currently busy")
+		return
+
 	show_warmup = false
 	show_upgrade = true
 
 	upgrade_bar.animate()
 
 func _on_warmup_progress_bar_started():
+	is_busy = true
 	warmup_started.emit()
 
 func _on_warmup_progress_bar_finished():
+	is_busy = false
 	warmup_finished.emit()
 
 func _on_upgrade_progress_bar_started():
+	is_busy = true
 	upgrade_started.emit()
 
 func _on_upgrade_progress_bar_finished():
+	is_busy = false
 	upgrade_finished.emit()
