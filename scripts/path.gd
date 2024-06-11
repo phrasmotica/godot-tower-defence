@@ -10,15 +10,21 @@ var path_waypoints: Path2D
 @export
 var start_arrow: Node2D
 
-func enable_path(collision_layer: int):
+var original_tile_set: TileSet
+
+func _ready():
+	original_tile_set = tile_map.tile_set
+
+func enable_path():
 	show()
 
-	tile_map.tile_set.set_physics_layer_collision_layer(0, collision_layer)
+	if not tile_map.tile_set:
+		tile_map.tile_set = original_tile_set
 
 func disable_path():
 	hide()
 
-	tile_map.tile_set.set_physics_layer_collision_layer(0, 0)
+	tile_map.tile_set = null
 
 func start_game():
 	start_arrow.hide()

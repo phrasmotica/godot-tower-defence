@@ -14,10 +14,6 @@ var active_path_index: int:
 		active_path_index = value
 		set_active_path()
 
-## The collision layer for the path tilesets.
-@export_flags_2d_physics
-var path_collision_layer := 4
-
 var enemies: Array[Enemy] = []
 
 signal enemy_died(enemy: Enemy)
@@ -31,7 +27,7 @@ func set_active_path():
 
 	for i in range(paths.size()):
 		if i == active_path_index:
-			paths[i].enable_path(path_collision_layer)
+			paths[i].enable_path()
 		else:
 			paths[i].disable_path()
 
