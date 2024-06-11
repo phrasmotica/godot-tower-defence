@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ba7v8p4mq36wb"]
+[gd_scene load_steps=26 format=3 uid="uid://ba7v8p4mq36wb"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://1wo5l3lymj2v" path="res://scenes/effects/poison_effect.tscn" id="9_by8rj"]
 [ext_resource type="Script" path="res://scripts/effect_stats.gd" id="10_t6u3a"]
 [ext_resource type="Texture2D" uid="uid://dirfq8o8oeu6v" path="res://assets/sprites/poison_tower_upgrade_1.png" id="11_ijwes"]
+[ext_resource type="Texture2D" uid="uid://c4ph5lctynlj8" path="res://assets/sprites/poison_tower_upgrade_2.png" id="12_yywre"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="13_k5en1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
@@ -40,6 +41,21 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_80u24")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfomp"]
+atlas = ExtResource("12_yywre")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fu4ex"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfomp")
 }],
 "loop": true,
 "name": &"default",
@@ -201,7 +217,7 @@ radius = 2.0
 [node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
 sprite = SubResource("SpriteFrames_8pydf")
 effect_stats = NodePath("EffectStats")
-upgrades = [NodePath("DoubleCheese")]
+upgrades = [NodePath("DoubleCheese"), NodePath("TripleCheese")]
 point_towards_enemy = false
 
 [node name="EffectStats" type="Node" parent="Levels/BaseLevel"]
@@ -220,6 +236,21 @@ point_towards_enemy = false
 [node name="EffectStats" type="Node" parent="Levels/BaseLevel/DoubleCheese"]
 script = ExtResource("10_t6u3a")
 effect_duration = 6.0
+effect = ExtResource("9_by8rj")
+
+[node name="TripleCheese" parent="Levels/BaseLevel" node_paths=PackedStringArray("animated_sprite", "effect_stats") instance=ExtResource("7_1pyih")]
+visible = false
+level_description = "Triple?? Ultimate gr33d!"
+price = 8
+animated_sprite = NodePath("../DoubleCheese/Sprite")
+sprite = SubResource("SpriteFrames_fu4ex")
+effect_stats = NodePath("EffectStats")
+point_towards_enemy = false
+
+[node name="EffectStats" type="Node" parent="Levels/BaseLevel/TripleCheese"]
+script = ExtResource("10_t6u3a")
+effect_range = 3.0
+effect_duration = 9.0
 effect = ExtResource("9_by8rj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -249,4 +280,5 @@ enable_pulse = true
 [connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
 [connection signal="adjust_range" from="Levels/BaseLevel/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
 [connection signal="adjust_range" from="Levels/BaseLevel/DoubleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Levels/BaseLevel/TripleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
 [connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
