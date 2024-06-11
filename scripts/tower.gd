@@ -174,14 +174,17 @@ func adjust_range(projectile_range: float):
 		effect_area.adjust_range(projectile_range)
 
 func should_shoot(enemies: Array[Enemy]):
-	if firing_line:
-		return firing_line.enabled && firing_line.can_see_enemies()
-
 	return enemies.size() > 0
 
 func should_create_effect(enemies: Array[Enemy]):
 	if effect_area:
 		return effect_area.enabled and enemies.size() > 0
+
+	return false
+
+func should_bolt(_enemies: Array[Enemy]):
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
 
 	return false
 
@@ -242,8 +245,7 @@ func _on_barrel_bolt():
 
 	var in_range_enemies = get_near_enemies(false)
 
-	# TODO: create a should_bolt(...) method
-	if not should_shoot(in_range_enemies):
+	if not should_bolt(in_range_enemies):
 		return
 
 	var level = levels_node.get_current_level()
