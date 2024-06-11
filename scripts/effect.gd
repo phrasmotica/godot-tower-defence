@@ -7,12 +7,10 @@ var attached_enemies: Array[Enemy]
 func _process(delta):
 	act_process(delta)
 
-func set_timer(duration: float):
-	print("Effect duration " + str(duration))
+func start_timer():
+	print("Effect duration " + str(effect_duration))
 
-	effect_duration = duration
-
-	var timer = get_tree().create_timer(duration)
+	var timer = get_tree().create_timer(effect_duration)
 
 	timer.timeout.connect(act_end)
 	timer.timeout.connect(queue_free)

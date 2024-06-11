@@ -25,12 +25,8 @@ signal adjust_range(stats_range: float)
 
 func create():
     var new_effect: Effect = effect.instantiate()
+    new_effect.effect_duration = effect_duration
 
     add_child(new_effect)
-
-    # TODO: this should really be done by the tower object, rather than relying
-    # on there being no further updates in between this call and the tower script
-    # starting the effect
-    new_effect.set_timer(effect_duration)
 
     return new_effect

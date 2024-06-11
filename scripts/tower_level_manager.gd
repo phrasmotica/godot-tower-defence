@@ -69,11 +69,11 @@ func upgrade_finished():
 		print("Disconnecting _on_level_created_projectile")
 		old_level.created_projectile.disconnect(_on_level_created_projectile)
 
-	if old_level.created_projectile.is_connected(_on_level_created_effect):
+	if old_level.created_effect.is_connected(_on_level_created_effect):
 		print("Disconnecting _on_level_created_effect")
 		old_level.created_effect.disconnect(_on_level_created_effect)
 
-	if old_level.created_projectile.is_connected(_on_level_created_bolt):
+	if old_level.created_bolt.is_connected(_on_level_created_bolt):
 		print("Disconnecting _on_level_created_bolt")
 		old_level.created_bolt.disconnect(_on_level_created_bolt)
 

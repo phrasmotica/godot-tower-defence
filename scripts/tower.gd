@@ -299,6 +299,8 @@ func _on_levels_created_effect(effect: Effect):
 		effect.attached_enemies = enemies
 		effect.act_start()
 
+	effect.start_timer()
+
 func _on_levels_created_bolt(bolt_stats: TowerLevelStats):
 	print("Affecting all enemies in firing line")
 
