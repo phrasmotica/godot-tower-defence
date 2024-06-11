@@ -1,7 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=24 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" path="res://scripts/tower.gd" id="1_v8t2a"]
-[ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="3_ksutm"]
+[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_nytid"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xlhsu"]
 [ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="4_4tss6"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
@@ -16,21 +16,6 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
-atlas = ExtResource("3_ksutm")
-region = Rect2(0, 0, 72, 72)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7prn5"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fxpcc")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
 atlas = ExtResource("9_ja0ml")
@@ -134,13 +119,7 @@ tower_name = "Gun Tower"
 tower_description = "Shoots simple bullets at enemies."
 price = 2
 
-[node name="DetectMouse" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+[node name="Selection" parent="." instance=ExtResource("2_nytid")]
 
 [node name="CollisionArea" type="Area2D" parent="."]
 collision_layer = 4
@@ -148,12 +127,6 @@ collision_mask = 4
 
 [node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
-
-[node name="Selection" type="Node2D" parent="."]
-visible = false
-
-[node name="SelectionSprite" type="AnimatedSprite2D" parent="Selection"]
-sprite_frames = SubResource("SpriteFrames_7prn5")
 
 [node name="ProgressBars" parent="." instance=ExtResource("3_xlhsu")]
 
@@ -231,9 +204,9 @@ libraries = {
 
 [node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
 
-[connection signal="gui_input" from="DetectMouse" to="." method="_on_detect_mouse_gui_input"]
-[connection signal="mouse_entered" from="DetectMouse" to="." method="_on_detect_mouse_mouse_entered"]
-[connection signal="mouse_exited" from="DetectMouse" to="." method="_on_detect_mouse_mouse_exited"]
+[connection signal="gui_input" from="Selection" to="." method="_on_selection_gui_input"]
+[connection signal="mouse_entered" from="Selection" to="." method="_on_selection_mouse_entered"]
+[connection signal="mouse_exited" from="Selection" to="." method="_on_selection_mouse_exited"]
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
 [connection signal="body_exited" from="CollisionArea" to="." method="_on_collision_area_body_exited"]
 [connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]

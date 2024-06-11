@@ -11,7 +11,7 @@ var tower_description := ""
 @export_range(1, 10)
 var price: int = 1
 
-@onready var selection_node = $Selection
+@onready var selection: TowerSelection = $Selection
 @onready var visualiser: TowerVisualiser = $Visualiser
 @onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
@@ -43,6 +43,8 @@ func _ready():
 	adjust_range(levels_node.get_current_level().get_range(true))
 
 	if is_placing():
+		selection.selection_visible = false
+
 		visualiser.show_range()
 		visualiser.show_bolt_line = false
 
@@ -133,12 +135,12 @@ func get_range_px(for_effect: bool):
 	return actual_range * 100
 
 func select():
-	selection_node.show()
+	selection.selection_visible = true
 	visualiser.show_range()
 	is_selected = true
 
 func deselect():
-	selection_node.hide()
+	selection.selection_visible = false
 	visualiser.hide_range()
 	is_selected = false
 
@@ -187,11 +189,11 @@ func should_create_effect(enemies: Array[Enemy]):
 
 	return false
 
-func _on_detect_mouse_mouse_entered():
+func _on_selection_mouse_entered():
 	if not is_placing():
 		visualiser.show_range()
 
-func _on_detect_mouse_mouse_exited():
+func _on_selection_mouse_exited():
 	# this fires before mouse_entered after we have just placed the tower,
 	# so make sure we don't hide the range right after placing the tower
 	if not is_placing() and not just_placed and not is_selected:
@@ -200,7 +202,7 @@ func _on_detect_mouse_mouse_exited():
 	if just_placed:
 		just_placed = false
 
-func _on_detect_mouse_gui_input(event: InputEvent):
+func _on_selection_gui_input(event: InputEvent):
 	if event.is_pressed():
 		if can_be_placed():
 			just_placed = true
