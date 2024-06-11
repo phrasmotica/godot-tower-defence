@@ -13,8 +13,7 @@ var progress_colour := Color8(255, 255, 255, 80)
 		print("Base level")
 		base_level = value
 
-		# TODO: connect these to the base level's upgrades too, recursively.
-		# Or, allow choosing which level the visualiser should visualise...
+		# MEDIUM: allow choosing which level the visualiser should visualise
 		if not base_level.adjust_range.is_connected(level_adjust_range):
 			base_level.adjust_range.connect(level_adjust_range)
 
