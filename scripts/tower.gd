@@ -32,10 +32,6 @@ signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
 signal on_deselected
 
-# HIGH: continue refactoring tower structure and testing it
-# in the gun tower scene. Once it's finished, update the other
-# towers.
-
 func _ready():
 	is_valid_location = true
 	deselect()
