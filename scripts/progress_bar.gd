@@ -18,7 +18,6 @@ signal started
 signal finished
 
 func _ready():
-	# TODO: do this when tower is put into placing mode instead
 	if not Engine.is_editor_hint():
 		color_rect.hide()
 
