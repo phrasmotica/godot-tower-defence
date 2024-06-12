@@ -8,6 +8,7 @@
 offset_right = 80.0
 offset_bottom = 80.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_7nris")
 icon = ExtResource("1_gsfqf")
 icon_alignment = 1

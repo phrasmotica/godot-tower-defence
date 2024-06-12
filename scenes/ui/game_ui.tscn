@@ -46,6 +46,7 @@ theme = ExtResource("1_px4ul")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -153,8 +154,12 @@ icon = ExtResource("10_gtikd")
 tower = ExtResource("11_sj5n7")
 action_name = &"tower_5"
 
+[node name="EmptySpace" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 125)
+layout_mode = 2
+
 [node name="SelectedTowerButtons" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 140)
+custom_minimum_size = Vector2(2.08165e-12, 190)
 layout_mode = 2
 
 [node name="TowerNameLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
@@ -186,6 +191,7 @@ offset_top = 130.0
 offset_right = 280.0
 offset_bottom = 190.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_px4ul")
 theme_override_font_sizes/font_size = 24
 text = "Sell"
@@ -197,8 +203,10 @@ offset_top = 130.0
 offset_right = 280.0
 offset_bottom = 190.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_px4ul")
 theme_type_variation = &"ButtonArea"
+button_mask = 3
 text = "Move here to cancel"
 
 [node name="CancelArea" type="Area2D" parent="PanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton"]

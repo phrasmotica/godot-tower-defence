@@ -8,6 +8,7 @@ offset_top = 20.0
 offset_right = 180.0
 offset_bottom = 80.0
 focus_mode = 0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_0hbru")
 text = "Upgrade"
 script = ExtResource("1_o1ho0")
