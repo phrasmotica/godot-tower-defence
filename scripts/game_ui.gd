@@ -11,7 +11,7 @@ var game_tint: ColorRect
 var bank: BankManager
 
 @export
-var money_amount: Label
+var money_label: AmountLabel
 
 @export
 var lives_amount: Label
@@ -178,8 +178,8 @@ func _on_upgrade_button_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
 func _on_bank_manager_money_changed(new_money:int):
-	if money_amount:
-		money_amount.text = str(new_money)
+	if money_label:
+		money_label.amount = new_money
 
 	for ctb in create_tower_buttons:
 		ctb.update_affordability(new_money)

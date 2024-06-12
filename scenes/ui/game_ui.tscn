@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=16 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_px4ul"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/towers/gun_tower.tscn" id="2_86mwy"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/ui/create_tower_button.tscn" id="2_in1v2"]
+[ext_resource type="PackedScene" uid="uid://diwd7nkeshej7" path="res://scenes/ui/amount_label.tscn" id="3_lsnv8"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
 [ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/towers/slow_tower.tscn" id="5_0g4vg"]
 [ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/ui/upgrade_tower_button.tscn" id="6_ork4b"]
@@ -17,13 +18,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
 size = Vector2(280, 60)
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("money_amount", "lives_amount", "wave_number_label", "tower_name_label", "create_tower_buttons", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("money_label", "lives_amount", "wave_number_label", "tower_name_label", "create_tower_buttons", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
-money_amount = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel/Amount")
+money_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel")
 lives_amount = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel/Amount")
 wave_number_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel/Number")
 tower_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/TowerNameLabel")
@@ -56,22 +57,8 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(0, 165)
 layout_mode = 2
 
-[node name="MoneyLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
-offset_right = 280.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 32
-text = "Money"
-
-[node name="Amount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel"]
+[node name="MoneyLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 layout_mode = 0
-offset_left = 140.0
-offset_right = 280.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 32
-text = "10"
-horizontal_alignment = 2
 
 [node name="LivesLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels"]
 custom_minimum_size = Vector2(0, 60)
