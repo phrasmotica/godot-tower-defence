@@ -21,4 +21,12 @@ var amount := 0:
 		amount = value
 
 		if amount_label:
-			amount_label.text = str(value)
+			amount_label.text = default_text if (default_text.length() > 0 and amount == 0) else str(amount)
+
+@export
+var default_text := "":
+	set(value):
+		default_text = value
+
+		if amount_label:
+			amount_label.text = value if (value.length() > 0 and amount == 0) else str(amount)

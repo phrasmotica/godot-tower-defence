@@ -14,10 +14,10 @@ var bank: BankManager
 var money_label: AmountLabel
 
 @export
-var lives_amount: Label
+var lives_label: AmountLabel
 
 @export
-var wave_number_label: Label
+var wave_label: AmountLabel
 
 @export
 var tower_name_label: Label
@@ -191,13 +191,13 @@ func _on_bank_manager_money_changed(new_money:int):
 		upgrade_button_1.update_affordability(new_money)
 
 func _on_lives_manager_lives_changed(new_lives):
-	if lives_amount:
-		lives_amount.text = str(new_lives)
+	if lives_label:
+		lives_label.amount = new_lives
 
 func _on_waves_manager_wave_sent(wave: Wave):
-	if wave_number_label:
-		wave_number_label.text = str(wave.number)
-		wave_number_label.tooltip_text = wave.description
+	if wave_label:
+		wave_label.amount = wave.number
+		wave_label.tooltip_text = wave.description
 
 func _on_sell_button_pressed():
 	sell_tower.emit()

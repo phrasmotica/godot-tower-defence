@@ -18,15 +18,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
 size = Vector2(280, 60)
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("money_label", "lives_amount", "wave_number_label", "tower_name_label", "create_tower_buttons", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("money_label", "lives_label", "wave_label", "tower_name_label", "create_tower_buttons", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
 money_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel")
-lives_amount = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel/Amount")
-wave_number_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel/Number")
+lives_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel")
+wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel")
 tower_name_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/TowerNameLabel")
 create_tower_buttons = [NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/GunTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/PoisonTowerButton")]
 upgrade_button_0 = NodePath("PanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0")
@@ -60,44 +60,17 @@ layout_mode = 2
 [node name="MoneyLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 layout_mode = 0
 
-[node name="LivesLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
+[node name="LivesLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 offset_top = 60.0
-offset_right = 280.0
 offset_bottom = 120.0
-theme_override_font_sizes/font_size = 32
-text = "Lives
-"
+text = "Lives"
 
-[node name="Amount" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel"]
-layout_mode = 0
-offset_left = 140.0
-offset_right = 280.0
-offset_bottom = 60.0
-theme_override_font_sizes/font_size = 32
-text = "10"
-horizontal_alignment = 2
-
-[node name="WaveLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels"]
-custom_minimum_size = Vector2(0, 60)
-layout_mode = 2
+[node name="WaveLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 offset_top = 120.0
-offset_right = 280.0
 offset_bottom = 180.0
-theme_override_font_sizes/font_size = 32
 text = "Wave"
-
-[node name="Number" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel"]
-layout_mode = 0
-offset_left = 140.0
-offset_right = 280.0
-offset_bottom = 60.0
-tooltip_text = "You'll see a description of the current wave here."
-mouse_filter = 0
-theme_override_font_sizes/font_size = 32
-text = "-"
-horizontal_alignment = 2
+amount = 0
+default_text = "-"
 
 [node name="TowerButtons" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 180)
