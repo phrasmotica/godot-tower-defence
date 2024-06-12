@@ -90,6 +90,7 @@ func try_sell():
 
 	var sell_value = selected_tower.sell()
 
+	# BUG: all_towers is having something removed twice when a tower gets sold?
 	all_towers.remove_at(selected_idx)
 	deselect_tower()
 
