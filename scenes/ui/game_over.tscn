@@ -10,6 +10,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("2_o0clg")
 script = ExtResource("1_7ke0v")
 
 [node name="Background" type="ColorRect" parent="."]
@@ -53,7 +54,6 @@ offset_top = 365.0
 offset_right = 780.0
 offset_bottom = 490.0
 mouse_default_cursor_shape = 2
-theme = ExtResource("2_o0clg")
 theme_override_font_sizes/font_size = 72
 text = "Restart"
 
