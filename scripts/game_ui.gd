@@ -258,3 +258,6 @@ func hide_ui():
 	sell_button.hide()
 
 	game_tint.hide()
+
+# HIGH: animate selected tower panel when tower is selected. Have it hidden by
+# default, make it slide in from below
