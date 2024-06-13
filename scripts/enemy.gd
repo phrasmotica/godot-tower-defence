@@ -101,9 +101,8 @@ func paralyse(duration: float):
 	is_paralysed = true
 	current_speed = 0
 
-	# LOW: create paralyse animation
 	var animation_speed = float(1 / duration)
-	animation_player.play("slow", -1, animation_speed)
+	animation_player.play("paralyse", -1, animation_speed)
 
 func end_paralyse():
 	is_paralysed = false
@@ -111,9 +110,8 @@ func end_paralyse():
 func poison(duration: float):
 	is_poisoned = true
 
-	# LOW: create poison animation
 	var animation_speed = float(1 / duration)
-	animation_player.play("slow", -1, animation_speed)
+	animation_player.play("poison", -1, animation_speed)
 
 func end_poison():
 	is_poisoned = false
