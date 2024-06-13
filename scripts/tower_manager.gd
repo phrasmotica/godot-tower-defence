@@ -90,8 +90,10 @@ func try_sell():
 
 	var sell_value = selected_tower.sell()
 
-	# BUG: all_towers is having something removed twice when a tower gets sold?
+	print(str(all_towers))
 	all_towers.remove_at(selected_idx)
+	print(str(all_towers))
+
 	deselect_tower()
 
 	tower_sold.emit(sell_value)
@@ -130,7 +132,9 @@ func _on_game_ui_tower_placed(tower: Tower):
 
 	tower.on_warmed_up.connect(
 		func(t, _first_level):
+			print(str(all_towers))
 			all_towers.append(t)
+			print(str(all_towers))
 	)
 
 func _on_game_ui_tower_selected(tower: Tower):
@@ -163,5 +167,7 @@ func _on_game_ui_sell_tower():
 func _on_lives_manager_lives_depleted():
 	print("Game has ended; disabling towers")
 
+	# BUG: buy two towers, sell the second one, run out of lives, the only
+	# element of all_towers is null/already freed object...
 	for t in all_towers:
 		t.set_disabled()
