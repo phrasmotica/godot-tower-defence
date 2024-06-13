@@ -12,31 +12,39 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("1_0hbru")
 text = "Upgrade"
 script = ExtResource("1_o1ho0")
-description = NodePath("TowerDescription")
-description_text = NodePath("TowerDescription/Background/MarginContainer/Label")
+description = NodePath("Tooltip")
+description_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Description")
 
-[node name="TowerDescription" type="Control" parent="."]
+[node name="Tooltip" type="Control" parent="."]
 visible = false
+z_index = 50
 layout_mode = 3
 anchors_preset = 0
 offset_left = -205.0
 offset_right = -5.0
-offset_bottom = 80.0
+offset_bottom = 140.0
 
-[node name="Background" type="PanelContainer" parent="TowerDescription"]
+[node name="Background" type="PanelContainer" parent="Tooltip"]
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 60.0
 
-[node name="MarginContainer" type="MarginContainer" parent="TowerDescription/Background"]
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip/Background"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="TowerDescription/Background/MarginContainer"]
-custom_minimum_size = Vector2(0, 53)
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Description" type="Label" parent="Tooltip/Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 43)
 layout_mode = 2
 text = "Upgrade description goes here, and will be altered by whichever tower the button is for."
 autowrap_mode = 2
-text_overrun_behavior = 3
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
