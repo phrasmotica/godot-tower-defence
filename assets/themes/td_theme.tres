@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bqnr1830yqwqe"]
+[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bqnr1830yqwqe"]
 
 [ext_resource type="SystemFont" uid="uid://c1rsdrkfaiy3o" path="res://assets/fonts/krub_sb.tres" id="1_bb8q8"]
 [ext_resource type="SystemFont" uid="uid://beht0cxrqw0gh" path="res://assets/fonts/krub_b.tres" id="2_hdxu2"]
@@ -69,6 +69,11 @@ corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi565"]
+bg_color = Color(0.49422, 0.223213, 0.210455, 1)
+border_width_top = 5
+border_color = Color(0.957892, 0.728132, 0.788478, 1)
+
 [resource]
 Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("1_bb8q8")
@@ -90,3 +95,5 @@ Label/fonts/font = ExtResource("1_bb8q8")
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_26c2h")
+SecondaryPanelContainer/base_type = &"PanelContainer"
+SecondaryPanelContainer/styles/panel = SubResource("StyleBoxFlat_mi565")
