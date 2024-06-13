@@ -1,10 +1,22 @@
+@tool
 class_name UpgradeTowerButton extends Button
 
 @export var action_name: StringName
 @export var upgrade_index := 0
 
-@onready var description = $TowerDescription
-@onready var description_text = $TowerDescription/Label
+@export
+var description: Control
+
+@export
+var description_text: Label
+
+@export
+var show_description := false:
+	set(value):
+		description.visible = value
+
+	get:
+		return description.visible
 
 var upgrade_level: TowerLevel
 var upgrade_price := 0
@@ -46,6 +58,9 @@ func upgrade():
 	upgrade_tower.emit(upgrade_index)
 
 func _process(_delta):
+	if Engine.is_editor_hint():
+		return
+
 	if Input.is_action_just_pressed(action_name):
 		print("Upgrading tower via shortcut")
 		upgrade()

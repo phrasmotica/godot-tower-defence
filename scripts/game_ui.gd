@@ -1,18 +1,41 @@
+@tool
 class_name GameUI extends Control
 
-@export var path_manager: PathManager
-@export var game_tint: ColorRect
-@export var create_tower_buttons: Array[CreateTowerButton]
+@export
+var path_manager: PathManager
 
-@onready var bank: BankManager = %BankManager
-@onready var money_amount = $ColorRect/MoneyLabel/Amount
-@onready var lives_amount = $ColorRect/LivesLabel/Amount
-@onready var wave_number_label = $ColorRect/WaveLabel/Number
-@onready var tower_name_label: Label = $ColorRect/TowerNameLabel
-@onready var upgrade_button_0: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton0
-@onready var upgrade_button_1: UpgradeTowerButton = $ColorRect/SelectedTowerButtons/UpgradeButton1
-@onready var sell_button = $ColorRect/SelectedTowerButtons/SellButton
-@onready var cancel_button = $ColorRect/CancelButton
+@export
+var game_tint: ColorRect
+
+@export
+var bank: BankManager
+
+@export
+var money_label: AmountLabel
+
+@export
+var lives_label: AmountLabel
+
+@export
+var wave_label: AmountLabel
+
+@export
+var tower_name_label: Label
+
+@export
+var create_tower_buttons: Array[CreateTowerButton]
+
+@export
+var upgrade_button_0: UpgradeTowerButton
+
+@export
+var upgrade_button_1: UpgradeTowerButton
+
+@export
+var sell_button: Button
+
+@export
+var cancel_button: Button
 
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
@@ -38,6 +61,9 @@ var placing_tower: Tower:
 		cancel_button.visible = placing_tower != null
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+
 	placing_tower = null
 	current_tower_scene_id = 0
 
@@ -46,6 +72,9 @@ func _ready():
 	set_process(false)
 
 func _process(_delta):
+	if Engine.is_editor_hint():
+		return
+
 	if Input.is_action_just_pressed("ui_cancel"):
 		deselect_tower.emit()
 
@@ -149,8 +178,8 @@ func _on_upgrade_button_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
 func _on_bank_manager_money_changed(new_money:int):
-	if money_amount:
-		money_amount.text = str(new_money)
+	if money_label:
+		money_label.amount = new_money
 
 	for ctb in create_tower_buttons:
 		ctb.update_affordability(new_money)
@@ -162,13 +191,13 @@ func _on_bank_manager_money_changed(new_money:int):
 		upgrade_button_1.update_affordability(new_money)
 
 func _on_lives_manager_lives_changed(new_lives):
-	if lives_amount:
-		lives_amount.text = str(new_lives)
+	if lives_label:
+		lives_label.amount = new_lives
 
 func _on_waves_manager_wave_sent(wave: Wave):
-	if wave_number_label:
-		wave_number_label.text = str(wave.number)
-		wave_number_label.tooltip_text = wave.description
+	if wave_label:
+		wave_label.amount = wave.number
+		wave_label.tooltip_text = wave.description
 
 func _on_sell_button_pressed():
 	sell_tower.emit()
