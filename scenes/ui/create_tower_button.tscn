@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_gsfqf"]
 [ext_resource type="Script" path="res://scripts/create_tower_button.gd" id="2_8baml"]
 
-[node name="CreateTowerButton" type="Button" node_paths=PackedStringArray("description", "description_text")]
+[node name="CreateTowerButton" type="Button" node_paths=PackedStringArray("description", "name_text", "description_text")]
 offset_right = 80.0
 offset_bottom = 80.0
 focus_mode = 0
@@ -14,31 +14,44 @@ icon = ExtResource("1_gsfqf")
 icon_alignment = 1
 script = ExtResource("2_8baml")
 action_name = &"tower_1"
-description = NodePath("TowerDescription")
-description_text = NodePath("TowerDescription/Background/MarginContainer/Label")
+description = NodePath("Tooltip")
+name_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Name")
+description_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Description")
 
-[node name="TowerDescription" type="Control" parent="."]
+[node name="Tooltip" type="Control" parent="."]
 visible = false
+z_index = 50
 anchors_preset = 0
 offset_left = -205.0
 offset_right = -5.0
-offset_bottom = 80.0
+offset_bottom = 100.0
 
-[node name="Background" type="PanelContainer" parent="TowerDescription"]
+[node name="Background" type="PanelContainer" parent="Tooltip"]
 layout_mode = 0
 offset_right = 200.0
 offset_bottom = 80.0
 theme = ExtResource("1_7nris")
 
-[node name="MarginContainer" type="MarginContainer" parent="TowerDescription/Background"]
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip/Background"]
 layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="TowerDescription/Background/MarginContainer"]
-custom_minimum_size = Vector2(0, 75)
+[node name="VBoxContainer" type="VBoxContainer" parent="Tooltip/Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Name" type="Label" parent="Tooltip/Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 22)
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Gun Tower"
+
+[node name="Description" type="Label" parent="Tooltip/Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 43)
 layout_mode = 2
 text = "Shoots simple bullets at enemies."
 autowrap_mode = 2
-text_overrun_behavior = 3
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

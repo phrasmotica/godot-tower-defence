@@ -8,6 +8,9 @@ class_name CreateTowerButton extends Button
 var description: Control
 
 @export
+var name_text: Label
+
+@export
 var description_text: Label
 
 @export
@@ -33,6 +36,7 @@ func _ready():
 
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
+		name_text.text = dummy_tower.tower_name
 		description_text.text = dummy_tower.tower_description
 	else:
 		disabled = true

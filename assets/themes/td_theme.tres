@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=9 format=3 uid="uid://bqnr1830yqwqe"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://bqnr1830yqwqe"]
 
 [ext_resource type="SystemFont" uid="uid://c1rsdrkfaiy3o" path="res://assets/fonts/krub_sb.tres" id="1_bb8q8"]
+[ext_resource type="SystemFont" uid="uid://beht0cxrqw0gh" path="res://assets/fonts/krub_b.tres" id="2_hdxu2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uvb4"]
 bg_color = Color(0, 0.419608, 0.486275, 0.392157)
@@ -81,6 +82,9 @@ ButtonArea/fonts/font = ExtResource("1_bb8q8")
 ButtonArea/styles/normal = SubResource("StyleBoxFlat_xnvu8")
 FlatPanelContainer/base_type = &"PanelContainer"
 FlatPanelContainer/styles/panel = SubResource("StyleBoxFlat_1uufy")
+HeaderSmall/base_type = &"Label"
+HeaderSmall/font_sizes/font_size = 24
+HeaderSmall/fonts/font = ExtResource("2_hdxu2")
 Label/font_sizes/font_size = 15
 Label/fonts/font = ExtResource("1_bb8q8")
 MarginContainer/constants/margin_left = 5
