@@ -70,8 +70,6 @@ func _ready():
 	placing_tower = null
 	current_tower_scene_id = 0
 
-	hide_ui()
-
 	set_process(false)
 
 func _process(_delta):
@@ -221,26 +219,25 @@ func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
 	upgrade_button_1.disabled = true
 	upgrade_button_1.disable_button()
 
-func _on_towers_selected_tower_changed(tower: Tower):
-	handle_selected_tower_changed(tower)
+func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
+	handle_selected_tower_changed(tower, was_unselected)
 
 func _on_towers_tower_deselected():
-	handle_selected_tower_changed(null)
+	handle_selected_tower_changed(null, false)
 
 func _on_towers_tower_sold(_sell_value:int):
 	pass
 
-func handle_selected_tower_changed(tower: Tower):
-	# BUG: don't trigger any animation if we already had a tower selected
-
+func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
 	if tower:
-		animate_show_ui(tower)
+		show_ui(tower)
+
+		if was_unselected:
+			animate_show_ui()
 	else:
 		animate_hide_ui()
 
-func animate_show_ui(tower: Tower):
-	show_ui(tower)
-
+func animate_show_ui():
 	animation_player.play("show_tower_ui")
 
 func show_ui(tower: Tower):

@@ -9,7 +9,7 @@ var selected_tower: Tower = null
 const default_z_index := 100
 const selected_z_index := 600
 
-signal selected_tower_changed(tower: Tower)
+signal selected_tower_changed(tower: Tower, was_unselected: bool)
 signal tower_deselected
 
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
@@ -109,9 +109,13 @@ func select_tower(tower: Tower):
 		print("This tower is already selected!")
 		return
 
+	var was_unselected := false
+
 	if selected_tower:
 		unhighlight()
 		selected_tower.deselect()
+	else:
+		was_unselected = true
 
 	selected_tower = tower
 	selected_idx = all_towers.find(tower)
@@ -120,7 +124,7 @@ func select_tower(tower: Tower):
 		selected_tower.select()
 		highlight()
 
-	selected_tower_changed.emit(selected_tower)
+	selected_tower_changed.emit(selected_tower, was_unselected)
 
 func _on_game_ui_tower_placing(_tower: Tower):
 	deselect_tower()
