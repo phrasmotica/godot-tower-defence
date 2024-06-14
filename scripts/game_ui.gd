@@ -109,6 +109,9 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.set_placing()
 	placing_tower.hide()
 
+	tower_ui.hide_ui()
+	animate_show_ui()
+
 	tower_placing.emit(placing_tower)
 
 	placing_tower.on_placed.connect(_on_placing_tower_placed)
@@ -222,6 +225,8 @@ func _on_tower_ui_cancel_tower():
 	placing_tower.queue_free()
 
 	stop_tower_creation()
+
+	animate_hide_ui()
 
 func _on_tower_ui_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
