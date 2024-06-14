@@ -1,0 +1,103 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdtbovc5xoi4i"]
+
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_jh88n"]
+[ext_resource type="Script" path="res://scripts/tower_ui.gd" id="1_w24hd"]
+[ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/ui/upgrade_tower_button.tscn" id="2_sf8mk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
+size = Vector2(280, 60)
+
+[node name="TowerUI" type="Control" node_paths=PackedStringArray("tower_name_label", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 225.0
+script = ExtResource("1_w24hd")
+tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/TowerNameLabel")
+upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0")
+upgrade_button_1 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1")
+sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton")
+cancel_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton")
+
+[node name="TowerPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 320.0
+offset_bottom = 225.0
+theme = ExtResource("1_jh88n")
+theme_type_variation = &"SecondaryPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="TowerPanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="SelectedTowerButtons" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 190)
+layout_mode = 2
+
+[node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
+layout_mode = 2
+offset_right = 280.0
+offset_bottom = 45.0
+theme_type_variation = &"HeaderSmall"
+theme_override_font_sizes/font_size = 32
+text = "Tower Name"
+
+[node name="UpgradeButton0" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("2_sf8mk")]
+layout_mode = 0
+offset_top = 50.0
+offset_bottom = 110.0
+text = "Upgrade 0"
+action_name = &"tower_upgrade_0"
+
+[node name="UpgradeButton1" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("2_sf8mk")]
+layout_mode = 0
+offset_top = 130.0
+offset_bottom = 190.0
+text = "Upgrade 1"
+action_name = &"tower_upgrade_1"
+upgrade_index = 1
+
+[node name="SellButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 130.0
+offset_right = 280.0
+offset_bottom = 190.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_jh88n")
+theme_override_font_sizes/font_size = 24
+text = "Sell"
+
+[node name="CancelButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
+visible = false
+layout_mode = 2
+offset_top = 130.0
+offset_right = 280.0
+offset_bottom = 190.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme = ExtResource("1_jh88n")
+theme_type_variation = &"ButtonArea"
+button_mask = 3
+text = "Move here to cancel"
+
+[node name="CancelArea" type="Area2D" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton"]
+collision_layer = 32
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton/CancelArea"]
+position = Vector2(140, 30)
+shape = SubResource("RectangleShape2D_b1ksy")
+
+[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
+[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
+[connection signal="pressed" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="area_entered" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton/CancelArea" to="." method="_on_cancel_area_area_entered"]

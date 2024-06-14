@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=19 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_px4ul"]
@@ -7,23 +7,20 @@
 [ext_resource type="PackedScene" uid="uid://diwd7nkeshej7" path="res://scenes/ui/amount_label.tscn" id="3_lsnv8"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
 [ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/towers/slow_tower.tscn" id="5_0g4vg"]
-[ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/ui/upgrade_tower_button.tscn" id="6_ork4b"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="6_x8q0o"]
 [ext_resource type="PackedScene" uid="uid://8o1qoddn66j5" path="res://scenes/towers/cannon_tower.tscn" id="7_b1mpf"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="8_s1j88"]
 [ext_resource type="PackedScene" uid="uid://dgqvlr3p36r22" path="res://scenes/towers/sniper_tower.tscn" id="9_egjws"]
 [ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="10_gtikd"]
 [ext_resource type="PackedScene" uid="uid://ba7v8p4mq36wb" path="res://scenes/towers/poison_tower.tscn" id="11_sj5n7"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_b1ksy"]
-size = Vector2(280, 60)
+[ext_resource type="PackedScene" uid="uid://cdtbovc5xoi4i" path="res://scenes/ui/tower_ui.tscn" id="14_yox6r"]
 
 [sub_resource type="Animation" id="Animation_qr7uh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TowerPanelContainer:position")
+tracks/0/path = NodePath("TowerUI:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -39,7 +36,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TowerPanelContainer:position")
+tracks/0/path = NodePath("TowerUI:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -69,7 +66,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TowerPanelContainer:position")
+tracks/0/path = NodePath("TowerUI:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -86,7 +83,7 @@ _data = {
 "show_tower_ui": SubResource("Animation_fmc87")
 }
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("money_label", "lives_label", "wave_label", "tower_name_label", "create_tower_buttons", "upgrade_button_0", "upgrade_button_1", "sell_button", "cancel_button", "animation_player")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("money_label", "lives_label", "wave_label", "create_tower_buttons", "tower_ui", "animation_player")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
@@ -95,12 +92,8 @@ script = ExtResource("1_7yk5n")
 money_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel")
 lives_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel")
 wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel")
-tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/TowerNameLabel")
 create_tower_buttons = [NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/GunTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/PoisonTowerButton")]
-upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0")
-upgrade_button_1 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1")
-sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton")
-cancel_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton")
+tower_ui = NodePath("TowerUI")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -183,84 +176,10 @@ icon = ExtResource("10_gtikd")
 tower = ExtResource("11_sj5n7")
 action_name = &"tower_5"
 
-[node name="TowerPanelContainer" type="PanelContainer" parent="."]
+[node name="TowerUI" parent="." instance=ExtResource("14_yox6r")]
 layout_mode = 0
 offset_top = 720.0
-offset_right = 320.0
 offset_bottom = 945.0
-theme = ExtResource("1_px4ul")
-theme_type_variation = &"SecondaryPanelContainer"
-
-[node name="MarginContainer" type="MarginContainer" parent="TowerPanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="SelectedTowerButtons" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 190)
-layout_mode = 2
-
-[node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
-layout_mode = 2
-offset_right = 280.0
-offset_bottom = 45.0
-theme_type_variation = &"HeaderSmall"
-theme_override_font_sizes/font_size = 32
-text = "Tower Name"
-
-[node name="UpgradeButton0" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
-layout_mode = 0
-offset_top = 50.0
-offset_bottom = 110.0
-text = "Upgrade 0"
-action_name = &"tower_upgrade_0"
-
-[node name="UpgradeButton1" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("6_ork4b")]
-layout_mode = 0
-offset_top = 130.0
-offset_bottom = 190.0
-text = "Upgrade 1"
-action_name = &"tower_upgrade_1"
-upgrade_index = 1
-
-[node name="SellButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 130.0
-offset_right = 280.0
-offset_bottom = 190.0
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme = ExtResource("1_px4ul")
-theme_override_font_sizes/font_size = 24
-text = "Sell"
-
-[node name="CancelButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
-visible = false
-layout_mode = 2
-offset_top = 130.0
-offset_right = 280.0
-offset_bottom = 190.0
-focus_mode = 0
-mouse_default_cursor_shape = 2
-theme = ExtResource("1_px4ul")
-theme_type_variation = &"ButtonArea"
-button_mask = 3
-text = "Move here to cancel"
-
-[node name="CancelArea" type="Area2D" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton"]
-collision_layer = 32
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton/CancelArea"]
-position = Vector2(140, 30)
-shape = SubResource("RectangleShape2D_b1ksy")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -272,7 +191,6 @@ libraries = {
 [connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/CannonTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
-[connection signal="pressed" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
-[connection signal="area_entered" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/CancelButton/CancelArea" to="." method="_on_cancel_area_area_entered"]
+[connection signal="cancel_tower" from="TowerUI" to="." method="_on_tower_ui_cancel_tower"]
+[connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
+[connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]

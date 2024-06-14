@@ -20,22 +20,10 @@ var lives_label: AmountLabel
 var wave_label: AmountLabel
 
 @export
-var tower_name_label: Label
-
-@export
 var create_tower_buttons: Array[CreateTowerButton]
 
 @export
-var upgrade_button_0: UpgradeTowerButton
-
-@export
-var upgrade_button_1: UpgradeTowerButton
-
-@export
-var sell_button: Button
-
-@export
-var cancel_button: Button
+var tower_ui: TowerUI
 
 @export
 var animation_player: AnimationPlayer
@@ -61,7 +49,12 @@ var current_tower_scene_id := 0
 var placing_tower: Tower:
 	set(value):
 		placing_tower = value
-		cancel_button.visible = placing_tower != null
+
+		if placing_tower:
+			# HIGH: show tower UI so that cancel button is visible
+			tower_ui.show_cancel_button()
+		else:
+			tower_ui.hide_cancel_button()
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -142,11 +135,7 @@ func _on_placing_tower_selected(tower: Tower):
 func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
 
-	upgrade_button_0.disabled = false
-	upgrade_button_0.set_upgrade_level(tower)
-
-	upgrade_button_1.disabled = false
-	upgrade_button_1.set_upgrade_level(tower)
+	tower_ui.set_upgrade_levels(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)
 
@@ -169,9 +158,6 @@ func _on_start_game_start(_path_index: int):
 func _on_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
-func _on_upgrade_button_upgrade_tower(index: int):
-	upgrade_tower.emit(index)
-
 func _on_bank_manager_money_changed(new_money:int):
 	if money_label:
 		money_label.amount = new_money
@@ -179,11 +165,7 @@ func _on_bank_manager_money_changed(new_money:int):
 	for ctb in create_tower_buttons:
 		ctb.update_affordability(new_money)
 
-	if upgrade_button_0:
-		upgrade_button_0.update_affordability(new_money)
-
-	if upgrade_button_1:
-		upgrade_button_1.update_affordability(new_money)
+	tower_ui.update_affordability(new_money)
 
 func _on_lives_manager_lives_changed(new_lives):
 	if lives_label:
@@ -194,24 +176,12 @@ func _on_waves_manager_wave_sent(wave: Wave):
 		wave_label.amount = wave.number
 		wave_label.tooltip_text = wave.description
 
-func _on_sell_button_pressed():
-	sell_tower.emit()
-
-func _on_cancel_area_area_entered(_area:Area2D):
-	placing_tower.queue_free()
-
-	stop_tower_creation()
-
 func stop_tower_creation():
 	placing_tower = null
 	current_tower_scene_id = 0
 
 func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
-	upgrade_button_0.disabled = true
-	upgrade_button_0.disable_button()
-
-	upgrade_button_1.disabled = true
-	upgrade_button_1.disable_button()
+	tower_ui.disable_upgrades()
 
 func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
 	handle_selected_tower_changed(tower, was_unselected)
@@ -234,15 +204,7 @@ func animate_show_ui():
 func show_ui(tower: Tower):
 	print("Showing selected tower UI")
 
-	tower_name_label.text = tower.tower_name
-
-	upgrade_button_0.show()
-	upgrade_button_0.set_upgrade_level(tower)
-
-	upgrade_button_1.show()
-	upgrade_button_1.set_upgrade_level(tower)
-
-	sell_button.show()
+	tower_ui.show_ui(tower)
 
 	game_tint.show()
 
@@ -252,10 +214,17 @@ func animate_hide_ui():
 func hide_ui():
 	print("Hiding selected tower UI")
 
-	tower_name_label.text = ""
-
-	upgrade_button_0.hide()
-	upgrade_button_1.hide()
-	sell_button.hide()
+	tower_ui.hide_ui()
 
 	game_tint.hide()
+
+func _on_tower_ui_cancel_tower():
+	placing_tower.queue_free()
+
+	stop_tower_creation()
+
+func _on_tower_ui_upgrade_tower(index: int):
+	upgrade_tower.emit(index)
+
+func _on_tower_ui_sell_tower():
+	sell_tower.emit()
