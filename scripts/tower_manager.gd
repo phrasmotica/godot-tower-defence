@@ -145,11 +145,6 @@ func _on_game_ui_tower_selected(tower: Tower):
 
 	highlight()
 
-func _on_game_ui_tower_deselected():
-	unhighlight()
-
-	select_tower(null)
-
 func _on_game_ui_next_tower():
 	next_tower()
 

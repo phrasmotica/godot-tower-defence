@@ -166,13 +166,7 @@ func _on_start_game_start(_path_index: int):
 	for ctb in create_tower_buttons:
 		ctb.enable_button()
 
-func _on_gun_tower_button_create_tower(tower_scene:PackedScene):
-	try_place(tower_scene)
-
-func _on_slow_tower_button_create_tower(tower_scene:PackedScene):
-	try_place(tower_scene)
-
-func _on_cannon_tower_button_create_tower(tower_scene:PackedScene):
+func _on_tower_button_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
 
 func _on_upgrade_button_upgrade_tower(index: int):
@@ -224,9 +218,6 @@ func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
 
 func _on_towers_tower_deselected():
 	handle_selected_tower_changed(null, false)
-
-func _on_towers_tower_sold(_sell_value:int):
-	pass
 
 func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
 	if tower:
