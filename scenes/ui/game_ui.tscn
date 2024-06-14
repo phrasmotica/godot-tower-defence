@@ -89,21 +89,26 @@ anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
-money_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel")
-lives_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel")
-wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel")
-create_tower_buttons = [NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/GunTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/VBoxContainer/TowerButtons/PoisonTowerButton")]
+money_label = NodePath("ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels/MoneyLabel")
+lives_label = NodePath("ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels/LivesLabel")
+wave_label = NodePath("ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels/WaveLabel")
+create_tower_buttons = [NodePath("CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton"), NodePath("CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton"), NodePath("CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton"), NodePath("CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton"), NodePath("CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton")]
 tower_ui = NodePath("TowerUI")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="ScoreUI" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 200.0
+
+[node name="PanelContainer" type="PanelContainer" parent="ScoreUI"]
 layout_mode = 0
 offset_right = 320.0
-offset_bottom = 720.0
+offset_bottom = 200.0
 theme = ExtResource("1_px4ul")
 theme_type_variation = &"FlatPanelContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ScoreUI/PanelContainer"]
 layout_mode = 2
 theme = ExtResource("1_px4ul")
 theme_override_constants/margin_left = 20
@@ -111,67 +116,84 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ScoreUI/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Labels" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Labels" type="Control" parent="ScoreUI/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 165)
 layout_mode = 2
 
-[node name="MoneyLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
+[node name="MoneyLabel" parent="ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 layout_mode = 0
 
-[node name="LivesLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
+[node name="LivesLabel" parent="ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 offset_top = 60.0
 offset_bottom = 120.0
 text = "Lives"
 
-[node name="WaveLabel" parent="PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
+[node name="WaveLabel" parent="ScoreUI/PanelContainer/MarginContainer/VBoxContainer/Labels" instance=ExtResource("3_lsnv8")]
 offset_top = 120.0
 offset_bottom = 180.0
 text = "Wave"
 amount = 0
 default_text = "-"
 
-[node name="TowerButtons" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 180)
-layout_mode = 2
+[node name="CreateTowerUI" type="Control" parent="."]
+anchors_preset = 0
+offset_top = 200.0
+offset_right = 320.0
+offset_bottom = 720.0
 
-[node name="GunTowerButton" parent="PanelContainer/MarginContainer/VBoxContainer/TowerButtons" instance=ExtResource("2_in1v2")]
+[node name="PanelContainer" type="PanelContainer" parent="CreateTowerUI"]
 layout_mode = 0
+offset_right = 320.0
+offset_bottom = 520.0
+theme = ExtResource("1_px4ul")
+theme_type_variation = &"FlatPanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="CreateTowerUI/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="GridContainer" type="GridContainer" parent="CreateTowerUI/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(280, 2.08165e-12)
+layout_mode = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 3
+
+[node name="GunTowerButton" parent="CreateTowerUI/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_in1v2")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 tower = ExtResource("2_86mwy")
 
-[node name="SlowTowerButton" parent="PanelContainer/MarginContainer/VBoxContainer/TowerButtons" instance=ExtResource("2_in1v2")]
-layout_mode = 0
-offset_left = 100.0
-offset_right = 180.0
+[node name="SlowTowerButton" parent="CreateTowerUI/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_in1v2")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 icon = ExtResource("4_ydxgj")
 tower = ExtResource("5_0g4vg")
 action_name = &"tower_2"
 
-[node name="CannonTowerButton" parent="PanelContainer/MarginContainer/VBoxContainer/TowerButtons" instance=ExtResource("2_in1v2")]
-layout_mode = 0
-offset_left = 200.0
-offset_right = 280.0
+[node name="CannonTowerButton" parent="CreateTowerUI/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_in1v2")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 icon = ExtResource("6_x8q0o")
 tower = ExtResource("7_b1mpf")
 action_name = &"tower_3"
 
-[node name="SniperTowerButton" parent="PanelContainer/MarginContainer/VBoxContainer/TowerButtons" instance=ExtResource("2_in1v2")]
-layout_mode = 0
-offset_top = 100.0
-offset_bottom = 180.0
+[node name="SniperTowerButton" parent="CreateTowerUI/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_in1v2")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 icon = ExtResource("8_s1j88")
 tower = ExtResource("9_egjws")
 action_name = &"tower_4"
 
-[node name="PoisonTowerButton" parent="PanelContainer/MarginContainer/VBoxContainer/TowerButtons" instance=ExtResource("2_in1v2")]
-layout_mode = 0
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 180.0
-offset_bottom = 180.0
+[node name="PoisonTowerButton" parent="CreateTowerUI/PanelContainer/MarginContainer/GridContainer" instance=ExtResource("2_in1v2")]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 2
 icon = ExtResource("10_gtikd")
 tower = ExtResource("11_sj5n7")
 action_name = &"tower_5"
@@ -186,11 +208,11 @@ libraries = {
 "": SubResource("AnimationLibrary_fjgy4")
 }
 
-[connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/GunTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SlowTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/CannonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/VBoxContainer/TowerButtons/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="cancel_tower" from="TowerUI" to="." method="_on_tower_ui_cancel_tower"]
 [connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
 [connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]
