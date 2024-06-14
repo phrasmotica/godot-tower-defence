@@ -49,12 +49,7 @@ var current_tower_scene_id := 0
 var placing_tower: Tower:
 	set(value):
 		placing_tower = value
-
-		if placing_tower:
-			# HIGH: show tower UI so that cancel button is visible
-			tower_ui.show_cancel_button()
-		else:
-			tower_ui.hide_cancel_button()
+		tower_ui.is_cancel_mode = placing_tower != null
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -70,10 +65,10 @@ func _process(_delta):
 		return
 
 	if Input.is_action_just_pressed("ui_cancel"):
-		deselect_tower.emit()
-
 		if placing_tower:
-			cancel_tower_creation()
+			animate_hide_ui()
+		else:
+			deselect_tower.emit()
 
 	if Input.is_action_just_pressed("next_tower"):
 		next_tower.emit()
@@ -109,7 +104,6 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.set_placing()
 	placing_tower.hide()
 
-	tower_ui.hide_ui()
 	animate_show_ui()
 
 	tower_placing.emit(placing_tower)
@@ -207,7 +201,7 @@ func animate_show_ui():
 func show_ui(tower: Tower):
 	print("Showing selected tower UI")
 
-	tower_ui.show_ui(tower)
+	tower_ui.set_tower(tower)
 
 	game_tint.show()
 
@@ -219,13 +213,14 @@ func hide_ui():
 
 	tower_ui.hide_ui()
 
-	game_tint.hide()
-
-func _on_tower_ui_cancel_tower():
-	placing_tower.queue_free()
+	if placing_tower:
+		placing_tower.queue_free()
 
 	stop_tower_creation()
 
+	game_tint.hide()
+
+func _on_tower_ui_cancel_tower():
 	animate_hide_ui()
 
 func _on_tower_ui_upgrade_tower(index: int):
