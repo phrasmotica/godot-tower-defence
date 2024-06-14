@@ -29,7 +29,6 @@ var tower_ui: TowerUI
 var animation_player: AnimationPlayer
 
 signal tower_placing(tower: Tower)
-signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
@@ -66,6 +65,8 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		if placing_tower:
+			placing_tower.queue_free()
+
 			animate_hide_ui()
 		else:
 			deselect_tower.emit()
@@ -86,8 +87,11 @@ func try_place(tower_scene: PackedScene):
 		print("Already placing tower with ID " + str(new_id))
 		return
 
+	var show_animation := true
+
 	if placing_tower:
-		cancel_tower_creation()
+		placing_tower.queue_free()
+		show_animation = false
 
 	placing_tower = tower_scene.instantiate()
 	current_tower_scene_id = new_id
@@ -104,7 +108,8 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.set_placing()
 	placing_tower.hide()
 
-	animate_show_ui()
+	if show_animation:
+		animate_show_ui()
 
 	tower_placing.emit(placing_tower)
 
@@ -122,7 +127,7 @@ func _on_placing_tower_placed(tower: Tower):
 
 	tower_placed.emit(tower)
 
-	stop_tower_creation()
+	animate_hide_ui()
 
 func _on_placing_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
@@ -135,15 +140,6 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	tower_ui.set_upgrade_levels(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)
-
-func cancel_tower_creation():
-	print("Cancelling tower creation")
-
-	placing_tower.queue_free()
-	placing_tower = null
-	current_tower_scene_id = 0
-
-	tower_placing_cancelled.emit()
 
 func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
@@ -213,14 +209,14 @@ func hide_ui():
 
 	tower_ui.hide_ui()
 
-	if placing_tower:
-		placing_tower.queue_free()
-
 	stop_tower_creation()
 
 	game_tint.hide()
 
 func _on_tower_ui_cancel_tower():
+	if placing_tower:
+		placing_tower.queue_free()
+
 	animate_hide_ui()
 
 func _on_tower_ui_upgrade_tower(index: int):
