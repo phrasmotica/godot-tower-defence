@@ -37,6 +37,9 @@ var sell_button: Button
 @export
 var cancel_button: Button
 
+@export
+var animation_player: AnimationPlayer
+
 signal tower_placing(tower: Tower)
 signal tower_placing_cancelled
 signal tower_placed(tower: Tower)
@@ -225,13 +228,20 @@ func _on_towers_tower_deselected():
 	handle_selected_tower_changed(null)
 
 func _on_towers_tower_sold(_sell_value:int):
-	hide_ui()
+	pass
 
 func handle_selected_tower_changed(tower: Tower):
+	# BUG: don't trigger any animation if we already had a tower selected
+
 	if tower:
-		show_ui(tower)
+		animate_show_ui(tower)
 	else:
-		hide_ui()
+		animate_hide_ui()
+
+func animate_show_ui(tower: Tower):
+	show_ui(tower)
+
+	animation_player.play("show_tower_ui")
 
 func show_ui(tower: Tower):
 	print("Showing selected tower UI")
@@ -248,6 +258,9 @@ func show_ui(tower: Tower):
 
 	game_tint.show()
 
+func animate_hide_ui():
+	animation_player.play("hide_tower_ui")
+
 func hide_ui():
 	print("Hiding selected tower UI")
 
@@ -258,6 +271,3 @@ func hide_ui():
 	sell_button.hide()
 
 	game_tint.hide()
-
-# HIGH: animate selected tower panel when tower is selected. Have it hidden by
-# default, make it slide in from below
