@@ -50,7 +50,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	stop_tower_creation()
+	stop_tower_creation(false)
 
 	set_process(false)
 
@@ -60,9 +60,7 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("ui_cancel"):
 		if placing_tower:
-			placing_tower.queue_free()
-
-			stop_tower_creation()
+			stop_tower_creation(true)
 
 			for ctb in create_tower_buttons:
 				ctb.is_creating_mode = false
@@ -90,7 +88,7 @@ func try_place(tower_scene: PackedScene):
 			ctb.is_creating_mode = false
 
 	if placing_tower:
-		placing_tower.queue_free()
+		stop_tower_creation(true)
 
 	placing_tower = tower_scene.instantiate()
 	current_tower_scene_id = new_id
@@ -98,7 +96,7 @@ func try_place(tower_scene: PackedScene):
 	if not bank.can_afford(placing_tower.price):
 		print(placing_tower.name + " purchase failed: cannot afford")
 
-		stop_tower_creation()
+		stop_tower_creation(false)
 
 		return false
 
@@ -122,7 +120,7 @@ func _on_placing_tower_placed(tower: Tower):
 
 	tower_placed.emit(tower)
 
-	stop_tower_creation()
+	stop_tower_creation(false)
 
 	for ctb in create_tower_buttons:
 		ctb.is_creating_mode = false
@@ -167,7 +165,10 @@ func _on_waves_manager_wave_sent(wave: Wave):
 		wave_label.amount = wave.number
 		wave_label.tooltip_text = wave.description
 
-func stop_tower_creation():
+func stop_tower_creation(free: bool):
+	if free and placing_tower:
+		placing_tower.queue_free()
+
 	placing_tower = null
 	current_tower_scene_id = 0
 
@@ -216,7 +217,4 @@ func _on_tower_ui_sell_tower():
 	sell_tower.emit()
 
 func _on_tower_button_cancel_tower():
-	if placing_tower:
-		placing_tower.queue_free()
-
-		stop_tower_creation()
+	stop_tower_creation(true)
