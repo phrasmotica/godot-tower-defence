@@ -82,7 +82,7 @@ _data = {
 
 [node name="CannonTower" type="Node2D"]
 script = ExtResource("1_bjpxi")
-tower_name = "Cannon Tower"
+tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
 

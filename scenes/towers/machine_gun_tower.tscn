@@ -94,7 +94,7 @@ _data = {
 
 [node name="MachineGunTower" type="Node2D"]
 script = ExtResource("1_15oo1")
-tower_name = "Machine Gun Tower"
+tower_name = "Machine Gun"
 tower_description = "Fires bullets really fast!"
 price = 6
 
