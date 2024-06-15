@@ -43,22 +43,6 @@ func set_tower(tower: Tower):
 	upgrade_button_0.set_upgrade_level(tower)
 	upgrade_button_1.set_upgrade_level(tower)
 
-	show_ui()
-
-func show_ui():
-	tower_name_label.show()
-
-	upgrade_button_0.show()
-	upgrade_button_1.show()
-	sell_button.show()
-
-func hide_ui():
-	tower_name_label.hide()
-
-	upgrade_button_0.hide()
-	upgrade_button_1.hide()
-	sell_button.hide()
-
 func _on_upgrade_button_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
