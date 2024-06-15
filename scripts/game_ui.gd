@@ -86,6 +86,10 @@ func try_place(tower_scene: PackedScene):
 		print("Already placing tower with ID " + str(new_id))
 		return
 
+	for ctb in create_tower_buttons:
+		if ctb.tower != tower_scene:
+			ctb.is_creating_mode = false
+
 	if placing_tower:
 		placing_tower.queue_free()
 
@@ -117,6 +121,9 @@ func _on_placing_tower_placed(tower: Tower):
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
 	tower_placed.emit(tower)
+
+	for ctb in create_tower_buttons:
+		ctb.is_creating_mode = false
 
 	animate_hide_ui()
 
