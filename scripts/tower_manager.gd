@@ -126,13 +126,12 @@ func select_tower(tower: Tower):
 
 	selected_tower_changed.emit(selected_tower, was_unselected)
 
-func _on_game_ui_tower_placing(_tower: Tower):
+func _on_game_ui_tower_placing(tower: Tower):
 	deselect_tower()
 
-func _on_game_ui_tower_placed(tower: Tower):
-	# ensure the tower is not part of the UI anymore
-	tower.reparent(self, true)
+	add_child(tower)
 
+func _on_game_ui_tower_placed(tower: Tower):
 	tower.on_warmed_up.connect(
 		func(t, _first_level):
 			all_towers.append(t)
