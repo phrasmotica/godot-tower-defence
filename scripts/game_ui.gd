@@ -50,8 +50,7 @@ func _ready():
 	if Engine.is_editor_hint():
 		return
 
-	placing_tower = null
-	current_tower_scene_id = 0
+	stop_tower_creation()
 
 	set_process(false)
 
@@ -62,8 +61,8 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if placing_tower:
 			placing_tower.queue_free()
-			placing_tower = null
-			current_tower_scene_id = 0
+
+			stop_tower_creation()
 
 			for ctb in create_tower_buttons:
 				ctb.is_creating_mode = false
@@ -98,8 +97,9 @@ func try_place(tower_scene: PackedScene):
 
 	if not bank.can_afford(placing_tower.price):
 		print(placing_tower.name + " purchase failed: cannot afford")
-		placing_tower = null
-		current_tower_scene_id = 0
+
+		stop_tower_creation()
+
 		return false
 
 	print("Purchasing " + placing_tower.name)
@@ -122,8 +122,7 @@ func _on_placing_tower_placed(tower: Tower):
 
 	tower_placed.emit(tower)
 
-	placing_tower = null
-	current_tower_scene_id = 0
+	stop_tower_creation()
 
 	for ctb in create_tower_buttons:
 		ctb.is_creating_mode = false
@@ -207,8 +206,6 @@ func hide_ui():
 	print("Hiding selected tower UI")
 
 	tower_ui.hide_ui()
-
-	stop_tower_creation()
 
 	game_tint.hide()
 
