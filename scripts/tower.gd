@@ -20,7 +20,6 @@ var price: int = 1
 
 var path_manager: PathManager
 var tower_mode = TowerMode.PLACING
-var just_placed := false
 var is_selected = false
 var is_valid_location = false
 
@@ -182,19 +181,12 @@ func _on_selection_mouse_entered():
 		visualiser.show_range()
 
 func _on_selection_mouse_exited():
-	# this fires before mouse_entered after we have just placed the tower,
-	# so make sure we don't hide the range right after placing the tower
-	if not is_placing() and not just_placed and not is_selected:
+	if not is_placing() and not is_selected:
 		visualiser.hide_range()
-
-	if just_placed:
-		just_placed = false
 
 func _on_selection_gui_input(event: InputEvent):
 	if event.is_pressed():
 		if can_be_placed():
-			just_placed = true
-
 			set_warming_up()
 
 			progress_bars.do_warmup()
