@@ -23,17 +23,28 @@ var show_description := false:
 
 var tower_price := 0
 
-signal create_tower(tower_scene: PackedScene)
+var original_icon: Texture2D
 
-# MEDIUM: hide icon when button is pressed. Allow cancelling tower placement by
-# "putting back" the placing tower into the button, at which point the icon
-# should reappear
+var is_creating_mode := false:
+	set(value):
+		is_creating_mode = value
+
+		if is_creating_mode:
+			description.hide()
+			icon = null
+		else:
+			icon = original_icon
+
+signal create_tower(tower_scene: PackedScene)
+signal cancel_tower
 
 func _ready():
 	if Engine.is_editor_hint():
 		return
 
 	if tower:
+		original_icon = icon
+
 		var dummy_tower: Tower = tower.instantiate()
 
 		tower_price = dummy_tower.price
@@ -56,7 +67,8 @@ func disable_button():
 	set_process(false)
 
 func create():
-	description.hide()
+	is_creating_mode = true
+
 	create_tower.emit(tower)
 
 func update_affordability(money: int):
@@ -81,6 +93,11 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	if not disabled:
+		if is_creating_mode:
+			is_creating_mode = false
+
+			cancel_tower.emit()
+
 		description.show()
 
 func _on_mouse_exited():

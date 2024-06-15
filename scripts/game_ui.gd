@@ -67,6 +67,9 @@ func _process(_delta):
 		if placing_tower:
 			placing_tower.queue_free()
 
+			for ctb in create_tower_buttons:
+				ctb.is_creating_mode = false
+
 			animate_hide_ui()
 		else:
 			deselect_tower.emit()
@@ -222,3 +225,9 @@ func _on_tower_ui_upgrade_tower(index: int):
 
 func _on_tower_ui_sell_tower():
 	sell_tower.emit()
+
+func _on_tower_button_cancel_tower():
+	if placing_tower:
+		placing_tower.queue_free()
+
+	animate_hide_ui()
