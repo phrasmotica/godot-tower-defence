@@ -12,6 +12,7 @@ class_name GunBarrel extends Node2D
 @onready var shoot_timer = $ShootTimer
 @onready var pulse_timer = $PulseTimer
 @onready var bolt_timer = $BoltTimer
+@onready var shoot_audio = $ShootAudio
 
 signal shoot
 signal pulse
@@ -63,6 +64,10 @@ func resume():
 		bolt_timer.start()
 
 func _on_shoot_timer_timeout():
+	# TODO: only play audio when a projectile actually gets created
+
+	shoot_audio.play()
+
 	shoot.emit()
 
 func _on_pulse_timer_timeout():

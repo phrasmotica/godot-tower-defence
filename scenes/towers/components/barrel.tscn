@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dennk04qdhx0m"]
+[gd_scene load_steps=3 format=3 uid="uid://dennk04qdhx0m"]
 
 [ext_resource type="Script" path="res://scripts/gun_barrel.gd" id="1_ory0v"]
+[ext_resource type="AudioStream" uid="uid://c58ttpbnaed22" path="res://assets/sounds/Laser_Shoot3.wav" id="2_fwmsh"]
 
 [node name="Barrel" type="Node2D"]
 script = ExtResource("1_ory0v")
@@ -10,6 +11,10 @@ script = ExtResource("1_ory0v")
 [node name="PulseTimer" type="Timer" parent="."]
 
 [node name="BoltTimer" type="Timer" parent="."]
+
+[node name="ShootAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_fwmsh")
+bus = &"SFX"
 
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]
 [connection signal="timeout" from="PulseTimer" to="." method="_on_pulse_timer_timeout"]
