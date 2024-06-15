@@ -62,6 +62,8 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if placing_tower:
 			placing_tower.queue_free()
+			placing_tower = null
+			current_tower_scene_id = 0
 
 			for ctb in create_tower_buttons:
 				ctb.is_creating_mode = false
@@ -119,6 +121,9 @@ func _on_placing_tower_placed(tower: Tower):
 	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
 
 	tower_placed.emit(tower)
+
+	placing_tower = null
+	current_tower_scene_id = 0
 
 	for ctb in create_tower_buttons:
 		ctb.is_creating_mode = false
