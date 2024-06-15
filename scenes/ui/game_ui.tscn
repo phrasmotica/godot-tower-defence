@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=20 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Script" path="res://scripts/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_px4ul"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/towers/gun_tower.tscn" id="2_86mwy"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/ui/create_tower_button.tscn" id="2_in1v2"]
 [ext_resource type="PackedScene" uid="uid://diwd7nkeshej7" path="res://scenes/ui/amount_label.tscn" id="3_lsnv8"]
+[ext_resource type="Script" path="res://scripts/create_tower_ui.gd" id="4_2riks"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_ydxgj"]
 [ext_resource type="PackedScene" uid="uid://b8qu4bxbhapgl" path="res://scenes/towers/slow_tower.tscn" id="5_0g4vg"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="6_x8q0o"]
@@ -144,6 +145,7 @@ anchors_preset = 0
 offset_top = 200.0
 offset_right = 320.0
 offset_bottom = 720.0
+script = ExtResource("4_2riks")
 
 [node name="PanelContainer" type="PanelContainer" parent="CreateTowerUI"]
 layout_mode = 0
@@ -208,15 +210,17 @@ libraries = {
 "": SubResource("AnimationLibrary_fjgy4")
 }
 
-[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="CreateTowerUI" method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="CreateTowerUI" method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="CreateTowerUI" method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="CreateTowerUI" method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="CreateTowerUI" method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="CreateTowerUI" method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="CreateTowerUI" method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="CreateTowerUI" method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="CreateTowerUI" method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="CreateTowerUI" method="_on_tower_button_create_tower"]
 [connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
 [connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]

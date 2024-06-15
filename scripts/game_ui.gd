@@ -144,9 +144,6 @@ func _on_start_game_start(_path_index: int):
 	for ctb in create_tower_buttons:
 		ctb.enable_button()
 
-func _on_tower_button_create_tower(tower_scene:PackedScene):
-	try_place(tower_scene)
-
 func _on_bank_manager_money_changed(new_money:int):
 	if money_label:
 		money_label.amount = new_money
@@ -210,11 +207,14 @@ func hide_ui():
 
 	game_tint.hide()
 
+func _on_create_tower_ui_create_tower(tower_scene:PackedScene):
+	try_place(tower_scene)
+
+func _on_create_tower_ui_cancel_tower():
+	stop_tower_creation(true)
+
 func _on_tower_ui_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
 func _on_tower_ui_sell_tower():
 	sell_tower.emit()
-
-func _on_tower_button_cancel_tower():
-	stop_tower_creation(true)
