@@ -87,6 +87,8 @@ animation_player = NodePath("AnimationPlayer")
 [node name="ScoreUI" parent="." instance=ExtResource("2_la3np")]
 
 [node name="CreateTowerUI" parent="." instance=ExtResource("4_3pagb")]
+offset_top = 160.0
+offset_bottom = 720.0
 
 [node name="TowerUI" parent="." instance=ExtResource("14_yox6r")]
 layout_mode = 0
