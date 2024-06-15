@@ -27,33 +27,44 @@ func set_upgrade_level(tower: Tower):
 	upgrade_level = tower.get_upgrade(upgrade_index)
 
 	if upgrade_level:
-		disabled = false
-
 		text = upgrade_level.level_name
-		upgrade_price = upgrade_level.price
 
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
 		description_text.text = upgrade_level.level_description
+
+		upgrade_price = upgrade_level.price
+
+		disabled = false
+		enable_button(true)
 	else:
 		text = "-"
+		description_text.text = "-"
+
 		disabled = true
+		disable_button(true)
 
 	description.hide()
 
-func enable_button():
+func enable_button(set_cursor: bool):
+	if set_cursor:
+		mouse_default_cursor_shape = CURSOR_POINTING_HAND
+
 	set_process(true)
 
-func disable_button():
+func disable_button(set_cursor: bool):
+	if set_cursor:
+		mouse_default_cursor_shape = CURSOR_ARROW
+
 	set_process(false)
 
 func update_affordability(money: int):
 	if upgrade_price > money:
 		disabled = true
-		disable_button()
+		disable_button(false)
 	else:
 		disabled = false
-		enable_button()
+		enable_button(false)
 
 func upgrade():
 	description.hide()
@@ -72,7 +83,8 @@ func _on_pressed():
 	upgrade()
 
 func _on_mouse_entered():
-	description.show()
+	if upgrade_level:
+		description.show()
 
 func _on_mouse_exited():
 	description.hide()
