@@ -65,8 +65,6 @@ func _process(_delta):
 
 			for ctb in create_tower_buttons:
 				ctb.is_creating_mode = false
-
-			animate_hide_ui()
 		else:
 			deselect_tower.emit()
 
@@ -124,8 +122,6 @@ func _on_placing_tower_placed(tower: Tower):
 
 	for ctb in create_tower_buttons:
 		ctb.is_creating_mode = false
-
-	animate_hide_ui()
 
 func _on_placing_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
@@ -211,12 +207,6 @@ func hide_ui():
 
 	game_tint.hide()
 
-func _on_tower_ui_cancel_tower():
-	if placing_tower:
-		placing_tower.queue_free()
-
-	animate_hide_ui()
-
 func _on_tower_ui_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
@@ -226,5 +216,3 @@ func _on_tower_ui_sell_tower():
 func _on_tower_button_cancel_tower():
 	if placing_tower:
 		placing_tower.queue_free()
-
-	animate_hide_ui()
