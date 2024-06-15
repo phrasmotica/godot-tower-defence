@@ -1,6 +1,9 @@
 @tool
 class_name TowerLevel extends Node2D
 
+@export
+var level_name := ""
+
 @export_multiline
 var level_description := ""
 

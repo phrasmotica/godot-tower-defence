@@ -18,10 +18,10 @@ signal sell_tower
 
 func disable_upgrades():
 	upgrade_button_0.disabled = true
-	upgrade_button_0.disable_button()
+	upgrade_button_0.disable_button(false)
 
 	upgrade_button_1.disabled = true
-	upgrade_button_1.disable_button()
+	upgrade_button_1.disable_button(false)
 
 func set_upgrade_levels(tower: Tower):
 	upgrade_button_0.disabled = false

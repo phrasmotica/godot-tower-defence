@@ -26,6 +26,7 @@ signal tower_placing(tower: Tower)
 signal tower_placed(tower: Tower)
 
 signal tower_selected(tower: Tower)
+signal selected_tower_handled
 
 signal next_tower
 signal previous_tower
@@ -163,18 +164,20 @@ func _on_towers_tower_deselected():
 
 func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
 	if tower:
-		show_ui(tower)
+		set_tower(tower)
 
 		if was_unselected:
 			animate_show_ui()
 	else:
 		animate_hide_ui()
 
+	selected_tower_handled.emit()
+
 func animate_show_ui():
 	animation_player.play("show_tower_ui")
 
-func show_ui(tower: Tower):
-	print("Showing selected tower UI")
+func set_tower(tower: Tower):
+	print("Updating selected tower UI")
 
 	tower_ui.set_tower(tower)
 

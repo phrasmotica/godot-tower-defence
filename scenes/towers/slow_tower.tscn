@@ -155,6 +155,7 @@ effect = ExtResource("8_7bdrw")
 
 [node name="Slower" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
+level_name = "Slower"
 level_description = "Slows enemies for longer."
 price = 3
 sprite = SubResource("SpriteFrames_0mumw")
@@ -168,6 +169,7 @@ effect = ExtResource("8_7bdrw")
 
 [node name="Paralyse" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("6_eu8cm")]
 visible = false
+level_name = "Paralyse"
 level_description = "Paralyses enemies for a short time!"
 price = 4
 sprite = SubResource("SpriteFrames_i164d")
