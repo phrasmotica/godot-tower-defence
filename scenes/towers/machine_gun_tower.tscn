@@ -116,15 +116,28 @@ radius = 2.0
 script = ExtResource("4_bunb6")
 base_level = NodePath("BaseLevel")
 
-[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("7_5iku6")]
+[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("7_5iku6")]
 sprite = SubResource("SpriteFrames_4md5v")
 projectile_stats = NodePath("Stats")
+upgrades = [NodePath("BetterRange")]
 
 [node name="Stats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("8_jy1jc")
 projectile = ExtResource("9_i24xx")
 fire_rate = 10.0
 projectile_range = 2.0
+projectile_speed = 20
+
+[node name="BetterRange" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("7_5iku6")]
+level_description = "Increased shooting range."
+price = 8
+sprite = SubResource("SpriteFrames_4md5v")
+projectile_stats = NodePath("Stats")
+
+[node name="Stats" type="Node" parent="Levels/BaseLevel/BetterRange"]
+script = ExtResource("8_jy1jc")
+projectile = ExtResource("9_i24xx")
+fire_rate = 10.0
 projectile_speed = 20
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
