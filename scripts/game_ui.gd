@@ -20,7 +20,7 @@ var lives_label: AmountLabel
 var wave_label: AmountLabel
 
 @export
-var create_tower_buttons: Array[CreateTowerButton]
+var create_tower_ui: CreateTowerUI
 
 @export
 var tower_ui: TowerUI
@@ -62,8 +62,7 @@ func _process(_delta):
 		if placing_tower:
 			stop_tower_creation(true)
 
-			for ctb in create_tower_buttons:
-				ctb.is_creating_mode = false
+			create_tower_ui.set_default_mode()
 		else:
 			deselect_tower.emit()
 
@@ -83,9 +82,7 @@ func try_place(tower_scene: PackedScene):
 		print("Already placing tower with ID " + str(new_id))
 		return
 
-	for ctb in create_tower_buttons:
-		if ctb.tower != tower_scene:
-			ctb.is_creating_mode = false
+	create_tower_ui.set_default_mode_except(tower_scene)
 
 	if placing_tower:
 		stop_tower_creation(true)
@@ -122,8 +119,7 @@ func _on_placing_tower_placed(tower: Tower):
 
 	stop_tower_creation(false)
 
-	for ctb in create_tower_buttons:
-		ctb.is_creating_mode = false
+	create_tower_ui.set_default_mode()
 
 func _on_placing_tower_selected(tower: Tower):
 	print("Selected " + tower.name)
@@ -141,16 +137,13 @@ func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
 	set_process(true)
 
-	for ctb in create_tower_buttons:
-		ctb.enable_button()
+	create_tower_ui.start_game()
 
 func _on_bank_manager_money_changed(new_money:int):
 	if money_label:
 		money_label.amount = new_money
 
-	for ctb in create_tower_buttons:
-		ctb.update_affordability(new_money)
-
+	create_tower_ui.update_affordability(new_money)
 	tower_ui.update_affordability(new_money)
 
 func _on_lives_manager_lives_changed(new_lives):
