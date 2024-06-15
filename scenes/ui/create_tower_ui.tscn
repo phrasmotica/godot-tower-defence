@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dmydv5g0nq3jg"]
+[gd_scene load_steps=15 format=3 uid="uid://dmydv5g0nq3jg"]
 
 [ext_resource type="Script" path="res://scripts/create_tower_ui.gd" id="1_f2jje"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="2_g6khh"]
@@ -12,6 +12,8 @@
 [ext_resource type="PackedScene" uid="uid://dgqvlr3p36r22" path="res://scenes/towers/sniper_tower.tscn" id="10_cu7lm"]
 [ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="11_c7jkd"]
 [ext_resource type="PackedScene" uid="uid://ba7v8p4mq36wb" path="res://scenes/towers/poison_tower.tscn" id="12_2e8k1"]
+[ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="13_t1p3x"]
+[ext_resource type="PackedScene" uid="uid://dhsqr00mauv38" path="res://scenes/towers/machine_gun_tower.tscn" id="14_eddet"]
 
 [node name="CreateTowerUI" type="Control" node_paths=PackedStringArray("create_tower_buttons")]
 layout_mode = 3
@@ -19,7 +21,7 @@ anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 560.0
 script = ExtResource("1_f2jje")
-create_tower_buttons = [NodePath("PanelContainer/MarginContainer/GridContainer/GunTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/PoisonTowerButton")]
+create_tower_buttons = [NodePath("PanelContainer/MarginContainer/GridContainer/GunTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/PoisonTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
@@ -75,6 +77,12 @@ icon = ExtResource("11_c7jkd")
 tower = ExtResource("12_2e8k1")
 action_name = &"tower_5"
 
+[node name="MachineGunTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+layout_mode = 2
+icon = ExtResource("13_t1p3x")
+tower = ExtResource("14_eddet")
+action_name = &"tower_6"
+
 [connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_cancel_tower"]
 [connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_cancel_tower"]
@@ -85,3 +93,5 @@ action_name = &"tower_5"
 [connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_cancel_tower"]
 [connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
+[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton" to="." method="_on_tower_button_cancel_tower"]
+[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton" to="." method="_on_tower_button_create_tower"]
