@@ -218,6 +218,5 @@ libraries = {
 [connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
 [connection signal="cancel_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_cancel_tower"]
 [connection signal="create_tower" from="CreateTowerUI/PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="TowerUI" to="." method="_on_tower_ui_cancel_tower"]
 [connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
 [connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]

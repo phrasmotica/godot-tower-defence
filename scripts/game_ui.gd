@@ -44,11 +44,7 @@ signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal sell_tower
 
 var current_tower_scene_id := 0
-
-var placing_tower: Tower:
-	set(value):
-		placing_tower = value
-		tower_ui.is_cancel_mode = placing_tower != null
+var placing_tower: Tower
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -90,11 +86,8 @@ func try_place(tower_scene: PackedScene):
 		print("Already placing tower with ID " + str(new_id))
 		return
 
-	var show_animation := true
-
 	if placing_tower:
 		placing_tower.queue_free()
-		show_animation = false
 
 	placing_tower = tower_scene.instantiate()
 	current_tower_scene_id = new_id
@@ -110,9 +103,6 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.path_manager = path_manager
 	placing_tower.set_placing()
 	placing_tower.hide()
-
-	if show_animation:
-		animate_show_ui()
 
 	tower_placing.emit(placing_tower)
 
