@@ -6,7 +6,11 @@ const normal_colour := Color.WHITE
 @export
 var progress_colour := Color8(255, 255, 255, 80)
 
-@onready var effect_area: EffectArea = $EffectArea
+@export
+var effect_area: EffectArea
+
+@export
+var firing_line: FiringLine
 
 @export var base_level: TowerLevel:
 	set(value):
@@ -120,6 +124,10 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 
 func level_adjust_range(projectile_range: float):
 	print("Level adjusting projectile range")
+
+	if firing_line:
+		firing_line.shooting_range = projectile_range
+
 	adjust_range.emit(projectile_range)
 
 func level_adjust_effect_range(effect_range: float):
@@ -129,6 +137,18 @@ func level_adjust_effect_range(effect_range: float):
 		effect_area.adjust_range(effect_range)
 
 	adjust_effect_range.emit(effect_range)
+
+func should_create_effect(enemies: Array[Enemy]):
+	if effect_area:
+		return effect_area.enabled and enemies.size() > 0
+
+	return false
+
+func should_bolt(_enemies: Array[Enemy]):
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
+
+	return false
 
 func _on_level_created_projectile(projectile: Projectile):
 	print("Rotating projectile")
@@ -145,6 +165,8 @@ func _on_level_created_effect(effect: Effect):
 
 func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	print("Processing bolt")
+
+	firing_line.fire(bolt_stats)
 
 	created_bolt.emit(bolt_stats)
 

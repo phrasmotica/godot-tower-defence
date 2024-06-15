@@ -16,8 +16,6 @@ var price: int = 1
 @onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@onready var firing_line: FiringLine = $Levels/FiringLine
-@onready var effect_area: EffectArea = $Levels/EffectArea
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
@@ -167,26 +165,17 @@ func upgrade(index: int):
 func adjust_range(projectile_range: float):
 	visualiser.radius = projectile_range
 
-	if firing_line:
-		firing_line.shooting_range = projectile_range
-
-	if effect_area:
-		effect_area.adjust_range(projectile_range)
+	levels_node.level_adjust_range(projectile_range)
+	levels_node.level_adjust_effect_range(projectile_range)
 
 func should_shoot(enemies: Array[Enemy]):
 	return enemies.size() > 0
 
 func should_create_effect(enemies: Array[Enemy]):
-	if effect_area:
-		return effect_area.enabled and enemies.size() > 0
+	return levels_node.should_create_effect(enemies)
 
-	return false
-
-func should_bolt(_enemies: Array[Enemy]):
-	if firing_line:
-		return firing_line.enabled && firing_line.can_see_enemies()
-
-	return false
+func should_bolt(enemies: Array[Enemy]):
+	return levels_node.should_bolt(enemies)
 
 func _on_selection_mouse_entered():
 	if not is_placing():
@@ -300,11 +289,6 @@ func _on_levels_created_effect(effect: Effect):
 		effect.act_start()
 
 	effect.start_timer()
-
-func _on_levels_created_bolt(bolt_stats: TowerLevelStats):
-	print("Affecting all enemies in firing line")
-
-	firing_line.fire(bolt_stats)
 
 func _on_firing_line_created_line(bolt_line: BoltLine):
 	print("Adding bolt line as child")

@@ -134,8 +134,9 @@ shape = SubResource("RectangleShape2D_p0cbx")
 [node name="Visualiser" parent="." instance=ExtResource("4_pmf8q")]
 radius = 2.0
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("effect_area", "base_level")]
 script = ExtResource("5_t5pdt")
+effect_area = NodePath("EffectArea")
 base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Levels" instance=ExtResource("7_50fd5")]

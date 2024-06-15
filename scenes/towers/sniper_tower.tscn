@@ -97,8 +97,9 @@ shape = SubResource("RectangleShape2D_p0cbx")
 show_bolt_line = true
 radius = 4.0
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("firing_line", "base_level")]
 script = ExtResource("5_0kjs1")
+firing_line = NodePath("FiringLine")
 base_level = NodePath("BaseLevel")
 
 [node name="FiringLine" parent="Levels" instance=ExtResource("6_r2dx8")]
@@ -159,7 +160,6 @@ enable_bolt = true
 [connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
 [connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
 [connection signal="adjust_range" from="Levels" to="Levels/FiringLine" method="_on_levels_adjust_range"]
-[connection signal="created_bolt" from="Levels" to="." method="_on_levels_created_bolt"]
 [connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
 [connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
