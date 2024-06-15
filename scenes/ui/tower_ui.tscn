@@ -8,17 +8,17 @@
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
-offset_bottom = 225.0
+offset_bottom = 228.0
 script = ExtResource("1_w24hd")
-tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/TowerNameLabel")
-upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0")
-upgrade_button_1 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1")
-sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton")
+tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/TowerNameLabel")
+upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0")
+upgrade_button_1 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton1")
+sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton")
 
 [node name="TowerPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 320.0
-offset_bottom = 225.0
+offset_bottom = 148.0
 theme = ExtResource("1_jh88n")
 theme_type_variation = &"SecondaryPanelContainer"
 
@@ -30,48 +30,50 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 62.195)
 layout_mode = 2
-theme_override_constants/separation = 0
+theme_override_constants/separation = 10
 
-[node name="SelectedTowerButtons" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(2.08165e-12, 190)
+[node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 43)
 layout_mode = 2
-
-[node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
-layout_mode = 2
-offset_right = 280.0
-offset_bottom = 45.0
 theme_type_variation = &"HeaderSmall"
 theme_override_font_sizes/font_size = 32
-text = "Tower Name"
+text = "Gun"
+autowrap_mode = 2
 
-[node name="UpgradeButton0" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("2_sf8mk")]
-layout_mode = 0
-offset_top = 50.0
-offset_bottom = 110.0
+[node name="HBoxContainer" type="HBoxContainer" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="UpgradeButton0" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 text = "Upgrade 0"
 action_name = &"tower_upgrade_0"
 
-[node name="UpgradeButton1" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons" instance=ExtResource("2_sf8mk")]
-layout_mode = 0
-offset_top = 130.0
-offset_bottom = 190.0
+[node name="UpgradeButton1" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
 text = "Upgrade 1"
 action_name = &"tower_upgrade_1"
 upgrade_index = 1
 
-[node name="SellButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons"]
-layout_mode = 0
-offset_left = 200.0
-offset_top = 130.0
-offset_right = 280.0
-offset_bottom = 190.0
+[node name="SellButton" type="Button" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 60)
+layout_mode = 2
+size_flags_vertical = 8
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_jh88n")
 theme_override_font_sizes/font_size = 24
 text = "Sell"
 
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
-[connection signal="pressed" from="TowerPanelContainer/MarginContainer/VBoxContainer/SelectedTowerButtons/SellButton" to="." method="_on_sell_button_pressed"]
+[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
+[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
+[connection signal="pressed" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]
