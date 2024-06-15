@@ -11,13 +11,7 @@ var game_tint: ColorRect
 var bank: BankManager
 
 @export
-var money_label: AmountLabel
-
-@export
-var lives_label: AmountLabel
-
-@export
-var wave_label: AmountLabel
+var score_ui: ScoreUI
 
 @export
 var create_tower_ui: CreateTowerUI
@@ -139,21 +133,17 @@ func _on_start_game_start(_path_index: int):
 
 	create_tower_ui.start_game()
 
-func _on_bank_manager_money_changed(new_money:int):
-	if money_label:
-		money_label.amount = new_money
+func _on_bank_manager_money_changed(new_money: int):
+	score_ui.set_money(new_money)
 
 	create_tower_ui.update_affordability(new_money)
 	tower_ui.update_affordability(new_money)
 
-func _on_lives_manager_lives_changed(new_lives):
-	if lives_label:
-		lives_label.amount = new_lives
+func _on_lives_manager_lives_changed(new_lives: int):
+	score_ui.set_lives(new_lives)
 
 func _on_waves_manager_wave_sent(wave: Wave):
-	if wave_label:
-		wave_label.amount = wave.number
-		wave_label.tooltip_text = wave.description
+	score_ui.set_wave(wave)
 
 func stop_tower_creation(free: bool):
 	if free and placing_tower:
