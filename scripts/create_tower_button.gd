@@ -25,6 +25,10 @@ var tower_price := 0
 
 signal create_tower(tower_scene: PackedScene)
 
+# MEDIUM: hide icon when button is pressed. Allow cancelling tower placement by
+# "putting back" the placing tower into the button, at which point the icon
+# should reappear
+
 func _ready():
 	if Engine.is_editor_hint():
 		return
