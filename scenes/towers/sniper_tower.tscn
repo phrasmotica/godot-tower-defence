@@ -123,6 +123,7 @@ penetration_count = 1
 [node name="InfinitePenetration" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
 visible = false
 modulate = Color(0.266667, 1, 1, 1)
+level_name = "Infinite Penetration"
 level_description = "Bolt can penetrate through all enemies!"
 price = 5
 sprite = SubResource("SpriteFrames_o8dqj")

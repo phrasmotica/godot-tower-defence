@@ -106,7 +106,7 @@ base_level = NodePath("BaseLevel")
 [node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
 sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
-upgrades = [NodePath("IncreasedRange")]
+upgrades = [NodePath("LongRange")]
 
 [node name="Stats" type="Node" parent="Levels/BaseLevel"]
 script = ExtResource("9_7e7tl")
@@ -115,14 +115,15 @@ damage = 3
 rotate_speed = 2
 projectile_knockback = 80.0
 
-[node name="IncreasedRange" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
+[node name="LongRange" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
 visible = false
 modulate = Color(1, 0, 0, 1)
+level_name = "Long Range"
 level_description = "Increased range."
 sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="Levels/BaseLevel/IncreasedRange"]
+[node name="Stats" type="Node" parent="Levels/BaseLevel/LongRange"]
 script = ExtResource("9_7e7tl")
 projectile = ExtResource("11_m47vg")
 damage = 3

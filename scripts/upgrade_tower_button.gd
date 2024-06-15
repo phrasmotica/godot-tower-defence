@@ -29,12 +29,14 @@ func set_upgrade_level(tower: Tower):
 	if upgrade_level:
 		disabled = false
 
+		text = upgrade_level.level_name
 		upgrade_price = upgrade_level.price
 
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
 		description_text.text = upgrade_level.level_description
 	else:
+		text = "-"
 		disabled = true
 
 	description.hide()

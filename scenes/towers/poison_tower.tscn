@@ -228,6 +228,7 @@ effect = ExtResource("9_by8rj")
 
 [node name="DoubleCheese" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("7_1pyih")]
 visible = false
+level_name = "Double Cheese"
 level_description = "Twice the cheese, twice the poison!"
 price = 3
 sprite = SubResource("SpriteFrames_dsedo")
@@ -241,6 +242,7 @@ effect = ExtResource("9_by8rj")
 
 [node name="TripleCheese" parent="Levels/BaseLevel" node_paths=PackedStringArray("animated_sprite", "effect_stats") instance=ExtResource("7_1pyih")]
 visible = false
+level_name = "Triple Cheese"
 level_description = "Triple?? Ultimate gr33d!"
 price = 8
 animated_sprite = NodePath("../DoubleCheese/Sprite")
