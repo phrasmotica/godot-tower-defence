@@ -218,3 +218,5 @@ func _on_tower_ui_sell_tower():
 func _on_tower_button_cancel_tower():
 	if placing_tower:
 		placing_tower.queue_free()
+
+		stop_tower_creation()
