@@ -1,138 +1,121 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4jpggyrn7oc2"]
+[gd_scene load_steps=7 format=3 uid="uid://c4jpggyrn7oc2"]
 
 [ext_resource type="Script" path="res://scripts/start_game.gd" id="1_1nknf"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_pmmug"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="2_oohv1"]
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="3_it5qd"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="5_8fbss"]
+[ext_resource type="Texture2D" uid="uid://rdopl1ep0uqy" path="res://assets/sprites/dark-moon.png" id="6_f5ewd"]
 
 [node name="StartGame" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 theme = ExtResource("5_8fbss")
 script = ExtResource("1_1nknf")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="PanelContainer" parent="."]
 layout_mode = 2
-offset_left = 100.0
-offset_top = 100.0
-offset_right = 1180.0
-offset_bottom = 620.0
-color = Color(0.517647, 0.670588, 0.517647, 0.784314)
+offset_right = 888.0
+offset_bottom = 334.0
+theme = ExtResource("5_8fbss")
+theme_type_variation = &"ModalPanelContainer"
 
-[node name="Heading" type="Label" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
 layout_mode = 2
-offset_top = 30.0
-offset_right = 1080.0
-offset_bottom = 155.0
-theme_override_font_sizes/font_size = 91
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Heading" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 48
 text = "How to Play"
 horizontal_alignment = 1
 
-[node name="Description" type="Label" parent="Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -510.0
-offset_top = -100.0
-offset_right = -30.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
-text = "Build towers with the \"1\" key. Upgrade them with \"U\"."
+[node name="Descriptions" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer/Descriptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Description" type="Label" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
+text = "Spend money to build towers and upgrade them."
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="TowerImage" type="TextureRect" parent="Background/Description"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -92.0
-offset_top = 7.0
-offset_right = -28.0
-offset_bottom = 71.0
-grow_horizontal = 2
-grow_vertical = 0
-rotation = 1.5708
-pivot_offset = Vector2(32, 32)
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="TowerImage" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("1_pmmug")
 
-[node name="TowerImage2" type="TextureRect" parent="Background/Description"]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = 28.0
-offset_top = 7.0
-offset_right = 92.0
-offset_bottom = 71.0
-grow_horizontal = 2
-grow_vertical = 0
-rotation = 1.5708
-pivot_offset = Vector2(32, 32)
+[node name="TowerImage2" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("2_oohv1")
 
-[node name="Description2" type="Label" parent="Background"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_top = -100.0
-offset_right = 480.0
-offset_bottom = -7.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 32
+[node name="VBoxContainer2" type="VBoxContainer" parent="Background/MarginContainer/VBoxContainer/Descriptions"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 10
+
+[node name="Description2" type="Label" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer2"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 24
 text = "Kill all the enemies before you run out of lives!"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="EnemyImage" type="TextureRect" parent="Background/Description2"]
-layout_mode = 0
-offset_left = 208.0
-offset_top = 100.0
-offset_right = 272.0
-offset_bottom = 164.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="EnemyImage" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
 texture = ExtResource("3_it5qd")
 
-[node name="PlayButton0" type="Button" parent="Background"]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 380.0
-offset_right = 520.0
-offset_bottom = 500.0
+[node name="EnemyImage2" type="TextureRect" parent="Background/MarginContainer/VBoxContainer/Descriptions/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("6_f5ewd")
+
+[node name="PlayButtons" type="HBoxContainer" parent="Background/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton0" type="Button" parent="Background/MarginContainer/VBoxContainer/PlayButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 72
+theme_override_font_sizes/font_size = 32
 text = "Play path 0"
 
-[node name="PlayButton1" type="Button" parent="Background"]
-layout_mode = 0
-offset_left = 560.0
-offset_top = 380.0
-offset_right = 1060.0
-offset_bottom = 500.0
+[node name="PlayButton1" type="Button" parent="Background/MarginContainer/VBoxContainer/PlayButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-theme_override_font_sizes/font_size = 72
+theme_override_font_sizes/font_size = 32
 text = "Play path 1"
 
-[connection signal="focus_entered" from="Background/PlayButton0" to="." method="_on_play_button_0_focus_entered"]
-[connection signal="mouse_entered" from="Background/PlayButton0" to="." method="_on_play_button_0_mouse_entered"]
-[connection signal="pressed" from="Background/PlayButton0" to="." method="_on_play_button_0_pressed"]
-[connection signal="focus_entered" from="Background/PlayButton1" to="." method="_on_play_button_1_focus_entered"]
-[connection signal="mouse_entered" from="Background/PlayButton1" to="." method="_on_play_button_1_mouse_entered"]
-[connection signal="pressed" from="Background/PlayButton1" to="." method="_on_play_button_1_pressed"]
+[connection signal="focus_entered" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton0" to="." method="_on_play_button_0_focus_entered"]
+[connection signal="mouse_entered" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton0" to="." method="_on_play_button_0_mouse_entered"]
+[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton0" to="." method="_on_play_button_0_pressed"]
+[connection signal="focus_entered" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton1" to="." method="_on_play_button_1_focus_entered"]
+[connection signal="mouse_entered" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton1" to="." method="_on_play_button_1_mouse_entered"]
+[connection signal="pressed" from="Background/MarginContainer/VBoxContainer/PlayButtons/PlayButton1" to="." method="_on_play_button_1_pressed"]

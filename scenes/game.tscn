@@ -78,6 +78,10 @@ color = Color(0.637843, 0.637843, 0.637843, 0.588235)
 [node name="StartGame" parent="OverlayCanvas" instance=ExtResource("9_sjprc")]
 visible = false
 z_index = 1000
+offset_left = 200.0
+offset_top = 200.0
+offset_right = 200.0
+offset_bottom = 200.0
 
 [node name="GameOver" parent="OverlayCanvas" instance=ExtResource("9_2ng1j")]
 visible = false
