@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
-offset_bottom = 228.0
+offset_bottom = 240.0
 script = ExtResource("1_w24hd")
 tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/TowerNameLabel")
 upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0")
@@ -18,7 +18,7 @@ sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxCo
 [node name="TowerPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 320.0
-offset_bottom = 148.0
+offset_bottom = 240.0
 theme = ExtResource("1_jh88n")
 theme_type_variation = &"SecondaryPanelContainer"
 
@@ -32,7 +32,7 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 62.195)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 0
 
 [node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 43)
@@ -41,6 +41,10 @@ theme_type_variation = &"HeaderSmall"
 theme_override_font_sizes/font_size = 32
 text = "Gun"
 autowrap_mode = 2
+
+[node name="Spacer" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
