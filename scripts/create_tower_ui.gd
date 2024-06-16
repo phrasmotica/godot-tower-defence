@@ -9,7 +9,7 @@ signal cancel_tower
 
 func start_game():
 	for ctb in create_tower_buttons:
-		ctb.enable_button()
+		ctb.start_game()
 
 func set_default_mode():
 	for ctb in create_tower_buttons:

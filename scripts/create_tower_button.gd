@@ -53,18 +53,11 @@ func _ready():
 		# by mouse enter/exit events rather than by the mouse being idle
 		name_text.text = dummy_tower.tower_name
 		description_text.text = dummy_tower.tower_description
-	else:
-		disabled = true
 
-	description.hide()
+	mouse_filter = MOUSE_FILTER_IGNORE
 
-	disable_button()
-
-func enable_button():
-	set_process(true)
-
-func disable_button():
-	set_process(false)
+func start_game():
+	mouse_filter = MOUSE_FILTER_STOP
 
 func create():
 	is_creating_mode = true
@@ -72,12 +65,7 @@ func create():
 	create_tower.emit(tower)
 
 func update_affordability(money: int):
-	if tower_price > money:
-		disabled = true
-		disable_button()
-	else:
-		disabled = false
-		enable_button()
+	disabled = tower_price > money
 
 func _process(_delta):
 	if Engine.is_editor_hint():
