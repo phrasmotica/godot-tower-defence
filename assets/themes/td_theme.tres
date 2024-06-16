@@ -2,51 +2,10 @@
 
 [ext_resource type="SystemFont" uid="uid://c1rsdrkfaiy3o" path="res://assets/fonts/krub_sb.tres" id="1_bb8q8"]
 [ext_resource type="SystemFont" uid="uid://beht0cxrqw0gh" path="res://assets/fonts/krub_b.tres" id="2_hdxu2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2uvb4"]
-bg_color = Color(0, 0.419608, 0.486275, 0.392157)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.8, 0.8, 0.8, 0.313726)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pq3jk"]
-bg_color = Color(6.73831e-07, 0.576408, 0.6651, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjamj"]
-bg_color = Color(0, 0.419608, 0.486275, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_celpd"]
-bg_color = Color(6.49765e-07, 0.351266, 0.408333, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
+[ext_resource type="StyleBox" uid="uid://bsrirgd56tmwu" path="res://resources/textures/button_disabled.tres" id="2_t3mil"]
+[ext_resource type="StyleBox" uid="uid://c7g2d37akok83" path="res://resources/textures/button_hover.tres" id="3_v7ux5"]
+[ext_resource type="StyleBox" uid="uid://bkbuof5q5dwcm" path="res://resources/textures/button_normal.tres" id="4_lthdm"]
+[ext_resource type="StyleBox" uid="uid://dtx1m7xhyyho3" path="res://resources/textures/button_pressed.tres" id="5_iu3u8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnvu8"]
 bg_color = Color(0, 0.419608, 0.486275, 0.498039)
@@ -77,10 +36,10 @@ border_color = Color(0.957892, 0.728132, 0.788478, 1)
 [resource]
 Button/font_sizes/font_size = 24
 Button/fonts/font = ExtResource("1_bb8q8")
-Button/styles/disabled = SubResource("StyleBoxFlat_2uvb4")
-Button/styles/hover = SubResource("StyleBoxFlat_pq3jk")
-Button/styles/normal = SubResource("StyleBoxFlat_xjamj")
-Button/styles/pressed = SubResource("StyleBoxFlat_celpd")
+Button/styles/disabled = ExtResource("2_t3mil")
+Button/styles/hover = ExtResource("3_v7ux5")
+Button/styles/normal = ExtResource("4_lthdm")
+Button/styles/pressed = ExtResource("5_iu3u8")
 ButtonArea/base_type = &"Button"
 ButtonArea/colors/font_color = Color(1, 1, 1, 0.498039)
 ButtonArea/fonts/font = ExtResource("1_bb8q8")
