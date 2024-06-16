@@ -24,6 +24,12 @@ var show_tooltip := false:
 	get:
 		return tooltip.visible
 
+@export
+var align_tooltip_bottom := false:
+	set(value):
+		align_tooltip_bottom = value
+		update_tooltip_position()
+
 var upgrade_level: TowerLevel
 var upgrade_price := 0
 
@@ -73,6 +79,16 @@ func update_affordability(money: int):
 	else:
 		disabled = false
 		enable_button(false)
+
+func update_tooltip_position():
+	# background node is a panel container, so shrinks to the
+	# correct size after the tooltip gets updated
+	tooltip.size.y = tooltip.get_node("Background").size.y
+
+	if align_tooltip_bottom:
+		tooltip.position.y = self.size.y - tooltip.size.y
+	else:
+		tooltip.position.y = 0
 
 func upgrade():
 	tooltip.hide()

@@ -25,7 +25,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_left = -205.0
 offset_right = -5.0
-offset_bottom = 140.0
+offset_bottom = 161.0
 
 [node name="Background" type="PanelContainer" parent="Tooltip"]
 layout_mode = 0
