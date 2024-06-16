@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://c7g2d37akok83" path="res://resources/textures/button_hover.tres" id="3_v7ux5"]
 [ext_resource type="StyleBox" uid="uid://bkbuof5q5dwcm" path="res://resources/textures/button_normal.tres" id="4_lthdm"]
 [ext_resource type="StyleBox" uid="uid://dtx1m7xhyyho3" path="res://resources/textures/button_pressed.tres" id="5_iu3u8"]
+[ext_resource type="StyleBox" uid="uid://w4p1xvb8ecux" path="res://resources/textures/ui_panel_container.tres" id="6_qvtrk"]
 [ext_resource type="StyleBox" uid="uid://deqcxwg08nrcd" path="res://resources/textures/panel_container.tres" id="7_eq7yl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnvu8"]
@@ -14,9 +15,6 @@ corner_radius_top_left = 16
 corner_radius_top_right = 16
 corner_radius_bottom_right = 16
 corner_radius_bottom_left = 16
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uufy"]
-bg_color = Color(0.763, 0.392, 0.371, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi565"]
 bg_color = Color(0.49422, 0.223213, 0.210455, 1)
@@ -35,7 +33,7 @@ ButtonArea/colors/font_color = Color(1, 1, 1, 0.498039)
 ButtonArea/fonts/font = ExtResource("1_bb8q8")
 ButtonArea/styles/normal = SubResource("StyleBoxFlat_xnvu8")
 FlatPanelContainer/base_type = &"PanelContainer"
-FlatPanelContainer/styles/panel = SubResource("StyleBoxFlat_1uufy")
+FlatPanelContainer/styles/panel = ExtResource("6_qvtrk")
 HeaderSmall/base_type = &"Label"
 HeaderSmall/font_sizes/font_size = 24
 HeaderSmall/fonts/font = ExtResource("2_hdxu2")
