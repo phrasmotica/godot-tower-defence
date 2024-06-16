@@ -268,8 +268,10 @@ func _on_collision_area_body_exited(_body: Node2D):
 func _on_levels_created_projectile(projectile: Projectile):
 	print("Adding projectile as child")
 
-	animation_player.play("shoot")
+	animate_shoot()
 
+	# BUG: projectiles get freed when the tower is sold. Probably happens
+	# with bolt lines too...
 	add_child(projectile)
 
 func _on_levels_created_effect(effect: Effect):
@@ -290,6 +292,10 @@ func _on_firing_line_created_line(bolt_line: BoltLine):
 	bolt_line.rotation = levels_node.rotation
 	bolt_line.fire()
 
-	animation_player.play("shoot")
+	animate_shoot()
 
 	add_child(bolt_line)
+
+func animate_shoot():
+	if animation_player.current_animation.length() <= 0:
+		animation_player.play("shoot")
