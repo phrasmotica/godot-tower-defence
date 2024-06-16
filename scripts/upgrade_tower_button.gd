@@ -58,6 +58,8 @@ func set_upgrade_level(tower: Tower):
 		disabled = true
 		disable_button(true)
 
+	update_tooltip_position()
+
 	tooltip.hide()
 
 func enable_button(set_cursor: bool):
@@ -81,10 +83,6 @@ func update_affordability(money: int):
 		enable_button(false)
 
 func update_tooltip_position():
-	# background node is a panel container, so shrinks to the
-	# correct size after the tooltip gets updated
-	tooltip.size.y = tooltip.get_node("Background").size.y
-
 	if align_tooltip_bottom:
 		tooltip.position.y = self.size.y - tooltip.size.y
 	else:
@@ -112,3 +110,9 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	tooltip.hide()
+
+func _on_background_resized():
+	# background node is a panel container, so shrinks to the
+	# correct size after the tooltip content gets updated
+	tooltip.size.y = tooltip.get_node("Background").size.y
+	update_tooltip_position()
