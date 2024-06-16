@@ -5,21 +5,24 @@ class_name CreateTowerButton extends Button
 @export var action_name: StringName
 
 @export
-var description: Control
+var tooltip: Control
 
 @export
 var name_text: Label
 
 @export
+var price_text: Label
+
+@export
 var description_text: Label
 
 @export
-var show_description := false:
+var show_tooltip := false:
 	set(value):
-		description.visible = value
+		tooltip.visible = value
 
 	get:
-		return description.visible
+		return tooltip.visible
 
 var tower_price := 0
 
@@ -30,7 +33,7 @@ var is_creating_mode := false:
 		is_creating_mode = value
 
 		if is_creating_mode:
-			description.hide()
+			tooltip.hide()
 			icon = null
 		else:
 			icon = original_icon
@@ -52,6 +55,7 @@ func _ready():
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
 		name_text.text = dummy_tower.tower_name
+		price_text.text = "Price: " + str(dummy_tower.price)
 		description_text.text = dummy_tower.tower_description
 
 	mouse_filter = MOUSE_FILTER_IGNORE
@@ -86,7 +90,7 @@ func _on_mouse_entered():
 
 			cancel_tower.emit()
 
-		description.show()
+		tooltip.show()
 
 func _on_mouse_exited():
-	description.hide()
+	tooltip.hide()
