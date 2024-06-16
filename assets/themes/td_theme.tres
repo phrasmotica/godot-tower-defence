@@ -6,6 +6,7 @@
 [ext_resource type="StyleBox" uid="uid://c7g2d37akok83" path="res://resources/textures/button_hover.tres" id="3_v7ux5"]
 [ext_resource type="StyleBox" uid="uid://bkbuof5q5dwcm" path="res://resources/textures/button_normal.tres" id="4_lthdm"]
 [ext_resource type="StyleBox" uid="uid://dtx1m7xhyyho3" path="res://resources/textures/button_pressed.tres" id="5_iu3u8"]
+[ext_resource type="StyleBox" uid="uid://deqcxwg08nrcd" path="res://resources/textures/panel_container.tres" id="7_eq7yl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnvu8"]
 bg_color = Color(0, 0.419608, 0.486275, 0.498039)
@@ -16,17 +17,6 @@ corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1uufy"]
 bg_color = Color(0.763, 0.392, 0.371, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_26c2h"]
-bg_color = Color(0.235294, 0.329412, 0.462745, 0.784314)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mi565"]
 bg_color = Color(0.49422, 0.223213, 0.210455, 1)
@@ -53,6 +43,6 @@ Label/font_sizes/font_size = 15
 Label/fonts/font = ExtResource("1_bb8q8")
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_26c2h")
+PanelContainer/styles/panel = ExtResource("7_eq7yl")
 SecondaryPanelContainer/base_type = &"PanelContainer"
 SecondaryPanelContainer/styles/panel = SubResource("StyleBoxFlat_mi565")
