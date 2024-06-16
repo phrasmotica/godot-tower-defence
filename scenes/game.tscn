@@ -78,18 +78,32 @@ color = Color(0.637843, 0.637843, 0.637843, 0.588235)
 [node name="StartGame" parent="OverlayCanvas" instance=ExtResource("9_sjprc")]
 visible = false
 z_index = 1000
-offset_left = 200.0
-offset_top = 200.0
-offset_right = 200.0
-offset_bottom = 200.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -444.0
+offset_top = -167.0
+offset_right = 444.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="GameOver" parent="OverlayCanvas" instance=ExtResource("9_2ng1j")]
 visible = false
 z_index = 1000
-offset_left = 360.0
-offset_top = 260.0
-offset_right = 360.0
-offset_bottom = 260.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -274.0
+offset_top = -112.0
+offset_right = 274.0
+offset_bottom = 112.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="money_changed" from="Managers/BankManager" to="GameUI" method="_on_bank_manager_money_changed"]
 [connection signal="lives_changed" from="Managers/LivesManager" to="GameUI" method="_on_lives_manager_lives_changed"]
