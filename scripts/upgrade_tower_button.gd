@@ -5,18 +5,24 @@ class_name UpgradeTowerButton extends Button
 @export var upgrade_index := 0
 
 @export
-var description: Control
+var tooltip: Control
+
+@export
+var name_text: Label
+
+@export
+var price_text: Label
 
 @export
 var description_text: Label
 
 @export
-var show_description := false:
+var show_tooltip := false:
 	set(value):
-		description.visible = value
+		tooltip.visible = value
 
 	get:
-		return description.visible
+		return tooltip.visible
 
 var upgrade_level: TowerLevel
 var upgrade_price := 0
@@ -29,11 +35,13 @@ func set_upgrade_level(tower: Tower):
 	if upgrade_level:
 		text = upgrade_level.level_name
 
+		upgrade_price = upgrade_level.price
+
 		# prefer this to a tooltip so that we can control its appearance
 		# by mouse enter/exit events rather than by the mouse being idle
+		name_text.text = upgrade_level.level_name
+		price_text.text = "Price: " + str(upgrade_level.price)
 		description_text.text = upgrade_level.level_description
-
-		upgrade_price = upgrade_level.price
 
 		disabled = false
 		enable_button(true)
@@ -44,7 +52,7 @@ func set_upgrade_level(tower: Tower):
 		disabled = true
 		disable_button(true)
 
-	description.hide()
+	tooltip.hide()
 
 func enable_button(set_cursor: bool):
 	if set_cursor:
@@ -67,7 +75,7 @@ func update_affordability(money: int):
 		enable_button(false)
 
 func upgrade():
-	description.hide()
+	tooltip.hide()
 	upgrade_tower.emit(upgrade_index)
 
 func _process(_delta):
@@ -84,7 +92,7 @@ func _on_pressed():
 
 func _on_mouse_entered():
 	if upgrade_level:
-		description.show()
+		tooltip.show()
 
 func _on_mouse_exited():
-	description.hide()
+	tooltip.hide()
