@@ -18,6 +18,8 @@ action_name = &"tower_1"
 description = NodePath("Tooltip")
 name_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Name")
 description_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Description")
+metadata/_edit_vertical_guides_ = [8.0, 72.0]
+metadata/_edit_horizontal_guides_ = [8.0, 72.0]
 
 [node name="Tooltip" type="Control" parent="."]
 visible = false

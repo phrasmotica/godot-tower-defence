@@ -4,9 +4,8 @@
 [ext_resource type="Script" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
 
 [node name="UpgradeTowerButton" type="Button" node_paths=PackedStringArray("description", "description_text")]
-offset_top = 20.0
 offset_right = 180.0
-offset_bottom = 80.0
+offset_bottom = 60.0
 focus_mode = 0
 mouse_default_cursor_shape = 2
 theme = ExtResource("1_0hbru")
@@ -14,6 +13,8 @@ text = "Upgrade"
 script = ExtResource("1_o1ho0")
 description = NodePath("Tooltip")
 description_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Description")
+metadata/_edit_vertical_guides_ = [8.0, 172.0]
+metadata/_edit_horizontal_guides_ = [8.0, 52.0]
 
 [node name="Tooltip" type="Control" parent="."]
 visible = false
