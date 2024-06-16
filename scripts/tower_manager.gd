@@ -6,9 +6,6 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-const default_z_index := 100
-const selected_z_index := 600
-
 signal selected_tower_changed(tower: Tower, was_unselected: bool)
 signal tower_deselected
 
@@ -96,13 +93,9 @@ func try_sell():
 
 	tower_sold.emit(sell_value)
 
-func highlight():
-	if selected_tower:
-		selected_tower.z_index = selected_z_index
-
 func unhighlight():
 	if selected_tower:
-		selected_tower.z_index = default_z_index
+		selected_tower.reparent(self, true)
 
 func select_tower(tower: Tower):
 	if tower == selected_tower:
@@ -122,7 +115,6 @@ func select_tower(tower: Tower):
 
 	if selected_tower:
 		selected_tower.select()
-		highlight()
 
 	selected_tower_changed.emit(selected_tower, was_unselected)
 
@@ -141,8 +133,6 @@ func _on_game_ui_tower_selected(tower: Tower):
 	unhighlight()
 
 	select_tower(tower)
-
-	highlight()
 
 func _on_game_ui_next_tower():
 	next_tower()

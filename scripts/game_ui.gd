@@ -163,9 +163,9 @@ func _on_towers_tower_deselected():
 	handle_selected_tower_changed(null, false)
 
 func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
-	if tower:
-		set_tower(tower)
+	set_tower(tower)
 
+	if tower:
 		if was_unselected:
 			animate_show_ui()
 	else:
@@ -179,17 +179,20 @@ func animate_show_ui():
 func set_tower(tower: Tower):
 	print("Updating selected tower UI")
 
-	tower_ui.set_tower(tower)
+	if tower:
+		tower.reparent(self, true)
 
-	game_tint.show()
+		tower_ui.set_tower(tower)
+
+		game_tint.show()
+	else:
+		game_tint.hide()
 
 func animate_hide_ui():
 	animation_player.play("hide_tower_ui")
 
 func hide_ui():
 	print("Hiding selected tower UI")
-
-	game_tint.hide()
 
 func _on_create_tower_ui_create_tower(tower_scene:PackedScene):
 	try_place(tower_scene)
