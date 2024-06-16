@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=11 format=3 uid="uid://bqnr1830yqwqe"]
+[gd_resource type="Theme" load_steps=12 format=3 uid="uid://bqnr1830yqwqe"]
 
 [ext_resource type="SystemFont" uid="uid://c1rsdrkfaiy3o" path="res://assets/fonts/krub_sb.tres" id="1_bb8q8"]
 [ext_resource type="SystemFont" uid="uid://beht0cxrqw0gh" path="res://assets/fonts/krub_b.tres" id="2_hdxu2"]
@@ -8,6 +8,7 @@
 [ext_resource type="StyleBox" uid="uid://dtx1m7xhyyho3" path="res://resources/textures/button_pressed.tres" id="5_iu3u8"]
 [ext_resource type="StyleBox" uid="uid://w4p1xvb8ecux" path="res://resources/textures/ui_panel_container.tres" id="6_qvtrk"]
 [ext_resource type="StyleBox" uid="uid://deqcxwg08nrcd" path="res://resources/textures/panel_container.tres" id="7_eq7yl"]
+[ext_resource type="StyleBox" uid="uid://dpwdqrnjh3e2o" path="res://resources/textures/modal_panel_container.tres" id="8_jdnsn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xnvu8"]
 bg_color = Color(0, 0.419608, 0.486275, 0.498039)
@@ -41,6 +42,8 @@ Label/font_sizes/font_size = 15
 Label/fonts/font = ExtResource("1_bb8q8")
 MarginContainer/constants/margin_left = 5
 MarginContainer/constants/margin_right = 5
+ModalPanelContainer/base_type = &"PanelContainer"
+ModalPanelContainer/styles/panel = ExtResource("8_jdnsn")
 PanelContainer/styles/panel = ExtResource("7_eq7yl")
 SecondaryPanelContainer/base_type = &"PanelContainer"
 SecondaryPanelContainer/styles/panel = SubResource("StyleBoxFlat_mi565")
