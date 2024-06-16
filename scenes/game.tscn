@@ -86,6 +86,10 @@ offset_bottom = 200.0
 [node name="GameOver" parent="OverlayCanvas" instance=ExtResource("9_2ng1j")]
 visible = false
 z_index = 1000
+offset_left = 360.0
+offset_top = 260.0
+offset_right = 360.0
+offset_bottom = 260.0
 
 [connection signal="money_changed" from="Managers/BankManager" to="GameUI" method="_on_bank_manager_money_changed"]
 [connection signal="lives_changed" from="Managers/LivesManager" to="GameUI" method="_on_lives_manager_lives_changed"]

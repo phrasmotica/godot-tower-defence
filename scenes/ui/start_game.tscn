@@ -32,6 +32,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Heading" type="Label" parent="Background/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "How to Play"
