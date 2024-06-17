@@ -284,6 +284,8 @@ func _on_levels_created_effect(effect: Effect):
 		effect.attached_enemies = enemies
 		effect.act_start()
 
+	animate_pulse()
+
 	effect.start_timer()
 
 func _on_firing_line_created_line(bolt_line: BoltLine):
@@ -299,3 +301,7 @@ func _on_firing_line_created_line(bolt_line: BoltLine):
 func animate_shoot():
 	if animation_player.current_animation.length() <= 0:
 		animation_player.play("shoot")
+
+func animate_pulse():
+	if animation_player.current_animation.length() <= 0:
+		animation_player.play("pulse")
