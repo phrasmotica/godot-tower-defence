@@ -119,6 +119,8 @@ func select_tower(tower: Tower):
 	selected_tower_changed.emit(selected_tower, was_unselected)
 
 func _on_game_ui_tower_placing(_tower: Tower):
+	# BUG: while the placing tower is parented to the UI, it is stopping
+	# its empty create tower button from receiving mouse events...
 	deselect_tower()
 
 func _on_game_ui_tower_placed(tower: Tower):
