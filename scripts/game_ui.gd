@@ -207,3 +207,14 @@ func _on_tower_ui_upgrade_tower(index: int):
 
 func _on_tower_ui_sell_tower():
 	sell_tower.emit()
+
+func _on_path_manager_mouse_validity_changed(is_valid: bool):
+	if placing_tower:
+		if is_valid:
+			placing_tower.set_default_look()
+		else:
+			placing_tower.set_error_look()
+
+func _on_path_manager_valid_area_clicked():
+	if placing_tower:
+		placing_tower.try_place()

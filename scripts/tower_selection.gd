@@ -11,3 +11,6 @@ var selection_visible := true:
 
 	get:
 		return selection_sprite.visible
+
+func enable_mouse():
+	mouse_filter = MOUSE_FILTER_STOP

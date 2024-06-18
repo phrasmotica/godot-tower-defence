@@ -44,6 +44,12 @@ wave_collection = ExtResource("7_kcxo6")
 script = ExtResource("8_wg70s")
 paths = [NodePath("Path0"), NodePath("Path1")]
 
+[node name="ValidArea" type="Control" parent="PathManager"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 960.0
+offset_bottom = 720.0
+
 [node name="Path0" parent="PathManager" instance=ExtResource("9_f2e1u")]
 
 [node name="Path1" parent="PathManager" instance=ExtResource("10_q42hf")]
@@ -121,6 +127,11 @@ grow_vertical = 2
 [connection signal="waves_began" from="Managers/WavesManager" to="PathManager" method="_on_waves_manager_waves_began"]
 [connection signal="enemy_died" from="PathManager" to="Managers/BankManager" method="_on_path_manager_enemy_died"]
 [connection signal="enemy_reached_end" from="PathManager" to="Managers/LivesManager" method="_on_path_manager_enemy_reached_end"]
+[connection signal="mouse_validity_changed" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_mouse_validity_changed"]
+[connection signal="valid_area_clicked" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_valid_area_clicked"]
+[connection signal="gui_input" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_gui_input"]
+[connection signal="mouse_entered" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_mouse_entered"]
+[connection signal="mouse_exited" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_mouse_exited"]
 [connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
 [connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
 [connection signal="tower_sold" from="Towers" to="Managers/BankManager" method="_on_towers_tower_sold"]

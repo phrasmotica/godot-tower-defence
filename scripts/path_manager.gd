@@ -14,7 +14,12 @@ var active_path_index: int:
 		active_path_index = value
 		set_active_path()
 
+var is_mouse_over_valid_area := false
+
 var enemies: Array[Enemy] = []
+
+signal mouse_validity_changed(is_valid: bool)
+signal valid_area_clicked
 
 signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
@@ -66,3 +71,19 @@ func _on_start_game_start(path_index: int):
 
 func _on_waves_manager_waves_began():
 	get_active_path().start_game()
+
+func _on_valid_area_gui_input(event: InputEvent):
+	if event.is_pressed() and is_mouse_over_valid_area:
+		valid_area_clicked.emit()
+
+func _on_valid_area_mouse_entered():
+	print("Valid area entered")
+
+	is_mouse_over_valid_area = true
+	mouse_validity_changed.emit(true)
+
+func _on_valid_area_mouse_exited():
+	print("Valid area exited")
+
+	is_mouse_over_valid_area = false
+	mouse_validity_changed.emit(false)

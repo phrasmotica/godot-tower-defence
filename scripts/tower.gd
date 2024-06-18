@@ -30,13 +30,13 @@ signal on_selected(tower: Tower)
 signal on_deselected
 
 func _ready():
-	is_valid_location = true
 	deselect()
 
 	adjust_range(levels_node.get_current_level().get_range(true))
 
 	if is_placing():
 		selection.selection_visible = false
+		set_error_look()
 
 		visualiser.show_range()
 		visualiser.show_bolt_line = false
@@ -186,15 +186,19 @@ func _on_selection_mouse_exited():
 
 func _on_selection_gui_input(event: InputEvent):
 	if event.is_pressed():
-		if can_be_placed():
-			set_warming_up()
-
-			progress_bars.do_warmup()
-
-			on_placed.emit(self)
-
 		if is_firing() and not is_selected:
 			on_selected.emit(self)
+
+func try_place():
+	if not can_be_placed():
+		print("Cannot place tower here!")
+		return
+
+	set_warming_up()
+
+	progress_bars.do_warmup()
+
+	on_placed.emit(self)
 
 func _on_barrel_shoot():
 	if not is_firing():
@@ -237,6 +241,7 @@ func _on_levels_warmed_up(first_level: TowerLevel):
 	print(tower_name + " warmup finished")
 
 	barrel.setup(first_level)
+	selection.enable_mouse()
 
 	set_firing()
 
