@@ -102,6 +102,8 @@ func try_place(tower_scene: PackedScene):
 
 	placing_tower.on_placed.connect(_on_placing_tower_placed)
 
+	add_child(placing_tower)
+
 	return true
 
 func _on_placing_tower_placed(tower: Tower):
