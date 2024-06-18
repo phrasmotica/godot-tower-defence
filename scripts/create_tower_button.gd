@@ -33,6 +33,10 @@ var is_creating_mode := false:
 		is_creating_mode = value
 
 		if is_creating_mode:
+			# TODO: button should not respond to being clicked. Setting mouse
+			# filter to IGNORE also prevents the tower being put back, though.
+			# Fix this by rendering a separate Control node on top of the button
+			# while in creating mode...
 			tooltip.hide()
 			icon = null
 		else:
