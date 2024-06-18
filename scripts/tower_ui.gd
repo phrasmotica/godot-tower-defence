@@ -23,13 +23,6 @@ func disable_upgrades():
 	upgrade_button_1.disabled = true
 	upgrade_button_1.disable_button(false)
 
-func set_upgrade_levels(tower: Tower):
-	upgrade_button_0.disabled = false
-	upgrade_button_0.set_upgrade_level(tower)
-
-	upgrade_button_1.disabled = false
-	upgrade_button_1.set_upgrade_level(tower)
-
 func update_affordability(new_money: int):
 	if upgrade_button_0:
 		upgrade_button_0.update_affordability(new_money)

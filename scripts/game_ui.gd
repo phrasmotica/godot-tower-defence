@@ -124,7 +124,7 @@ func _on_placing_tower_selected(tower: Tower):
 func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	print("Selected tower upgrade finished")
 
-	tower_ui.set_upgrade_levels(tower)
+	tower_ui.set_tower(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)
 
