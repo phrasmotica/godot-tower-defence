@@ -2,6 +2,8 @@ class_name Tower extends Node2D
 
 enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING, DISABLED }
 
+enum TargetMode { NEAR, FAR, STRONG }
+
 @export
 var tower_name := ""
 
@@ -10,6 +12,9 @@ var tower_description := ""
 
 @export_range(1, 10)
 var price: int = 1
+
+@export
+var target_mode := TargetMode.NEAR
 
 @onready var selection: TowerSelection = $Selection
 @onready var visualiser: TowerVisualiser = $Visualiser
@@ -114,8 +119,10 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 	if in_range_enemies.size() <= 0:
 		return []
 
-	# nearest enemies first
-	enemy_sorter.near(in_range_enemies, global_position)
+	match target_mode:
+		_:
+			# nearest enemies first by default
+			enemy_sorter.near(in_range_enemies, global_position)
 
 	return in_range_enemies
 
