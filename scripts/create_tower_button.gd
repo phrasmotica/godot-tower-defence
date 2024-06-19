@@ -75,6 +75,11 @@ func create():
 func update_affordability(money: int):
 	disabled = tower_price > money
 
+func cancel():
+	is_creating_mode = false
+
+	cancel_tower.emit()
+
 func _process(_delta):
 	if Engine.is_editor_hint():
 		return
@@ -84,15 +89,18 @@ func _process(_delta):
 		create()
 
 func _on_pressed():
+	if is_creating_mode:
+		cancel()
+		tooltip.show()
+		return
+
 	print("Creating tower via button")
 	create()
 
 func _on_mouse_entered():
 	if not disabled:
 		if is_creating_mode:
-			is_creating_mode = false
-
-			cancel_tower.emit()
+			cancel()
 
 		tooltip.show()
 
