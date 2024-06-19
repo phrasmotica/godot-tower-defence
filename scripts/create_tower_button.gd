@@ -63,9 +63,11 @@ func _ready():
 		description_text.text = dummy_tower.tower_description
 
 	mouse_filter = MOUSE_FILTER_IGNORE
+	set_process(false)
 
 func start_game():
 	mouse_filter = MOUSE_FILTER_STOP
+	set_process(true)
 
 func create():
 	is_creating_mode = true
