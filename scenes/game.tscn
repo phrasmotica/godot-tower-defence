@@ -66,7 +66,6 @@ editor_description = "Layer for game UI elements."
 
 [node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("path_manager", "game_tint", "bank") instance=ExtResource("10_gkcsa")]
 unique_name_in_owner = true
-z_index = 500
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -80,7 +79,6 @@ bank = NodePath("../../Managers/BankManager")
 
 [node name="GameTint" type="ColorRect" parent="CanvasLayer/GameUI"]
 visible = false
-z_index = -10
 layout_mode = 0
 offset_left = -960.0
 offset_bottom = 720.0
@@ -91,7 +89,6 @@ color = Color(0.637843, 0.637843, 0.637843, 0.588235)
 
 [node name="StartGame" parent="OverlayCanvas" instance=ExtResource("9_sjprc")]
 visible = false
-z_index = 1000
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -106,7 +103,6 @@ grow_vertical = 2
 
 [node name="GameOver" parent="OverlayCanvas" instance=ExtResource("9_2ng1j")]
 visible = false
-z_index = 1000
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
