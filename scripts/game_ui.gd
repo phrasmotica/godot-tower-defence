@@ -210,6 +210,8 @@ func _on_tower_ui_sell_tower():
 
 func _on_path_manager_mouse_validity_changed(is_valid: bool):
 	if placing_tower:
+		placing_tower.is_valid_location = is_valid
+
 		if is_valid:
 			placing_tower.show_visualiser()
 			placing_tower.set_default_look()
