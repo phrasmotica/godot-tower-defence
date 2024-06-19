@@ -120,6 +120,8 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 		return []
 
 	match target_mode:
+		TargetMode.FAR:
+			enemy_sorter.far(in_range_enemies, global_position)
 		_:
 			# nearest enemies first by default
 			enemy_sorter.near(in_range_enemies, global_position)
