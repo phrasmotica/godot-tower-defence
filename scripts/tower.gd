@@ -36,7 +36,6 @@ func _ready():
 
 	if is_placing():
 		selection.selection_visible = false
-		set_error_look()
 
 		visualiser.show_range()
 		visualiser.show_bolt_line = false
@@ -77,6 +76,12 @@ func is_upgrading():
 
 func set_disabled():
 	tower_mode = TowerMode.DISABLED
+
+func show_visualiser():
+	visualiser.show()
+
+func hide_visualiser():
+	visualiser.hide()
 
 func set_default_look():
 	visualiser.set_default_look()
