@@ -22,6 +22,7 @@ var path_manager: PathManager
 var tower_mode = TowerMode.PLACING
 var is_selected = false
 var is_valid_location = false
+var enemy_sorter = EnemySorter.new()
 
 signal on_placed(tower: Tower)
 signal on_warmed_up(tower: Tower, first_level: TowerLevel)
@@ -114,10 +115,7 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 		return []
 
 	# nearest enemies first
-	in_range_enemies.sort_custom(
-		func(e, f):
-			return e.get_distance_to(global_position) < f.get_distance_to(global_position)
-	)
+	enemy_sorter.near(in_range_enemies, global_position)
 
 	return in_range_enemies
 
