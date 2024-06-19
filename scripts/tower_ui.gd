@@ -13,6 +13,7 @@ var upgrade_button_1: UpgradeTowerButton
 @export
 var sell_button: Button
 
+signal target_mode_changed(index: int)
 signal upgrade_tower(index: int)
 signal sell_tower
 
@@ -41,3 +42,6 @@ func _on_upgrade_button_upgrade_tower(index: int):
 
 func _on_sell_button_pressed():
 	sell_tower.emit()
+
+func _on_target_mode_options_item_selected(index: int):
+	target_mode_changed.emit(index)

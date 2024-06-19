@@ -33,7 +33,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, 480), Vector2(2.08165e-12, 720)]
+"values": [Vector2(0, 420), Vector2(2.08165e-12, 720)]
 }
 tracks/1/type = "method"
 tracks/1/imported = false
@@ -63,7 +63,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(2.08165e-12, 720), Vector2(0, 480)]
+"values": [Vector2(2.08165e-12, 720), Vector2(0, 420)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_fjgy4"]
@@ -97,7 +97,7 @@ anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = 720.0
-offset_bottom = 960.0
+offset_bottom = 1320.0
 grow_vertical = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -108,4 +108,5 @@ libraries = {
 [connection signal="cancel_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_cancel_tower"]
 [connection signal="create_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_create_tower"]
 [connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
+[connection signal="target_mode_changed" from="TowerUI" to="." method="_on_tower_ui_target_mode_changed"]
 [connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]

@@ -32,6 +32,8 @@ signal next_tower
 signal previous_tower
 signal deselect_tower
 
+signal tower_target_mode_changed(index: int)
+
 signal upgrade_tower(index: int)
 
 signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
@@ -222,3 +224,6 @@ func _on_path_manager_mouse_validity_changed(is_valid: bool):
 func _on_path_manager_valid_area_clicked():
 	if placing_tower:
 		placing_tower.try_place()
+
+func _on_tower_ui_target_mode_changed(index: int):
+	tower_target_mode_changed.emit(index)

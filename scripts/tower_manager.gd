@@ -155,3 +155,10 @@ func _on_lives_manager_lives_depleted():
 
 	for t in all_towers:
 		t.set_disabled()
+
+func _on_game_ui_tower_target_mode_changed(index: int):
+	set_target_mode(index)
+
+func set_target_mode(index: int):
+	if selected_tower:
+		selected_tower.set_target_mode(index)

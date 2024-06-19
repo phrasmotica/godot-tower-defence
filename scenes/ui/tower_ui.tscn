@@ -8,7 +8,7 @@
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
-offset_bottom = 240.0
+offset_bottom = 300.0
 script = ExtResource("1_w24hd")
 tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/TowerNameLabel")
 upgrade_button_0 = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0")
@@ -18,7 +18,7 @@ sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxCo
 [node name="TowerPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 320.0
-offset_bottom = 240.0
+offset_bottom = 300.0
 theme = ExtResource("1_jh88n")
 theme_type_variation = &"SecondaryPanelContainer"
 
@@ -32,7 +32,6 @@ theme_override_constants/margin_bottom = 20
 [node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 62.195)
 layout_mode = 2
-theme_override_constants/separation = 0
 
 [node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 43)
@@ -41,6 +40,18 @@ theme_type_variation = &"HeaderSmall"
 theme_override_font_sizes/font_size = 32
 text = "Gun"
 autowrap_mode = 2
+
+[node name="TargetModeOptions" type="OptionButton" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "Target Near"
+popup/item_0/id = 0
+popup/item_1/text = "Target Far"
+popup/item_1/id = 1
+popup/item_2/text = "Target Strong"
+popup/item_2/id = 2
 
 [node name="Spacer" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -82,6 +93,7 @@ theme = ExtResource("1_jh88n")
 theme_override_font_sizes/font_size = 24
 text = "Sell"
 
+[connection signal="item_selected" from="TowerPanelContainer/MarginContainer/VBoxContainer/TargetModeOptions" to="." method="_on_target_mode_options_item_selected"]
 [connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="pressed" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton" to="." method="_on_sell_button_pressed"]

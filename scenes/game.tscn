@@ -71,7 +71,7 @@ anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -320.0
 offset_right = 0.0
-offset_bottom = 960.0
+offset_bottom = 1020.0
 grow_horizontal = 0
 path_manager = NodePath("../../PathManager")
 game_tint = NodePath("GameTint")
@@ -143,6 +143,7 @@ grow_vertical = 2
 [connection signal="tower_placing" from="CanvasLayer/GameUI" to="PathManager" method="_on_game_ui_tower_placing"]
 [connection signal="tower_placing" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placing"]
 [connection signal="tower_selected" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_selected"]
+[connection signal="tower_target_mode_changed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_target_mode_changed"]
 [connection signal="tower_upgrade_finish" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_finish"]
 [connection signal="upgrade_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
 [connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]

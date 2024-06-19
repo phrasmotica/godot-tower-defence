@@ -153,6 +153,10 @@ func deselect():
 
 	on_deselected.emit()
 
+func set_target_mode(index: int):
+	target_mode = index as TargetMode
+	print(tower_name + " now has target mode " + str(target_mode))
+
 func sell():
 	animation_player.play("sell")
 	return get_sell_price()
