@@ -200,7 +200,7 @@ func try_place():
 		return
 
 	set_warming_up()
-
+	hide_visualiser()
 	progress_bars.do_warmup()
 
 	on_placed.emit(self)
