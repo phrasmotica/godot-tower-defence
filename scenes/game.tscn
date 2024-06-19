@@ -144,6 +144,7 @@ grow_vertical = 2
 [connection signal="sell_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_sell_tower"]
 [connection signal="tower_placed" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_tower_placed"]
 [connection signal="tower_placed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placed"]
+[connection signal="tower_placing" from="CanvasLayer/GameUI" to="PathManager" method="_on_game_ui_tower_placing"]
 [connection signal="tower_placing" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placing"]
 [connection signal="tower_selected" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_selected"]
 [connection signal="tower_upgrade_finish" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_finish"]

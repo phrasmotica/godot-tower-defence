@@ -87,3 +87,6 @@ func _on_valid_area_mouse_exited():
 
 	is_mouse_over_valid_area = false
 	mouse_validity_changed.emit(false)
+
+func _on_game_ui_tower_placing(_tower: Tower):
+	mouse_validity_changed.emit(is_mouse_over_valid_area)

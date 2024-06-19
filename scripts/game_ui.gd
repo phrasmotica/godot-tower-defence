@@ -98,11 +98,11 @@ func try_place(tower_scene: PackedScene):
 	placing_tower.set_placing()
 	placing_tower.hide()
 
-	tower_placing.emit(placing_tower)
-
 	placing_tower.on_placed.connect(_on_placing_tower_placed)
 
 	add_child(placing_tower)
+
+	tower_placing.emit(placing_tower)
 
 	return true
 
