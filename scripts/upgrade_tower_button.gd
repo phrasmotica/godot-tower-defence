@@ -30,6 +30,7 @@ var align_tooltip_bottom := false:
 		align_tooltip_bottom = value
 		update_tooltip_position()
 
+# BUG: this is still non-null when a tower gets sold
 var upgrade_level: TowerLevel
 
 signal upgrade_tower(index: int)
