@@ -69,9 +69,6 @@ func _process(_delta):
 	if Input.is_action_just_pressed("previous_tower"):
 		previous_tower.emit()
 
-	if Input.is_action_just_pressed("ui_text_delete"):
-		sell_tower.emit()
-
 func try_place(tower_scene: PackedScene):
 	var new_id := tower_scene.get_instance_id()
 
