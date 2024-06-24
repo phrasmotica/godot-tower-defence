@@ -1,18 +1,14 @@
 @tool
 class_name SellButton extends Button
 
-# HIGH: create separate scene for tooltip
 @export
-var tooltip: Control
-
-@export
-var tooltip_label: Label
+var tooltip: Tooltip
 
 signal sell_tower
 
 func set_tower(tower: Tower):
 	var price = tower.get_sell_price()
-	tooltip_label.text = "Sell this tower for " + str(price) + " money."
+	tooltip.text = "Sell this tower for " + str(price) + " money."
 
 func sell():
 	tooltip.hide()
