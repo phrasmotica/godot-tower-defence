@@ -150,6 +150,9 @@ func _on_game_ui_deselect_tower():
 func _on_game_ui_sell_tower():
 	try_sell()
 
+func _on_keyboard_shortcuts_sell_tower():
+	try_sell()
+
 func _on_lives_manager_lives_depleted():
 	print("Game has ended; disabling towers")
 

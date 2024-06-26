@@ -21,11 +21,6 @@ func _process(_delta):
 	if Engine.is_editor_hint():
 		return
 
-	# HIGH: move all keyboard shortcuts to a child node of the game UI
-	if Input.is_action_just_pressed("ui_text_delete"):
-		print("Selling tower via shortcut")
-		sell()
-
 func _on_pressed():
 	print("Selling tower via button")
 	sell()
