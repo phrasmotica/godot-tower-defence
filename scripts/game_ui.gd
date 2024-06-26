@@ -180,10 +180,10 @@ func animate_show_ui():
 func set_tower(tower: Tower):
 	print("Updating selected tower UI")
 
+	tower_ui.set_tower(tower)
+
 	if tower:
 		tower.reparent(self, true)
-
-		tower_ui.set_tower(tower)
 
 		game_tint.show()
 	else:

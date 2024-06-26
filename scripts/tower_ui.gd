@@ -32,7 +32,7 @@ func update_affordability(new_money: int):
 		upgrade_button_1.update_affordability(new_money)
 
 func set_tower(tower: Tower):
-	tower_name_label.text = tower.tower_name
+	tower_name_label.text = tower.tower_name if tower else ""
 
 	upgrade_button_0.set_upgrade_level(tower)
 	upgrade_button_1.set_upgrade_level(tower)

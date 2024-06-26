@@ -7,8 +7,11 @@ var tooltip: Tooltip
 signal sell_tower
 
 func set_tower(tower: Tower):
-	var price = tower.get_sell_price()
-	tooltip.text = "Sell this tower for " + str(price) + " money."
+	if tower:
+		var price = tower.get_sell_price()
+		tooltip.text = "Sell this tower for " + str(price) + " money."
+	else:
+		tooltip.text = ""
 
 func sell():
 	tooltip.hide()

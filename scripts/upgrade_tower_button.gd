@@ -30,13 +30,12 @@ var align_tooltip_bottom := false:
 		align_tooltip_bottom = value
 		update_tooltip_position()
 
-# BUG: this is still non-null when a tower gets sold
 var upgrade_level: TowerLevel
 
 signal upgrade_tower(index: int)
 
 func set_upgrade_level(tower: Tower):
-	upgrade_level = tower.get_upgrade(upgrade_index)
+	upgrade_level = tower.get_upgrade(upgrade_index) if tower else null
 
 	if upgrade_level:
 		text = upgrade_level.level_name
