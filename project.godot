@@ -17,10 +17,10 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-BankManager="*res://scenes/bank_manager.gd"
-GameManager="*res://scenes/game_manager.gd"
-LivesManager="*res://scenes/lives_manager.gd"
-WavesManager="*res://scenes/waves_manager.gd"
+BankManager="*res://scenes/autoloads/bank_manager.gd"
+GameManager="*res://scenes/autoloads/game_manager.gd"
+LivesManager="*res://scenes/autoloads/lives_manager.gd"
+WavesManager="*res://scenes/autoloads/waves_manager.gd"
 
 [display]
 
