@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BountyEnhancement" load_steps=2 format=3 uid="uid://cslrg37ex867t"]
 
-[ext_resource type="Script" uid="uid://c4lcs57y4vjwf" path="res://scripts/bounty_enhancement.gd" id="1_a6thx"]
+[ext_resource type="Script" uid="uid://c4lcs57y4vjwf" path="res://resources/waves/enhancements/bounty_enhancement.gd" id="1_a6thx"]
 
 [resource]
 script = ExtResource("1_a6thx")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dxo41rak773cs" path="res://scenes/towers/components/firing_line.gd" id="1_x0rca"]
 [ext_resource type="PackedScene" uid="uid://mfvhoc1kpcc0" path="res://scenes/projectiles/bolt_line.tscn" id="2_1ds31"]
-[ext_resource type="Script" uid="uid://dua1nx705yyr5" path="res://scripts/ray_cast_damage.gd" id="2_hd0wa"]
+[ext_resource type="Script" uid="uid://dua1nx705yyr5" path="res://scenes/towers/components/ray_cast_damage.gd" id="2_hd0wa"]
 
 [node name="FiringLine" type="Node2D" node_paths=PackedStringArray("ray_cast")]
 script = ExtResource("1_x0rca")

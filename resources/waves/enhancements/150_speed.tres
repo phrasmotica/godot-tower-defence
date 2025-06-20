@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="SpeedEnhancement" load_steps=2 format=3 uid="uid://cy8tk3xobli8n"]
 
-[ext_resource type="Script" uid="uid://bgwjssieecxns" path="res://scripts/speed_enhancement.gd" id="1_yih42"]
+[ext_resource type="Script" uid="uid://bgwjssieecxns" path="res://resources/waves/enhancements/speed_enhancement.gd" id="1_yih42"]
 
 [resource]
 script = ExtResource("1_yih42")
