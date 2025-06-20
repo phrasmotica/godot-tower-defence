@@ -14,6 +14,9 @@ var active_path_index: int:
 		active_path_index = value
 		set_active_path()
 
+@export
+var valid_placement_area: Area2D
+
 var is_mouse_over_valid_area := false
 
 var enemies: Array[Enemy] = []
@@ -24,11 +27,15 @@ signal valid_area_clicked
 signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
 
-func _ready():
+func _ready() -> void:
 	LivesManager.setup(self)
 
 	WavesManager.setup(self)
 	WavesManager.waves_began.connect(_on_waves_manager_waves_began)
+
+	valid_placement_area.mouse_entered.connect(_on_valid_placement_area_mouse_entered)
+	valid_placement_area.mouse_exited.connect(_on_valid_placement_area_mouse_exited)
+	valid_placement_area.input_event.connect(_on_valid_placement_area_input_event)
 
 	set_active_path()
 
@@ -83,17 +90,21 @@ func _on_valid_area_gui_input(event: InputEvent):
 	if event.is_pressed() and is_mouse_over_valid_area:
 		valid_area_clicked.emit()
 
-func _on_valid_area_mouse_entered():
+func _on_valid_placement_area_mouse_entered() -> void:
 	print("Valid area entered")
 
 	is_mouse_over_valid_area = true
 	mouse_validity_changed.emit(true)
 
-func _on_valid_area_mouse_exited():
+func _on_valid_placement_area_mouse_exited() -> void:
 	print("Valid area exited")
 
 	is_mouse_over_valid_area = false
 	mouse_validity_changed.emit(false)
+
+func _on_valid_placement_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event.is_pressed() and is_mouse_over_valid_area:
+		valid_area_clicked.emit()
 
 func _on_game_ui_tower_placing(_tower: Tower):
 	mouse_validity_changed.emit(is_mouse_over_valid_area)

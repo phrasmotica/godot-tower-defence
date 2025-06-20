@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
@@ -8,17 +8,25 @@
 [ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui.tscn" id="10_gkcsa"]
 [ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/paths/path_1.tscn" id="10_q42hf"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
+size = Vector2(960, 720)
+
 [node name="Game" type="Node2D"]
 
-[node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths")]
+[node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths", "valid_placement_area")]
 script = ExtResource("8_wg70s")
 paths = [NodePath("Path0"), NodePath("Path1")]
+valid_placement_area = NodePath("ValidPlacementArea")
 
-[node name="ValidArea" type="Control" parent="PathManager"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 960.0
-offset_bottom = 720.0
+[node name="ValidPlacementArea" type="Area2D" parent="PathManager"]
+collision_layer = 32
+collision_mask = 0
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathManager/ValidPlacementArea"]
+position = Vector2(480, 360)
+shape = SubResource("RectangleShape2D_u5sy4")
 
 [node name="Path0" parent="PathManager" instance=ExtResource("9_f2e1u")]
 
@@ -86,9 +94,6 @@ grow_vertical = 2
 
 [connection signal="mouse_validity_changed" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_mouse_validity_changed"]
 [connection signal="valid_area_clicked" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_valid_area_clicked"]
-[connection signal="gui_input" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_gui_input"]
-[connection signal="mouse_entered" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_mouse_entered"]
-[connection signal="mouse_exited" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_mouse_exited"]
 [connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
 [connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
 [connection signal="tower_upgrade_start" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_upgrade_start"]
