@@ -1,4 +1,4 @@
-class_name GameManager extends Node
+extends Node
 
 const FAST_FORWARD_SPEED := 3
 

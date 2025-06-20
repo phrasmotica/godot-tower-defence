@@ -1,7 +1,5 @@
 class_name TowerManager extends Node2D
 
-@onready var bank: BankManager = %BankManager
-
 var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
@@ -12,6 +10,9 @@ signal tower_deselected
 signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 
 signal tower_sold(sell_value: int)
+
+func _ready() -> void:
+	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 func next_tower():
 	if all_towers.size() <= 0:
@@ -68,7 +69,7 @@ func try_upgrade(index: int):
 		print("Tower upgrade failed: already upgrading")
 		return
 
-	if not bank.can_afford(next_level.price):
+	if not BankManager.can_afford(next_level.price):
 		print("Tower upgrade failed: cannot afford")
 		return
 
@@ -77,6 +78,8 @@ func try_upgrade(index: int):
 	selected_tower.upgrade(index)
 
 	tower_upgrade_start.emit(selected_tower, next_level)
+
+	BankManager._on_towers_tower_upgrade_start(selected_tower, next_level)
 
 func try_sell():
 	if not selected_tower:
@@ -92,6 +95,8 @@ func try_sell():
 	deselect_tower()
 
 	tower_sold.emit(sell_value)
+
+	BankManager._on_towers_tower_sold(sell_value)
 
 func unhighlight():
 	if selected_tower:

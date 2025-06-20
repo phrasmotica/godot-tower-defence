@@ -1,13 +1,6 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
 
-[ext_resource type="Script" uid="uid://d18jfls2arrme" path="res://scenes/lives_manager.gd" id="1_6mlow"]
-[ext_resource type="Script" uid="uid://dj05yvrflgqmf" path="res://scenes/bank_manager.gd" id="1_rbgcv"]
-[ext_resource type="Script" uid="uid://ddlu850bbfrdg" path="res://scenes/game_manager.gd" id="2_5lvad"]
-[ext_resource type="PackedScene" uid="uid://buo64r0x83gru" path="res://scenes/enemies/enemy_1.tscn" id="2_s70yg"]
-[ext_resource type="Script" uid="uid://cq4v1l6062bmu" path="res://scenes/waves_manager.gd" id="3_4t4x5"]
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/tower_manager.gd" id="5_rtba5"]
-[ext_resource type="PackedScene" uid="uid://brbdisl4wehyt" path="res://scenes/enemies/enemy_boss.tscn" id="5_w1r6e"]
-[ext_resource type="Resource" uid="uid://yh7obycpwwoe" path="res://resources/waves/waves_path0.tres" id="7_kcxo6"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/path_manager.gd" id="8_wg70s"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
@@ -17,29 +10,6 @@
 [ext_resource type="Script" uid="uid://bffko7ijb86o5" path="res://scenes/keyboard.gd" id="13_bw86x"]
 
 [node name="Game" type="Node2D"]
-
-[node name="Managers" type="Node" parent="."]
-
-[node name="BankManager" type="Node" parent="Managers"]
-unique_name_in_owner = true
-script = ExtResource("1_rbgcv")
-
-[node name="GameManager" type="Node" parent="Managers"]
-unique_name_in_owner = true
-script = ExtResource("2_5lvad")
-
-[node name="LivesManager" type="Node" parent="Managers"]
-script = ExtResource("1_6mlow")
-starting_lives = 10
-
-[node name="WavesManager" type="Node" parent="Managers" node_paths=PackedStringArray("path_manager")]
-unique_name_in_owner = true
-script = ExtResource("3_4t4x5")
-path_manager = NodePath("../../PathManager")
-boss_enemy_scene = ExtResource("5_w1r6e")
-enemy_scene = ExtResource("2_s70yg")
-last_wave = 30
-wave_collection = ExtResource("7_kcxo6")
 
 [node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths")]
 script = ExtResource("8_wg70s")
@@ -65,7 +35,7 @@ script = ExtResource("5_rtba5")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor_description = "Layer for game UI elements."
 
-[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("path_manager", "game_tint", "bank") instance=ExtResource("10_gkcsa")]
+[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("path_manager", "game_tint") instance=ExtResource("10_gkcsa")]
 unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
@@ -76,7 +46,6 @@ offset_bottom = 1020.0
 grow_horizontal = 0
 path_manager = NodePath("../../PathManager")
 game_tint = NodePath("GameTint")
-bank = NodePath("../../Managers/BankManager")
 
 [node name="GameTint" type="ColorRect" parent="CanvasLayer/GameUI"]
 visible = false
@@ -119,14 +88,6 @@ offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="money_changed" from="Managers/BankManager" to="CanvasLayer/GameUI" method="_on_bank_manager_money_changed"]
-[connection signal="lives_changed" from="Managers/LivesManager" to="CanvasLayer/GameUI" method="_on_lives_manager_lives_changed"]
-[connection signal="lives_depleted" from="Managers/LivesManager" to="Towers" method="_on_lives_manager_lives_depleted"]
-[connection signal="lives_depleted" from="Managers/LivesManager" to="OverlayCanvas/GameOver" method="_on_lives_manager_lives_depleted"]
-[connection signal="wave_sent" from="Managers/WavesManager" to="CanvasLayer/GameUI" method="_on_waves_manager_wave_sent"]
-[connection signal="waves_began" from="Managers/WavesManager" to="PathManager" method="_on_waves_manager_waves_began"]
-[connection signal="enemy_died" from="PathManager" to="Managers/BankManager" method="_on_path_manager_enemy_died"]
-[connection signal="enemy_reached_end" from="PathManager" to="Managers/LivesManager" method="_on_path_manager_enemy_reached_end"]
 [connection signal="mouse_validity_changed" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_mouse_validity_changed"]
 [connection signal="valid_area_clicked" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_valid_area_clicked"]
 [connection signal="gui_input" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_gui_input"]
@@ -134,24 +95,18 @@ grow_vertical = 2
 [connection signal="mouse_exited" from="PathManager/ValidArea" to="PathManager" method="_on_valid_area_mouse_exited"]
 [connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
 [connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
-[connection signal="tower_sold" from="Towers" to="Managers/BankManager" method="_on_towers_tower_sold"]
-[connection signal="tower_upgrade_start" from="Towers" to="Managers/BankManager" method="_on_towers_tower_upgrade_start"]
 [connection signal="tower_upgrade_start" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_upgrade_start"]
 [connection signal="deselect_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_deselect_tower"]
 [connection signal="next_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_next_tower"]
 [connection signal="previous_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_previous_tower"]
-[connection signal="selected_tower_handled" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_selected_tower_handled"]
 [connection signal="sell_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_sell_tower"]
-[connection signal="tower_placed" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_tower_placed"]
 [connection signal="tower_placed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placed"]
 [connection signal="tower_placing" from="CanvasLayer/GameUI" to="PathManager" method="_on_game_ui_tower_placing"]
 [connection signal="tower_placing" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placing"]
 [connection signal="tower_selected" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_selected"]
 [connection signal="tower_target_mode_changed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_target_mode_changed"]
-[connection signal="tower_upgrade_finish" from="CanvasLayer/GameUI" to="Managers/BankManager" method="_on_game_ui_tower_upgrade_finish"]
 [connection signal="upgrade_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
 [connection signal="sell_tower" from="CanvasLayer/GameUI/KeyboardShortcuts" to="Towers" method="_on_keyboard_shortcuts_sell_tower"]
 [connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]
-[connection signal="start" from="OverlayCanvas/StartGame" to="Managers/WavesManager" method="_on_start_game_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="CanvasLayer/GameUI" method="_on_start_game_start"]

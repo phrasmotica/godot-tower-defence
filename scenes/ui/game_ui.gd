@@ -8,9 +8,6 @@ var path_manager: PathManager
 var game_tint: ColorRect
 
 @export
-var bank: BankManager
-
-@export
 var score_ui: ScoreUI
 
 @export
@@ -46,6 +43,12 @@ var placing_tower: Tower
 func _ready():
 	if Engine.is_editor_hint():
 		return
+
+	BankManager.money_changed.connect(_on_bank_manager_money_changed)
+
+	LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
+
+	WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
 
 	stop_tower_creation(false)
 
@@ -84,7 +87,7 @@ func try_place(tower_scene: PackedScene):
 	placing_tower = tower_scene.instantiate()
 	current_tower_scene_id = new_id
 
-	if not bank.can_afford(placing_tower.price):
+	if not BankManager.can_afford(placing_tower.price):
 		print(placing_tower.name + " purchase failed: cannot afford")
 
 		stop_tower_creation(false)
@@ -113,6 +116,8 @@ func _on_placing_tower_placed(tower: Tower):
 
 	tower_placed.emit(tower)
 
+	BankManager._on_game_ui_tower_placed(tower)
+
 	stop_tower_creation(false)
 
 	create_tower_ui.set_default_mode()
@@ -128,6 +133,8 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
 	tower_ui.set_tower(tower)
 
 	tower_upgrade_finish.emit(tower, next_level)
+
+	BankManager._on_game_ui_tower_upgrade_finish(tower, next_level)
 
 func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
@@ -173,6 +180,8 @@ func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
 		animate_hide_ui()
 
 	selected_tower_handled.emit()
+
+	BankManager._on_game_ui_selected_tower_handled()
 
 func animate_show_ui():
 	animation_player.play("show_tower_ui")

@@ -1,16 +1,13 @@
-class_name WavesManager extends Node
+extends Node
 
-@export var path_manager: PathManager
-@export var boss_enemy_scene: PackedScene
-@export var enemy_scene: PackedScene
+const LAST_WAVE: int = 10
 
-@export_range(10, 50)
-var last_wave: int = 10
+var boss_enemy_scene: PackedScene = preload("res://scenes/enemies/enemy_boss.tscn")
+var enemy_scene: PackedScene = preload("res://scenes/enemies/enemy_1.tscn")
+var wave_collection: WaveCollection = preload("res://resources/waves/waves_path0.tres")
 
 var wave_number := 0
-
-@export
-var wave_collection: WaveCollection
+var _path_manager: PathManager = null
 
 signal waves_began
 signal wave_sent(wave: Wave)
@@ -22,8 +19,11 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		next()
 
+func setup(path_manager: PathManager) -> void:
+	_path_manager = path_manager
+
 func get_next() -> Wave:
-	if wave_number >= last_wave:
+	if wave_number >= LAST_WAVE:
 		return null
 
 	if wave_number <= wave_collection.count():
@@ -58,7 +58,7 @@ func next():
 		print("Using " + str(wave.resource_path) + " resource")
 
 	for i in range(wave.spawn_count):
-		var enemy = path_manager.spawn_enemy(wave.enemy)
+		var enemy = _path_manager.spawn_enemy(wave.enemy)
 
 		for e in wave.enhancements:
 			e.act(enemy)

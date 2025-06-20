@@ -1,9 +1,8 @@
 extends Node
 
-@export_range(1, 50)
-var starting_lives: int
+const STARTING_LIVES := 10
 
-var current_lives = starting_lives
+var current_lives = STARTING_LIVES
 var is_dead := false
 
 signal lives_changed(new_lives: int)
@@ -13,8 +12,8 @@ func _ready():
 	reset_lives()
 
 func reset_lives():
-	set_lives(starting_lives)
-	print("Resetting to " + str(starting_lives) + " lives")
+	set_lives(STARTING_LIVES)
+	print("Resetting to " + str(STARTING_LIVES) + " lives")
 
 func add_lives(amount):
 	set_lives(max(0, current_lives + amount))

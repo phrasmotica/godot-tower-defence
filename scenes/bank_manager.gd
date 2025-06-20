@@ -1,9 +1,8 @@
-class_name BankManager extends Node
+extends Node
 
-@export_range(1, 10)
-var starting_money := 10
+const STARTING_MONEY := 10
 
-var current_money := starting_money:
+var current_money := STARTING_MONEY:
 	set(value):
 		current_money = value
 		print("Now on " + str(current_money) + " money")
@@ -16,8 +15,8 @@ func _ready():
 	reset_money()
 
 func reset_money():
-	current_money = starting_money
-	print("Resetting to " + str(starting_money) + " money")
+	current_money = STARTING_MONEY
+	print("Resetting to " + str(STARTING_MONEY) + " money")
 
 func can_afford(amount: int):
 	return current_money >= amount
