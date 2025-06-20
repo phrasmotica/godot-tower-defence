@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
 
-[ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/tower_manager.gd" id="5_rtba5"]
-[ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/path_manager.gd" id="8_wg70s"]
+[ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
+[ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/ui/start_game.tscn" id="9_sjprc"]
