@@ -1,6 +1,6 @@
 [gd_scene load_steps=25 format=3 uid="uid://ba7v8p4mq36wb"]
 
-[ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scripts/tower.gd" id="1_8s1qd"]
+[ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_k0da5"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_71qj7"]

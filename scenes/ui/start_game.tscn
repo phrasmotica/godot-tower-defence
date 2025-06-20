@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://c4jpggyrn7oc2"]
 
-[ext_resource type="Script" uid="uid://12v2qxecv2wh" path="res://scripts/start_game.gd" id="1_1nknf"]
+[ext_resource type="Script" uid="uid://12v2qxecv2wh" path="res://scenes/ui/start_game.gd" id="1_1nknf"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="1_pmmug"]
 [ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="2_oohv1"]
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="3_it5qd"]
