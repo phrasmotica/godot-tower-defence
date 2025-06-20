@@ -66,5 +66,7 @@ func next():
 		await get_tree().create_timer(1.0 / wave.spawn_frequency).timeout
 
 func start_game() -> void:
+	# HIGH: implement a node-based state machine. Do this for as many nodes in
+	# the game as possible!!
 	print("Enabling waves manager")
 	set_process(true)
