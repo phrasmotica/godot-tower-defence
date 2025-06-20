@@ -11,14 +11,14 @@ func _on_play_button_0_pressed():
 	hide()
 	start.emit(0)
 
-	WavesManager._on_start_game_start(0)
+	WavesManager.start_game()
 
 func _on_play_button_1_pressed():
 	print("Playing path 1")
 	hide()
 	start.emit(1)
 
-	WavesManager._on_start_game_start(1)
+	WavesManager.start_game()
 
 func _on_play_button_0_mouse_entered():
 	preview.emit(0)

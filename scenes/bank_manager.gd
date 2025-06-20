@@ -2,42 +2,31 @@ extends Node
 
 const STARTING_MONEY := 10
 
-var current_money := STARTING_MONEY:
-	set(value):
-		current_money = value
-		print("Now on " + str(current_money) + " money")
-
-		money_changed.emit(current_money)
+var _current_money := STARTING_MONEY
 
 signal money_changed(new_money: int)
 
-func _ready():
+func _ready() -> void:
 	reset_money()
 
-func reset_money():
-	current_money = STARTING_MONEY
+func _set_money(amount: int) -> void:
+	_current_money = amount
+	print("Now on " + str(_current_money) + " money")
+
+	emit_money_changed()
+
+func reset_money() -> void:
 	print("Resetting to " + str(STARTING_MONEY) + " money")
+	_set_money(STARTING_MONEY)
 
-func can_afford(amount: int):
-	return current_money >= amount
+func can_afford(amount: int) -> bool:
+	return _current_money >= amount
 
-func _on_game_ui_tower_placed(tower: Tower):
-	current_money -= tower.price
+func earn(amount: int) -> void:
+	_set_money(_current_money + amount)
 
-func _on_game_ui_selected_tower_handled():
-	# allows tower upgrade buttons to update their state
-	money_changed.emit(current_money)
+func deduct(amount: int) -> void:
+	_set_money(_current_money - amount)
 
-func _on_towers_tower_upgrade_start(_tower:Tower, next_level:TowerLevel):
-	current_money -= next_level.price
-
-func _on_towers_tower_sold(sell_value:int):
-	current_money += sell_value
-
-func _on_game_ui_tower_upgrade_finish(_tower: Tower, _next_level: TowerLevel):
-	# allows tower upgrade buttons to update their state
-	money_changed.emit(current_money)
-
-func _on_path_manager_enemy_died(enemy: Enemy):
-	print("Bounty: " + str(enemy.bounty))
-	current_money += enemy.bounty
+func emit_money_changed() -> void:
+	money_changed.emit(_current_money)

@@ -33,8 +33,6 @@ signal tower_target_mode_changed(index: int)
 
 signal upgrade_tower(index: int)
 
-signal tower_upgrade_finish(tower: Tower, next_level: TowerLevel)
-
 signal sell_tower
 
 var current_tower_scene_id := 0
@@ -116,7 +114,7 @@ func _on_placing_tower_placed(tower: Tower):
 
 	tower_placed.emit(tower)
 
-	BankManager._on_game_ui_tower_placed(tower)
+	BankManager.deduct(tower.price)
 
 	stop_tower_creation(false)
 
@@ -127,14 +125,13 @@ func _on_placing_tower_selected(tower: Tower):
 
 	tower_selected.emit(tower)
 
-func _on_placing_tower_on_upgrade_finish(tower: Tower, next_level: TowerLevel):
+func _on_placing_tower_on_upgrade_finish(tower: Tower, _next_level: TowerLevel):
 	print("Selected tower upgrade finished")
 
 	tower_ui.set_tower(tower)
 
-	tower_upgrade_finish.emit(tower, next_level)
-
-	BankManager._on_game_ui_tower_upgrade_finish(tower, next_level)
+	# allows tower upgrade buttons to update their state
+	BankManager.emit_money_changed()
 
 func _on_start_game_start(_path_index: int):
 	print("Enabling game UI process")
@@ -181,7 +178,8 @@ func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
 
 	selected_tower_handled.emit()
 
-	BankManager._on_game_ui_selected_tower_handled()
+	# allows tower upgrade buttons to update their state
+	BankManager.emit_money_changed()
 
 func animate_show_ui():
 	animation_player.play("show_tower_ui")

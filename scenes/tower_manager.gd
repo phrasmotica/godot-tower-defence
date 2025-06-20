@@ -79,7 +79,7 @@ func try_upgrade(index: int):
 
 	tower_upgrade_start.emit(selected_tower, next_level)
 
-	BankManager._on_towers_tower_upgrade_start(selected_tower, next_level)
+	BankManager.deduct(next_level.price)
 
 func try_sell():
 	if not selected_tower:
@@ -96,7 +96,7 @@ func try_sell():
 
 	tower_sold.emit(sell_value)
 
-	BankManager._on_towers_tower_sold(sell_value)
+	BankManager.earn(sell_value)
 
 func unhighlight():
 	if selected_tower:

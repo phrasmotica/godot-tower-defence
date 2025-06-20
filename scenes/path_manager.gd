@@ -25,8 +25,9 @@ signal enemy_died(enemy: Enemy)
 signal enemy_reached_end(enemy: Enemy)
 
 func _ready():
-	WavesManager.setup(self)
+	LivesManager.setup(self)
 
+	WavesManager.setup(self)
 	WavesManager.waves_began.connect(_on_waves_manager_waves_began)
 
 	set_active_path()
@@ -61,15 +62,13 @@ func _on_enemy_die(enemy: Enemy):
 
 	enemy_died.emit(enemy)
 
-	BankManager._on_path_manager_enemy_died(enemy)
+	BankManager.earn(enemy.bounty)
 
 func _on_enemy_reached_end(enemy: Enemy):
 	remove_enemy(enemy)
 	enemy.queue_free()
 
 	enemy_reached_end.emit(enemy)
-
-	LivesManager._on_path_manager_enemy_reached_end(enemy)
 
 func _on_start_game_preview(path_index:int):
 	active_path_index = path_index
