@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=8 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/ui/start_game.tscn" id="9_sjprc"]
 [ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui.tscn" id="10_gkcsa"]
 [ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/paths/path_1.tscn" id="10_q42hf"]
-[ext_resource type="Script" uid="uid://bffko7ijb86o5" path="res://scenes/keyboard.gd" id="13_bw86x"]
 
 [node name="Game" type="Node2D"]
 
@@ -54,9 +53,6 @@ offset_left = -960.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.637843, 0.637843, 0.637843, 0.588235)
-
-[node name="KeyboardShortcuts" type="Node" parent="CanvasLayer/GameUI"]
-script = ExtResource("13_bw86x")
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 
@@ -106,7 +102,6 @@ grow_vertical = 2
 [connection signal="tower_selected" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_selected"]
 [connection signal="tower_target_mode_changed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_target_mode_changed"]
 [connection signal="upgrade_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
-[connection signal="sell_tower" from="CanvasLayer/GameUI/KeyboardShortcuts" to="Towers" method="_on_keyboard_shortcuts_sell_tower"]
 [connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_start"]
 [connection signal="start" from="OverlayCanvas/StartGame" to="CanvasLayer/GameUI" method="_on_start_game_start"]

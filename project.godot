@@ -21,6 +21,7 @@ BankManager="*res://scenes/autoloads/bank_manager.gd"
 GameManager="*res://scenes/autoloads/game_manager.gd"
 LivesManager="*res://scenes/autoloads/lives_manager.gd"
 WavesManager="*res://scenes/autoloads/waves_manager.gd"
+KeyboardShortcuts="*res://scenes/autoloads/keyboard_shortcuts.gd"
 
 [display]
 

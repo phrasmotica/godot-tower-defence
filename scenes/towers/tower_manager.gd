@@ -12,6 +12,8 @@ signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
 signal tower_sold(sell_value: int)
 
 func _ready() -> void:
+	KeyboardShortcuts.sell_tower.connect(_on_keyboard_shortcuts_sell_tower)
+
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 func next_tower():
