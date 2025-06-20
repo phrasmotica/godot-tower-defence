@@ -14,6 +14,8 @@ var active_path_index: int:
 		active_path_index = value
 		set_active_path()
 
+# TODO: make the valid placement area a child of the Path0/Path1 scenes, and
+# handle its input events in the Path script
 @export
 var valid_placement_area: Area2D
 
