@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://diwd7nkeshej7"]
 
-[ext_resource type="Script" path="res://scripts/amount_label.gd" id="1_n4uao"]
+[ext_resource type="Script" uid="uid://dauvu8db80uqs" path="res://scripts/amount_label.gd" id="1_n4uao"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_nsib7"]
 
 [node name="AmountLabel" type="HBoxContainer" node_paths=PackedStringArray("text_label", "amount_label")]

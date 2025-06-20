@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqp50ghosc4oa"]
 
-[ext_resource type="Script" path="res://scripts/slow_effect.gd" id="1_d3ymg"]
+[ext_resource type="Script" uid="uid://dw5yjyny55vhu" path="res://scripts/slow_effect.gd" id="1_d3ymg"]
 
 [node name="SlowEffect" type="Node"]
 process_mode = 4

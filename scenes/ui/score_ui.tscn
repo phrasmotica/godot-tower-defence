@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://6y0ndmyl14yj"]
 
-[ext_resource type="Script" path="res://scripts/score_ui.gd" id="1_tukbq"]
+[ext_resource type="Script" uid="uid://cwu1h5vgvn0pa" path="res://scripts/score_ui.gd" id="1_tukbq"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="2_27d4k"]
 [ext_resource type="PackedScene" uid="uid://diwd7nkeshej7" path="res://scenes/ui/amount_label.tscn" id="3_3bjug"]
 

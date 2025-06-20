@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="HealthEnhancement" load_steps=2 format=3 uid="uid://bskgosokjkxw2"]
 
-[ext_resource type="Script" path="res://scripts/health_enhancement.gd" id="1_55rn4"]
+[ext_resource type="Script" uid="uid://b172iyjr0i7uh" path="res://scripts/health_enhancement.gd" id="1_55rn4"]
 
 [resource]
 script = ExtResource("1_55rn4")

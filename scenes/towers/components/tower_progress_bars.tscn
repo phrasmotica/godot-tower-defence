@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bsqy7xfg6a4le"]
 
-[ext_resource type="Script" path="res://scripts/tower_progress_bars.gd" id="1_ca1rh"]
+[ext_resource type="Script" uid="uid://dal5gcunnrjav" path="res://scripts/tower_progress_bars.gd" id="1_ca1rh"]
 [ext_resource type="PackedScene" uid="uid://di7bq577a2xqr" path="res://scenes/towers/components/progress_bar.tscn" id="1_fyllk"]
 
 [node name="ProgressBars" type="Node2D"]

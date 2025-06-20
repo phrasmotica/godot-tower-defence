@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="Wave" load_steps=3 format=3 uid="uid://cyo6bf554jtgc"]
+[gd_resource type="Resource" script_class="Wave" load_steps=4 format=3 uid="uid://cyo6bf554jtgc"]
 
 [ext_resource type="PackedScene" uid="uid://brbdisl4wehyt" path="res://scenes/enemies/enemy_boss.tscn" id="1_l11l4"]
-[ext_resource type="Script" path="res://scripts/wave.gd" id="2_hb5cv"]
+[ext_resource type="Script" uid="uid://d3eolves76duj" path="res://scripts/wave.gd" id="2_hb5cv"]
+[ext_resource type="Script" uid="uid://c02uqia4i5tf1" path="res://scripts/wave_enhancement.gd" id="2_lxxto"]
 
 [resource]
 script = ExtResource("2_hb5cv")
@@ -9,4 +10,4 @@ description = "How about a boss wave?"
 enemy = ExtResource("1_l11l4")
 spawn_count = 5
 spawn_frequency = 1
-enhancements = Array[Resource("res://scripts/wave_enhancement.gd")]([])
+enhancements = Array[ExtResource("2_lxxto")]([])

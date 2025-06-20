@@ -67,8 +67,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mxtwk"]
 _data = {
-"RESET": SubResource("Animation_mxhtn"),
-"start_arrow": SubResource("Animation_gyxwg")
+&"RESET": SubResource("Animation_mxhtn"),
+&"start_arrow": SubResource("Animation_gyxwg")
 }
 
 [node name="StartArrow" type="Node2D"]

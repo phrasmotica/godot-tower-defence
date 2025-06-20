@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hnmb7fxbbg3f"]
 
-[ext_resource type="Script" path="res://scripts/health_bar.gd" id="1_i0wav"]
+[ext_resource type="Script" uid="uid://cjcynu5p1o6hc" path="res://scripts/health_bar.gd" id="1_i0wav"]
 
 [node name="HealthBar" type="Control"]
 layout_mode = 3

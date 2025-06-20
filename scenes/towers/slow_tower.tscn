@@ -1,17 +1,17 @@
 [gd_scene load_steps=26 format=3 uid="uid://b8qu4bxbhapgl"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_c2mwh"]
+[ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scripts/tower.gd" id="1_c2mwh"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_qx8bf"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_r7mld"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_pmf8q"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
+[ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scripts/tower_level_manager.gd" id="5_t5pdt"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_eu8cm"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="7_50fd5"]
 [ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/effects/slow_effect.tscn" id="8_7bdrw"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="10_4dyam"]
 [ext_resource type="Texture2D" uid="uid://bngv7y86ypnm4" path="res://assets/sprites/slowerTower.png" id="10_4rxji"]
-[ext_resource type="Script" path="res://scripts/effect_stats.gd" id="10_bd5or"]
+[ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scripts/effect_stats.gd" id="10_bd5or"]
 [ext_resource type="Texture2D" uid="uid://b1gc0k4nw34um" path="res://assets/sprites/paralyseTower.png" id="11_bl7ld"]
 [ext_resource type="PackedScene" uid="uid://c8ef3082f0jwl" path="res://scenes/effects/paralyse_effect.tscn" id="12_2doa4"]
 
@@ -90,6 +90,23 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_cyv0x"]
+resource_name = "pulse"
+length = 0.5
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseLevel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_ujsix"]
 resource_name = "sell"
 length = 0.1
@@ -120,28 +137,11 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_cyv0x"]
-resource_name = "pulse"
-length = 0.5
-step = 0.05
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
-"RESET": SubResource("Animation_qk45j"),
-"pulse": SubResource("Animation_cyv0x"),
-"sell": SubResource("Animation_ujsix")
+&"RESET": SubResource("Animation_qk45j"),
+&"pulse": SubResource("Animation_cyv0x"),
+&"sell": SubResource("Animation_ujsix")
 }
 
 [node name="SlowTower" type="Node2D"]

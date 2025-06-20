@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://8o1qoddn66j5"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_bjpxi"]
+[ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scripts/tower.gd" id="1_bjpxi"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_itrc6"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xd60m"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_3jave"]
+[ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scripts/tower_level_manager.gd" id="5_3jave"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_1fwj3"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
-[ext_resource type="Script" path="res://scripts/stats.gd" id="9_7e7tl"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scripts/stats.gd" id="9_7e7tl"]
 [ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball.tscn" id="11_m47vg"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="12_nqfhp"]
 
@@ -92,9 +92,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
-"RESET": SubResource("Animation_qk45j"),
-"sell": SubResource("Animation_ujsix"),
-"shoot": SubResource("Animation_dsmby")
+&"RESET": SubResource("Animation_qk45j"),
+&"sell": SubResource("Animation_ujsix"),
+&"shoot": SubResource("Animation_dsmby")
 }
 
 [node name="CannonTower" type="Node2D"]

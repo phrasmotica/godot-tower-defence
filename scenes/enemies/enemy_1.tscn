@@ -1,9 +1,9 @@
 [gd_scene load_steps=15 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
-[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_mx3jq"]
+[ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scripts/enemy.gd" id="1_mx3jq"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_vr2lm"]
-[ext_resource type="Script" path="res://scripts/enemy_stats.gd" id="3_3k5g8"]
+[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scripts/enemy_stats.gd" id="3_3k5g8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
 atlas = ExtResource("1_fkgmj")
@@ -141,6 +141,21 @@ tracks/4/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_cyyun"]
+resource_name = "paralyse"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_vscsi"]
 resource_name = "peek_health"
 length = 2.0
@@ -174,36 +189,6 @@ tracks/1/keys = {
 "values": [Color(1, 0, 0, 0.588235), Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_4vyub"]
-resource_name = "slow"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_cyyun"]
-resource_name = "paralyse"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_w38jn"]
 resource_name = "poison"
 tracks/0/type = "value"
@@ -219,14 +204,29 @@ tracks/0/keys = {
 "values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_4vyub"]
+resource_name = "slow"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0.513726, 0.329412, 1), Color(1, 1, 1, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_c4ujo"]
 _data = {
-"RESET": SubResource("Animation_qsgl2"),
-"die": SubResource("Animation_msyps"),
-"paralyse": SubResource("Animation_cyyun"),
-"peek_health": SubResource("Animation_vscsi"),
-"poison": SubResource("Animation_w38jn"),
-"slow": SubResource("Animation_4vyub")
+&"RESET": SubResource("Animation_qsgl2"),
+&"die": SubResource("Animation_msyps"),
+&"paralyse": SubResource("Animation_cyyun"),
+&"peek_health": SubResource("Animation_vscsi"),
+&"poison": SubResource("Animation_w38jn"),
+&"slow": SubResource("Animation_4vyub")
 }
 
 [node name="Enemy1" type="PathFollow2D" groups=["enemies"]]

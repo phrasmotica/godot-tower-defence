@@ -1,15 +1,15 @@
 [gd_scene load_steps=25 format=3 uid="uid://ba7v8p4mq36wb"]
 
-[ext_resource type="Script" path="res://scripts/tower.gd" id="1_8s1qd"]
+[ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scripts/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_k0da5"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_71qj7"]
-[ext_resource type="Script" path="res://scripts/tower_level_manager.gd" id="5_aaghm"]
+[ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scripts/tower_level_manager.gd" id="5_aaghm"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="5_amh81"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="7_1pyih"]
 [ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="8_ierun"]
 [ext_resource type="PackedScene" uid="uid://1wo5l3lymj2v" path="res://scenes/effects/poison_effect.tscn" id="9_by8rj"]
-[ext_resource type="Script" path="res://scripts/effect_stats.gd" id="10_t6u3a"]
+[ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scripts/effect_stats.gd" id="10_t6u3a"]
 [ext_resource type="Texture2D" uid="uid://dirfq8o8oeu6v" path="res://assets/sprites/poison_tower_upgrade_1.png" id="11_ijwes"]
 [ext_resource type="Texture2D" uid="uid://c4ph5lctynlj8" path="res://assets/sprites/poison_tower_upgrade_2.png" id="12_yywre"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="13_k5en1"]
@@ -89,6 +89,22 @@ tracks/1/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
+[sub_resource type="Animation" id="Animation_oiglf"]
+resource_name = "pulse"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BaseLevel:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
+}
+
 [sub_resource type="Animation" id="Animation_ujsix"]
 resource_name = "sell"
 length = 0.1
@@ -119,27 +135,11 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_oiglf"]
-resource_name = "pulse"
-length = 0.5
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.05, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
-"RESET": SubResource("Animation_qk45j"),
-"pulse": SubResource("Animation_oiglf"),
-"sell": SubResource("Animation_ujsix")
+&"RESET": SubResource("Animation_qk45j"),
+&"pulse": SubResource("Animation_oiglf"),
+&"sell": SubResource("Animation_ujsix")
 }
 
 [node name="PoisonTower" type="Node2D"]

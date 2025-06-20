@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://di7bq577a2xqr"]
 
-[ext_resource type="Script" path="res://scripts/progress_bar.gd" id="1_tcsvt"]
+[ext_resource type="Script" uid="uid://dqseym3edqnw" path="res://scripts/progress_bar.gd" id="1_tcsvt"]
 
 [sub_resource type="Animation" id="Animation_god6i"]
 length = 0.001
@@ -66,8 +66,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h7fqp"]
 _data = {
-"RESET": SubResource("Animation_god6i"),
-"progress": SubResource("Animation_cuaon")
+&"RESET": SubResource("Animation_god6i"),
+&"progress": SubResource("Animation_cuaon")
 }
 
 [node name="ProgressBar" type="Node2D" node_paths=PackedStringArray("color_rect")]

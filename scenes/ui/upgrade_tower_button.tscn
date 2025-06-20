@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dx8exrpefyqrk"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_0hbru"]
-[ext_resource type="Script" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
+[ext_resource type="Script" uid="uid://bvwy1x2lffxoh" path="res://scripts/upgrade_tower_button.gd" id="1_o1ho0"]
 
 [node name="UpgradeTowerButton" type="Button" node_paths=PackedStringArray("tooltip", "name_text", "price_text", "description_text")]
 offset_right = 180.0
