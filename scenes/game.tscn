@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/ui/start_game.tscn" id="9_sjprc"]
-[ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui.tscn" id="10_gkcsa"]
+[ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui/game_ui.tscn" id="10_gkcsa"]
 [ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/paths/path_1.tscn" id="10_q42hf"]
 
 [node name="Game" type="Node2D"]
