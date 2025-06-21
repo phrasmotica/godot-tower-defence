@@ -135,7 +135,7 @@ func level_adjust_effect_range(effect_range: float):
 	print("Level adjusting effect range")
 
 	if effect_area:
-		effect_area.adjust_range(effect_range)
+		effect_area.radius = effect_range
 
 	adjust_effect_range.emit(effect_range)
 
