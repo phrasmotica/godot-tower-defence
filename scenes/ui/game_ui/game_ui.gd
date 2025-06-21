@@ -10,9 +10,6 @@ var path_manager: PathManager
 var game_tint: ColorRect
 
 @export
-var score_ui: ScoreUI
-
-@export
 var create_tower_ui: CreateTowerUI
 
 @export
@@ -39,15 +36,9 @@ signal sell_tower
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
 
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
-
-	BankManager.money_changed.connect(_on_bank_manager_money_changed)
-
-	LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
-
-	WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
 
 	switch_state(State.DISABLED)
 
@@ -85,21 +76,9 @@ func emit_deselect_tower() -> void:
 	deselect_tower.emit()
 
 func _on_start_game_start(_path_index: int):
-	switch_state(State.ENABLED)
-
 	create_tower_ui.start_game()
 
-func _on_bank_manager_money_changed(new_money: int):
-	score_ui.set_money(new_money)
-
-	create_tower_ui.update_affordability(new_money)
-	tower_ui.update_affordability(new_money)
-
-func _on_lives_manager_lives_changed(new_lives: int):
-	score_ui.set_lives(new_lives)
-
-func _on_waves_manager_wave_sent(wave: Wave):
-	score_ui.set_wave(wave)
+	switch_state(State.ENABLED)
 
 func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
 	handle_selected_tower_changed(tower, was_unselected)

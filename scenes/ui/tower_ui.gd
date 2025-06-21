@@ -18,9 +18,14 @@ signal upgrade_tower(index: int)
 signal sell_tower
 
 func _ready() -> void:
+	BankManager.money_changed.connect(_on_bank_manager_money_changed)
+
 	if not Engine.is_editor_hint():
 		TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
+
+func _on_bank_manager_money_changed(new_money: int) -> void:
+	update_affordability(new_money)
 
 func disable_upgrades() -> void:
 	upgrade_button_0.disabled = true
