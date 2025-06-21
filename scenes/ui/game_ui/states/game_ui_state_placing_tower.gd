@@ -40,14 +40,7 @@ func finish() -> void:
 	transition_state(GameUI.State.ENABLED)
 
 func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
-	placing_tower.is_valid_location = is_valid
-
-	if is_valid:
-		placing_tower.show_visualiser()
-		placing_tower.set_default_look()
-	else:
-		placing_tower.hide_visualiser()
-		placing_tower.set_error_look()
+	TowerPlacingEvents.emit_mouse_over_path_area_changed(is_valid)
 
 func _on_path_manager_valid_area_clicked() -> void:
 	placing_tower.try_place()

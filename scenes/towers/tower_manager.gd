@@ -105,8 +105,9 @@ func try_sell():
 	BankManager.earn(sell_value)
 
 func unhighlight():
-	if selected_tower:
-		selected_tower.reparent(self, true)
+	# if selected_tower:
+	# 	selected_tower.reparent(self, true)
+	pass
 
 func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
@@ -132,7 +133,11 @@ func _on_tower_placing_started(_tower: Tower) -> void:
 
 func _on_tower_placing_finished(tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
-	tower.reparent(self, true)
+
+	# reparenting causes the tower node's _ready() method to be called, which
+	# resets it to the PLACING state. We don't want this... just disable all
+	# reparenting for now
+	# tower.reparent(self, true)
 
 	tower.on_warmed_up.connect(
 		func(t, _first_level):

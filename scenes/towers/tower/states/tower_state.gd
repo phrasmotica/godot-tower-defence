@@ -30,3 +30,9 @@ func transition_state(
 	state_data := TowerStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func is_placing() -> bool:
+	return false
+
+func can_be_placed() -> bool:
+	return false

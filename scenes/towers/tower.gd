@@ -29,7 +29,6 @@ var collision_area: Area2D = %CollisionArea
 var path_manager: PathManager
 var tower_mode = State.PLACING
 var is_selected = false
-var is_valid_location = false
 var enemy_sorter = EnemySorter.new()
 
 var _state_factory := TowerStateFactory.new()
@@ -41,24 +40,10 @@ signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
 signal on_deselected
 
-func _ready():
-	deselect()
-
-	adjust_range(levels_node.get_current_level().get_range(true))
-
-	if is_placing():
-		selection.selection_visible = false
-
-		visualiser.show_range()
-		visualiser.show_bolt_line = false
+func _ready() -> void:
+	switch_state(State.PLACING)
 
 func _process(delta):
-	if is_placing():
-		if not visible:
-			show()
-
-		global_position = get_viewport().get_mouse_position()
-
 	if is_firing():
 		scan(delta)
 
@@ -84,14 +69,11 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 func set_warming_up():
 	tower_mode = State.WARMUP
 
-func set_placing():
-	tower_mode = State.PLACING
+func is_placing() -> bool:
+	return _current_state != null and _current_state.is_placing()
 
-func is_placing():
-	return tower_mode == State.PLACING
-
-func can_be_placed():
-	return is_placing() and is_valid_location
+func can_be_placed() -> bool:
+	return _current_state != null and _current_state.can_be_placed()
 
 func set_firing():
 	tower_mode = State.FIRING
@@ -237,6 +219,8 @@ func try_place():
 		print("Cannot place tower here!")
 		return
 
+	switch_state(State.WARMUP)
+
 	set_warming_up()
 	hide_visualiser()
 	progress_bars.do_warmup()
@@ -300,18 +284,6 @@ func _on_levels_upgraded(new_level: TowerLevel):
 	set_firing()
 
 	on_upgrade_finish.emit(self, new_level)
-
-# NOTE: Area2D handling a collision with a TileSet's physics layer
-# must use body_entered/exited rather than area_entered/exited!!
-func _on_collision_area_body_entered(_body: Node2D):
-	print(tower_name + " entered path area")
-	is_valid_location = false
-	set_error_look()
-
-func _on_collision_area_body_exited(_body: Node2D):
-	print(tower_name + " exited path area")
-	is_valid_location = true
-	set_default_look()
 
 func _on_levels_created_projectile(projectile: Projectile):
 	print("Adding projectile as child")

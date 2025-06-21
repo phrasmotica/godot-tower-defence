@@ -55,9 +55,9 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
 
-func _on_selected_tower_changed(tower: Tower, old_tower: Tower) -> void:
+func _on_selected_tower_changed(_tower: Tower, old_tower: Tower) -> void:
 	# we assume tower is not null here
-	tower.reparent(self, true)
+	# tower.reparent(self, true)
 
 	game_tint.show()
 
