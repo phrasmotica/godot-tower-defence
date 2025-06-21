@@ -57,38 +57,30 @@ func _ready():
 
 	switch_state(State.DISABLED)
 
-	set_process(false)
-
-func _process(_delta):
-	if Engine.is_editor_hint():
-		return
-
-	if Input.is_action_just_pressed("ui_cancel"):
-		if placing_tower:
-			stop_tower_creation(true)
-
-			create_tower_ui.set_default_mode()
-		else:
-			deselect_tower.emit()
-
-	if Input.is_action_just_pressed("next_tower"):
-		next_tower.emit()
-
-	if Input.is_action_just_pressed("previous_tower"):
-		previous_tower.emit()
-
 func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	if _current_state != null:
 		_current_state.queue_free()
 
 	_current_state = _state_factory.get_fresh_state(state)
 
-	_current_state.setup(self, state_data)
+	_current_state.setup(
+		self,
+		state_data,
+		create_tower_ui)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
+
+func emit_next_tower() -> void:
+	next_tower.emit()
+
+func emit_previous_tower() -> void:
+	previous_tower.emit()
+
+func emit_deselect_tower() -> void:
+	deselect_tower.emit()
 
 func try_place(tower_scene: PackedScene):
 	var new_id := tower_scene.get_instance_id()
@@ -154,8 +146,7 @@ func _on_placing_tower_on_upgrade_finish(tower: Tower, _next_level: TowerLevel):
 	BankManager.emit_money_changed()
 
 func _on_start_game_start(_path_index: int):
-	print("Enabling game UI process")
-	set_process(true)
+	switch_state(State.ENABLED)
 
 	create_tower_ui.start_game()
 
