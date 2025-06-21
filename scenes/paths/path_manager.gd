@@ -97,12 +97,12 @@ func _on_waves_manager_waves_began() -> void:
 
 func _on_path_mouse_validity_changed(is_valid: bool) -> void:
 	if is_valid:
-		print("Valid area entered")
+		# print("Valid area entered")
 		is_mouse_over_valid_area = true
 
 		mouse_validity_changed.emit(true)
 	else:
-		print("Valid area exited")
+		# print("Valid area exited")
 		is_mouse_over_valid_area = false
 
 		mouse_validity_changed.emit(false)

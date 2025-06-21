@@ -50,12 +50,12 @@ func spawn_enemy(enemy_scene: PackedScene):
 	return enemy
 
 func _on_path_mouse_entered() -> void:
-	print("Valid area entered")
+	# print("Valid area entered")
 
 	mouse_validity_changed.emit(true)
 
 func _on_path_mouse_exited() -> void:
-	print("Valid area exited")
+	# print("Valid area exited")
 
 	mouse_validity_changed.emit(false)
 
