@@ -90,5 +90,3 @@ grow_vertical = 2
 [connection signal="tower_target_mode_changed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_target_mode_changed"]
 [connection signal="upgrade_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
 [connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]
-[connection signal="start" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_start"]
-[connection signal="start" from="OverlayCanvas/StartGame" to="CanvasLayer/GameUI" method="_on_start_game_start"]

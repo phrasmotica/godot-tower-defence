@@ -40,6 +40,8 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
+	GameEvents.game_started.connect(_on_game_events_game_started)
+
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
@@ -75,9 +77,7 @@ func emit_previous_tower() -> void:
 func emit_deselect_tower() -> void:
 	deselect_tower.emit()
 
-func _on_start_game_start(_path_index: int):
-	create_tower_ui.start_game()
-
+func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
 
 func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):

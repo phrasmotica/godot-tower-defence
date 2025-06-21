@@ -13,11 +13,16 @@ signal waves_began
 signal wave_sent(wave: Wave)
 
 func _ready():
+	GameEvents.game_started.connect(_on_game_events_game_started)
+
 	set_process(false)
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		next()
+
+func _on_game_events_game_started(_path_index: int) -> void:
+	start_game()
 
 func setup(path_manager: PathManager) -> void:
 	_path_manager = path_manager

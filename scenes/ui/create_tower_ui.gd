@@ -10,8 +10,13 @@ signal cancel_tower
 func _ready() -> void:
 	BankManager.money_changed.connect(_on_bank_manager_money_changed)
 
+	GameEvents.game_started.connect(_on_game_events_game_started)
+
 func _on_bank_manager_money_changed(new_money: int) -> void:
 	update_affordability(new_money)
+
+func _on_game_events_game_started(_path_index: int) -> void:
+	start_game()
 
 func start_game():
 	for ctb in create_tower_buttons:
