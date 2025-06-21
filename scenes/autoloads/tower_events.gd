@@ -2,7 +2,12 @@ extends Node
 
 signal tower_placing_started(tower: Tower)
 signal tower_placing_finished(tower: Tower)
+
+signal deselect_tower
 signal tower_selected(tower: Tower)
+signal next_tower
+signal previous_tower
+
 signal tower_upgrade_started(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
 
@@ -20,6 +25,21 @@ func emit_tower_selected(tower: Tower) -> void:
 	print("Selected " + tower.name)
 
 	tower_selected.emit(tower)
+
+func emit_deselect_tower() -> void:
+	print("Deselect tower")
+
+	deselect_tower.emit()
+
+func emit_next_tower() -> void:
+	print("Next tower")
+
+	next_tower.emit()
+
+func emit_previous_tower() -> void:
+	print("Previous tower")
+
+	previous_tower.emit()
 
 func emit_tower_upgrade_started(tower: Tower, next_level: TowerLevel) -> void:
 	print(tower.name + " upgrade started")

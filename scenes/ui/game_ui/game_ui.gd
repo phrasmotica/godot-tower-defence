@@ -20,10 +20,6 @@ var animation_player: AnimationPlayer
 
 signal selected_tower_handled
 
-signal next_tower
-signal previous_tower
-signal deselect_tower
-
 signal tower_target_mode_changed(index: int)
 
 signal upgrade_tower(index: int)
@@ -58,15 +54,6 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func emit_next_tower() -> void:
-	next_tower.emit()
-
-func emit_previous_tower() -> void:
-	previous_tower.emit()
-
-func emit_deselect_tower() -> void:
-	deselect_tower.emit()
 
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)

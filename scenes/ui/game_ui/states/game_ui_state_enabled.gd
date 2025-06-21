@@ -6,10 +6,10 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		_game_ui.emit_deselect_tower()
+		TowerEvents.emit_deselect_tower()
 
 	if Input.is_action_just_pressed("next_tower"):
-		_game_ui.emit_next_tower()
+		TowerEvents.emit_next_tower()
 
 	if Input.is_action_just_pressed("previous_tower"):
-		_game_ui.emit_previous_tower()
+		TowerEvents.emit_previous_tower()

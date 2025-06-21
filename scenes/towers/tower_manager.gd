@@ -16,9 +16,13 @@ func _ready() -> void:
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
 	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
-	TowerEvents.tower_selected.connect(_on_tower_selected)
 
-func next_tower():
+	TowerEvents.tower_selected.connect(_on_tower_selected)
+	TowerEvents.deselect_tower.connect(deselect_tower)
+	TowerEvents.next_tower.connect(next_tower)
+	TowerEvents.previous_tower.connect(previous_tower)
+
+func next_tower() -> void:
 	if all_towers.size() <= 0:
 		return
 
@@ -33,7 +37,7 @@ func next_tower():
 	var new_tower = all_towers[selected_idx]
 	select_tower(new_tower)
 
-func previous_tower():
+func previous_tower() -> void:
 	if all_towers.size() <= 0:
 		return
 
@@ -144,17 +148,8 @@ func _on_tower_selected(tower: Tower) -> void:
 
 	select_tower(tower)
 
-func _on_game_ui_next_tower():
-	next_tower()
-
-func _on_game_ui_previous_tower():
-	previous_tower()
-
 func _on_game_ui_upgrade_tower(index: int):
 	try_upgrade(index)
-
-func _on_game_ui_deselect_tower():
-	deselect_tower()
 
 func _on_game_ui_sell_tower():
 	try_sell()
