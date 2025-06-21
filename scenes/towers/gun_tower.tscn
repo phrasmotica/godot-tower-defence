@@ -239,9 +239,6 @@ libraries = {
 
 [node name="Barrel" parent="." instance=ExtResource("7_mplx0")]
 
-[connection signal="gui_input" from="Selection" to="." method="_on_selection_gui_input"]
-[connection signal="mouse_entered" from="Selection" to="." method="_on_selection_mouse_entered"]
-[connection signal="mouse_exited" from="Selection" to="." method="_on_selection_mouse_exited"]
 [connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
 [connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]

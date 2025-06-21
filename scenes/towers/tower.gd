@@ -35,8 +35,6 @@ var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
 signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
-signal on_selected(tower: Tower)
-signal on_deselected
 
 func _ready() -> void:
 	switch_state(State.PLACING)
@@ -68,9 +66,6 @@ func is_placing() -> bool:
 
 func can_be_placed() -> bool:
 	return _current_state != null and _current_state.can_be_placed()
-
-func is_firing():
-	return tower_mode == State.FIRING
 
 func set_upgrading():
 	tower_mode = State.UPGRADING
@@ -139,17 +134,15 @@ func get_range_px(for_effect: bool):
 	# 1 range => 100px
 	return actual_range * 100
 
-func select():
+func select() -> void:
 	selection.selection_visible = true
 	visualiser.show_range()
 	is_selected = true
 
-func deselect():
+func deselect() -> void:
 	selection.selection_visible = false
 	visualiser.hide_range()
 	is_selected = false
-
-	on_deselected.emit()
 
 func set_target_mode(index: int):
 	target_mode = index as TargetMode
@@ -191,19 +184,6 @@ func should_create_effect(enemies: Array[Enemy]):
 
 func should_bolt(enemies: Array[Enemy]):
 	return levels_node.should_bolt(enemies)
-
-func _on_selection_mouse_entered():
-	if not is_placing():
-		visualiser.show_range()
-
-func _on_selection_mouse_exited():
-	if not is_placing() and not is_selected:
-		visualiser.hide_range()
-
-func _on_selection_gui_input(event: InputEvent):
-	if event.is_pressed():
-		if is_firing() and not is_selected:
-			on_selected.emit(self)
 
 func _on_barrel_shoot():
 	var in_range_enemies = get_near_enemies(false)

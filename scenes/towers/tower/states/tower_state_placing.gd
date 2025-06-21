@@ -16,6 +16,7 @@ func _enter_tree() -> void:
 	_collision_area.body_exited.connect(_on_collision_area_body_exited)
 
 	_selection.selection_visible = false
+	_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	_visualiser.show_range()
 	_visualiser.show_bolt_line = false
@@ -58,7 +59,6 @@ func _on_path_manager_valid_area_clicked() -> void:
 
 	print("Placed new %s" % _tower.tower_name)
 
-	_tower.on_selected.connect(TowerEvents.emit_tower_selected)
 	_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
 
 	BankManager.deduct(_tower.price)
