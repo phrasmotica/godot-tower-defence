@@ -64,17 +64,11 @@ func _on_selected_tower_changed(tower: Tower, old_tower: Tower) -> void:
 	if old_tower == null:
 		animate_show_ui()
 
-	# allows tower upgrade buttons to update their state
-	BankManager.emit_money_changed()
-
 func _on_tower_deselected() -> void:
 	game_tint.hide()
 
 	if _is_animated_in:
 		animate_hide_ui()
-
-	# allows tower upgrade buttons to update their state
-	BankManager.emit_money_changed()
 
 func animate_show_ui() -> void:
 	animation_player.play("show_tower_ui")

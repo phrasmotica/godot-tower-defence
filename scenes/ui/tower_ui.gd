@@ -13,6 +13,8 @@ var upgrade_button_1: UpgradeTowerButton
 @export
 var sell_button: SellButton
 
+var _money_from_bank := 0
+
 func _ready() -> void:
 	BankManager.money_changed.connect(_on_bank_manager_money_changed)
 
@@ -24,7 +26,9 @@ func _ready() -> void:
 		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
 func _on_bank_manager_money_changed(new_money: int) -> void:
-	update_affordability(new_money)
+	_money_from_bank = new_money
+
+	update_affordability()
 
 func disable_upgrades() -> void:
 	upgrade_button_0.disabled = true
@@ -33,12 +37,12 @@ func disable_upgrades() -> void:
 	upgrade_button_1.disabled = true
 	upgrade_button_1.disable_button(false)
 
-func update_affordability(new_money: int):
+func update_affordability() -> void:
 	if upgrade_button_0:
-		upgrade_button_0.update_affordability(new_money)
+		upgrade_button_0.update_affordability(_money_from_bank)
 
 	if upgrade_button_1:
-		upgrade_button_1.update_affordability(new_money)
+		upgrade_button_1.update_affordability(_money_from_bank)
 
 func set_tower(tower: Tower):
 	tower_name_label.text = tower.tower_name if tower else ""
@@ -50,9 +54,11 @@ func set_tower(tower: Tower):
 
 func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 	set_tower(new_tower)
+	update_affordability()
 
 func _on_tower_deselected() -> void:
 	set_tower(null)
+	update_affordability()
 
 func _on_tower_upgrade_started(_tower: Tower, _next_level: TowerLevel) -> void:
 	disable_upgrades()
