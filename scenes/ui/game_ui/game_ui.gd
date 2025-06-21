@@ -1,6 +1,8 @@
 @tool
 class_name GameUI extends Control
 
+enum State { ENABLED, DISABLED }
+
 @export
 var path_manager: PathManager
 
@@ -38,6 +40,9 @@ signal sell_tower
 var current_tower_scene_id := 0
 var placing_tower: Tower
 
+var _state_factory := GameUIStateFactory.new()
+var _current_state: GameUIState = null
+
 func _ready():
 	if Engine.is_editor_hint():
 		return
@@ -49,6 +54,8 @@ func _ready():
 	WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
 
 	stop_tower_creation(false)
+
+	switch_state(State.DISABLED)
 
 	set_process(false)
 
@@ -69,6 +76,19 @@ func _process(_delta):
 
 	if Input.is_action_just_pressed("previous_tower"):
 		previous_tower.emit()
+
+func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(self, state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "GameUIStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func try_place(tower_scene: PackedScene):
 	var new_id := tower_scene.get_instance_id()
