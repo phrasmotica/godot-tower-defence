@@ -93,11 +93,12 @@ _data = {
 &"shoot": SubResource("Animation_g58ni")
 }
 
-[node name="SniperTower" type="Node2D"]
+[node name="SniperTower" type="Node2D" node_paths=PackedStringArray("firing_line")]
 script = ExtResource("1_ta74e")
 tower_name = "Sniper"
 tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
 price = 5
+firing_line = NodePath("Levels/FiringLine")
 
 [node name="Selection" parent="." instance=ExtResource("2_pmdjk")]
 
@@ -172,10 +173,6 @@ enable_bolt = true
 [connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
 [connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
 [connection signal="adjust_range" from="Levels" to="Levels/FiringLine" method="_on_levels_adjust_range"]
-[connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
-[connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
 [connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
-[connection signal="created_line" from="Levels/FiringLine" to="." method="_on_firing_line_created_line"]
 [connection signal="adjust_range" from="Levels/BaseLevel/Stats" to="Levels/BaseLevel" method="_on_stats_adjust_range"]
 [connection signal="adjust_range" from="Levels/BaseLevel/InfinitePenetration/Stats" to="Levels/BaseLevel/InfinitePenetration" method="_on_stats_adjust_range"]
-[connection signal="bolt" from="Barrel" to="." method="_on_barrel_bolt"]

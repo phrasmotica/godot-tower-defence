@@ -16,6 +16,9 @@ var price: int = 1
 @export
 var target_mode := TargetMode.NEAR
 
+@export
+var firing_line: FiringLine
+
 @onready
 var collision_area: Area2D = %CollisionArea
 
@@ -54,7 +57,9 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		visualiser,
 		progress_bars,
 		path_manager,
-		barrel)
+		barrel,
+		firing_line,
+		animation_player)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)
@@ -75,52 +80,6 @@ func is_upgrading():
 
 func set_disabled():
 	tower_mode = State.DISABLED
-
-func scan(delta):
-	var near_enemy = get_near_enemy(false)
-	if near_enemy:
-		levels_node.point_towards_enemy(near_enemy, delta)
-
-func get_near_enemies(for_effect: bool) -> Array[Enemy]:
-	var enemies = path_manager.enemies
-	if enemies.size() <= 0:
-		return []
-
-	var valid_enemies = enemies.filter(func(e): return e != null and not e.is_queued_for_deletion())
-	if valid_enemies.size() <= 0:
-		return []
-
-	var shooting_range = get_range_px(for_effect)
-
-	var in_range_enemies = valid_enemies.filter(
-		func(e):
-			return e.get_distance_to(global_position) <= shooting_range
-	)
-
-	if in_range_enemies.size() <= 0:
-		return []
-
-	match target_mode:
-		TargetMode.STRONG:
-			enemy_sorter.strong(in_range_enemies)
-		TargetMode.FAR:
-			enemy_sorter.far(in_range_enemies, global_position)
-		_:
-			# nearest enemies first by default
-			enemy_sorter.near(in_range_enemies, global_position)
-
-	return in_range_enemies
-
-func get_near_enemy(for_effect: bool):
-	var enemies = get_near_enemies(for_effect)
-	return enemies[0] if enemies.size() > 0 else null
-
-func get_range_px(for_effect: bool):
-	var current_level = levels_node.get_current_level()
-	var actual_range = current_level.get_range(for_effect)
-
-	# 1 range => 100px
-	return actual_range * 100
 
 func select() -> void:
 	selection.selection_visible = true
@@ -164,43 +123,6 @@ func adjust_range(projectile_range: float):
 	levels_node.level_adjust_range(projectile_range)
 	levels_node.level_adjust_effect_range(projectile_range)
 
-func should_shoot(enemies: Array[Enemy]):
-	return enemies.size() > 0
-
-func should_create_effect(enemies: Array[Enemy]):
-	return levels_node.should_create_effect(enemies)
-
-func should_bolt(enemies: Array[Enemy]):
-	return levels_node.should_bolt(enemies)
-
-func _on_barrel_shoot():
-	var in_range_enemies = get_near_enemies(false)
-	if not should_shoot(in_range_enemies):
-		return
-
-	var level = levels_node.get_current_level()
-
-	level.try_create_projectile()
-
-func _on_barrel_pulse():
-	var in_range_enemies = get_near_enemies(true)
-	if not should_create_effect(in_range_enemies):
-		return
-
-	var level = levels_node.get_current_level()
-
-	level.try_create_effect()
-
-func _on_barrel_bolt():
-	var in_range_enemies = get_near_enemies(false)
-
-	if not should_bolt(in_range_enemies):
-		return
-
-	var level = levels_node.get_current_level()
-
-	level.try_shoot_bolt()
-
 func _on_levels_upgraded(new_level: TowerLevel):
 	print(tower_name + " upgrade finished")
 
@@ -209,44 +131,3 @@ func _on_levels_upgraded(new_level: TowerLevel):
 	adjust_range(new_level.get_range(true))
 
 	on_upgrade_finish.emit(self, new_level)
-
-func _on_levels_created_projectile(projectile: Projectile):
-	print("Adding projectile as child")
-
-	animate_shoot()
-
-	# BUG: projectiles get freed when the tower is sold. Probably happens
-	# with bolt lines too...
-	add_child(projectile)
-
-func _on_levels_created_effect(effect: Effect):
-	var enemies := get_near_enemies(true)
-	var valid_enemies := enemies.filter(func(e): return effect.can_act(e))
-
-	if valid_enemies.size() > 0:
-		print("Passing effect to enemies")
-
-		effect.attached_enemies = enemies
-		effect.act_start()
-
-	animate_pulse()
-
-	effect.start_timer()
-
-func _on_firing_line_created_line(bolt_line: BoltLine):
-	print("Adding bolt line as child")
-
-	bolt_line.rotation = levels_node.rotation
-	bolt_line.fire()
-
-	animate_shoot()
-
-	add_child(bolt_line)
-
-func animate_shoot():
-	if animation_player.current_animation.length() <= 0:
-		animation_player.play("shoot")
-
-func animate_pulse():
-	if animation_player.current_animation.length() <= 0:
-		animation_player.play("pulse")
