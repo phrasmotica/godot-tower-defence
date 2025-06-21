@@ -14,11 +14,11 @@ func _process(delta: float) -> void:
 	_tower.scan(delta)
 
 func _on_selection_mouse_entered() -> void:
-	_tower.show_visualiser()
+	_visualiser.show()
 
 func _on_selection_mouse_exited() -> void:
 	if not _tower.is_selected:
-		_tower.hide_visualiser()
+		_visualiser.hide()
 
 func _on_selection_gui_input(event: InputEvent) -> void:
 	if event.is_pressed() and not _tower.is_selected:

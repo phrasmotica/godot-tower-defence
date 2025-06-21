@@ -35,22 +35,22 @@ func _process(_delta: float) -> void:
 func _on_collision_area_body_entered(_body: Node2D) -> void:
 	print(_tower.tower_name + " entered path area")
 	_is_valid_location = false
-	_tower.set_error_look()
+	_visualiser.set_error_look()
 
 func _on_collision_area_body_exited(_body: Node2D) -> void:
 	print(_tower.tower_name + " exited path area")
 	_is_valid_location = true
-	_tower.set_default_look()
+	_visualiser.set_default_look()
 
 func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
 	_is_mouse_over_path = is_valid
 
 	if _is_mouse_over_path:
-		_tower.show_visualiser()
-		_tower.set_default_look()
+		_visualiser.show()
+		_visualiser.set_default_look()
 	else:
-		_tower.hide_visualiser()
-		_tower.set_error_look()
+		_visualiser.hide()
+		_visualiser.set_error_look()
 
 func _on_path_manager_valid_area_clicked() -> void:
 	if not (_is_mouse_over_path and _is_valid_location):

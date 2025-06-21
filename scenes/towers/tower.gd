@@ -76,18 +76,6 @@ func is_upgrading():
 func set_disabled():
 	tower_mode = State.DISABLED
 
-func show_visualiser():
-	visualiser.show()
-
-func hide_visualiser():
-	visualiser.hide()
-
-func set_default_look():
-	visualiser.set_default_look()
-
-func set_error_look():
-	visualiser.set_error_look()
-
 func scan(delta):
 	var near_enemy = get_near_enemy(false)
 	if near_enemy:
