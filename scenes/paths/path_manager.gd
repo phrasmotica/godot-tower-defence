@@ -27,6 +27,7 @@ signal enemy_reached_end(enemy: Enemy)
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		GameEvents.game_started.connect(_on_game_events_game_started)
+		GameEvents.path_previewed.connect(_on_game_events_path_previewed)
 
 		LivesManager.setup(self)
 
@@ -85,13 +86,13 @@ func _on_enemy_reached_end(enemy: Enemy):
 
 	enemy_reached_end.emit(enemy)
 
-func _on_start_game_preview(path_index:int):
+func _on_game_events_path_previewed(path_index: int) -> void:
 	active_path_index = path_index
 
 func _on_game_events_game_started(path_index: int) -> void:
 	active_path_index = path_index
 
-func _on_waves_manager_waves_began():
+func _on_waves_manager_waves_began() -> void:
 	get_active_path().start_game()
 
 func _on_path_mouse_validity_changed(is_valid: bool) -> void:

@@ -1,7 +1,5 @@
 class_name StartGame extends Control
 
-signal preview(path_index: int)
-
 func _ready():
 	show()
 
@@ -18,13 +16,13 @@ func _on_play_button_1_pressed():
 	GameEvents.emit_game_started(1)
 
 func _on_play_button_0_mouse_entered():
-	preview.emit(0)
+	GameEvents.emit_path_previewed(0)
 
 func _on_play_button_1_mouse_entered():
-	preview.emit(1)
+	GameEvents.emit_path_previewed(1)
 
 func _on_play_button_0_focus_entered():
-	preview.emit(0)
+	GameEvents.emit_path_previewed(0)
 
 func _on_play_button_1_focus_entered():
-	preview.emit(1)
+	GameEvents.emit_path_previewed(1)
