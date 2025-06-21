@@ -2,7 +2,7 @@
 class_name Path extends Node2D
 
 @export
-var tile_map: TileMap
+var tile_map_layer: TileMapLayer
 
 @export
 var path_waypoints: Path2D
@@ -19,7 +19,7 @@ signal mouse_validity_changed(is_valid: bool)
 signal valid_area_clicked
 
 func _ready() -> void:
-	original_tile_set = tile_map.tile_set
+	original_tile_set = tile_map_layer.tile_set
 
 	if not Engine.is_editor_hint():
 		valid_placement_area.mouse_entered.connect(_on_path_mouse_entered)
@@ -30,14 +30,14 @@ func enable_path():
 	valid_placement_area.input_pickable = true
 	show()
 
-	if not tile_map.tile_set:
-		tile_map.tile_set = original_tile_set
+	if not tile_map_layer.tile_set:
+		tile_map_layer.tile_set = original_tile_set
 
 func disable_path():
 	valid_placement_area.input_pickable = false
 	hide()
 
-	tile_map.tile_set = null
+	tile_map_layer.tile_set = null
 
 func start_game():
 	start_arrow.hide()
