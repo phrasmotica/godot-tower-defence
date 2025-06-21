@@ -78,6 +78,4 @@ offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
-[connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
 [connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]

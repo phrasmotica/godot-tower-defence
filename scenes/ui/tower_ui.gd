@@ -17,6 +17,9 @@ func _ready() -> void:
 	BankManager.money_changed.connect(_on_bank_manager_money_changed)
 
 	if not Engine.is_editor_hint():
+		TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
+		TowerEvents.tower_deselected.connect(_on_tower_deselected)
+
 		TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
@@ -44,6 +47,12 @@ func set_tower(tower: Tower):
 	upgrade_button_1.set_upgrade_level(tower)
 
 	sell_button.set_tower(tower)
+
+func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
+	set_tower(new_tower)
+
+func _on_tower_deselected() -> void:
+	set_tower(null)
 
 func _on_tower_upgrade_started(_tower: Tower, _next_level: TowerLevel) -> void:
 	disable_upgrades()

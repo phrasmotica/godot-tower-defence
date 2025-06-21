@@ -4,9 +4,6 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-signal selected_tower_changed(tower: Tower, was_unselected: bool)
-signal tower_deselected
-
 signal tower_sold(sell_value: int)
 
 func _ready() -> void:
@@ -18,7 +15,7 @@ func _ready() -> void:
 	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 
 	TowerEvents.tower_selected.connect(_on_tower_selected)
-	TowerEvents.deselect_tower.connect(deselect_tower)
+	TowerEvents.tower_deselected.connect(deselect_tower)
 	TowerEvents.next_tower.connect(next_tower)
 	TowerEvents.previous_tower.connect(previous_tower)
 
@@ -57,15 +54,12 @@ func previous_tower() -> void:
 	select_tower(new_tower)
 
 func deselect_tower():
-	if selected_tower == null:
+	if selected_tower:
+		unhighlight()
+		selected_tower.deselect()
+		selected_tower = null
+	else:
 		print("No tower is selected!")
-		return
-
-	unhighlight()
-	selected_tower.deselect()
-	selected_tower = null
-
-	tower_deselected.emit()
 
 func try_upgrade(index: int) -> void:
 	if not selected_tower:
@@ -114,18 +108,16 @@ func unhighlight():
 	if selected_tower:
 		selected_tower.reparent(self, true)
 
-func select_tower(tower: Tower):
+func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
 		print("This tower is already selected!")
 		return
 
-	var was_unselected := false
-
 	if selected_tower:
 		unhighlight()
 		selected_tower.deselect()
-	else:
-		was_unselected = true
+
+	var old_tower := selected_tower
 
 	selected_tower = tower
 	selected_idx = all_towers.find(tower)
@@ -133,7 +125,7 @@ func select_tower(tower: Tower):
 	if selected_tower:
 		selected_tower.select()
 
-	selected_tower_changed.emit(selected_tower, was_unselected)
+	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
 
 func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()

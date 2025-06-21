@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		TowerEvents.emit_deselect_tower()
+		TowerEvents.emit_tower_deselected()
 
 	if Input.is_action_just_pressed("next_tower"):
 		TowerEvents.emit_next_tower()

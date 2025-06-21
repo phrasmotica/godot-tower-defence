@@ -18,16 +18,19 @@ var tower_ui: TowerUI
 @export
 var animation_player: AnimationPlayer
 
-signal selected_tower_handled
-
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
+
+var _is_animated_in := false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
 	GameEvents.game_started.connect(_on_game_events_game_started)
+
+	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
+	TowerEvents.tower_deselected.connect(_on_tower_deselected)
 
 	switch_state(State.DISABLED)
 
@@ -52,43 +55,34 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
 
-func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
-	handle_selected_tower_changed(tower, was_unselected)
+func _on_selected_tower_changed(tower: Tower, old_tower: Tower) -> void:
+	# we assume tower is not null here
+	tower.reparent(self, true)
 
-func _on_towers_tower_deselected():
-	handle_selected_tower_changed(null, false)
+	game_tint.show()
 
-func handle_selected_tower_changed(tower: Tower, was_unselected: bool):
-	set_tower(tower)
-
-	if tower:
-		if was_unselected:
-			animate_show_ui()
-	else:
-		animate_hide_ui()
-
-	selected_tower_handled.emit()
+	if old_tower == null:
+		animate_show_ui()
 
 	# allows tower upgrade buttons to update their state
 	BankManager.emit_money_changed()
 
-func animate_show_ui():
+func _on_tower_deselected() -> void:
+	game_tint.hide()
+
+	if _is_animated_in:
+		animate_hide_ui()
+
+	# allows tower upgrade buttons to update their state
+	BankManager.emit_money_changed()
+
+func animate_show_ui() -> void:
 	animation_player.play("show_tower_ui")
+	_is_animated_in = true
 
-func set_tower(tower: Tower):
-	print("Updating selected tower UI")
-
-	tower_ui.set_tower(tower)
-
-	if tower:
-		tower.reparent(self, true)
-
-		game_tint.show()
-	else:
-		game_tint.hide()
-
-func animate_hide_ui():
+func animate_hide_ui() -> void:
 	animation_player.play("hide_tower_ui")
+	_is_animated_in = false
 
-func hide_ui():
+func hide_ui() -> void:
 	print("Hiding selected tower UI")
