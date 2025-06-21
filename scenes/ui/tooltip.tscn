@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://wwh76ais863f"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_vaipc"]
-[ext_resource type="Script" uid="uid://bc0s4vrokfdr1" path="res://scripts/tooltip.gd" id="2_tflp5"]
+[ext_resource type="Script" uid="uid://bc0s4vrokfdr1" path="res://scenes/ui/tooltip.gd" id="2_tflp5"]
 
 [node name="Tooltip" type="Control" node_paths=PackedStringArray("label")]
 layout_mode = 3

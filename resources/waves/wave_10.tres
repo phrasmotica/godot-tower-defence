@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Wave" load_steps=5 format=3 uid="uid://c1p24oswgeqql"]
+
+[ext_resource type="PackedScene" uid="uid://brbdisl4wehyt" path="res://scenes/enemies/enemy_boss.tscn" id="1_5gtnj"]
+[ext_resource type="Script" uid="uid://c02uqia4i5tf1" path="res://resources/waves/enhancements/wave_enhancement.gd" id="2_ipu5c"]
+[ext_resource type="Script" uid="uid://d3eolves76duj" path="res://resources/waves/wave.gd" id="2_ko7fj"]
+[ext_resource type="Resource" uid="uid://bskgosokjkxw2" path="res://resources/waves/enhancements/double_health.tres" id="2_tdrs1"]
+
+[resource]
+script = ExtResource("2_ko7fj")
+description = "The bosses are back, and they're tougher..."
+enemy = ExtResource("1_5gtnj")
+spawn_count = 10
+spawn_frequency = 2
+enhancements = Array[ExtResource("2_ipu5c")]([ExtResource("2_tdrs1")])

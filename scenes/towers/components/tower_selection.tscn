@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dv3r5r2fd58hf"]
 
 [ext_resource type="Texture2D" uid="uid://du6xscvmfx8l8" path="res://assets/sprites/towerselection.png" id="1_78kw5"]
-[ext_resource type="Script" uid="uid://bf1mgw4dj6iip" path="res://scripts/tower_selection.gd" id="1_q28oh"]
+[ext_resource type="Script" uid="uid://bf1mgw4dj6iip" path="res://scenes/towers/components/tower_selection.gd" id="1_q28oh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fxpcc"]
 atlas = ExtResource("1_78kw5")

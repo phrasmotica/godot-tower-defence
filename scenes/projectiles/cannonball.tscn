@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://d04f2klaib01w"]
 
-[ext_resource type="Script" uid="uid://c07xl3lpg15g8" path="res://scripts/cannonball.gd" id="1_o16qq"]
+[ext_resource type="Script" uid="uid://c07xl3lpg15g8" path="res://scenes/projectiles/cannonball.gd" id="1_o16qq"]
 [ext_resource type="Texture2D" uid="uid://dco13fcvhkn8n" path="res://assets/sprites/bomb.png" id="2_003oa"]
 [ext_resource type="PackedScene" uid="uid://c53efmy8mksei" path="res://scenes/projectiles/explosion.tscn" id="3_c5tgk"]
 

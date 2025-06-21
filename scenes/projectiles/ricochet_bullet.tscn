@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bl4stws58mj3o"]
 
-[ext_resource type="Script" uid="uid://0gtpnpfqdk1k" path="res://scripts/ricochet_bullet.gd" id="1_jukuo"]
+[ext_resource type="Script" uid="uid://0gtpnpfqdk1k" path="res://scenes/projectiles/ricochet_bullet.gd" id="1_jukuo"]
 [ext_resource type="Texture2D" uid="uid://ciowm4a0scvtx" path="res://assets/sprites/ricochet_bullet.png" id="2_134bq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nhoy"]

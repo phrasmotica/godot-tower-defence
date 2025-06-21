@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://dmydv5g0nq3jg"]
 
-[ext_resource type="Script" uid="uid://cvxsg0ofce8sp" path="res://scripts/create_tower_ui.gd" id="1_f2jje"]
+[ext_resource type="Script" uid="uid://cvxsg0ofce8sp" path="res://scenes/ui/create_tower_ui.gd" id="1_f2jje"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="2_g6khh"]
 [ext_resource type="PackedScene" uid="uid://b33exbjvcsol6" path="res://scenes/ui/create_tower_button.tscn" id="3_yi25p"]
 [ext_resource type="PackedScene" uid="uid://bm6ytyxvbceh0" path="res://scenes/towers/gun_tower.tscn" id="4_2mqtm"]

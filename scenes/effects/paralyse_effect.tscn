@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c8ef3082f0jwl"]
 
-[ext_resource type="Script" uid="uid://cnuglldwvdnra" path="res://scripts/paralyse_effect.gd" id="1_f4ctf"]
+[ext_resource type="Script" uid="uid://cnuglldwvdnra" path="res://scenes/effects/paralyse_effect.gd" id="1_f4ctf"]
 
 [node name="ParalyseEffect" type="Node"]
 process_mode = 4

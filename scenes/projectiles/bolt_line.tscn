@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://mfvhoc1kpcc0"]
 
-[ext_resource type="Script" uid="uid://bt6qq2e3enjak" path="res://scripts/bolt_line.gd" id="1_2fu0e"]
+[ext_resource type="Script" uid="uid://bt6qq2e3enjak" path="res://scenes/projectiles/bolt_line.gd" id="1_2fu0e"]
 
 [sub_resource type="Animation" id="Animation_j53dh"]
 length = 0.001

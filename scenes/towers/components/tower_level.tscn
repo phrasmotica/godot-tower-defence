@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djj6tjv3p0qo6"]
 
-[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scripts/tower_level.gd" id="1_p6oa4"]
+[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="1_p6oa4"]
 
 [node name="Level" type="Node2D" node_paths=PackedStringArray("animated_sprite")]
 z_index = 100

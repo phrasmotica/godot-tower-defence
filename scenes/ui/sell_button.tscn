@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://4kglokib7mv3"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_50ysw"]
-[ext_resource type="Script" uid="uid://chxuupf3d3lwb" path="res://scripts/sell_button.gd" id="2_gf0ww"]
+[ext_resource type="Script" uid="uid://chxuupf3d3lwb" path="res://scenes/ui/sell_button.gd" id="2_gf0ww"]
 [ext_resource type="PackedScene" uid="uid://wwh76ais863f" path="res://scenes/ui/tooltip.tscn" id="3_javho"]
 
 [node name="SellButton" type="Button" node_paths=PackedStringArray("tooltip")]
