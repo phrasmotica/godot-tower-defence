@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://drho24vtc7gs3"]
 
-[ext_resource type="Script" uid="uid://8pgxstn4vsio" path="res://scenes/ui/game_ui.gd" id="1_7yk5n"]
+[ext_resource type="Script" uid="uid://8pgxstn4vsio" path="res://scenes/ui/game_ui/game_ui.gd" id="1_7yk5n"]
 [ext_resource type="PackedScene" uid="uid://6y0ndmyl14yj" path="res://scenes/ui/score_ui.tscn" id="2_la3np"]
 [ext_resource type="PackedScene" uid="uid://dmydv5g0nq3jg" path="res://scenes/ui/create_tower_ui.tscn" id="4_3pagb"]
 [ext_resource type="PackedScene" uid="uid://cdtbovc5xoi4i" path="res://scenes/ui/tower_ui.tscn" id="14_yox6r"]
@@ -73,13 +73,12 @@ _data = {
 &"show_tower_ui": SubResource("Animation_fmc87")
 }
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("score_ui", "create_tower_ui", "tower_ui", "animation_player")]
+[node name="GameUI" type="Control" node_paths=PackedStringArray("create_tower_ui", "tower_ui", "animation_player")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
-score_ui = NodePath("ScoreUI")
 create_tower_ui = NodePath("CreateTowerUI")
 tower_ui = NodePath("TowerUI")
 animation_player = NodePath("AnimationPlayer")
@@ -104,9 +103,3 @@ grow_vertical = 0
 libraries = {
 &"": SubResource("AnimationLibrary_fjgy4")
 }
-
-[connection signal="cancel_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_cancel_tower"]
-[connection signal="create_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_create_tower"]
-[connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
-[connection signal="target_mode_changed" from="TowerUI" to="." method="_on_tower_ui_target_mode_changed"]
-[connection signal="upgrade_tower" from="TowerUI" to="." method="_on_tower_ui_upgrade_tower"]

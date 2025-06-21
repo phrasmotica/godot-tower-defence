@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
 [ext_resource type="PackedScene" uid="uid://c4jpggyrn7oc2" path="res://scenes/ui/start_game.tscn" id="9_sjprc"]
-[ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui.tscn" id="10_gkcsa"]
+[ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui/game_ui.tscn" id="10_gkcsa"]
 [ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/paths/path_1.tscn" id="10_q42hf"]
 
 [node name="Game" type="Node2D"]
@@ -29,7 +29,6 @@ script = ExtResource("5_rtba5")
 editor_description = "Layer for game UI elements."
 
 [node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("path_manager", "game_tint") instance=ExtResource("10_gkcsa")]
-unique_name_in_owner = true
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -77,22 +76,3 @@ offset_right = 274.0
 offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[connection signal="mouse_validity_changed" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_mouse_validity_changed"]
-[connection signal="valid_area_clicked" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_valid_area_clicked"]
-[connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
-[connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
-[connection signal="tower_upgrade_start" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_upgrade_start"]
-[connection signal="deselect_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_deselect_tower"]
-[connection signal="next_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_next_tower"]
-[connection signal="previous_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_previous_tower"]
-[connection signal="sell_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_sell_tower"]
-[connection signal="tower_placed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placed"]
-[connection signal="tower_placing" from="CanvasLayer/GameUI" to="PathManager" method="_on_game_ui_tower_placing"]
-[connection signal="tower_placing" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_placing"]
-[connection signal="tower_selected" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_selected"]
-[connection signal="tower_target_mode_changed" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_tower_target_mode_changed"]
-[connection signal="upgrade_tower" from="CanvasLayer/GameUI" to="Towers" method="_on_game_ui_upgrade_tower"]
-[connection signal="preview" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_preview"]
-[connection signal="start" from="OverlayCanvas/StartGame" to="PathManager" method="_on_start_game_start"]
-[connection signal="start" from="OverlayCanvas/StartGame" to="CanvasLayer/GameUI" method="_on_start_game_start"]

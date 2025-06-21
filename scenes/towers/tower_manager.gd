@@ -4,11 +4,6 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-signal selected_tower_changed(tower: Tower, was_unselected: bool)
-signal tower_deselected
-
-signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
-
 signal tower_sold(sell_value: int)
 
 func _ready() -> void:
@@ -16,7 +11,19 @@ func _ready() -> void:
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
-func next_tower():
+	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
+	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
+
+	TowerEvents.tower_selected.connect(_on_tower_selected)
+	TowerEvents.tower_deselected.connect(deselect_tower)
+	TowerEvents.next_tower.connect(next_tower)
+	TowerEvents.previous_tower.connect(previous_tower)
+
+	TowerEvents.upgrade_tower.connect(try_upgrade)
+	TowerEvents.target_mode_changed.connect(_on_tower_target_mode_changed)
+	TowerEvents.sell_tower.connect(try_sell)
+
+func next_tower() -> void:
 	if all_towers.size() <= 0:
 		return
 
@@ -31,7 +38,7 @@ func next_tower():
 	var new_tower = all_towers[selected_idx]
 	select_tower(new_tower)
 
-func previous_tower():
+func previous_tower() -> void:
 	if all_towers.size() <= 0:
 		return
 
@@ -47,17 +54,14 @@ func previous_tower():
 	select_tower(new_tower)
 
 func deselect_tower():
-	if selected_tower == null:
+	if selected_tower:
+		unhighlight()
+		selected_tower.deselect()
+		selected_tower = null
+	else:
 		print("No tower is selected!")
-		return
 
-	unhighlight()
-	selected_tower.deselect()
-	selected_tower = null
-
-	tower_deselected.emit()
-
-func try_upgrade(index: int):
+func try_upgrade(index: int) -> void:
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return
@@ -79,9 +83,9 @@ func try_upgrade(index: int):
 
 	selected_tower.upgrade(index)
 
-	tower_upgrade_start.emit(selected_tower, next_level)
-
 	BankManager.deduct(next_level.price)
+
+	TowerEvents.emit_tower_upgrade_started(selected_tower, next_level)
 
 func try_sell():
 	if not selected_tower:
@@ -104,18 +108,16 @@ func unhighlight():
 	if selected_tower:
 		selected_tower.reparent(self, true)
 
-func select_tower(tower: Tower):
+func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
 		print("This tower is already selected!")
 		return
 
-	var was_unselected := false
-
 	if selected_tower:
 		unhighlight()
 		selected_tower.deselect()
-	else:
-		was_unselected = true
+
+	var old_tower := selected_tower
 
 	selected_tower = tower
 	selected_idx = all_towers.find(tower)
@@ -123,12 +125,12 @@ func select_tower(tower: Tower):
 	if selected_tower:
 		selected_tower.select()
 
-	selected_tower_changed.emit(selected_tower, was_unselected)
+	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
 
-func _on_game_ui_tower_placing(_tower: Tower):
+func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
-func _on_game_ui_tower_placed(tower: Tower):
+func _on_tower_placing_finished(tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
 	tower.reparent(self, true)
 
@@ -137,25 +139,10 @@ func _on_game_ui_tower_placed(tower: Tower):
 			all_towers.append(t)
 	)
 
-func _on_game_ui_tower_selected(tower: Tower):
+func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()
 
 	select_tower(tower)
-
-func _on_game_ui_next_tower():
-	next_tower()
-
-func _on_game_ui_previous_tower():
-	previous_tower()
-
-func _on_game_ui_upgrade_tower(index: int):
-	try_upgrade(index)
-
-func _on_game_ui_deselect_tower():
-	deselect_tower()
-
-func _on_game_ui_sell_tower():
-	try_sell()
 
 func _on_keyboard_shortcuts_sell_tower():
 	try_sell()
@@ -166,7 +153,7 @@ func _on_lives_manager_lives_depleted():
 	for t in all_towers:
 		t.set_disabled()
 
-func _on_game_ui_tower_target_mode_changed(index: int):
+func _on_tower_target_mode_changed(index: int) -> void:
 	set_target_mode(index)
 
 func set_target_mode(index: int):
