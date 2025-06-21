@@ -16,6 +16,8 @@ func _ready() -> void:
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
+	TowerEvents.tower_selected.connect(_on_tower_selected)
+
 func next_tower():
 	if all_towers.size() <= 0:
 		return
@@ -137,7 +139,7 @@ func _on_game_ui_tower_placed(tower: Tower):
 			all_towers.append(t)
 	)
 
-func _on_game_ui_tower_selected(tower: Tower):
+func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()
 
 	select_tower(tower)

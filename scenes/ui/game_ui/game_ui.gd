@@ -24,7 +24,6 @@ var animation_player: AnimationPlayer
 signal tower_placing(tower: Tower)
 signal tower_placed(tower: Tower)
 
-signal tower_selected(tower: Tower)
 signal selected_tower_handled
 
 signal next_tower
@@ -75,9 +74,6 @@ func emit_tower_placing(tower: Tower) -> void:
 
 func emit_tower_placed(tower: Tower) -> void:
 	tower_placed.emit(tower)
-
-func emit_tower_selected(tower: Tower) -> void:
-	tower_selected.emit(tower)
 
 func emit_next_tower() -> void:
 	next_tower.emit()

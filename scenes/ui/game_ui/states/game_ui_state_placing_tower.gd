@@ -55,25 +55,11 @@ func _on_path_manager_valid_area_clicked() -> void:
 func _on_placing_tower_placed(tower: Tower) -> void:
 	print("Placed new tower")
 
-	# TODO: these callbacks need to exist outside of this state's lifetime
-	placing_tower.on_selected.connect(_on_placing_tower_selected)
-	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
+	placing_tower.on_selected.connect(TowerEvents.emit_tower_selected)
+	placing_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
 
 	_game_ui.emit_tower_placed(tower)
 
 	BankManager.deduct(tower.price)
 
 	finish()
-
-func _on_placing_tower_selected(tower: Tower) -> void:
-	print("Selected " + tower.name)
-
-	_game_ui.emit_tower_selected(tower)
-
-func _on_placing_tower_on_upgrade_finish(tower: Tower, _next_level: TowerLevel) -> void:
-	print("Selected tower upgrade finished")
-
-	_tower_ui.set_tower(tower)
-
-	# allows tower upgrade buttons to update their state
-	BankManager.emit_money_changed()
