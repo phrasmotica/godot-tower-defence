@@ -22,6 +22,9 @@ func _ready() -> void:
 	TowerEvents.next_tower.connect(next_tower)
 	TowerEvents.previous_tower.connect(previous_tower)
 
+	TowerEvents.upgrade_tower.connect(try_upgrade)
+	TowerEvents.sell_tower.connect(try_sell)
+
 func next_tower() -> void:
 	if all_towers.size() <= 0:
 		return
@@ -63,7 +66,7 @@ func deselect_tower():
 
 	tower_deselected.emit()
 
-func try_upgrade(index: int):
+func try_upgrade(index: int) -> void:
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return
@@ -147,12 +150,6 @@ func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()
 
 	select_tower(tower)
-
-func _on_game_ui_upgrade_tower(index: int):
-	try_upgrade(index)
-
-func _on_game_ui_sell_tower():
-	try_sell()
 
 func _on_keyboard_shortcuts_sell_tower():
 	try_sell()

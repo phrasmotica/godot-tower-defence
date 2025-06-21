@@ -14,8 +14,6 @@ var upgrade_button_1: UpgradeTowerButton
 var sell_button: SellButton
 
 signal target_mode_changed(index: int)
-signal upgrade_tower(index: int)
-signal sell_tower
 
 func _ready() -> void:
 	BankManager.money_changed.connect(_on_bank_manager_money_changed)
@@ -56,10 +54,10 @@ func _on_tower_upgrade_finished(tower: Tower, _next_level: TowerLevel) -> void:
 	set_tower(tower)
 
 func _on_upgrade_button_upgrade_tower(index: int):
-	upgrade_tower.emit(index)
+	TowerEvents.emit_upgrade_tower(index)
 
 func _on_target_mode_options_item_selected(index: int):
 	target_mode_changed.emit(index)
 
-func _on_sell_button_sell_tower():
-	sell_tower.emit()
+func _on_sell_button_sell_tower() -> void:
+	TowerEvents.emit_sell_tower()
