@@ -103,5 +103,3 @@ grow_vertical = 0
 libraries = {
 &"": SubResource("AnimationLibrary_fjgy4")
 }
-
-[connection signal="create_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_create_tower"]

@@ -92,6 +92,3 @@ func animate_hide_ui():
 
 func hide_ui():
 	print("Hiding selected tower UI")
-
-func _on_create_tower_ui_create_tower(tower_scene: PackedScene) -> void:
-	switch_state(State.CREATING_TOWER, GameUIStateData.build().with_tower_scene(tower_scene))
