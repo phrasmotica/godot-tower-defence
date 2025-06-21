@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=8 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
@@ -8,25 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://drho24vtc7gs3" path="res://scenes/ui/game_ui.tscn" id="10_gkcsa"]
 [ext_resource type="PackedScene" uid="uid://b456ocmarcb75" path="res://scenes/paths/path_1.tscn" id="10_q42hf"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_u5sy4"]
-size = Vector2(960, 720)
-
 [node name="Game" type="Node2D"]
 
-[node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths", "valid_placement_area")]
+[node name="PathManager" type="Node2D" parent="." node_paths=PackedStringArray("paths")]
 script = ExtResource("8_wg70s")
 paths = [NodePath("Path0"), NodePath("Path1")]
-valid_placement_area = NodePath("ValidPlacementArea")
-
-[node name="ValidPlacementArea" type="Area2D" parent="PathManager"]
-collision_layer = 32
-collision_mask = 0
-monitoring = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PathManager/ValidPlacementArea"]
-position = Vector2(480, 360)
-shape = SubResource("RectangleShape2D_u5sy4")
 
 [node name="Path0" parent="PathManager" instance=ExtResource("9_f2e1u")]
 

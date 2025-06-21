@@ -11,12 +11,8 @@ var active_path_index: int:
 
 		if active_path_index != new_value:
 			active_path_index = new_value
-			set_active_path()
 
-# TODO: make the valid placement area a child of the Path0/Path1 scenes, and
-# handle its input events in the Path script
-@export
-var valid_placement_area: Area2D
+			set_active_path()
 
 var is_mouse_over_valid_area := false
 
@@ -35,20 +31,26 @@ func _ready() -> void:
 		WavesManager.setup(self)
 		WavesManager.waves_began.connect(_on_waves_manager_waves_began)
 
-	valid_placement_area.mouse_entered.connect(_on_valid_placement_area_mouse_entered)
-	valid_placement_area.mouse_exited.connect(_on_valid_placement_area_mouse_exited)
-	valid_placement_area.input_event.connect(_on_valid_placement_area_input_event)
-
 	set_active_path()
 
-func set_active_path():
+func set_active_path() -> void:
 	print("Setting active path " + str(active_path_index))
 
 	for i in range(paths.size()):
 		if i == active_path_index:
 			paths[i].enable_path()
+
+			if not Engine.is_editor_hint():
+				paths[i].mouse_validity_changed.connect(_on_path_mouse_validity_changed)
+				paths[i].valid_area_clicked.connect(_on_path_valid_area_clicked)
 		else:
 			paths[i].disable_path()
+
+			if paths[i].mouse_validity_changed.is_connected(_on_path_mouse_validity_changed):
+				paths[i].mouse_validity_changed.disconnect(_on_path_mouse_validity_changed)
+
+			if paths[i].valid_area_clicked.is_connected(_on_path_valid_area_clicked):
+				paths[i].valid_area_clicked.disconnect(_on_path_valid_area_clicked)
 
 func get_active_path():
 	return paths[active_path_index]
@@ -88,24 +90,20 @@ func _on_start_game_start(path_index: int):
 func _on_waves_manager_waves_began():
 	get_active_path().start_game()
 
-func _on_valid_area_gui_input(event: InputEvent):
-	if event.is_pressed() and is_mouse_over_valid_area:
-		valid_area_clicked.emit()
+func _on_path_mouse_validity_changed(is_valid: bool) -> void:
+	if is_valid:
+		print("Valid area entered")
+		is_mouse_over_valid_area = true
 
-func _on_valid_placement_area_mouse_entered() -> void:
-	print("Valid area entered")
+		mouse_validity_changed.emit(true)
+	else:
+		print("Valid area exited")
+		is_mouse_over_valid_area = false
 
-	is_mouse_over_valid_area = true
-	mouse_validity_changed.emit(true)
+		mouse_validity_changed.emit(false)
 
-func _on_valid_placement_area_mouse_exited() -> void:
-	print("Valid area exited")
-
-	is_mouse_over_valid_area = false
-	mouse_validity_changed.emit(false)
-
-func _on_valid_placement_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event.is_pressed() and is_mouse_over_valid_area:
+func _on_path_valid_area_clicked() -> void:
+	if is_mouse_over_valid_area:
 		valid_area_clicked.emit()
 
 func _on_game_ui_tower_placing(_tower: Tower):
