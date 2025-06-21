@@ -56,7 +56,7 @@ func _refresh() -> void:
 func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0
 
-func get_range(for_effect: bool):
+func get_range(for_effect: bool) -> float:
 	if for_effect and effect_stats:
 		return effect_stats.effect_range
 

@@ -1,10 +1,12 @@
 class_name TowerStateFiring
 extends TowerState
 
-var enemy_sorter := EnemySorter.new()
+var _enemy_finder: EnemyFinder = null
 
 func _enter_tree() -> void:
 	print("Tower is now firing")
+
+	_enemy_finder = EnemyFinder.new(_tower, _level_manager, _path_manager)
 
 	_selection.mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -26,63 +28,13 @@ func _process(delta: float) -> void:
 	scan(delta)
 
 func scan(delta: float) -> void:
-	var near_enemy = get_near_enemy(false)
+	var near_enemy = _enemy_finder.get_near_enemy(false)
 	if near_enemy:
 		_level_manager.point_towards_enemy(near_enemy, delta)
 
-func get_near_enemy(for_effect: bool) -> Enemy:
-	var enemies := get_near_enemies(for_effect)
-	return enemies[0] if enemies.size() > 0 else null
-
-func get_near_enemies(for_effect: bool) -> Array[Enemy]:
-	var enemies = _path_manager.enemies
-	if enemies.size() <= 0:
-		return []
-
-	var valid_enemies = enemies.filter(func(e): return e != null and not e.is_queued_for_deletion())
-	if valid_enemies.size() <= 0:
-		return []
-
-	var shooting_range = get_range_px(for_effect)
-
-	var in_range_enemies = valid_enemies.filter(
-		func(e):
-			return e.get_distance_to(_tower.global_position) <= shooting_range
-	)
-
-	if in_range_enemies.size() <= 0:
-		return []
-
-	match _tower.target_mode:
-		Tower.TargetMode.STRONG:
-			enemy_sorter.strong(in_range_enemies)
-		Tower.TargetMode.FAR:
-			enemy_sorter.far(in_range_enemies, _tower.global_position)
-		_:
-			# nearest enemies first by default
-			enemy_sorter.near(in_range_enemies, _tower.global_position)
-
-	return in_range_enemies
-
-func get_range_px(for_effect: bool):
-	var current_level = _level_manager.get_current_level()
-	var actual_range = current_level.get_range(for_effect)
-
-	# 1 range => 100px
-	return actual_range * 100
-
-func should_shoot(enemies: Array[Enemy]):
-	return enemies.size() > 0
-
-func should_create_effect(enemies: Array[Enemy]):
-	return _level_manager.should_create_effect(enemies)
-
-func should_bolt(enemies: Array[Enemy]):
-	return _level_manager.should_bolt(enemies)
-
 func _on_barrel_shoot() -> void:
-	var in_range_enemies = get_near_enemies(false)
-	if not should_shoot(in_range_enemies):
+	var in_range_enemies := _enemy_finder.get_near_enemies(false)
+	if in_range_enemies.size() <= 0:
 		return
 
 	var level = _level_manager.get_current_level()
@@ -90,8 +42,8 @@ func _on_barrel_shoot() -> void:
 	level.try_create_projectile()
 
 func _on_barrel_pulse() -> void:
-	var in_range_enemies = get_near_enemies(true)
-	if not should_create_effect(in_range_enemies):
+	var in_range_enemies := _enemy_finder.get_near_enemies(true)
+	if not _level_manager.should_create_effect(in_range_enemies):
 		return
 
 	var level = _level_manager.get_current_level()
@@ -99,9 +51,9 @@ func _on_barrel_pulse() -> void:
 	level.try_create_effect()
 
 func _on_barrel_bolt() -> void:
-	var in_range_enemies = get_near_enemies(false)
+	var in_range_enemies := _enemy_finder.get_near_enemies(false)
 
-	if not should_bolt(in_range_enemies):
+	if not _level_manager.should_bolt(in_range_enemies):
 		return
 
 	var level = _level_manager.get_current_level()
@@ -118,8 +70,12 @@ func _on_created_projectile(projectile: Projectile) -> void:
 	_tower.add_child(projectile)
 
 func _on_created_effect(effect: Effect) -> void:
-	var enemies := get_near_enemies(true)
-	var valid_enemies := enemies.filter(func(e): return effect.can_act(e))
+	var enemies := _enemy_finder.get_near_enemies(true)
+
+	var valid_enemies := enemies.filter(
+		func(e: Enemy) -> bool:
+			return effect.can_act(e)
+	)
 
 	if valid_enemies.size() > 0:
 		print("Passing effect to enemies")
