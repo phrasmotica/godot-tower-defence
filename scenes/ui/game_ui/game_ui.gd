@@ -18,9 +18,6 @@ var tower_ui: TowerUI
 @export
 var animation_player: AnimationPlayer
 
-signal tower_placing(tower: Tower)
-signal tower_placed(tower: Tower)
-
 signal selected_tower_handled
 
 signal next_tower
@@ -61,12 +58,6 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func emit_tower_placing(tower: Tower) -> void:
-	tower_placing.emit(tower)
-
-func emit_tower_placed(tower: Tower) -> void:
-	tower_placed.emit(tower)
 
 func emit_next_tower() -> void:
 	next_tower.emit()

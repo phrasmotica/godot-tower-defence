@@ -14,7 +14,7 @@ func _enter_tree() -> void:
 
 	placing_tower.on_placed.connect(_on_placing_tower_placed)
 
-	_game_ui.emit_tower_placing(placing_tower)
+	TowerEvents.emit_tower_placing_started(placing_tower)
 
 	_create_tower_ui.cancel_tower.connect(_on_create_tower_ui_cancel_tower)
 
@@ -58,7 +58,7 @@ func _on_placing_tower_placed(tower: Tower) -> void:
 	placing_tower.on_selected.connect(TowerEvents.emit_tower_selected)
 	placing_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
 
-	_game_ui.emit_tower_placed(tower)
+	TowerEvents.emit_tower_placing_finished(tower)
 
 	BankManager.deduct(tower.price)
 

@@ -14,6 +14,8 @@ func _ready() -> void:
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
+	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
+	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 	TowerEvents.tower_selected.connect(_on_tower_selected)
 
 func next_tower():
@@ -125,10 +127,10 @@ func select_tower(tower: Tower):
 
 	selected_tower_changed.emit(selected_tower, was_unselected)
 
-func _on_game_ui_tower_placing(_tower: Tower):
+func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
-func _on_game_ui_tower_placed(tower: Tower):
+func _on_tower_placing_finished(tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
 	tower.reparent(self, true)
 

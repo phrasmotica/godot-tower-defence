@@ -30,6 +30,8 @@ func _ready() -> void:
 
 		LivesManager.setup(self)
 
+		TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
+
 		WavesManager.setup(self)
 		WavesManager.waves_began.connect(_on_waves_manager_waves_began)
 
@@ -108,5 +110,5 @@ func _on_path_valid_area_clicked() -> void:
 	if is_mouse_over_valid_area:
 		valid_area_clicked.emit()
 
-func _on_game_ui_tower_placing(_tower: Tower):
+func _on_tower_placing_started(_tower: Tower) -> void:
 	mouse_validity_changed.emit(is_mouse_over_valid_area)
