@@ -1,12 +1,18 @@
 extends Node
 
 signal tower_selected(tower: Tower)
+signal tower_upgrade_started(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
 
 func emit_tower_selected(tower: Tower) -> void:
 	print("Selected " + tower.name)
 
 	tower_selected.emit(tower)
+
+func emit_tower_upgrade_started(tower: Tower, next_level: TowerLevel) -> void:
+	print(tower.name + " upgrade started")
+
+	tower_upgrade_started.emit(tower, next_level)
 
 func emit_tower_upgrade_finished(tower: Tower, next_level: TowerLevel) -> void:
 	print(tower.name + " upgrade finished")

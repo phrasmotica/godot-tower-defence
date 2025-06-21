@@ -7,8 +7,6 @@ var selected_tower: Tower = null
 signal selected_tower_changed(tower: Tower, was_unselected: bool)
 signal tower_deselected
 
-signal tower_upgrade_start(tower: Tower, next_level: TowerLevel)
-
 signal tower_sold(sell_value: int)
 
 func _ready() -> void:
@@ -81,9 +79,9 @@ func try_upgrade(index: int):
 
 	selected_tower.upgrade(index)
 
-	tower_upgrade_start.emit(selected_tower, next_level)
-
 	BankManager.deduct(next_level.price)
+
+	TowerEvents.emit_tower_upgrade_started(selected_tower, next_level)
 
 func try_sell():
 	if not selected_tower:

@@ -19,9 +19,10 @@ signal sell_tower
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
-		TowerEvents.tower_upgrade_finished.connect(_on_placing_tower_on_upgrade_finish)
+		TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
+		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
-func disable_upgrades():
+func disable_upgrades() -> void:
 	upgrade_button_0.disabled = true
 	upgrade_button_0.disable_button(false)
 
@@ -43,7 +44,10 @@ func set_tower(tower: Tower):
 
 	sell_button.set_tower(tower)
 
-func _on_placing_tower_on_upgrade_finish(tower: Tower, _next_level: TowerLevel) -> void:
+func _on_tower_upgrade_started(_tower: Tower, _next_level: TowerLevel) -> void:
+	disable_upgrades()
+
+func _on_tower_upgrade_finished(tower: Tower, _next_level: TowerLevel) -> void:
 	set_tower(tower)
 
 func _on_upgrade_button_upgrade_tower(index: int):

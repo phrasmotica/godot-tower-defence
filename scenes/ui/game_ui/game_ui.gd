@@ -101,9 +101,6 @@ func _on_lives_manager_lives_changed(new_lives: int):
 func _on_waves_manager_wave_sent(wave: Wave):
 	score_ui.set_wave(wave)
 
-func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
-	tower_ui.disable_upgrades()
-
 func _on_towers_selected_tower_changed(tower: Tower, was_unselected: bool):
 	handle_selected_tower_changed(tower, was_unselected)
 
