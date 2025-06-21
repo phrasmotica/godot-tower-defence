@@ -29,7 +29,6 @@ var upgrade_path: Array[int] = []
 
 var ongoing_upgrade_index := -1
 
-signal warmed_up(first_level: TowerLevel)
 signal upgraded(new_level: TowerLevel)
 
 signal adjust_range(range: float)
@@ -39,17 +38,17 @@ signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt(stats: TowerLevelStats)
 
-func warmup_started():
+func start_warmup() -> void:
 	base_level.modulate = progress_colour
 
-func warmup_finished():
+func finish_warmup() -> TowerLevel:
 	base_level.modulate = normal_colour
 
 	base_level.created_projectile.connect(_on_level_created_projectile)
 	base_level.created_effect.connect(_on_level_created_effect)
 	base_level.created_bolt.connect(_on_level_created_bolt)
 
-	warmed_up.emit(base_level)
+	return base_level
 
 func start_upgrade(index: int) -> TowerLevel:
 	var next_level = get_upgrade(index)
@@ -170,12 +169,6 @@ func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	firing_line.fire(bolt_stats)
 
 	created_bolt.emit(bolt_stats)
-
-func _on_progress_bars_warmup_started():
-	warmup_started()
-
-func _on_progress_bars_warmup_finished():
-	warmup_finished()
 
 func _on_progress_bars_upgrade_started():
 	upgrade_started()

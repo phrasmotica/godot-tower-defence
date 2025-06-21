@@ -131,7 +131,7 @@ func select_tower(tower: Tower) -> void:
 func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
-func _on_tower_placing_finished(tower: Tower) -> void:
+func _on_tower_placing_finished(_tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
 
 	# reparenting causes the tower node's _ready() method to be called, which
@@ -139,10 +139,10 @@ func _on_tower_placing_finished(tower: Tower) -> void:
 	# reparenting for now
 	# tower.reparent(self, true)
 
-	tower.on_warmed_up.connect(
-		func(t, _first_level):
+	TowerEvents.tower_warmup_finished.connect(
+		func(t: Tower, _first_level: TowerLevel) -> void:
 			all_towers.append(t)
-	)
+	, CONNECT_ONE_SHOT)
 
 func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()

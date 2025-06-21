@@ -11,6 +11,7 @@ var _visualiser: TowerVisualiser = null
 var _level_manager: TowerLevelManager = null
 var _progress_bars: TowerProgressBars = null
 var _path_manager: PathManager = null
+var _barrel: GunBarrel = null
 
 func setup(
 	tower: Tower,
@@ -21,6 +22,7 @@ func setup(
 	visualiser: TowerVisualiser,
 	progress_bars: TowerProgressBars,
 	path_manager: PathManager,
+	barrel: GunBarrel,
 ) -> void:
 	_tower = tower
 	_state_data = state_data
@@ -30,6 +32,7 @@ func setup(
 	_visualiser = visualiser
 	_progress_bars = progress_bars
 	_path_manager = path_manager
+	_barrel = barrel
 
 func transition_state(
 	new_state: Tower.State,

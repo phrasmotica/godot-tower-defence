@@ -34,17 +34,12 @@ var enemy_sorter = EnemySorter.new()
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
-signal on_warmed_up(tower: Tower, first_level: TowerLevel)
 signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
 signal on_deselected
 
 func _ready() -> void:
 	switch_state(State.PLACING)
-
-func _process(delta):
-	if is_firing():
-		scan(delta)
 
 func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 	if _current_state != null:
@@ -60,7 +55,8 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		selection,
 		visualiser,
 		progress_bars,
-		path_manager)
+		path_manager,
+		barrel)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)
@@ -72,9 +68,6 @@ func is_placing() -> bool:
 
 func can_be_placed() -> bool:
 	return _current_state != null and _current_state.can_be_placed()
-
-func set_firing():
-	tower_mode = State.FIRING
 
 func is_firing():
 	return tower_mode == State.FIRING
@@ -213,9 +206,6 @@ func _on_selection_gui_input(event: InputEvent):
 			on_selected.emit(self)
 
 func _on_barrel_shoot():
-	if not is_firing():
-		return
-
 	var in_range_enemies = get_near_enemies(false)
 	if not should_shoot(in_range_enemies):
 		return
@@ -225,9 +215,6 @@ func _on_barrel_shoot():
 	level.try_create_projectile()
 
 func _on_barrel_pulse():
-	if not is_firing():
-		return
-
 	var in_range_enemies = get_near_enemies(true)
 	if not should_create_effect(in_range_enemies):
 		return
@@ -237,9 +224,6 @@ func _on_barrel_pulse():
 	level.try_create_effect()
 
 func _on_barrel_bolt():
-	if not is_firing():
-		return
-
 	var in_range_enemies = get_near_enemies(false)
 
 	if not should_bolt(in_range_enemies):
@@ -249,24 +233,12 @@ func _on_barrel_bolt():
 
 	level.try_shoot_bolt()
 
-func _on_levels_warmed_up(first_level: TowerLevel):
-	print(tower_name + " warmup finished")
-
-	barrel.setup(first_level)
-	selection.enable_mouse()
-
-	set_firing()
-
-	on_warmed_up.emit(self, first_level)
-
 func _on_levels_upgraded(new_level: TowerLevel):
 	print(tower_name + " upgrade finished")
 
 	barrel.setup(new_level)
 
 	adjust_range(new_level.get_range(true))
-
-	set_firing()
 
 	on_upgrade_finish.emit(self, new_level)
 

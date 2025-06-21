@@ -3,6 +3,8 @@ extends Node
 signal tower_placing_started(tower: Tower)
 signal tower_placing_finished(tower: Tower)
 
+signal tower_warmup_finished(tower: Tower, first_level: TowerLevel)
+
 signal tower_selected(tower: Tower)
 signal next_tower
 signal previous_tower
@@ -20,6 +22,11 @@ func emit_tower_placing_started(tower: Tower) -> void:
 	print("Started placing " + tower.name)
 
 	tower_placing_started.emit(tower)
+
+func emit_tower_warmup_finished(tower: Tower, first_level: TowerLevel) -> void:
+	print("Finished warmup " + tower.name)
+
+	tower_warmup_finished.emit(tower, first_level)
 
 func emit_tower_placing_finished(tower: Tower) -> void:
 	print("Finished placing " + tower.name)
