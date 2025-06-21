@@ -102,6 +102,7 @@ price = 5
 [node name="Selection" parent="." instance=ExtResource("2_pmdjk")]
 
 [node name="CollisionArea" type="Area2D" parent="."]
+unique_name_in_owner = true
 collision_layer = 4
 collision_mask = 4
 
@@ -159,7 +160,7 @@ infinite_penetration = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Levels")
 libraries = {
-"": SubResource("AnimationLibrary_qnhh7")
+&"": SubResource("AnimationLibrary_qnhh7")
 }
 
 [node name="Barrel" parent="." instance=ExtResource("11_l3rgg")]

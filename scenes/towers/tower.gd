@@ -16,6 +16,9 @@ var price: int = 1
 @export
 var target_mode := TargetMode.NEAR
 
+@onready
+var collision_area: Area2D = %CollisionArea
+
 @onready var selection: TowerSelection = $Selection
 @onready var visualiser: TowerVisualiser = $Visualiser
 @onready var progress_bars: TowerProgressBars = $ProgressBars
@@ -28,6 +31,9 @@ var tower_mode = State.PLACING
 var is_selected = false
 var is_valid_location = false
 var enemy_sorter = EnemySorter.new()
+
+var _state_factory := TowerStateFactory.new()
+var _current_state: TowerState = null
 
 signal on_placed(tower: Tower)
 signal on_warmed_up(tower: Tower, first_level: TowerLevel)
@@ -55,6 +61,25 @@ func _process(delta):
 
 	if is_firing():
 		scan(delta)
+
+func switch_state(state: State, state_data := TowerStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data,
+		collision_area,
+		levels_node,
+		selection,
+		visualiser)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "TowerStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func set_warming_up():
 	tower_mode = State.WARMUP
