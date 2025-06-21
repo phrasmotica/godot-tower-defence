@@ -12,21 +12,25 @@ var text := "":
 	set(value):
 		text = value
 
-		if text_label:
-			text_label.text = value
+		_refresh()
 
 @export
 var amount := 0:
 	set(value):
 		amount = value
 
-		if amount_label:
-			amount_label.text = default_text if (default_text.length() > 0 and amount == 0) else str(amount)
+		_refresh()
 
 @export
 var default_text := "":
 	set(value):
 		default_text = value
 
-		if amount_label:
-			amount_label.text = value if (value.length() > 0 and amount == 0) else str(amount)
+		_refresh()
+
+func _refresh() -> void:
+	if text_label:
+		text_label.text = text
+
+	if amount_label:
+		amount_label.text = default_text if (default_text.length() > 0 and amount == 0) else str(amount)

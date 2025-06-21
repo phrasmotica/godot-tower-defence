@@ -1,8 +1,11 @@
 @tool
 class_name CreateTowerButton extends Button
 
-@export var tower: PackedScene
-@export var action_name: StringName
+@export
+var tower: PackedScene
+
+@export
+var action_name: StringName
 
 @export
 var tooltip: Control
@@ -32,11 +35,7 @@ var is_creating_mode := false:
 	set(value):
 		is_creating_mode = value
 
-		if is_creating_mode:
-			tooltip.hide()
-			icon = null
-		else:
-			icon = original_icon
+		_refresh()
 
 signal create_tower(tower_scene: PackedScene)
 signal cancel_tower
@@ -60,6 +59,13 @@ func _ready():
 
 	mouse_filter = MOUSE_FILTER_IGNORE
 	set_process(false)
+
+func _refresh() -> void:
+	if is_creating_mode:
+		tooltip.hide()
+		icon = null
+	else:
+		icon = original_icon
 
 func start_game():
 	mouse_filter = MOUSE_FILTER_STOP

@@ -7,12 +7,11 @@ var paths: Array[Path] = []
 @export
 var active_path_index: int:
 	set(value):
-		if Engine.is_editor_hint():
-			if value < 0 or value > paths.size() - 1:
-				return
+		var new_value = clampi(value, 0, paths.size() - 1)
 
-		active_path_index = value
-		set_active_path()
+		if active_path_index != new_value:
+			active_path_index = new_value
+			set_active_path()
 
 # TODO: make the valid placement area a child of the Path0/Path1 scenes, and
 # handle its input events in the Path script

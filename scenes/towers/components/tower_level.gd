@@ -17,7 +17,8 @@ var animated_sprite: AnimatedSprite2D
 var sprite: SpriteFrames:
 	set(value):
 		sprite = value
-		animated_sprite.sprite_frames = value
+
+		_refresh()
 
 @export
 var projectile_stats: TowerLevelStats:
@@ -48,6 +49,9 @@ signal adjust_effect_range(range: float)
 signal created_projectile(projectile: Projectile)
 signal created_effect(effect: Effect)
 signal created_bolt(bolt_stats: TowerLevelStats)
+
+func _refresh() -> void:
+	animated_sprite.sprite_frames = sprite
 
 func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0

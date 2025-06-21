@@ -28,7 +28,8 @@ var show_tooltip := false:
 var align_tooltip_bottom := false:
 	set(value):
 		align_tooltip_bottom = value
-		update_tooltip_position()
+
+		_refresh()
 
 var upgrade_level: TowerLevel
 
@@ -55,7 +56,7 @@ func set_upgrade_level(tower: Tower):
 		disabled = true
 		disable_button(true)
 
-	update_tooltip_position()
+	_refresh()
 
 	tooltip.hide()
 
@@ -83,7 +84,7 @@ func update_affordability(money: int):
 		disabled = true
 		disable_button(true)
 
-func update_tooltip_position():
+func _refresh() -> void:
 	if align_tooltip_bottom:
 		tooltip.position.y = self.size.y - tooltip.size.y
 	else:
@@ -116,4 +117,4 @@ func _on_background_resized():
 	# background node is a panel container, so shrinks to the
 	# correct size after the tooltip content gets updated
 	tooltip.size.y = tooltip.get_node("Background").size.y
-	update_tooltip_position()
+	_refresh()

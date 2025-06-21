@@ -11,21 +11,29 @@ var bolt_line: BoltLine
 var show_range_area := true:
 	set(value):
 		show_range_area = value
-		range_area.visible = value
+
+		_refresh()
 
 @export
 var show_bolt_line := false:
 	set(value):
 		show_bolt_line = value
-		bolt_line.visible = value
+
+		_refresh()
 
 @export
 var radius := 3.0:
 	set(value):
 		radius = value
 
-		range_area.radius = value
-		bolt_line.shooting_range = value
+		_refresh()
+
+func _refresh() -> void:
+	bolt_line.visible = show_bolt_line
+	bolt_line.shooting_range = radius
+
+	range_area.visible = show_range_area
+	range_area.radius = radius
 
 func set_default_look():
 	range_area.set_default_look()

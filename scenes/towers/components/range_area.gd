@@ -8,15 +8,16 @@ var range_sprite: AnimatedSprite2D
 var radius := 3.0:
 	set(value):
 		radius = value
-		adjust_range(value)
 
-func _ready():
-	adjust_range(radius)
+		_refresh()
 
-func adjust_range(projectile_range: float):
+func _ready() -> void:
+	_refresh()
+
+func _refresh() -> void:
 	if range_sprite:
-		var range_scale := projectile_range / 10
-		range_sprite.scale = Vector2(range_scale, range_scale)
+		var range_scale := radius / 10
+		range_sprite.scale = range_scale * Vector2.ONE
 
 func set_default_look():
 	range_sprite.modulate = Color.WHITE

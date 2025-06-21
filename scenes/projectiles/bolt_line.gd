@@ -12,7 +12,10 @@ var shooting_range := 3.0:
 	set(value):
 		shooting_range = value
 
-		line.points[1].x = 100 * value
+		_refresh()
 
-func fire():
+func fire() -> void:
 	animation_player.play("fire")
+
+func _refresh() -> void:
+	line.points[1].x = 100 * shooting_range

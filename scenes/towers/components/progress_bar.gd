@@ -1,7 +1,8 @@
 @tool
 class_name TowerProgressBar extends Node2D
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready
+var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export
 var color_rect: ColorRect

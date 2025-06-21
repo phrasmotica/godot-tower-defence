@@ -12,7 +12,8 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
-@export var base_level: TowerLevel:
+@export
+var base_level: TowerLevel:
 	set(value):
 		print("Base level")
 		base_level = value
