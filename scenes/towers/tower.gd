@@ -1,6 +1,6 @@
 class_name Tower extends Node2D
 
-enum TowerMode { PLACING, WARMUP, FIRING, UPGRADING, DISABLED }
+enum State { PLACING, WARMUP, FIRING, UPGRADING, DISABLED }
 
 enum TargetMode { NEAR, FAR, STRONG }
 
@@ -24,7 +24,7 @@ var target_mode := TargetMode.NEAR
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
-var tower_mode = TowerMode.PLACING
+var tower_mode = State.PLACING
 var is_selected = false
 var is_valid_location = false
 var enemy_sorter = EnemySorter.new()
@@ -57,31 +57,31 @@ func _process(delta):
 		scan(delta)
 
 func set_warming_up():
-	tower_mode = TowerMode.WARMUP
+	tower_mode = State.WARMUP
 
 func set_placing():
-	tower_mode = TowerMode.PLACING
+	tower_mode = State.PLACING
 
 func is_placing():
-	return tower_mode == TowerMode.PLACING
+	return tower_mode == State.PLACING
 
 func can_be_placed():
 	return is_placing() and is_valid_location
 
 func set_firing():
-	tower_mode = TowerMode.FIRING
+	tower_mode = State.FIRING
 
 func is_firing():
-	return tower_mode == TowerMode.FIRING
+	return tower_mode == State.FIRING
 
 func set_upgrading():
-	tower_mode = TowerMode.UPGRADING
+	tower_mode = State.UPGRADING
 
 func is_upgrading():
-	return tower_mode == TowerMode.UPGRADING
+	return tower_mode == State.UPGRADING
 
 func set_disabled():
-	tower_mode = TowerMode.DISABLED
+	tower_mode = State.DISABLED
 
 func show_visualiser():
 	visualiser.show()
