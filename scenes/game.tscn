@@ -78,8 +78,6 @@ offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="mouse_validity_changed" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_mouse_validity_changed"]
-[connection signal="valid_area_clicked" from="PathManager" to="CanvasLayer/GameUI" method="_on_path_manager_valid_area_clicked"]
 [connection signal="selected_tower_changed" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_selected_tower_changed"]
 [connection signal="tower_deselected" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_deselected"]
 [connection signal="tower_upgrade_start" from="Towers" to="CanvasLayer/GameUI" method="_on_towers_tower_upgrade_start"]

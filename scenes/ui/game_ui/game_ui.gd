@@ -1,7 +1,7 @@
 @tool
 class_name GameUI extends Control
 
-enum State { ENABLED, DISABLED }
+enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 
 @export
 var path_manager: PathManager
@@ -37,9 +37,6 @@ signal upgrade_tower(index: int)
 
 signal sell_tower
 
-var current_tower_scene_id := 0
-var placing_tower: Tower
-
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
 
@@ -53,8 +50,6 @@ func _ready():
 
 	WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
 
-	stop_tower_creation(false)
-
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
@@ -66,12 +61,23 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
-		create_tower_ui)
+		tower_ui,
+		create_tower_ui,
+		path_manager)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
+
+func emit_tower_placing(tower: Tower) -> void:
+	tower_placing.emit(tower)
+
+func emit_tower_placed(tower: Tower) -> void:
+	tower_placed.emit(tower)
+
+func emit_tower_selected(tower: Tower) -> void:
+	tower_selected.emit(tower)
 
 func emit_next_tower() -> void:
 	next_tower.emit()
@@ -81,69 +87,6 @@ func emit_previous_tower() -> void:
 
 func emit_deselect_tower() -> void:
 	deselect_tower.emit()
-
-func try_place(tower_scene: PackedScene):
-	var new_id := tower_scene.get_instance_id()
-
-	if current_tower_scene_id == new_id:
-		print("Already placing tower with ID " + str(new_id))
-		return
-
-	create_tower_ui.set_default_mode_except(tower_scene)
-
-	if placing_tower:
-		stop_tower_creation(true)
-
-	placing_tower = tower_scene.instantiate()
-	current_tower_scene_id = new_id
-
-	if not BankManager.can_afford(placing_tower.price):
-		print(placing_tower.name + " purchase failed: cannot afford")
-
-		stop_tower_creation(false)
-
-		return false
-
-	print("Purchasing " + placing_tower.name)
-
-	placing_tower.path_manager = path_manager
-	placing_tower.set_placing()
-	placing_tower.hide()
-
-	placing_tower.on_placed.connect(_on_placing_tower_placed)
-
-	add_child(placing_tower)
-
-	tower_placing.emit(placing_tower)
-
-	return true
-
-func _on_placing_tower_placed(tower: Tower):
-	print("Placed new tower")
-
-	placing_tower.on_selected.connect(_on_placing_tower_selected)
-	placing_tower.on_upgrade_finish.connect(_on_placing_tower_on_upgrade_finish)
-
-	tower_placed.emit(tower)
-
-	BankManager.deduct(tower.price)
-
-	stop_tower_creation(false)
-
-	create_tower_ui.set_default_mode()
-
-func _on_placing_tower_selected(tower: Tower):
-	print("Selected " + tower.name)
-
-	tower_selected.emit(tower)
-
-func _on_placing_tower_on_upgrade_finish(tower: Tower, _next_level: TowerLevel):
-	print("Selected tower upgrade finished")
-
-	tower_ui.set_tower(tower)
-
-	# allows tower upgrade buttons to update their state
-	BankManager.emit_money_changed()
 
 func _on_start_game_start(_path_index: int):
 	switch_state(State.ENABLED)
@@ -161,13 +104,6 @@ func _on_lives_manager_lives_changed(new_lives: int):
 
 func _on_waves_manager_wave_sent(wave: Wave):
 	score_ui.set_wave(wave)
-
-func stop_tower_creation(free: bool):
-	if free and placing_tower:
-		placing_tower.queue_free()
-
-	placing_tower = null
-	current_tower_scene_id = 0
 
 func _on_towers_tower_upgrade_start(_tower: Tower, _next_level: TowerLevel):
 	tower_ui.disable_upgrades()
@@ -213,32 +149,14 @@ func animate_hide_ui():
 func hide_ui():
 	print("Hiding selected tower UI")
 
-func _on_create_tower_ui_create_tower(tower_scene:PackedScene):
-	try_place(tower_scene)
-
-func _on_create_tower_ui_cancel_tower():
-	stop_tower_creation(true)
+func _on_create_tower_ui_create_tower(tower_scene: PackedScene) -> void:
+	switch_state(State.CREATING_TOWER, GameUIStateData.build().with_tower_scene(tower_scene))
 
 func _on_tower_ui_upgrade_tower(index: int):
 	upgrade_tower.emit(index)
 
 func _on_tower_ui_sell_tower():
 	sell_tower.emit()
-
-func _on_path_manager_mouse_validity_changed(is_valid: bool):
-	if placing_tower:
-		placing_tower.is_valid_location = is_valid
-
-		if is_valid:
-			placing_tower.show_visualiser()
-			placing_tower.set_default_look()
-		else:
-			placing_tower.hide_visualiser()
-			placing_tower.set_error_look()
-
-func _on_path_manager_valid_area_clicked():
-	if placing_tower:
-		placing_tower.try_place()
 
 func _on_tower_ui_target_mode_changed(index: int):
 	tower_target_mode_changed.emit(index)
