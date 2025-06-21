@@ -7,8 +7,6 @@ var _is_valid_location := false
 func _enter_tree() -> void:
 	print("Tower is now placing")
 
-	TowerPlacingEvents.mouse_over_path_area_changed.connect(_on_mouse_over_path_area_changed)
-
 	_tower.deselect()
 
 	var current_level := _level_manager.get_current_level()
@@ -22,21 +20,14 @@ func _enter_tree() -> void:
 	_visualiser.show_range()
 	_visualiser.show_bolt_line = false
 
+	_path_manager.mouse_validity_changed.connect(_on_path_manager_mouse_validity_changed)
+	_path_manager.valid_area_clicked.connect(_on_path_manager_valid_area_clicked)
+
 func _process(_delta: float) -> void:
 	if not _tower.visible:
 		_tower.show()
 
 	_tower.global_position = get_viewport().get_mouse_position()
-
-func _on_mouse_over_path_area_changed(is_over: bool) -> void:
-	_is_mouse_over_path = is_over
-
-	if _is_mouse_over_path:
-		_tower.show_visualiser()
-		_tower.set_default_look()
-	else:
-		_tower.hide_visualiser()
-		_tower.set_error_look()
 
 # NOTE: Area2D handling a collision with a TileSet's physics layer
 # must use body_entered/exited rather than area_entered/exited!!
@@ -50,8 +41,31 @@ func _on_collision_area_body_exited(_body: Node2D) -> void:
 	_is_valid_location = true
 	_tower.set_default_look()
 
+func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
+	_is_mouse_over_path = is_valid
+
+	if _is_mouse_over_path:
+		_tower.show_visualiser()
+		_tower.set_default_look()
+	else:
+		_tower.hide_visualiser()
+		_tower.set_error_look()
+
+func _on_path_manager_valid_area_clicked() -> void:
+	if not (_is_mouse_over_path and _is_valid_location):
+		print("Cannot place tower here!")
+		return
+
+	print("Placed new %s" % _tower.tower_name)
+
+	_tower.on_selected.connect(TowerEvents.emit_tower_selected)
+	_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
+
+	BankManager.deduct(_tower.price)
+
+	TowerEvents.emit_tower_placing_finished(_tower)
+
+	transition_state(Tower.State.WARMUP)
+
 func is_placing() -> bool:
 	return true
-
-func can_be_placed() -> bool:
-	return _is_mouse_over_path and _is_valid_location

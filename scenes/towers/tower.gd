@@ -34,7 +34,6 @@ var enemy_sorter = EnemySorter.new()
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
-signal on_placed(tower: Tower)
 signal on_warmed_up(tower: Tower, first_level: TowerLevel)
 signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
 signal on_selected(tower: Tower)
@@ -59,15 +58,14 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		collision_area,
 		levels_node,
 		selection,
-		visualiser)
+		visualiser,
+		progress_bars,
+		path_manager)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func set_warming_up():
-	tower_mode = State.WARMUP
 
 func is_placing() -> bool:
 	return _current_state != null and _current_state.is_placing()
@@ -213,19 +211,6 @@ func _on_selection_gui_input(event: InputEvent):
 	if event.is_pressed():
 		if is_firing() and not is_selected:
 			on_selected.emit(self)
-
-func try_place():
-	if not can_be_placed():
-		print("Cannot place tower here!")
-		return
-
-	switch_state(State.WARMUP)
-
-	set_warming_up()
-	hide_visualiser()
-	progress_bars.do_warmup()
-
-	on_placed.emit(self)
 
 func _on_barrel_shoot():
 	if not is_firing():
