@@ -20,8 +20,6 @@ var animation_player: AnimationPlayer
 
 signal selected_tower_handled
 
-signal tower_target_mode_changed(index: int)
-
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
 
@@ -97,6 +95,3 @@ func hide_ui():
 
 func _on_create_tower_ui_create_tower(tower_scene: PackedScene) -> void:
 	switch_state(State.CREATING_TOWER, GameUIStateData.build().with_tower_scene(tower_scene))
-
-func _on_tower_ui_target_mode_changed(index: int):
-	tower_target_mode_changed.emit(index)

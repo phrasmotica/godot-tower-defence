@@ -23,6 +23,7 @@ func _ready() -> void:
 	TowerEvents.previous_tower.connect(previous_tower)
 
 	TowerEvents.upgrade_tower.connect(try_upgrade)
+	TowerEvents.target_mode_changed.connect(_on_tower_target_mode_changed)
 	TowerEvents.sell_tower.connect(try_sell)
 
 func next_tower() -> void:
@@ -160,7 +161,7 @@ func _on_lives_manager_lives_depleted():
 	for t in all_towers:
 		t.set_disabled()
 
-func _on_game_ui_tower_target_mode_changed(index: int):
+func _on_tower_target_mode_changed(index: int) -> void:
 	set_target_mode(index)
 
 func set_target_mode(index: int):

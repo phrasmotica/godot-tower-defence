@@ -105,5 +105,3 @@ libraries = {
 }
 
 [connection signal="create_tower" from="CreateTowerUI" to="." method="_on_create_tower_ui_create_tower"]
-[connection signal="sell_tower" from="TowerUI" to="." method="_on_tower_ui_sell_tower"]
-[connection signal="target_mode_changed" from="TowerUI" to="." method="_on_tower_ui_target_mode_changed"]

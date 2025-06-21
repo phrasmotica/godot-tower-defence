@@ -12,6 +12,7 @@ signal upgrade_tower(index: int)
 signal tower_upgrade_started(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
 
+signal target_mode_changed(index: int)
 signal sell_tower
 
 func emit_tower_placing_started(tower: Tower) -> void:
@@ -58,6 +59,11 @@ func emit_tower_upgrade_finished(tower: Tower, next_level: TowerLevel) -> void:
 	print(tower.name + " upgrade finished")
 
 	tower_upgrade_finished.emit(tower, next_level)
+
+func emit_target_mode_changed(index: int) -> void:
+	print("Target mode changed")
+
+	target_mode_changed.emit(index)
 
 func emit_sell_tower() -> void:
 	print("Sell tower")
