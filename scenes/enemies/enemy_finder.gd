@@ -4,23 +4,20 @@ var enemy_sorter := EnemySorter.new()
 
 var _tower: Tower = null
 var _level_manager: TowerLevelManager = null
-var _path_manager: PathManager = null
 
 func _init(
 	tower: Tower,
 	level_manager: TowerLevelManager,
-	path_manager: PathManager,
 ) -> void:
 	_tower = tower
 	_level_manager = level_manager
-	_path_manager = path_manager
 
 func get_near_enemy(for_effect: bool) -> Enemy:
 	var enemies := get_near_enemies(for_effect)
 	return enemies[0] if enemies.size() > 0 else null
 
 func get_near_enemies(for_effect: bool) -> Array[Enemy]:
-	var enemies = _path_manager.enemies
+	var enemies = EnemyManager.get_enemies()
 	if enemies.size() <= 0:
 		return []
 

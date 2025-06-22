@@ -56,8 +56,8 @@ func install_upgrade() -> TowerLevel:
 func get_total_value() -> int:
 	return level_manager.get_total_value()
 
-func for_firing(tower: Tower, path_manager: PathManager) -> void:
-	_enemy_finder = EnemyFinder.new(tower, level_manager, path_manager)
+func for_firing(tower: Tower) -> void:
+	_enemy_finder = EnemyFinder.new(tower, level_manager)
 
 func scan(delta: float) -> void:
 	var near_enemy := _enemy_finder.get_near_enemy(false)

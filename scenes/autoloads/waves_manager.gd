@@ -7,7 +7,6 @@ var enemy_scene: PackedScene = preload("res://scenes/enemies/enemy_1.tscn")
 var wave_collection: WaveCollection = preload("res://resources/waves/waves_path0.tres")
 
 var wave_number := 0
-var _path_manager: PathManager = null
 
 signal waves_began
 signal wave_sent(wave: Wave)
@@ -23,9 +22,6 @@ func _process(_delta):
 
 func _on_game_events_game_started(_path_index: int) -> void:
 	start_game()
-
-func setup(path_manager: PathManager) -> void:
-	_path_manager = path_manager
 
 func get_next() -> Wave:
 	if wave_number >= LAST_WAVE:
@@ -63,7 +59,7 @@ func next():
 		print("Using " + str(wave.resource_path) + " resource")
 
 	for i in range(wave.spawn_count):
-		var enemy = _path_manager.spawn_enemy(wave.enemy)
+		var enemy := EnemyManager.spawn_enemy(wave.enemy)
 
 		for e in wave.enhancements:
 			e.act(enemy)

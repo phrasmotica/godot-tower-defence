@@ -5,18 +5,13 @@ const STARTING_LIVES := 10
 var current_lives = STARTING_LIVES
 var is_dead := false
 
-var _path_manager: PathManager = null
-
 signal lives_changed(new_lives: int)
 signal lives_depleted
 
 func _ready() -> void:
+	EnemyEvents.enemy_reached_end.connect(_handle_enemy_reached_end)
+
 	reset_lives()
-
-func setup(path_manager: PathManager) -> void:
-	_path_manager = path_manager
-
-	_path_manager.enemy_reached_end.connect(_handle_enemy_reached_end)
 
 func reset_lives() -> void:
 	set_lives(STARTING_LIVES)

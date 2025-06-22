@@ -42,12 +42,8 @@ func disable_path():
 func start_game():
 	start_arrow.hide()
 
-func spawn_enemy(enemy_scene: PackedScene):
-	var enemy: Enemy = enemy_scene.instantiate()
-
+func add_enemy(enemy: Enemy) -> void:
 	path_waypoints.add_child(enemy)
-
-	return enemy
 
 func _on_path_mouse_entered() -> void:
 	# print("Valid area entered")

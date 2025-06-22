@@ -7,6 +7,11 @@ var _current_money := STARTING_MONEY
 signal money_changed(new_money: int)
 
 func _ready() -> void:
+	EnemyEvents.enemy_died.connect(
+		func(enemy: Enemy) -> void:
+			earn(enemy.bounty)
+	)
+
 	reset_money()
 
 func _set_money(amount: int) -> void:

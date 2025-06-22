@@ -14,7 +14,7 @@ func _enter_tree() -> void:
 	_weaponry.effect_created.connect(_on_effect_created)
 	_weaponry.projectile_created.connect(_on_projectile_created)
 
-	_weaponry.for_firing(_tower, _path_manager)
+	_weaponry.for_firing(_tower)
 
 func _process(delta: float) -> void:
 	_weaponry.scan(delta)
