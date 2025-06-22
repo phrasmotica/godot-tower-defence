@@ -43,6 +43,3 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
-
-func hide_ui() -> void:
-	print("Hiding selected tower UI")
