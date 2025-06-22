@@ -6,39 +6,33 @@ signal state_transition_requested(new_state: Tower.State, state_data: TowerState
 var _tower: Tower = null
 var _state_data: TowerStateData = null
 var _appearance: TowerAppearance = null
-var _collision_area: Area2D = null
+var _colliders: TowerColliders = null
 var _selection: TowerSelection = null
 var _level_manager: TowerLevelManager = null
-var _progress_bars: TowerProgressBars = null
 var _path_manager: PathManager = null
 var _barrel: GunBarrel = null
 var _firing_line: FiringLine = null
-var _animation_player: AnimationPlayer = null
 
 func setup(
 	tower: Tower,
 	state_data: TowerStateData,
 	appearance: TowerAppearance,
-	collision_area: Area2D,
+	colliders: TowerColliders,
 	level_manager: TowerLevelManager,
 	selection: TowerSelection,
-	progress_bars: TowerProgressBars,
 	path_manager: PathManager,
 	barrel: GunBarrel,
 	firing_line: FiringLine,
-	animation_player: AnimationPlayer,
 ) -> void:
 	_tower = tower
 	_state_data = state_data
 	_appearance = appearance
-	_collision_area = collision_area
+	_colliders = colliders
 	_level_manager = level_manager
 	_selection = selection
-	_progress_bars = progress_bars
 	_path_manager = path_manager
 	_barrel = barrel
 	_firing_line = firing_line
-	_animation_player = animation_player
 
 func transition_state(
 	new_state: Tower.State,

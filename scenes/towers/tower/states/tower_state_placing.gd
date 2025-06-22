@@ -10,8 +10,8 @@ func _enter_tree() -> void:
 	var current_level := _level_manager.get_current_level()
 	_appearance.adjust_range(current_level.get_range(true))
 
-	_collision_area.body_entered.connect(_on_collision_area_body_entered)
-	_collision_area.body_exited.connect(_on_collision_area_body_exited)
+	_colliders.path_area_entered.connect(_on_path_area_entered)
+	_colliders.path_area_exited.connect(_on_path_area_exited)
 
 	_selection.selection_visible = false
 	_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -27,15 +27,13 @@ func _process(_delta: float) -> void:
 
 	_tower.global_position = get_viewport().get_mouse_position()
 
-# NOTE: Area2D handling a collision with a TileSet's physics layer
-# must use body_entered/exited rather than area_entered/exited!!
-func _on_collision_area_body_entered(_body: Node2D) -> void:
+func _on_path_area_entered() -> void:
 	print(_tower.tower_name + " entered path area")
 	_is_valid_location = false
 
 	_appearance.error_look()
 
-func _on_collision_area_body_exited(_body: Node2D) -> void:
+func _on_path_area_exited() -> void:
 	print(_tower.tower_name + " exited path area")
 	_is_valid_location = true
 

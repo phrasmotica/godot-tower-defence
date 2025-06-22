@@ -64,7 +64,7 @@ func _on_barrel_bolt() -> void:
 func _on_created_projectile(projectile: Projectile) -> void:
 	print("Adding projectile as child")
 
-	animate_shoot()
+	_appearance.animate_shoot()
 
 	# BUG: projectiles get freed when the tower is sold. Probably happens
 	# with bolt lines too...
@@ -84,7 +84,7 @@ func _on_created_effect(effect: Effect) -> void:
 		effect.attached_enemies = enemies
 		effect.act_start()
 
-	animate_pulse()
+	_appearance.animate_pulse()
 
 	effect.start_timer()
 
@@ -94,17 +94,9 @@ func _on_created_line(bolt_line: BoltLine) -> void:
 	bolt_line.rotation = _level_manager.rotation
 	bolt_line.fire()
 
-	animate_shoot()
+	_appearance.animate_shoot()
 
 	_tower.add_child(bolt_line)
-
-func animate_shoot() -> void:
-	if _animation_player.current_animation.length() <= 0:
-		_animation_player.play("shoot")
-
-func animate_pulse() -> void:
-	if _animation_player.current_animation.length() <= 0:
-		_animation_player.play("pulse")
 
 func _on_selection_mouse_entered() -> void:
 	_appearance.show_visualiser()

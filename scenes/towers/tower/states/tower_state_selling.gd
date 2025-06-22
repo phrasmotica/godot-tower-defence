@@ -5,7 +5,7 @@ func _enter_tree() -> void:
 	print("%s has started selling" % _tower.tower_name)
 
 	# this animation calls queue_free() on its end
-	_animation_player.play("sell")
+	_appearance.animate_sell()
 
 	var sell_price := get_sell_price()
 

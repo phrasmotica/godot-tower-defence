@@ -10,9 +10,7 @@ func _enter_tree() -> void:
 	if next_level:
 		_barrel.pause()
 
-		_progress_bars.upgrade_finished.connect(_on_upgrade_finished)
-
-		_progress_bars.do_upgrade()
+		_appearance.do_upgrade(_on_upgrade_finished)
 
 func _on_upgrade_finished() -> void:
 	print("%s has finished upgrading" % _tower.tower_name)

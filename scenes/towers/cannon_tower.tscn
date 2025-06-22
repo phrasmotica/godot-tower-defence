@@ -1,8 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=20 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_itrc6"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_rqm4h"]
+[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_14fnt"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xd60m"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_3jave"]
@@ -104,13 +105,19 @@ tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("selection", "visualiser", "level_manager", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("selection", "progress_bars", "visualiser", "level_manager", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_rqm4h")
 selection = NodePath("../Selection")
+progress_bars = NodePath("../ProgressBars")
 visualiser = NodePath("../Visualiser")
 level_manager = NodePath("../Levels")
 animation_player = NodePath("../AnimationPlayer")
+
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("3_14fnt")
+collision_area = NodePath("../CollisionArea")
 
 [node name="Selection" parent="." instance=ExtResource("2_itrc6")]
 

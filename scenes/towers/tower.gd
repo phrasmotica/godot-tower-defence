@@ -23,13 +23,11 @@ var firing_line: FiringLine
 var appearance: TowerAppearance = %Appearance
 
 @onready
-var collision_area: Area2D = %CollisionArea
+var colliders: TowerColliders = %Colliders
 
 # TODO: move these into dedicated scripts - TowerAppearance, TowerInteraction (?), TowerWeaponry, etc
 @onready var selection: TowerSelection = $Selection
-@onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
@@ -50,14 +48,12 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		self,
 		state_data,
 		appearance,
-		collision_area,
+		colliders,
 		levels_node,
 		selection,
-		progress_bars,
 		path_manager,
 		barrel,
-		firing_line,
-		animation_player)
+		firing_line)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)

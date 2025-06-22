@@ -5,6 +5,9 @@ extends Node2D
 var selection: TowerSelection
 
 @export
+var progress_bars: TowerProgressBars
+
+@export
 var visualiser: TowerVisualiser
 
 @export
@@ -44,3 +47,25 @@ func show_range() -> void:
 func hide_range() -> void:
 	selection.selection_visible = false
 	visualiser.hide_range()
+
+func do_warmup(finished_callback: Callable) -> void:
+	progress_bars.warmup_finished.connect(finished_callback)
+
+	progress_bars.do_warmup()
+
+func do_upgrade(finished_callback: Callable) -> void:
+	progress_bars.upgrade_finished.connect(finished_callback)
+
+	progress_bars.do_upgrade()
+
+func animate_shoot() -> void:
+	if animation_player.current_animation.length() <= 0:
+		animation_player.play("shoot")
+
+func animate_pulse() -> void:
+	if animation_player.current_animation.length() <= 0:
+		animation_player.play("pulse")
+
+func animate_sell() -> void:
+	# this animation calls queue_free() on the Tower when it ends
+	animation_player.play("sell")

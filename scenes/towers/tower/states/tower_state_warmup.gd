@@ -13,9 +13,7 @@ func _enter_tree() -> void:
 	_selection.mouse_entered.connect(_on_selection_mouse_entered)
 	_selection.mouse_exited.connect(_on_selection_mouse_exited)
 
-	_progress_bars.warmup_finished.connect(_on_warmup_finished)
-
-	_progress_bars.do_warmup()
+	_appearance.do_warmup(_on_warmup_finished)
 
 func _on_selection_mouse_entered() -> void:
 	_appearance.show_visualiser()
