@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
 	TowerEvents.tower_sold.connect(_on_tower_sold)
 
-	_create_tower_ui.create_tower.connect(_on_create_tower)
+	_appearance.create_tower.connect(_on_create_tower)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):

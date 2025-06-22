@@ -6,7 +6,7 @@ func _enter_tree() -> void:
 
 	var tower_scene := _state_data.get_tower_scene()
 
-	_create_tower_ui.set_default_mode_except(tower_scene)
+	_appearance.default_mode_except(tower_scene)
 
 	var placing_tower: Tower = tower_scene.instantiate()
 

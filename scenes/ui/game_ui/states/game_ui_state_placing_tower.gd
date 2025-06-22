@@ -12,7 +12,7 @@ func _enter_tree() -> void:
 
 		transition_state(GameUI.State.ENABLED)
 
-	_create_tower_ui.cancel_tower.connect(_on_create_tower_ui_cancel_tower)
+	_appearance.cancel_tower.connect(_on_cancel_tower)
 
 	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 
@@ -22,7 +22,7 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
 		cancel()
 
-func _on_create_tower_ui_cancel_tower() -> void:
+func _on_cancel_tower() -> void:
 	cancel()
 
 func cancel() -> void:
@@ -32,7 +32,7 @@ func cancel() -> void:
 	finish()
 
 func finish() -> void:
-	_create_tower_ui.set_default_mode()
+	_appearance.default_mode()
 
 	transition_state(GameUI.State.ENABLED)
 
