@@ -41,10 +41,12 @@ func select() -> void:
 	_appearance.show_visualiser()
 	_appearance.show_range()
 
+	_interaction.show_selection()
 	_interaction.set_selected(true)
 
 func deselect() -> void:
 	_appearance.hide_visualiser()
 	_appearance.hide_range()
 
+	_interaction.hide_selection()
 	_interaction.set_selected(false)

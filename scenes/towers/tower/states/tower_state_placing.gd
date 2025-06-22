@@ -7,10 +7,6 @@ var _is_valid_location := false
 func _enter_tree() -> void:
 	print("Tower is now placing")
 
-	var current_level := _weaponry.get_current_level()
-
-	_appearance.adjust_range(current_level.get_range(true))
-
 	_colliders.path_area_entered.connect(_on_path_area_entered)
 	_colliders.path_area_exited.connect(_on_path_area_exited)
 

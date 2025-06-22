@@ -35,10 +35,13 @@ func install_base() -> TowerLevel:
 
 	barrel.setup(first_level)
 
+	adjust_range(first_level.get_range(true))
+
 	return first_level
 
-func get_current_level() -> TowerLevel:
-	return level_manager.get_current_level()
+func adjust_range(projectile_range: float) -> void:
+	level_manager.level_adjust_range(projectile_range)
+	level_manager.level_adjust_effect_range(projectile_range)
 
 func get_upgrade(index: int) -> TowerLevel:
 	return level_manager.get_upgrade(index)
@@ -50,6 +53,8 @@ func install_upgrade() -> TowerLevel:
 	var next_level := level_manager.finish_upgrade()
 
 	barrel.setup(next_level)
+
+	adjust_range(next_level.get_range(true))
 
 	return next_level
 

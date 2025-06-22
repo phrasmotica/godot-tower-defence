@@ -15,24 +15,6 @@
 [ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball.tscn" id="11_m47vg"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="12_nqfhp"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pyg1t"]
-atlas = ExtResource("7_j030q")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0svqt"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pyg1t")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [sub_resource type="Animation" id="Animation_qk45j"]
 length = 0.001
 tracks/0/type = "value"
@@ -101,68 +83,90 @@ _data = {
 &"shoot": SubResource("Animation_dsmby")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyg1t"]
+atlas = ExtResource("7_j030q")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0svqt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyg1t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="CannonTower" type="Node2D"]
 script = ExtResource("1_bjpxi")
 tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("selection", "progress_bars", "visualiser", "level_manager", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_rqm4h")
-selection = NodePath("../Selection")
-progress_bars = NodePath("../ProgressBars")
-visualiser = NodePath("../Visualiser")
-level_manager = NodePath("../Levels")
-animation_player = NodePath("../AnimationPlayer")
+progress_bars = NodePath("ProgressBars")
+visualiser = NodePath("Visualiser")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="ProgressBars" parent="Appearance" instance=ExtResource("3_xd60m")]
+
+[node name="Visualiser" parent="Appearance" instance=ExtResource("4_u4erw")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../../Weaponry/Levels")
+libraries = {
+&"": SubResource("AnimationLibrary_qnhh7")
+}
 
 [node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
 unique_name_in_owner = true
 script = ExtResource("3_14fnt")
-collision_area = NodePath("../CollisionArea")
+collision_area = NodePath("CollisionArea")
 
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
-unique_name_in_owner = true
-script = ExtResource("4_x3l14")
-selection = NodePath("../Selection")
-
-[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
-unique_name_in_owner = true
-script = ExtResource("4_ku1qw")
-level_manager = NodePath("../Levels")
-barrel = NodePath("../Barrel")
-
-[node name="Selection" parent="." instance=ExtResource("2_itrc6")]
-
-[node name="CollisionArea" type="Area2D" parent="."]
+[node name="CollisionArea" type="Area2D" parent="Colliders"]
 unique_name_in_owner = true
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="ProgressBars" parent="." instance=ExtResource("3_xd60m")]
+[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
+unique_name_in_owner = true
+script = ExtResource("4_x3l14")
+selection = NodePath("Selection")
 
-[node name="Visualiser" parent="." instance=ExtResource("4_u4erw")]
+[node name="Selection" parent="Interaction" instance=ExtResource("2_itrc6")]
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
+unique_name_in_owner = true
+script = ExtResource("4_ku1qw")
+level_manager = NodePath("Levels")
+barrel = NodePath("Barrel")
+
+[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
 script = ExtResource("5_3jave")
 base_level = NodePath("BaseLevel")
 
-[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
+[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_1fwj3")]
 sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
 upgrades = [NodePath("LongRange")]
 
-[node name="Stats" type="Node" parent="Levels/BaseLevel"]
+[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("9_7e7tl")
 projectile = ExtResource("11_m47vg")
 damage = 3
 rotate_speed = 2
 projectile_knockback = 80.0
 
-[node name="LongRange" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
+[node name="LongRange" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_1fwj3")]
 visible = false
 modulate = Color(1, 0, 0, 1)
 level_name = "Long Range"
@@ -170,7 +174,7 @@ level_description = "Increased range."
 sprite = SubResource("SpriteFrames_0svqt")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="Levels/BaseLevel/LongRange"]
+[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/LongRange"]
 script = ExtResource("9_7e7tl")
 projectile = ExtResource("11_m47vg")
 damage = 3
@@ -178,15 +182,9 @@ rotate_speed = 2
 projectile_range = 5.0
 projectile_knockback = 80.0
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Levels")
-libraries = {
-&"": SubResource("AnimationLibrary_qnhh7")
-}
+[node name="Barrel" parent="Weaponry" instance=ExtResource("12_nqfhp")]
 
-[node name="Barrel" parent="." instance=ExtResource("12_nqfhp")]
-
-[connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]
-[connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
+[connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
+[connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
+[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
+[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]

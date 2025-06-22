@@ -26,6 +26,8 @@ func _on_warmup_finished() -> void:
 
 	var base_level := _weaponry.install_base()
 
+	_appearance.adjust_range(base_level.get_range(true))
+
 	TowerEvents.emit_tower_warmup_finished(_tower, base_level)
 
 	transition_state(Tower.State.FIRING)

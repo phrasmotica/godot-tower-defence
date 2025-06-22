@@ -16,9 +16,6 @@ var price: int = 1
 @export
 var target_mode := TargetMode.NEAR
 
-@export
-var firing_line: FiringLine
-
 @onready
 var appearance: TowerAppearance = %Appearance
 
