@@ -6,14 +6,14 @@ enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 @export
 var game_tint: ColorRect
 
-@export
-var create_tower_ui: CreateTowerUI
+@onready
+var create_tower_ui: CreateTowerUI = %CreateTowerUI
 
-@export
-var tower_ui: TowerUI
+@onready
+var tower_ui: TowerUI = %TowerUI
 
-@export
-var animation_player: AnimationPlayer
+@onready
+var animation_player: AnimationPlayer = %AnimationPlayer
 
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null

@@ -73,33 +73,31 @@ _data = {
 &"show_tower_ui": SubResource("Animation_fmc87")
 }
 
-[node name="GameUI" type="Control" node_paths=PackedStringArray("create_tower_ui", "tower_ui", "animation_player")]
+[node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 720.0
 script = ExtResource("1_7yk5n")
-create_tower_ui = NodePath("CreateTowerUI")
-tower_ui = NodePath("TowerUI")
-animation_player = NodePath("AnimationPlayer")
 
 [node name="ScoreUI" parent="." instance=ExtResource("2_la3np")]
 offset_bottom = 160.0
 
 [node name="CreateTowerUI" parent="." instance=ExtResource("4_3pagb")]
+unique_name_in_owner = true
 offset_top = 160.0
 offset_bottom = 720.0
 
 [node name="TowerUI" parent="." instance=ExtResource("14_yox6r")]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -300.0
-offset_bottom = 0.0
 grow_vertical = 0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 libraries = {
 &"": SubResource("AnimationLibrary_fjgy4")
 }
