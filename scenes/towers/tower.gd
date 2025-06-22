@@ -25,6 +25,7 @@ var appearance: TowerAppearance = %Appearance
 @onready
 var collision_area: Area2D = %CollisionArea
 
+# TODO: move these into dedicated scripts - TowerAppearance, TowerInteraction (?), TowerWeaponry, etc
 @onready var selection: TowerSelection = $Selection
 @onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
