@@ -6,19 +6,18 @@ func _enter_tree() -> void:
 
 	var upgrade_index := _state_data.get_upgrade_index()
 
-	var next_level := _level_manager.start_upgrade(upgrade_index)
+	var next_level := _weaponry.start_upgrade(upgrade_index)
 	if next_level:
-		_barrel.pause()
+		_weaponry.pause()
 
 		_appearance.do_upgrade(_on_upgrade_finished)
 
 func _on_upgrade_finished() -> void:
 	print("%s has finished upgrading" % _tower.tower_name)
 
-	var next_level := _level_manager.finish_upgrade()
-
-	_barrel.setup(next_level)
 	_selection.enable_mouse()
+
+	var next_level := _weaponry.install_upgrade()
 
 	_appearance.adjust_range(next_level.get_range(true))
 

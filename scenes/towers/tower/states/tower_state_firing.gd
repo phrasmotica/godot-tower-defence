@@ -1,13 +1,10 @@
 class_name TowerStateFiring
 extends TowerState
 
-var _enemy_finder: EnemyFinder = null
 var _is_selected := false
 
 func _enter_tree() -> void:
 	print("Tower is now firing")
-
-	_enemy_finder = EnemyFinder.new(_tower, _level_manager, _path_manager)
 
 	_selection.mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -15,53 +12,16 @@ func _enter_tree() -> void:
 	_selection.mouse_exited.connect(_on_selection_mouse_exited)
 	_selection.gui_input.connect(_on_selection_gui_input)
 
-	_level_manager.created_projectile.connect(_on_created_projectile)
-	_level_manager.created_effect.connect(_on_created_effect)
+	_weaponry.bolt_created.connect(_on_bolt_created)
+	_weaponry.effect_created.connect(_on_effect_created)
+	_weaponry.projectile_created.connect(_on_projectile_created)
 
-	if _firing_line:
-		_firing_line.created_line.connect(_on_created_line)
-
-	_barrel.shoot.connect(_on_barrel_shoot)
-	_barrel.pulse.connect(_on_barrel_pulse)
-	_barrel.bolt.connect(_on_barrel_bolt)
+	_weaponry.for_firing(_tower, _path_manager)
 
 func _process(delta: float) -> void:
-	scan(delta)
+	_weaponry.scan(delta)
 
-func scan(delta: float) -> void:
-	var near_enemy = _enemy_finder.get_near_enemy(false)
-	if near_enemy:
-		_level_manager.point_towards_enemy(near_enemy, delta)
-
-func _on_barrel_shoot() -> void:
-	var in_range_enemies := _enemy_finder.get_near_enemies(false)
-	if in_range_enemies.size() <= 0:
-		return
-
-	var level = _level_manager.get_current_level()
-
-	level.try_create_projectile()
-
-func _on_barrel_pulse() -> void:
-	var in_range_enemies := _enemy_finder.get_near_enemies(true)
-	if not _level_manager.should_create_effect(in_range_enemies):
-		return
-
-	var level = _level_manager.get_current_level()
-
-	level.try_create_effect()
-
-func _on_barrel_bolt() -> void:
-	var in_range_enemies := _enemy_finder.get_near_enemies(false)
-
-	if not _level_manager.should_bolt(in_range_enemies):
-		return
-
-	var level = _level_manager.get_current_level()
-
-	level.try_shoot_bolt()
-
-func _on_created_projectile(projectile: Projectile) -> void:
+func _on_projectile_created(projectile: Projectile) -> void:
 	print("Adding projectile as child")
 
 	_appearance.animate_shoot()
@@ -70,9 +30,7 @@ func _on_created_projectile(projectile: Projectile) -> void:
 	# with bolt lines too...
 	_tower.add_child(projectile)
 
-func _on_created_effect(effect: Effect) -> void:
-	var enemies := _enemy_finder.get_near_enemies(true)
-
+func _on_effect_created(effect: Effect, enemies: Array[Enemy]) -> void:
 	var valid_enemies := enemies.filter(
 		func(e: Enemy) -> bool:
 			return effect.can_act(e)
@@ -88,12 +46,7 @@ func _on_created_effect(effect: Effect) -> void:
 
 	effect.start_timer()
 
-func _on_created_line(bolt_line: BoltLine) -> void:
-	print("Adding bolt line as child")
-
-	bolt_line.rotation = _level_manager.rotation
-	bolt_line.fire()
-
+func _on_bolt_created(bolt_line: BoltLine) -> void:
 	_appearance.animate_shoot()
 
 	_tower.add_child(bolt_line)

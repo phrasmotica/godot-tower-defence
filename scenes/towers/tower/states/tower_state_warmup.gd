@@ -6,7 +6,7 @@ func _enter_tree() -> void:
 
 	_appearance.hide_visualiser()
 
-	_level_manager.start_warmup()
+	_weaponry.start_warmup()
 
 	_selection.mouse_filter = Control.MOUSE_FILTER_STOP
 
@@ -24,11 +24,10 @@ func _on_selection_mouse_exited() -> void:
 func _on_warmup_finished() -> void:
 	print("%s has finished warming up" % _tower.tower_name)
 
-	var first_level := _level_manager.finish_warmup()
-
-	_barrel.setup(first_level)
 	_selection.enable_mouse()
 
-	TowerEvents.emit_tower_warmup_finished(_tower, first_level)
+	var base_level := _weaponry.install_base()
+
+	TowerEvents.emit_tower_warmup_finished(_tower, base_level)
 
 	transition_state(Tower.State.FIRING)

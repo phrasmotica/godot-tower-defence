@@ -8,31 +8,25 @@ var _state_data: TowerStateData = null
 var _appearance: TowerAppearance = null
 var _colliders: TowerColliders = null
 var _selection: TowerSelection = null
-var _level_manager: TowerLevelManager = null
+var _weaponry: TowerWeaponry = null
 var _path_manager: PathManager = null
-var _barrel: GunBarrel = null
-var _firing_line: FiringLine = null
 
 func setup(
 	tower: Tower,
 	state_data: TowerStateData,
 	appearance: TowerAppearance,
 	colliders: TowerColliders,
-	level_manager: TowerLevelManager,
 	selection: TowerSelection,
+	weaponry: TowerWeaponry,
 	path_manager: PathManager,
-	barrel: GunBarrel,
-	firing_line: FiringLine,
 ) -> void:
 	_tower = tower
 	_state_data = state_data
 	_appearance = appearance
 	_colliders = colliders
-	_level_manager = level_manager
 	_selection = selection
+	_weaponry = weaponry
 	_path_manager = path_manager
-	_barrel = barrel
-	_firing_line = firing_line
 
 func transition_state(
 	new_state: Tower.State,

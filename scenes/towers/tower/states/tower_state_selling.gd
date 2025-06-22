@@ -12,5 +12,5 @@ func _enter_tree() -> void:
 	BankManager.earn(sell_price)
 
 func get_sell_price() -> int:
-	var upgrade_value := _level_manager.get_total_value()
+	var upgrade_value := _weaponry.get_total_value()
 	return int((_tower.price + upgrade_value) / 2.0)

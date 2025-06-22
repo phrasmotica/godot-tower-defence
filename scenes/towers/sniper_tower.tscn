@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=20 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_ta74e"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_07j61"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_pmdjk"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_8t556"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_f0eiq"]
+[ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_bxgl4"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_s7iwo"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_0kjs1"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_5un4q"]
@@ -117,6 +118,14 @@ unique_name_in_owner = true
 position = Vector2(-32, -32)
 script = ExtResource("3_f0eiq")
 collision_area = NodePath("../CollisionArea")
+
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel", "firing_line")]
+unique_name_in_owner = true
+position = Vector2(-32, -32)
+script = ExtResource("4_bxgl4")
+level_manager = NodePath("../Levels")
+barrel = NodePath("../Barrel")
+firing_line = NodePath("../Levels/FiringLine")
 
 [node name="Selection" parent="." instance=ExtResource("2_pmdjk")]
 

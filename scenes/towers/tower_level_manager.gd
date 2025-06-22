@@ -32,18 +32,12 @@ var ongoing_upgrade_index := -1
 signal adjust_range(range: float)
 signal adjust_effect_range(range: float)
 
-signal created_projectile(projectile: Projectile)
-signal created_effect(effect: Effect)
-signal created_bolt(stats: TowerLevelStats)
-
 func start_warmup() -> void:
 	base_level.modulate = progress_colour
 
 func finish_warmup() -> TowerLevel:
 	base_level.modulate = normal_colour
 
-	base_level.created_projectile.connect(_on_level_created_projectile)
-	base_level.created_effect.connect(_on_level_created_effect)
 	base_level.created_bolt.connect(_on_level_created_bolt)
 
 	return base_level
@@ -65,14 +59,6 @@ func finish_upgrade() -> TowerLevel:
 	# hide old level
 	var old_level = get_current_level()
 
-	if old_level.created_projectile.is_connected(_on_level_created_projectile):
-		print("Disconnecting _on_level_created_projectile")
-		old_level.created_projectile.disconnect(_on_level_created_projectile)
-
-	if old_level.created_effect.is_connected(_on_level_created_effect):
-		print("Disconnecting _on_level_created_effect")
-		old_level.created_effect.disconnect(_on_level_created_effect)
-
 	if old_level.created_bolt.is_connected(_on_level_created_bolt):
 		print("Disconnecting _on_level_created_bolt")
 		old_level.created_bolt.disconnect(_on_level_created_bolt)
@@ -84,15 +70,13 @@ func finish_upgrade() -> TowerLevel:
 
 	new_level.visible = true
 
-	new_level.created_projectile.connect(_on_level_created_projectile)
-	new_level.created_effect.connect(_on_level_created_effect)
 	new_level.created_bolt.connect(_on_level_created_bolt)
 
 	base_level.modulate = normal_colour
 
 	return new_level
 
-func get_upgrade(index: int):
+func get_upgrade(index: int) -> TowerLevel:
 	return base_level.get_upgrade(upgrade_path, index)
 
 func get_current_level() -> TowerLevel:
@@ -147,22 +131,7 @@ func should_bolt(_enemies: Array[Enemy]):
 
 	return false
 
-func _on_level_created_projectile(projectile: Projectile):
-	print("Rotating projectile")
-
-	projectile.direction = Vector2.RIGHT.rotated(rotation)
-	projectile.rotation = rotation
-
-	created_projectile.emit(projectile)
-
-func _on_level_created_effect(effect: Effect):
-	print("Processing effect")
-
-	created_effect.emit(effect)
-
-func _on_level_created_bolt(bolt_stats: TowerLevelStats):
+func _on_level_created_bolt(bolt_stats: TowerLevelStats) -> void:
 	print("Processing bolt")
 
 	firing_line.fire(bolt_stats)
-
-	created_bolt.emit(bolt_stats)

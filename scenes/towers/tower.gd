@@ -25,10 +25,11 @@ var appearance: TowerAppearance = %Appearance
 @onready
 var colliders: TowerColliders = %Colliders
 
+@onready
+var weaponry: TowerWeaponry = %Weaponry
+
 # TODO: move these into dedicated scripts - TowerAppearance, TowerInteraction (?), TowerWeaponry, etc
 @onready var selection: TowerSelection = $Selection
-@onready var levels_node: TowerLevelManager = $Levels
-@onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
 
@@ -49,11 +50,9 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		state_data,
 		appearance,
 		colliders,
-		levels_node,
 		selection,
-		path_manager,
-		barrel,
-		firing_line)
+		weaponry,
+		path_manager)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)
@@ -81,12 +80,12 @@ func set_target_mode(index: int):
 func upgrade(index: int) -> void:
 	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))
 
-func get_upgrade(index: int):
-	return levels_node.get_upgrade(index)
+func get_upgrade(index: int) -> TowerLevel:
+	return weaponry.get_upgrade(index)
 
 func sell() -> void:
 	switch_state(State.SELLING)
 
-func get_sell_price():
-	var upgrade_value = levels_node.get_total_value()
+func get_sell_price() -> int:
+	var upgrade_value = weaponry.get_total_value()
 	return int((price + upgrade_value) / 2.0)
