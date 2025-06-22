@@ -9,14 +9,6 @@ var animation_player: AnimationPlayer
 
 var _is_animated_in := false
 
-# TODO: use the Tower or TowerPlacing signal bus for these instead
-signal create_tower(tower_scene: PackedScene)
-signal cancel_tower
-
-func _ready() -> void:
-	create_tower_ui.create_tower.connect(create_tower.emit)
-	create_tower_ui.cancel_tower.connect(cancel_tower.emit)
-
 func default_mode() -> void:
 	create_tower_ui.set_default_mode()
 

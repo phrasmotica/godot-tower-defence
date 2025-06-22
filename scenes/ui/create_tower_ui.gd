@@ -4,9 +4,6 @@ class_name CreateTowerUI extends Control
 @export
 var create_tower_buttons: Array[CreateTowerButton]
 
-signal create_tower(tower_scene: PackedScene)
-signal cancel_tower
-
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		BankManager.money_changed.connect(_on_bank_manager_money_changed)
@@ -36,8 +33,8 @@ func update_affordability(money: int):
 	for ctb in create_tower_buttons:
 		ctb.update_affordability(money)
 
-func _on_tower_button_create_tower(tower_scene: PackedScene):
-	create_tower.emit(tower_scene)
+func _on_tower_button_create_tower(tower_scene: PackedScene) -> void:
+	TowerEvents.emit_tower_created(tower_scene)
 
-func _on_tower_button_cancel_tower():
-	cancel_tower.emit()
+func _on_tower_button_cancel_tower() -> void:
+	TowerEvents.emit_tower_creation_cancelled()

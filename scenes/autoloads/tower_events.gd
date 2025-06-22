@@ -1,6 +1,9 @@
 extends Node
 
+signal tower_created(tower_scene: PackedScene)
+
 signal tower_placing_started(tower: Tower)
+signal tower_placing_cancelled
 signal tower_placing_finished(tower: Tower)
 
 signal tower_warmup_finished(tower: Tower, first_level: TowerLevel)
@@ -18,10 +21,20 @@ signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
 signal target_mode_changed(index: int)
 signal tower_sold
 
+func emit_tower_created(tower_scene: PackedScene) -> void:
+	print("Tower created")
+
+	tower_created.emit(tower_scene)
+
 func emit_tower_placing_started(tower: Tower) -> void:
 	print("Started placing " + tower.name)
 
 	tower_placing_started.emit(tower)
+
+func emit_tower_placing_cancelled() -> void:
+	print("Tower placing cancelled")
+
+	tower_placing_cancelled.emit()
 
 func emit_tower_warmup_finished(tower: Tower, first_level: TowerLevel) -> void:
 	print("Finished warmup " + tower.name)
