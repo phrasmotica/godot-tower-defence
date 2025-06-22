@@ -63,12 +63,6 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 
 	call_deferred("add_child", _current_state)
 
-func is_placing() -> bool:
-	return _current_state != null and _current_state.is_placing()
-
-func can_be_placed() -> bool:
-	return _current_state != null and _current_state.can_be_placed()
-
 func is_upgrading() -> bool:
 	return _current_state != null and _current_state.is_upgrading()
 

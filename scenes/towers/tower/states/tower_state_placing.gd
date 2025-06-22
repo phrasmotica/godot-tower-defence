@@ -7,8 +7,6 @@ var _is_valid_location := false
 func _enter_tree() -> void:
 	print("Tower is now placing")
 
-	_tower.deselect()
-
 	var current_level := _level_manager.get_current_level()
 	_appearance.adjust_range(current_level.get_range(true))
 
@@ -63,6 +61,3 @@ func _on_path_manager_valid_area_clicked() -> void:
 	TowerEvents.emit_tower_placing_finished(_tower)
 
 	transition_state(Tower.State.WARMUP)
-
-func is_placing() -> bool:
-	return true

@@ -46,9 +46,6 @@ func transition_state(
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
 
-func is_placing() -> bool:
-	return false
-
 func is_upgrading() -> bool:
 	return false
 
