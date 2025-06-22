@@ -31,8 +31,6 @@ var interaction: TowerInteraction = %Interaction
 @onready
 var weaponry: TowerWeaponry = %Weaponry
 
-var path_manager: PathManager
-
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
@@ -51,8 +49,7 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		appearance,
 		colliders,
 		interaction,
-		weaponry,
-		path_manager)
+		weaponry)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "TowerStateMachine: %s" % str(state)

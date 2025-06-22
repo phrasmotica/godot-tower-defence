@@ -4,9 +4,6 @@ class_name GameUI extends Control
 enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 
 @export
-var path_manager: PathManager
-
-@export
 var game_tint: ColorRect
 
 @export
@@ -45,8 +42,7 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 		self,
 		state_data,
 		tower_ui,
-		create_tower_ui,
-		path_manager)
+		create_tower_ui)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "GameUIStateMachine: %s" % str(state)

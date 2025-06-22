@@ -19,8 +19,8 @@ func _enter_tree() -> void:
 
 	_appearance.for_placing()
 
-	_path_manager.mouse_validity_changed.connect(_on_path_manager_mouse_validity_changed)
-	_path_manager.valid_area_clicked.connect(_on_path_manager_valid_area_clicked)
+	PathInteraction.mouse_validity_changed.connect(_on_mouse_validity_changed)
+	PathInteraction.valid_area_clicked.connect(_on_valid_area_clicked)
 
 func _process(_delta: float) -> void:
 	if not _tower.visible:
@@ -40,7 +40,7 @@ func _on_path_area_exited() -> void:
 
 	_appearance.default_look()
 
-func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
+func _on_mouse_validity_changed(is_valid: bool) -> void:
 	_is_mouse_over_path = is_valid
 
 	if _is_mouse_over_path:
@@ -48,7 +48,7 @@ func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
 	else:
 		_appearance.error_look()
 
-func _on_path_manager_valid_area_clicked() -> void:
+func _on_valid_area_clicked() -> void:
 	if not (_is_mouse_over_path and _is_valid_location):
 		print("Cannot place tower here!")
 		return

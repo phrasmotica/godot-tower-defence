@@ -16,9 +16,6 @@ var active_path_index: int:
 
 var is_mouse_over_valid_area := false
 
-signal mouse_validity_changed(is_valid: bool)
-signal valid_area_clicked
-
 func _ready() -> void:
 	if not Engine.is_editor_hint():
 		EnemyEvents.enemy_spawned.connect(_on_enemy_spawned)
@@ -71,16 +68,16 @@ func _on_path_mouse_validity_changed(is_valid: bool) -> void:
 		# print("Valid area entered")
 		is_mouse_over_valid_area = true
 
-		mouse_validity_changed.emit(true)
+		PathInteraction.emit_mouse_validity_changed(true)
 	else:
 		# print("Valid area exited")
 		is_mouse_over_valid_area = false
 
-		mouse_validity_changed.emit(false)
+		PathInteraction.emit_mouse_validity_changed(false)
 
 func _on_path_valid_area_clicked() -> void:
 	if is_mouse_over_valid_area:
-		valid_area_clicked.emit()
+		PathInteraction.emit_valid_area_clicked()
 
 func _on_tower_placing_started(_tower: Tower) -> void:
-	mouse_validity_changed.emit(is_mouse_over_valid_area)
+	PathInteraction.emit_mouse_validity_changed(is_mouse_over_valid_area)

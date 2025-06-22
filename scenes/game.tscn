@@ -28,7 +28,7 @@ script = ExtResource("5_rtba5")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor_description = "Layer for game UI elements."
 
-[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("path_manager", "game_tint") instance=ExtResource("10_gkcsa")]
+[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("game_tint") instance=ExtResource("10_gkcsa")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -36,7 +36,6 @@ offset_left = -320.0
 offset_right = 0.0
 offset_bottom = 1020.0
 grow_horizontal = 0
-path_manager = NodePath("../../PathManager")
 game_tint = NodePath("GameTint")
 
 [node name="GameTint" type="ColorRect" parent="CanvasLayer/GameUI"]

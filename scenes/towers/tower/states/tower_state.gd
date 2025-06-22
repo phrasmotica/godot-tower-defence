@@ -9,7 +9,6 @@ var _appearance: TowerAppearance = null
 var _colliders: TowerColliders = null
 var _interaction: TowerInteraction = null
 var _weaponry: TowerWeaponry = null
-var _path_manager: PathManager = null
 
 func setup(
 	tower: Tower,
@@ -18,7 +17,6 @@ func setup(
 	colliders: TowerColliders,
 	interaction: TowerInteraction,
 	weaponry: TowerWeaponry,
-	path_manager: PathManager,
 ) -> void:
 	_tower = tower
 	_state_data = state_data
@@ -26,7 +24,6 @@ func setup(
 	_colliders = colliders
 	_interaction = interaction
 	_weaponry = weaponry
-	_path_manager = path_manager
 
 func transition_state(
 	new_state: Tower.State,
