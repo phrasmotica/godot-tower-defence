@@ -31,6 +31,7 @@ func _ready() -> void:
 
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
+	TowerEvents.tower_sold.connect(_on_tower_sold)
 
 	switch_state(State.DISABLED)
 
@@ -65,6 +66,12 @@ func _on_selected_tower_changed(_tower: Tower, old_tower: Tower) -> void:
 		animate_show_ui()
 
 func _on_tower_deselected() -> void:
+	game_tint.hide()
+
+	if _is_animated_in:
+		animate_hide_ui()
+
+func _on_tower_sold() -> void:
 	game_tint.hide()
 
 	if _is_animated_in:

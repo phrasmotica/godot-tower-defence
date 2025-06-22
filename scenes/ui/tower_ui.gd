@@ -73,4 +73,4 @@ func _on_target_mode_options_item_selected(index: int) -> void:
 	TowerEvents.emit_target_mode_changed(index)
 
 func _on_sell_button_sell_tower() -> void:
-	TowerEvents.emit_sell_tower()
+	TowerEvents.emit_tower_sold()

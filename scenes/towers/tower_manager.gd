@@ -4,10 +4,8 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-signal tower_sold(sell_value: int)
-
 func _ready() -> void:
-	KeyboardShortcuts.sell_tower.connect(_on_keyboard_shortcuts_sell_tower)
+	KeyboardShortcuts.sell_tower.connect(TowerEvents.emit_tower_sold)
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
@@ -21,7 +19,7 @@ func _ready() -> void:
 
 	TowerEvents.upgrade_tower.connect(try_upgrade)
 	TowerEvents.target_mode_changed.connect(_on_tower_target_mode_changed)
-	TowerEvents.sell_tower.connect(try_sell)
+	TowerEvents.tower_sold.connect(try_sell)
 
 func next_tower() -> void:
 	if all_towers.size() <= 0:
@@ -94,15 +92,11 @@ func try_sell():
 
 	print("Selling tower")
 
-	var sell_value = selected_tower.sell()
-
 	all_towers.remove_at(selected_idx)
 
-	deselect_tower()
-
-	tower_sold.emit(sell_value)
-
-	BankManager.earn(sell_value)
+	selected_tower.deselect()
+	selected_tower.sell()
+	selected_tower = null
 
 func unhighlight():
 	# if selected_tower:
@@ -148,9 +142,6 @@ func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()
 
 	select_tower(tower)
-
-func _on_keyboard_shortcuts_sell_tower():
-	try_sell()
 
 func _on_lives_manager_lives_depleted() -> void:
 	print("Game has ended; disabling towers")

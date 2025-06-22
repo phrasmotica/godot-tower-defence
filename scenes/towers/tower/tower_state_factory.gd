@@ -9,6 +9,7 @@ func _init() -> void:
 		Tower.State.FIRING: TowerStateFiring,
 		Tower.State.UPGRADING: TowerStateUpgrading,
 		Tower.State.DISABLED: TowerStateDisabled,
+		Tower.State.SELLING: TowerStateSelling,
 	}
 
 func get_fresh_state(state: Tower.State) -> TowerState:

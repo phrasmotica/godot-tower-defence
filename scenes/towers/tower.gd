@@ -1,6 +1,6 @@
 class_name Tower extends Node2D
 
-enum State { PLACING, WARMUP, FIRING, UPGRADING, DISABLED }
+enum State { PLACING, WARMUP, FIRING, UPGRADING, SELLING, DISABLED }
 
 enum TargetMode { NEAR, FAR, STRONG }
 
@@ -87,16 +87,15 @@ func set_target_mode(index: int):
 	target_mode = index as TargetMode
 	print(tower_name + " now has target mode " + str(target_mode))
 
-func sell():
-	animation_player.play("sell")
-	return get_sell_price()
-
-func get_sell_price():
-	var upgrade_value = levels_node.get_total_value()
-	return int((price + upgrade_value) / 2.0)
+func upgrade(index: int) -> void:
+	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))
 
 func get_upgrade(index: int):
 	return levels_node.get_upgrade(index)
 
-func upgrade(index: int) -> void:
-	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))
+func sell() -> void:
+	switch_state(State.SELLING)
+
+func get_sell_price():
+	var upgrade_value = levels_node.get_total_value()
+	return int((price + upgrade_value) / 2.0)
