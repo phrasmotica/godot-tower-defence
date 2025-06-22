@@ -152,7 +152,7 @@ func _on_tower_selected(tower: Tower) -> void:
 func _on_keyboard_shortcuts_sell_tower():
 	try_sell()
 
-func _on_lives_manager_lives_depleted():
+func _on_lives_manager_lives_depleted() -> void:
 	print("Game has ended; disabling towers")
 
 	for t in all_towers:

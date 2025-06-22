@@ -30,9 +30,7 @@ var collision_area: Area2D = %CollisionArea
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
-var tower_mode = State.PLACING
 var is_selected = false
-var enemy_sorter = EnemySorter.new()
 
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
@@ -74,7 +72,7 @@ func is_upgrading() -> bool:
 	return _current_state != null and _current_state.is_upgrading()
 
 func set_disabled():
-	tower_mode = State.DISABLED
+	switch_state(State.DISABLED)
 
 func select() -> void:
 	selection.selection_visible = true

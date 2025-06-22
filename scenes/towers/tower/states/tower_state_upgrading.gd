@@ -2,6 +2,8 @@ class_name TowerStateUpgrading
 extends TowerState
 
 func _enter_tree() -> void:
+	print("%s has started upgrading" % _tower.tower_name)
+
 	var upgrade_index := _state_data.get_upgrade_index()
 
 	var next_level := _level_manager.start_upgrade(upgrade_index)
