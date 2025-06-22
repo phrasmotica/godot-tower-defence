@@ -111,7 +111,7 @@ func unhighlight():
 
 func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
-		print("This tower is already selected!")
+		print("%s is already selected!" % tower.name)
 		return
 
 	if selected_tower:

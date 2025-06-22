@@ -20,17 +20,18 @@ var target_mode := TargetMode.NEAR
 var firing_line: FiringLine
 
 @onready
+var appearance: TowerAppearance = %Appearance
+
+@onready
 var collision_area: Area2D = %CollisionArea
 
 @onready var selection: TowerSelection = $Selection
-@onready var visualiser: TowerVisualiser = $Visualiser
 @onready var progress_bars: TowerProgressBars = $ProgressBars
 @onready var levels_node: TowerLevelManager = $Levels
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var barrel: GunBarrel = $Barrel
 
 var path_manager: PathManager
-var is_selected = false
 
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
@@ -47,10 +48,10 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
+		appearance,
 		collision_area,
 		levels_node,
 		selection,
-		visualiser,
 		progress_bars,
 		path_manager,
 		barrel,
@@ -71,18 +72,16 @@ func can_be_placed() -> bool:
 func is_upgrading() -> bool:
 	return _current_state != null and _current_state.is_upgrading()
 
-func set_disabled():
+func set_disabled() -> void:
 	switch_state(State.DISABLED)
 
 func select() -> void:
-	selection.selection_visible = true
-	visualiser.show_range()
-	is_selected = true
+	if _current_state != null and _current_state.can_be_selected():
+		_current_state.select()
 
 func deselect() -> void:
-	selection.selection_visible = false
-	visualiser.hide_range()
-	is_selected = false
+	if _current_state != null and _current_state.can_be_selected():
+		_current_state.deselect()
 
 func set_target_mode(index: int):
 	target_mode = index as TargetMode
@@ -101,9 +100,3 @@ func get_upgrade(index: int):
 
 func upgrade(index: int) -> void:
 	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))
-
-func adjust_range(projectile_range: float):
-	visualiser.radius = projectile_range
-
-	levels_node.level_adjust_range(projectile_range)
-	levels_node.level_adjust_effect_range(projectile_range)

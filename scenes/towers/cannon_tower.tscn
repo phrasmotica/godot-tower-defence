@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=19 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_itrc6"]
+[ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_rqm4h"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xd60m"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_3jave"]
@@ -102,6 +103,14 @@ script = ExtResource("1_bjpxi")
 tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
+
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("selection", "visualiser", "level_manager", "animation_player")]
+unique_name_in_owner = true
+script = ExtResource("2_rqm4h")
+selection = NodePath("../Selection")
+visualiser = NodePath("../Visualiser")
+level_manager = NodePath("../Levels")
+animation_player = NodePath("../AnimationPlayer")
 
 [node name="Selection" parent="." instance=ExtResource("2_itrc6")]
 

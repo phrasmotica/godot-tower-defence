@@ -4,7 +4,7 @@ extends TowerState
 func _enter_tree() -> void:
 	print("%s is now warming up" % _tower.tower_name)
 
-	_visualiser.hide()
+	_appearance.hide_visualiser()
 
 	_level_manager.start_warmup()
 
@@ -18,10 +18,10 @@ func _enter_tree() -> void:
 	_progress_bars.do_warmup()
 
 func _on_selection_mouse_entered() -> void:
-	_visualiser.show()
+	_appearance.show_visualiser()
 
 func _on_selection_mouse_exited() -> void:
-	_visualiser.hide()
+	_appearance.hide_visualiser()
 
 func _on_warmup_finished() -> void:
 	print("%s has finished warming up" % _tower.tower_name)

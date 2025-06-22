@@ -1,6 +1,7 @@
-[gd_scene load_steps=25 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=26 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_v8t2a"]
+[ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_8tvig"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_nytid"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xlhsu"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="4_4tss6"]
@@ -148,6 +149,14 @@ script = ExtResource("1_v8t2a")
 tower_name = "Gun"
 tower_description = "Shoots simple bullets at enemies."
 price = 2
+
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("selection", "visualiser", "level_manager", "animation_player")]
+unique_name_in_owner = true
+script = ExtResource("2_8tvig")
+selection = NodePath("../Selection")
+visualiser = NodePath("../Visualiser")
+level_manager = NodePath("../Levels")
+animation_player = NodePath("../AnimationPlayer")
 
 [node name="Selection" parent="." instance=ExtResource("2_nytid")]
 

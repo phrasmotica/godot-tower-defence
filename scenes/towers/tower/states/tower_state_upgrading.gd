@@ -22,7 +22,7 @@ func _on_upgrade_finished() -> void:
 	_barrel.setup(next_level)
 	_selection.enable_mouse()
 
-	_tower.adjust_range(next_level.get_range(true))
+	_appearance.adjust_range(next_level.get_range(true))
 
 	TowerEvents.emit_tower_upgrade_finished(_tower, next_level)
 

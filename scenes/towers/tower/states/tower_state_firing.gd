@@ -2,6 +2,7 @@ class_name TowerStateFiring
 extends TowerState
 
 var _enemy_finder: EnemyFinder = null
+var _is_selected := false
 
 func _enter_tree() -> void:
 	print("Tower is now firing")
@@ -106,12 +107,25 @@ func animate_pulse() -> void:
 		_animation_player.play("pulse")
 
 func _on_selection_mouse_entered() -> void:
-	_visualiser.show()
+	_appearance.show_visualiser()
 
 func _on_selection_mouse_exited() -> void:
-	if not _tower.is_selected:
-		_visualiser.hide()
+	if not _is_selected:
+		_appearance.hide_visualiser()
 
 func _on_selection_gui_input(event: InputEvent) -> void:
-	if event.is_pressed() and not _tower.is_selected:
+	if event.is_pressed() and not _is_selected:
 		TowerEvents.emit_tower_selected(_tower)
+
+func can_be_selected() -> bool:
+	return true
+
+func select() -> void:
+	_appearance.show_visualiser()
+	_appearance.show_range()
+	_is_selected = true
+
+func deselect() -> void:
+	_appearance.hide_visualiser()
+	_appearance.hide_range()
+	_is_selected = false
