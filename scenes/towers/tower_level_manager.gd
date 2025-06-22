@@ -29,8 +29,6 @@ var upgrade_path: Array[int] = []
 
 var ongoing_upgrade_index := -1
 
-signal upgraded(new_level: TowerLevel)
-
 signal adjust_range(range: float)
 signal adjust_effect_range(range: float)
 
@@ -56,12 +54,11 @@ func start_upgrade(index: int) -> TowerLevel:
 	if next_level:
 		ongoing_upgrade_index = index
 
+		base_level.modulate = progress_colour
+
 	return next_level
 
-func upgrade_started():
-	base_level.modulate = progress_colour
-
-func upgrade_finished():
+func finish_upgrade() -> TowerLevel:
 	if ongoing_upgrade_index < 0 or not get_upgrade(ongoing_upgrade_index):
 		return
 
@@ -93,7 +90,7 @@ func upgrade_finished():
 
 	base_level.modulate = normal_colour
 
-	upgraded.emit(new_level)
+	return new_level
 
 func get_upgrade(index: int):
 	return base_level.get_upgrade(upgrade_path, index)
@@ -169,9 +166,3 @@ func _on_level_created_bolt(bolt_stats: TowerLevelStats):
 	firing_line.fire(bolt_stats)
 
 	created_bolt.emit(bolt_stats)
-
-func _on_progress_bars_upgrade_started():
-	upgrade_started()
-
-func _on_progress_bars_upgrade_finished():
-	upgrade_finished()

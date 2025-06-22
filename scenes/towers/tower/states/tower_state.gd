@@ -48,3 +48,6 @@ func transition_state(
 
 func is_placing() -> bool:
 	return false
+
+func is_upgrading() -> bool:
+	return false

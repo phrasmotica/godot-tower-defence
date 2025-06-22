@@ -226,7 +226,6 @@ enable_pulse = true
 [connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
 [connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
 [connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
-[connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
 [connection signal="adjust_range" from="Levels/BaseLevel/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
 [connection signal="adjust_range" from="Levels/BaseLevel/DoubleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
 [connection signal="adjust_range" from="Levels/BaseLevel/TripleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]

@@ -243,4 +243,3 @@ libraries = {
 [connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
 [connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
 [connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
-[connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]

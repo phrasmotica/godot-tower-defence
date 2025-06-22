@@ -59,8 +59,6 @@ func _on_path_manager_valid_area_clicked() -> void:
 
 	print("Placed new %s" % _tower.tower_name)
 
-	_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
-
 	BankManager.deduct(_tower.price)
 
 	TowerEvents.emit_tower_placing_finished(_tower)

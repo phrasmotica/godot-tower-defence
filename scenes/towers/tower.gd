@@ -37,8 +37,6 @@ var enemy_sorter = EnemySorter.new()
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
-signal on_upgrade_finish(tower: Tower, next_level: TowerLevel)
-
 func _ready() -> void:
 	switch_state(State.PLACING)
 
@@ -72,11 +70,8 @@ func is_placing() -> bool:
 func can_be_placed() -> bool:
 	return _current_state != null and _current_state.can_be_placed()
 
-func set_upgrading():
-	tower_mode = State.UPGRADING
-
-func is_upgrading():
-	return tower_mode == State.UPGRADING
+func is_upgrading() -> bool:
+	return _current_state != null and _current_state.is_upgrading()
 
 func set_disabled():
 	tower_mode = State.DISABLED
@@ -106,28 +101,11 @@ func get_sell_price():
 func get_upgrade(index: int):
 	return levels_node.get_upgrade(index)
 
-func upgrade(index: int):
-	barrel.pause()
-
-	var next_level = levels_node.start_upgrade(index)
-	if next_level:
-		set_upgrading()
-
-		progress_bars.do_upgrade()
-
-	return next_level
+func upgrade(index: int) -> void:
+	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))
 
 func adjust_range(projectile_range: float):
 	visualiser.radius = projectile_range
 
 	levels_node.level_adjust_range(projectile_range)
 	levels_node.level_adjust_effect_range(projectile_range)
-
-func _on_levels_upgraded(new_level: TowerLevel):
-	print(tower_name + " upgrade finished")
-
-	barrel.setup(new_level)
-
-	adjust_range(new_level.get_range(true))
-
-	on_upgrade_finish.emit(self, new_level)
