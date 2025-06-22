@@ -4,6 +4,11 @@ extends TowerState
 func _enter_tree() -> void:
 	print("%s has started upgrading" % _tower.tower_name)
 
+	_interaction.mouse_entered.connect(_on_mouse_entered)
+	_interaction.mouse_exited.connect(_on_mouse_exited)
+
+	_interaction.enable_mouse()
+
 	var upgrade_index := _state_data.get_upgrade_index()
 
 	var next_level := _weaponry.start_upgrade(upgrade_index)
@@ -12,10 +17,15 @@ func _enter_tree() -> void:
 
 		_appearance.do_upgrade(_on_upgrade_finished)
 
+func _on_mouse_entered() -> void:
+	_appearance.show_visualiser()
+
+func _on_mouse_exited() -> void:
+	if not _interaction.is_selected():
+		_appearance.hide_visualiser()
+
 func _on_upgrade_finished() -> void:
 	print("%s has finished upgrading" % _tower.tower_name)
-
-	_selection.enable_mouse()
 
 	var next_level := _weaponry.install_upgrade()
 
@@ -26,4 +36,7 @@ func _on_upgrade_finished() -> void:
 	transition_state(Tower.State.FIRING)
 
 func is_upgrading() -> bool:
+	return true
+
+func can_be_selected() -> bool:
 	return true

@@ -14,8 +14,8 @@ func _enter_tree() -> void:
 	_colliders.path_area_entered.connect(_on_path_area_entered)
 	_colliders.path_area_exited.connect(_on_path_area_exited)
 
-	_selection.selection_visible = false
-	_selection.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	_interaction.hide_selection()
+	_interaction.disable_mouse()
 
 	_appearance.for_placing()
 

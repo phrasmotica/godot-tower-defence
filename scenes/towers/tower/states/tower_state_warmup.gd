@@ -6,25 +6,23 @@ func _enter_tree() -> void:
 
 	_appearance.hide_visualiser()
 
+	_interaction.mouse_entered.connect(_on_mouse_entered)
+	_interaction.mouse_exited.connect(_on_mouse_exited)
+
+	_interaction.enable_mouse()
+
 	_weaponry.start_warmup()
-
-	_selection.mouse_filter = Control.MOUSE_FILTER_STOP
-
-	_selection.mouse_entered.connect(_on_selection_mouse_entered)
-	_selection.mouse_exited.connect(_on_selection_mouse_exited)
 
 	_appearance.do_warmup(_on_warmup_finished)
 
-func _on_selection_mouse_entered() -> void:
+func _on_mouse_entered() -> void:
 	_appearance.show_visualiser()
 
-func _on_selection_mouse_exited() -> void:
+func _on_mouse_exited() -> void:
 	_appearance.hide_visualiser()
 
 func _on_warmup_finished() -> void:
 	print("%s has finished warming up" % _tower.tower_name)
-
-	_selection.enable_mouse()
 
 	var base_level := _weaponry.install_base()
 

@@ -26,10 +26,10 @@ var appearance: TowerAppearance = %Appearance
 var colliders: TowerColliders = %Colliders
 
 @onready
-var weaponry: TowerWeaponry = %Weaponry
+var interaction: TowerInteraction = %Interaction
 
-# TODO: move these into dedicated scripts - TowerAppearance, TowerInteraction (?), TowerWeaponry, etc
-@onready var selection: TowerSelection = $Selection
+@onready
+var weaponry: TowerWeaponry = %Weaponry
 
 var path_manager: PathManager
 
@@ -50,7 +50,7 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		state_data,
 		appearance,
 		colliders,
-		selection,
+		interaction,
 		weaponry,
 		path_manager)
 

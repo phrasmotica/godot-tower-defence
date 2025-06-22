@@ -7,7 +7,7 @@ var _tower: Tower = null
 var _state_data: TowerStateData = null
 var _appearance: TowerAppearance = null
 var _colliders: TowerColliders = null
-var _selection: TowerSelection = null
+var _interaction: TowerInteraction = null
 var _weaponry: TowerWeaponry = null
 var _path_manager: PathManager = null
 
@@ -16,7 +16,7 @@ func setup(
 	state_data: TowerStateData,
 	appearance: TowerAppearance,
 	colliders: TowerColliders,
-	selection: TowerSelection,
+	interaction: TowerInteraction,
 	weaponry: TowerWeaponry,
 	path_manager: PathManager,
 ) -> void:
@@ -24,7 +24,7 @@ func setup(
 	_state_data = state_data
 	_appearance = appearance
 	_colliders = colliders
-	_selection = selection
+	_interaction = interaction
 	_weaponry = weaponry
 	_path_manager = path_manager
 
@@ -41,7 +41,13 @@ func can_be_selected() -> bool:
 	return false
 
 func select() -> void:
-	pass
+	_appearance.show_visualiser()
+	_appearance.show_range()
+
+	_interaction.set_selected(true)
 
 func deselect() -> void:
-	pass
+	_appearance.hide_visualiser()
+	_appearance.hide_range()
+
+	_interaction.set_selected(false)

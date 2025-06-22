@@ -1,16 +1,14 @@
 class_name TowerStateFiring
 extends TowerState
 
-var _is_selected := false
-
 func _enter_tree() -> void:
 	print("Tower is now firing")
 
-	_selection.mouse_filter = Control.MOUSE_FILTER_STOP
+	_interaction.mouse_entered.connect(_on_mouse_entered)
+	_interaction.mouse_exited.connect(_on_mouse_exited)
+	_interaction.clicked.connect(_on_clicked)
 
-	_selection.mouse_entered.connect(_on_selection_mouse_entered)
-	_selection.mouse_exited.connect(_on_selection_mouse_exited)
-	_selection.gui_input.connect(_on_selection_gui_input)
+	_interaction.enable_mouse()
 
 	_weaponry.bolt_created.connect(_on_bolt_created)
 	_weaponry.effect_created.connect(_on_effect_created)
@@ -51,26 +49,16 @@ func _on_bolt_created(bolt_line: BoltLine) -> void:
 
 	_tower.add_child(bolt_line)
 
-func _on_selection_mouse_entered() -> void:
+func _on_mouse_entered() -> void:
 	_appearance.show_visualiser()
 
-func _on_selection_mouse_exited() -> void:
-	if not _is_selected:
+func _on_mouse_exited() -> void:
+	if not _interaction.is_selected():
 		_appearance.hide_visualiser()
 
-func _on_selection_gui_input(event: InputEvent) -> void:
-	if event.is_pressed() and not _is_selected:
+func _on_clicked() -> void:
+	if not _interaction.is_selected():
 		TowerEvents.emit_tower_selected(_tower)
 
 func can_be_selected() -> bool:
 	return true
-
-func select() -> void:
-	_appearance.show_visualiser()
-	_appearance.show_range()
-	_is_selected = true
-
-func deselect() -> void:
-	_appearance.hide_visualiser()
-	_appearance.hide_range()
-	_is_selected = false
