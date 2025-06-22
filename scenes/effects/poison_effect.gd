@@ -18,7 +18,7 @@ func act_process(delta):
 
 	for enemy in attached_enemies:
 		if is_instance_valid(enemy):
-			print("Damaging " + str(damage))
+			# print("Damaging " + str(damage))
 			enemy.handle_damage(damage)
 
 func act_end():
