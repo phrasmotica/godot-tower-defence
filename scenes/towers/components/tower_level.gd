@@ -46,8 +46,6 @@ var point_towards_enemy := true
 signal adjust_range(range: float)
 signal adjust_effect_range(range: float)
 
-signal created_projectile(projectile: Projectile)
-signal created_effect(effect: Effect)
 signal created_bolt(bolt_stats: TowerLevelStats)
 
 func _refresh() -> void:
@@ -56,7 +54,7 @@ func _refresh() -> void:
 func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0
 
-func get_range(for_effect: bool):
+func get_range(for_effect: bool) -> float:
 	if for_effect and effect_stats:
 		return effect_stats.effect_range
 
@@ -91,9 +89,9 @@ func get_total_value(path: Array[int]) -> int:
 		upgrades[path[0]].get_total_value(path.slice(1))
 	)
 
-func try_create_projectile():
+func create_projectile() -> Projectile:
 	if not projectile_stats:
-		return
+		return null
 
 	print("Creating projectile")
 
@@ -107,17 +105,15 @@ func try_create_projectile():
 	projectile.knockback = projectile_stats.projectile_knockback
 	projectile.penetration_count = projectile_stats.penetration_count
 
-	created_projectile.emit(projectile)
+	return projectile
 
-func try_create_effect():
+func create_effect() -> Effect:
 	if not effect_stats:
 		return
 
 	print("Creating effect")
 
-	var effect = effect_stats.create()
-
-	created_effect.emit(effect)
+	return effect_stats.create()
 
 func try_shoot_bolt():
 	print("Shooting a bolt")

@@ -24,6 +24,10 @@ WavesManager="*res://scenes/autoloads/waves_manager.gd"
 KeyboardShortcuts="*res://scenes/autoloads/keyboard_shortcuts.gd"
 TowerEvents="*res://scenes/autoloads/tower_events.gd"
 GameEvents="*res://scenes/autoloads/game_events.gd"
+TowerPlacingEvents="*res://scenes/autoloads/tower_placing_events.gd"
+EnemyManager="*res://scenes/autoloads/enemy_manager.gd"
+EnemyEvents="*res://scenes/autoloads/enemy_events.gd"
+PathInteraction="*res://scenes/autoloads/path_interaction.gd"
 
 [display]
 

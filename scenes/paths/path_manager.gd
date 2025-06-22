@@ -16,24 +16,15 @@ var active_path_index: int:
 
 var is_mouse_over_valid_area := false
 
-var enemies: Array[Enemy] = []
-
-signal mouse_validity_changed(is_valid: bool)
-signal valid_area_clicked
-
-signal enemy_died(enemy: Enemy)
-signal enemy_reached_end(enemy: Enemy)
-
 func _ready() -> void:
 	if not Engine.is_editor_hint():
+		EnemyEvents.enemy_spawned.connect(_on_enemy_spawned)
+
 		GameEvents.game_started.connect(_on_game_events_game_started)
 		GameEvents.path_previewed.connect(_on_game_events_path_previewed)
 
-		LivesManager.setup(self)
-
 		TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
 
-		WavesManager.setup(self)
 		WavesManager.waves_began.connect(_on_waves_manager_waves_began)
 
 	set_active_path()
@@ -60,31 +51,8 @@ func set_active_path() -> void:
 func get_active_path():
 	return paths[active_path_index]
 
-func spawn_enemy(enemy_scene: PackedScene):
-	var enemy = get_active_path().spawn_enemy(enemy_scene)
-
-	enemy.die.connect(_on_enemy_die)
-	enemy.reached_end.connect(_on_enemy_reached_end)
-
-	enemies.append(enemy)
-
-	return enemy
-
-func remove_enemy(enemy: Enemy):
-	enemies.erase(enemy)
-
-func _on_enemy_die(enemy: Enemy):
-	remove_enemy(enemy)
-
-	enemy_died.emit(enemy)
-
-	BankManager.earn(enemy.bounty)
-
-func _on_enemy_reached_end(enemy: Enemy):
-	remove_enemy(enemy)
-	enemy.queue_free()
-
-	enemy_reached_end.emit(enemy)
+func _on_enemy_spawned(enemy: Enemy) -> void:
+	get_active_path().add_enemy(enemy)
 
 func _on_game_events_path_previewed(path_index: int) -> void:
 	active_path_index = path_index
@@ -97,19 +65,19 @@ func _on_waves_manager_waves_began() -> void:
 
 func _on_path_mouse_validity_changed(is_valid: bool) -> void:
 	if is_valid:
-		print("Valid area entered")
+		# print("Valid area entered")
 		is_mouse_over_valid_area = true
 
-		mouse_validity_changed.emit(true)
+		PathInteraction.emit_mouse_validity_changed(true)
 	else:
-		print("Valid area exited")
+		# print("Valid area exited")
 		is_mouse_over_valid_area = false
 
-		mouse_validity_changed.emit(false)
+		PathInteraction.emit_mouse_validity_changed(false)
 
 func _on_path_valid_area_clicked() -> void:
 	if is_mouse_over_valid_area:
-		valid_area_clicked.emit()
+		PathInteraction.emit_valid_area_clicked()
 
 func _on_tower_placing_started(_tower: Tower) -> void:
-	mouse_validity_changed.emit(is_mouse_over_valid_area)
+	PathInteraction.emit_mouse_validity_changed(is_mouse_over_valid_area)

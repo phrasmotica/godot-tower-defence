@@ -16,9 +16,9 @@ var sell_button: SellButton
 var _money_from_bank := 0
 
 func _ready() -> void:
-	BankManager.money_changed.connect(_on_bank_manager_money_changed)
-
 	if not Engine.is_editor_hint():
+		BankManager.money_changed.connect(_on_bank_manager_money_changed)
+
 		TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 		TowerEvents.tower_deselected.connect(_on_tower_deselected)
 
@@ -73,4 +73,4 @@ func _on_target_mode_options_item_selected(index: int) -> void:
 	TowerEvents.emit_target_mode_changed(index)
 
 func _on_sell_button_sell_tower() -> void:
-	TowerEvents.emit_sell_tower()
+	TowerEvents.emit_tower_sold()

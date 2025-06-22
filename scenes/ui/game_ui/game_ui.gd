@@ -4,19 +4,16 @@ class_name GameUI extends Control
 enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 
 @export
-var path_manager: PathManager
-
-@export
 var game_tint: ColorRect
 
-@export
-var create_tower_ui: CreateTowerUI
+@onready
+var create_tower_ui: CreateTowerUI = %CreateTowerUI
 
-@export
-var tower_ui: TowerUI
+@onready
+var tower_ui: TowerUI = %TowerUI
 
-@export
-var animation_player: AnimationPlayer
+@onready
+var animation_player: AnimationPlayer = %AnimationPlayer
 
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
@@ -31,6 +28,7 @@ func _ready() -> void:
 
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
+	TowerEvents.tower_sold.connect(_on_tower_sold)
 
 	switch_state(State.DISABLED)
 
@@ -44,8 +42,7 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 		self,
 		state_data,
 		tower_ui,
-		create_tower_ui,
-		path_manager)
+		create_tower_ui)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
@@ -55,9 +52,9 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
 
-func _on_selected_tower_changed(tower: Tower, old_tower: Tower) -> void:
+func _on_selected_tower_changed(_tower: Tower, old_tower: Tower) -> void:
 	# we assume tower is not null here
-	tower.reparent(self, true)
+	# tower.reparent(self, true)
 
 	game_tint.show()
 
@@ -65,6 +62,12 @@ func _on_selected_tower_changed(tower: Tower, old_tower: Tower) -> void:
 		animate_show_ui()
 
 func _on_tower_deselected() -> void:
+	game_tint.hide()
+
+	if _is_animated_in:
+		animate_hide_ui()
+
+func _on_tower_sold() -> void:
 	game_tint.hide()
 
 	if _is_animated_in:

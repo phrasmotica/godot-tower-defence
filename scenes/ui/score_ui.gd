@@ -11,11 +11,12 @@ var lives_label: AmountLabel
 var wave_label: AmountLabel
 
 func _ready() -> void:
-	BankManager.money_changed.connect(_on_bank_manager_money_changed)
+	if not Engine.is_editor_hint():
+		BankManager.money_changed.connect(_on_bank_manager_money_changed)
 
-	LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
+		LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
 
-	WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
+		WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
 
 func _on_bank_manager_money_changed(new_money: int) -> void:
 	set_money(new_money)

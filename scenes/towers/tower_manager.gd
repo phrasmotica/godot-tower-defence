@@ -4,10 +4,8 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-signal tower_sold(sell_value: int)
-
 func _ready() -> void:
-	KeyboardShortcuts.sell_tower.connect(_on_keyboard_shortcuts_sell_tower)
+	KeyboardShortcuts.sell_tower.connect(TowerEvents.emit_tower_sold)
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
@@ -21,7 +19,7 @@ func _ready() -> void:
 
 	TowerEvents.upgrade_tower.connect(try_upgrade)
 	TowerEvents.target_mode_changed.connect(_on_tower_target_mode_changed)
-	TowerEvents.sell_tower.connect(try_sell)
+	TowerEvents.tower_sold.connect(try_sell)
 
 func next_tower() -> void:
 	if all_towers.size() <= 0:
@@ -94,23 +92,20 @@ func try_sell():
 
 	print("Selling tower")
 
-	var sell_value = selected_tower.sell()
-
 	all_towers.remove_at(selected_idx)
 
-	deselect_tower()
-
-	tower_sold.emit(sell_value)
-
-	BankManager.earn(sell_value)
+	selected_tower.deselect()
+	selected_tower.sell()
+	selected_tower = null
 
 func unhighlight():
-	if selected_tower:
-		selected_tower.reparent(self, true)
+	# if selected_tower:
+	# 	selected_tower.reparent(self, true)
+	pass
 
 func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
-		print("This tower is already selected!")
+		print("%s is already selected!" % tower.name)
 		return
 
 	if selected_tower:
@@ -130,24 +125,25 @@ func select_tower(tower: Tower) -> void:
 func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
-func _on_tower_placing_finished(tower: Tower) -> void:
+func _on_tower_placing_finished(_tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
-	tower.reparent(self, true)
 
-	tower.on_warmed_up.connect(
-		func(t, _first_level):
+	# reparenting causes the tower node's _ready() method to be called, which
+	# resets it to the PLACING state. We don't want this... just disable all
+	# reparenting for now
+	# tower.reparent(self, true)
+
+	TowerEvents.tower_warmup_finished.connect(
+		func(t: Tower, _first_level: TowerLevel) -> void:
 			all_towers.append(t)
-	)
+	, CONNECT_ONE_SHOT)
 
 func _on_tower_selected(tower: Tower) -> void:
 	unhighlight()
 
 	select_tower(tower)
 
-func _on_keyboard_shortcuts_sell_tower():
-	try_sell()
-
-func _on_lives_manager_lives_depleted():
+func _on_lives_manager_lives_depleted() -> void:
 	print("Game has ended; disabling towers")
 
 	for t in all_towers:

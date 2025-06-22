@@ -8,9 +8,10 @@ signal create_tower(tower_scene: PackedScene)
 signal cancel_tower
 
 func _ready() -> void:
-	BankManager.money_changed.connect(_on_bank_manager_money_changed)
+	if not Engine.is_editor_hint():
+		BankManager.money_changed.connect(_on_bank_manager_money_changed)
 
-	GameEvents.game_started.connect(_on_game_events_game_started)
+		GameEvents.game_started.connect(_on_game_events_game_started)
 
 func _on_bank_manager_money_changed(new_money: int) -> void:
 	update_affordability(new_money)

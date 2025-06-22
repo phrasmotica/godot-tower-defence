@@ -12,14 +12,11 @@ func _enter_tree() -> void:
 
 		transition_state(GameUI.State.ENABLED)
 
-	placing_tower.on_placed.connect(_on_placing_tower_placed)
-
-	TowerEvents.emit_tower_placing_started(placing_tower)
-
 	_create_tower_ui.cancel_tower.connect(_on_create_tower_ui_cancel_tower)
 
-	_path_manager.mouse_validity_changed.connect(_on_path_manager_mouse_validity_changed)
-	_path_manager.valid_area_clicked.connect(_on_path_manager_valid_area_clicked)
+	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
+
+	TowerEvents.emit_tower_placing_started(placing_tower)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -39,27 +36,5 @@ func finish() -> void:
 
 	transition_state(GameUI.State.ENABLED)
 
-func _on_path_manager_mouse_validity_changed(is_valid: bool) -> void:
-	placing_tower.is_valid_location = is_valid
-
-	if is_valid:
-		placing_tower.show_visualiser()
-		placing_tower.set_default_look()
-	else:
-		placing_tower.hide_visualiser()
-		placing_tower.set_error_look()
-
-func _on_path_manager_valid_area_clicked() -> void:
-	placing_tower.try_place()
-
-func _on_placing_tower_placed(tower: Tower) -> void:
-	print("Placed new tower")
-
-	placing_tower.on_selected.connect(TowerEvents.emit_tower_selected)
-	placing_tower.on_upgrade_finish.connect(TowerEvents.emit_tower_upgrade_finished)
-
-	TowerEvents.emit_tower_placing_finished(tower)
-
-	BankManager.deduct(tower.price)
-
+func _on_tower_placing_finished(_tower: Tower) -> void:
 	finish()

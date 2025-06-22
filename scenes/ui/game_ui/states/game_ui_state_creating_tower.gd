@@ -17,8 +17,6 @@ func _enter_tree() -> void:
 
 	print("Purchasing " + placing_tower.name)
 
-	placing_tower.path_manager = _path_manager
-	placing_tower.set_placing()
 	placing_tower.hide()
 
 	_game_ui.add_child(placing_tower)

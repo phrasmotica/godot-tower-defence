@@ -1,9 +1,13 @@
-[gd_scene load_steps=25 format=3 uid="uid://ba7v8p4mq36wb"]
+[gd_scene load_steps=29 format=3 uid="uid://ba7v8p4mq36wb"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
+[ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_u706d"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_k0da5"]
+[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_smvoh"]
+[ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_43s8n"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_71qj7"]
+[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_ei3pu"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_aaghm"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="5_amh81"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="7_1pyih"]
@@ -13,54 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://dirfq8o8oeu6v" path="res://assets/sprites/poison_tower_upgrade_1.png" id="11_ijwes"]
 [ext_resource type="Texture2D" uid="uid://c4ph5lctynlj8" path="res://assets/sprites/poison_tower_upgrade_2.png" id="12_yywre"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="13_k5en1"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_nx5ly"]
-atlas = ExtResource("8_ierun")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8pydf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nx5ly")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_80u24"]
-atlas = ExtResource("11_ijwes")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dsedo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_80u24")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tfomp"]
-atlas = ExtResource("12_yywre")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fu4ex"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tfomp")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
 length = 0.001
@@ -142,46 +98,129 @@ _data = {
 &"sell": SubResource("Animation_ujsix")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nx5ly"]
+atlas = ExtResource("8_ierun")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8pydf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nx5ly")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80u24"]
+atlas = ExtResource("11_ijwes")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dsedo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80u24")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfomp"]
+atlas = ExtResource("12_yywre")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fu4ex"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfomp")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="PoisonTower" type="Node2D"]
 script = ExtResource("1_8s1qd")
 tower_name = "Poison Tower"
 tower_description = "Inflicts gradual poison damage over time."
 price = 4
 
-[node name="Selection" parent="." instance=ExtResource("2_bftvf")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+unique_name_in_owner = true
+script = ExtResource("2_u706d")
+progress_bars = NodePath("ProgressBars")
+visualiser = NodePath("Visualiser")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="CollisionArea" type="Area2D" parent="."]
+[node name="ProgressBars" parent="Appearance" instance=ExtResource("3_k0da5")]
+
+[node name="Visualiser" parent="Appearance" instance=ExtResource("4_71qj7")]
+radius = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../../Weaponry/Levels")
+libraries = {
+&"": SubResource("AnimationLibrary_qnhh7")
+}
+
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("3_smvoh")
+collision_area = NodePath("CollisionArea")
+
+[node name="CollisionArea" type="Area2D" parent="Colliders"]
+unique_name_in_owner = true
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="ProgressBars" parent="." instance=ExtResource("3_k0da5")]
+[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
+unique_name_in_owner = true
+position = Vector2(-32, -32)
+script = ExtResource("4_ei3pu")
+selection = NodePath("Selection")
 
-[node name="Visualiser" parent="." instance=ExtResource("4_71qj7")]
-radius = 2.0
+[node name="Selection" parent="Interaction" instance=ExtResource("2_bftvf")]
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 64.0
+offset_bottom = 64.0
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("effect_area", "base_level")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
+unique_name_in_owner = true
+script = ExtResource("4_43s8n")
+level_manager = NodePath("Levels")
+barrel = NodePath("Barrel")
+
+[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("effect_area", "base_level")]
 script = ExtResource("5_aaghm")
 effect_area = NodePath("EffectArea")
 base_level = NodePath("BaseLevel")
 
-[node name="EffectArea" parent="Levels" instance=ExtResource("5_amh81")]
+[node name="EffectArea" parent="Weaponry/Levels" instance=ExtResource("5_amh81")]
 radius = 2.0
 
-[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
+[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
 sprite = SubResource("SpriteFrames_8pydf")
 effect_stats = NodePath("EffectStats")
 upgrades = [NodePath("DoubleCheese"), NodePath("TripleCheese")]
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="Levels/BaseLevel"]
+[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("10_t6u3a")
 effect_duration = 3.0
 effect = ExtResource("9_by8rj")
 
-[node name="DoubleCheese" parent="Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("7_1pyih")]
+[node name="DoubleCheese" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("7_1pyih")]
 visible = false
 level_name = "Double Cheese"
 level_description = "Twice the cheese, twice the poison!"
@@ -190,12 +229,12 @@ sprite = SubResource("SpriteFrames_dsedo")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="Levels/BaseLevel/DoubleCheese"]
+[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/DoubleCheese"]
 script = ExtResource("10_t6u3a")
 effect_duration = 6.0
 effect = ExtResource("9_by8rj")
 
-[node name="TripleCheese" parent="Levels/BaseLevel" node_paths=PackedStringArray("animated_sprite", "effect_stats") instance=ExtResource("7_1pyih")]
+[node name="TripleCheese" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("animated_sprite", "effect_stats") instance=ExtResource("7_1pyih")]
 visible = false
 level_name = "Triple Cheese"
 level_description = "Triple?? Ultimate gr33d!"
@@ -205,38 +244,20 @@ sprite = SubResource("SpriteFrames_fu4ex")
 effect_stats = NodePath("EffectStats")
 point_towards_enemy = false
 
-[node name="EffectStats" type="Node" parent="Levels/BaseLevel/TripleCheese"]
+[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/TripleCheese"]
 script = ExtResource("10_t6u3a")
 effect_range = 3.0
 effect_duration = 9.0
 effect = ExtResource("9_by8rj")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Levels")
-libraries = {
-"": SubResource("AnimationLibrary_qnhh7")
-}
-
-[node name="Barrel" parent="." instance=ExtResource("13_k5en1")]
+[node name="Barrel" parent="Weaponry" instance=ExtResource("13_k5en1")]
 enable_shoot = false
 enable_pulse = true
 
-[connection signal="gui_input" from="Selection" to="." method="_on_selection_gui_input"]
-[connection signal="mouse_entered" from="Selection" to="." method="_on_selection_mouse_entered"]
-[connection signal="mouse_exited" from="Selection" to="." method="_on_selection_mouse_exited"]
-[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
-[connection signal="body_exited" from="CollisionArea" to="." method="_on_collision_area_body_exited"]
-[connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]
-[connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="warmup_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_finished"]
-[connection signal="warmup_started" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_started"]
-[connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
-[connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
-[connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
-[connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
-[connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="adjust_range" from="Levels/BaseLevel/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Levels/BaseLevel/DoubleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Levels/BaseLevel/TripleCheese/EffectStats" to="Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="pulse" from="Barrel" to="." method="_on_barrel_pulse"]
+[connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
+[connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
+[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
+[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]
+[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/DoubleCheese/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
+[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/TripleCheese/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]

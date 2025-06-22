@@ -1,33 +1,19 @@
-[gd_scene load_steps=18 format=3 uid="uid://dhsqr00mauv38"]
+[gd_scene load_steps=22 format=3 uid="uid://dhsqr00mauv38"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_15oo1"]
+[ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_xldjn"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_y85yk"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_f6hg6"]
+[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_t01xi"]
+[ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_61nrl"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_amb7d"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="4_bunb6"]
+[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_i0k1e"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="7_5iku6"]
 [ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="8_jy1jc"]
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="8_rev5t"]
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="9_i24xx"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="9_u55nn"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dd7gb"]
-atlas = ExtResource("8_rev5t")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4md5v"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dd7gb")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
 length = 0.001
@@ -109,76 +95,106 @@ _data = {
 &"shoot": SubResource("Animation_qcska")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
+size = Vector2(64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dd7gb"]
+atlas = ExtResource("8_rev5t")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4md5v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dd7gb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="MachineGunTower" type="Node2D"]
 script = ExtResource("1_15oo1")
 tower_name = "Machine Gun"
 tower_description = "Fires bullets really fast!"
 price = 6
 
-[node name="Selection" parent="." instance=ExtResource("2_y85yk")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+unique_name_in_owner = true
+script = ExtResource("2_xldjn")
+progress_bars = NodePath("ProgressBars")
+visualiser = NodePath("Visualiser")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="CollisionArea" type="Area2D" parent="."]
+[node name="ProgressBars" parent="Appearance" instance=ExtResource("3_f6hg6")]
+
+[node name="Visualiser" parent="Appearance" instance=ExtResource("4_amb7d")]
+radius = 2.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../../Weaponry/Levels")
+libraries = {
+&"": SubResource("AnimationLibrary_qnhh7")
+}
+
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("3_t01xi")
+collision_area = NodePath("CollisionArea")
+
+[node name="CollisionArea" type="Area2D" parent="Colliders"]
+unique_name_in_owner = true
 collision_layer = 4
 collision_mask = 4
 
-[node name="CollisionShape" type="CollisionShape2D" parent="CollisionArea"]
+[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="ProgressBars" parent="." instance=ExtResource("3_f6hg6")]
+[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
+unique_name_in_owner = true
+script = ExtResource("4_i0k1e")
+selection = NodePath("Selection")
 
-[node name="Visualiser" parent="." instance=ExtResource("4_amb7d")]
-radius = 2.0
+[node name="Selection" parent="Interaction" instance=ExtResource("2_y85yk")]
 
-[node name="Levels" type="Node2D" parent="." node_paths=PackedStringArray("base_level")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
+unique_name_in_owner = true
+script = ExtResource("4_61nrl")
+level_manager = NodePath("Levels")
+barrel = NodePath("Barrel")
+
+[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
 script = ExtResource("4_bunb6")
 base_level = NodePath("BaseLevel")
 
-[node name="BaseLevel" parent="Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("7_5iku6")]
+[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("7_5iku6")]
 sprite = SubResource("SpriteFrames_4md5v")
 projectile_stats = NodePath("Stats")
 upgrades = [NodePath("BetterRange")]
 
-[node name="Stats" type="Node" parent="Levels/BaseLevel"]
+[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("8_jy1jc")
 projectile = ExtResource("9_i24xx")
 fire_rate = 10.0
 projectile_range = 2.0
 projectile_speed = 20
 
-[node name="BetterRange" parent="Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("7_5iku6")]
+[node name="BetterRange" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("7_5iku6")]
 level_name = "Better Range"
 level_description = "Increased shooting range."
 price = 8
 sprite = SubResource("SpriteFrames_4md5v")
 projectile_stats = NodePath("Stats")
 
-[node name="Stats" type="Node" parent="Levels/BaseLevel/BetterRange"]
+[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/BetterRange"]
 script = ExtResource("8_jy1jc")
 projectile = ExtResource("9_i24xx")
 fire_rate = 10.0
 projectile_speed = 20
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../Levels")
-libraries = {
-"": SubResource("AnimationLibrary_qnhh7")
-}
+[node name="Barrel" parent="Weaponry" instance=ExtResource("9_u55nn")]
 
-[node name="Barrel" parent="." instance=ExtResource("9_u55nn")]
-
-[connection signal="gui_input" from="Selection" to="." method="_on_selection_gui_input"]
-[connection signal="mouse_entered" from="Selection" to="." method="_on_selection_mouse_entered"]
-[connection signal="mouse_exited" from="Selection" to="." method="_on_selection_mouse_exited"]
-[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
-[connection signal="body_exited" from="CollisionArea" to="." method="_on_collision_area_body_exited"]
-[connection signal="upgrade_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_finished"]
-[connection signal="upgrade_started" from="ProgressBars" to="Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="warmup_finished" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_finished"]
-[connection signal="warmup_started" from="ProgressBars" to="Levels" method="_on_progress_bars_warmup_started"]
-[connection signal="adjust_effect_range" from="Levels" to="Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Levels" to="Visualiser" method="_on_levels_adjust_range"]
-[connection signal="created_effect" from="Levels" to="." method="_on_levels_created_effect"]
-[connection signal="created_projectile" from="Levels" to="." method="_on_levels_created_projectile"]
-[connection signal="upgraded" from="Levels" to="." method="_on_levels_upgraded"]
-[connection signal="warmed_up" from="Levels" to="." method="_on_levels_warmed_up"]
-[connection signal="shoot" from="Barrel" to="." method="_on_barrel_shoot"]
+[connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
+[connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
+[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
+[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]

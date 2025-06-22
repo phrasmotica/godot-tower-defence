@@ -3,6 +3,8 @@ extends Node
 signal tower_placing_started(tower: Tower)
 signal tower_placing_finished(tower: Tower)
 
+signal tower_warmup_finished(tower: Tower, first_level: TowerLevel)
+
 signal tower_selected(tower: Tower)
 signal next_tower
 signal previous_tower
@@ -14,12 +16,17 @@ signal tower_upgrade_started(tower: Tower, next_level: TowerLevel)
 signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
 
 signal target_mode_changed(index: int)
-signal sell_tower
+signal tower_sold
 
 func emit_tower_placing_started(tower: Tower) -> void:
 	print("Started placing " + tower.name)
 
 	tower_placing_started.emit(tower)
+
+func emit_tower_warmup_finished(tower: Tower, first_level: TowerLevel) -> void:
+	print("Finished warmup " + tower.name)
+
+	tower_warmup_finished.emit(tower, first_level)
 
 func emit_tower_placing_finished(tower: Tower) -> void:
 	print("Finished placing " + tower.name)
@@ -74,7 +81,7 @@ func emit_target_mode_changed(index: int) -> void:
 
 	target_mode_changed.emit(index)
 
-func emit_sell_tower() -> void:
-	print("Sell tower")
+func emit_tower_sold() -> void:
+	print("Tower sold")
 
-	sell_tower.emit()
+	tower_sold.emit()
