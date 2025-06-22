@@ -36,12 +36,11 @@ offset_left = -320.0
 offset_right = 0.0
 offset_bottom = 1020.0
 grow_horizontal = 0
-game_tint = NodePath("GameTint")
+game_tint = NodePath("../GameTint")
 
-[node name="GameTint" type="ColorRect" parent="CanvasLayer/GameUI"]
+[node name="GameTint" type="ColorRect" parent="CanvasLayer"]
 visible = false
-layout_mode = 0
-offset_left = -960.0
+offset_right = 960.0
 offset_bottom = 720.0
 mouse_filter = 2
 color = Color(0.637843, 0.637843, 0.637843, 0.588235)

@@ -13,12 +13,10 @@ var create_tower_ui: CreateTowerUI = %CreateTowerUI
 var tower_ui: TowerUI = %TowerUI
 
 @onready
-var animation_player: AnimationPlayer = %AnimationPlayer
+var appearance: GameUIAppearance = %Appearance
 
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
-
-var _is_animated_in := false
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -41,6 +39,7 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
+		appearance,
 		tower_ui,
 		create_tower_ui)
 
@@ -52,34 +51,14 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
 
-func _on_selected_tower_changed(_tower: Tower, old_tower: Tower) -> void:
-	# we assume tower is not null here
-	# tower.reparent(self, true)
-
+func _on_selected_tower_changed(_tower: Tower, _old_tower: Tower) -> void:
 	game_tint.show()
-
-	if old_tower == null:
-		animate_show_ui()
 
 func _on_tower_deselected() -> void:
 	game_tint.hide()
 
-	if _is_animated_in:
-		animate_hide_ui()
-
 func _on_tower_sold() -> void:
 	game_tint.hide()
-
-	if _is_animated_in:
-		animate_hide_ui()
-
-func animate_show_ui() -> void:
-	animation_player.play("show_tower_ui")
-	_is_animated_in = true
-
-func animate_hide_ui() -> void:
-	animation_player.play("hide_tower_ui")
-	_is_animated_in = false
 
 func hide_ui() -> void:
 	print("Hiding selected tower UI")
