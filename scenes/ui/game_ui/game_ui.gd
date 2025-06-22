@@ -6,6 +6,7 @@ enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 @onready
 var appearance: GameUIAppearance = %Appearance
 
+# TODO: move these UI components into the GameUIAppearance script
 @onready
 var create_tower_ui: CreateTowerUI = %CreateTowerUI
 
@@ -16,12 +17,8 @@ var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
 
 func _ready() -> void:
-	if Engine.is_editor_hint():
-		return
-
-	GameEvents.game_started.connect(_on_game_events_game_started)
-
-	switch_state(State.DISABLED)
+	if not Engine.is_editor_hint():
+		switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	if _current_state != null:
@@ -40,6 +37,3 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 	_current_state.name = "GameUIStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func _on_game_events_game_started(_path_index: int) -> void:
-	switch_state(State.ENABLED)
