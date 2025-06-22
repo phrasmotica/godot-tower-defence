@@ -3,17 +3,14 @@ class_name GameUI extends Control
 
 enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 
-@export
-var game_tint: ColorRect
+@onready
+var appearance: GameUIAppearance = %Appearance
 
 @onready
 var create_tower_ui: CreateTowerUI = %CreateTowerUI
 
 @onready
 var tower_ui: TowerUI = %TowerUI
-
-@onready
-var appearance: GameUIAppearance = %Appearance
 
 var _state_factory := GameUIStateFactory.new()
 var _current_state: GameUIState = null
@@ -23,10 +20,6 @@ func _ready() -> void:
 		return
 
 	GameEvents.game_started.connect(_on_game_events_game_started)
-
-	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
-	TowerEvents.tower_deselected.connect(_on_tower_deselected)
-	TowerEvents.tower_sold.connect(_on_tower_sold)
 
 	switch_state(State.DISABLED)
 
@@ -50,15 +43,6 @@ func switch_state(state: State, state_data := GameUIStateData.new()) -> void:
 
 func _on_game_events_game_started(_path_index: int) -> void:
 	switch_state(State.ENABLED)
-
-func _on_selected_tower_changed(_tower: Tower, _old_tower: Tower) -> void:
-	game_tint.show()
-
-func _on_tower_deselected() -> void:
-	game_tint.hide()
-
-func _on_tower_sold() -> void:
-	game_tint.hide()
 
 func hide_ui() -> void:
 	print("Hiding selected tower UI")

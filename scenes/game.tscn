@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
+[ext_resource type="PackedScene" uid="uid://b2hg1tskkcs4k" path="res://scenes/ui/game_tint.tscn" id="6_gee14"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
@@ -28,7 +29,7 @@ script = ExtResource("5_rtba5")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 editor_description = "Layer for game UI elements."
 
-[node name="GameUI" parent="CanvasLayer" node_paths=PackedStringArray("game_tint") instance=ExtResource("10_gkcsa")]
+[node name="GameUI" parent="CanvasLayer" instance=ExtResource("10_gkcsa")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -36,14 +37,8 @@ offset_left = -320.0
 offset_right = 0.0
 offset_bottom = 1020.0
 grow_horizontal = 0
-game_tint = NodePath("../GameTint")
 
-[node name="GameTint" type="ColorRect" parent="CanvasLayer"]
-visible = false
-offset_right = 960.0
-offset_bottom = 720.0
-mouse_filter = 2
-color = Color(0.637843, 0.637843, 0.637843, 0.588235)
+[node name="GameTint" parent="CanvasLayer" instance=ExtResource("6_gee14")]
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 
