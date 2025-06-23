@@ -22,6 +22,8 @@ signal hit(body:Node2D)
 signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
 
+# HIGH: implement a state machine for this
+
 func _ready():
 	health_bar.set_max_health(stats.starting_health)
 	health_bar.hide()
