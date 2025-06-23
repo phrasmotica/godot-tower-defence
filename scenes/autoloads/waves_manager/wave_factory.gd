@@ -21,7 +21,7 @@ func create() -> Wave:
 
 	var wave := _wave_collection.get_wave(_current_index)
 
-	if wave != null:
+	if wave == null:
 		wave = Wave.new()
 
 		var is_boss_wave := _is_boss_wave()
