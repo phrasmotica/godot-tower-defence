@@ -16,6 +16,7 @@ func _init(
 	_level_manager = level_manager
 
 func get_near_enemy(for_effect: bool) -> Enemy:
+	# TODO: implement steering forces to target enemies in a sensible way
 	var enemies := get_near_enemies(for_effect)
 	return enemies[0] if enemies.size() > 0 else null
 
