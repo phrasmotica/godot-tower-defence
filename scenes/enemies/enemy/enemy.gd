@@ -1,5 +1,7 @@
 class_name Enemy extends PathFollow2D
 
+enum State { MOVING, PARALYSED, POISONED, SLOWED, DYING }
+
 ## Movement speed in pixels per second.
 @export_range(100.0, 300.0)
 var movement_speed := 150.0
