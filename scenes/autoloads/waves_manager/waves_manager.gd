@@ -1,73 +1,77 @@
 extends Node
 
+enum State { DISABLED, WAITING, SENDING }
+
 const LAST_WAVE: int = 10
 
 var boss_enemy_scene: PackedScene = preload("res://scenes/enemies/enemy_boss.tscn")
 var enemy_scene: PackedScene = preload("res://scenes/enemies/enemy_1.tscn")
 var wave_collection: WaveCollection = preload("res://resources/waves/waves_path0.tres")
 
-var wave_number := 0
+var _state_factory := WavesManagerStateFactory.new()
+var _current_state: WavesManagerState = null
+
+var _wave_number := 0
 
 signal waves_began
 signal wave_sent(wave: Wave)
 
-func _ready():
+func _ready() -> void:
 	GameEvents.game_started.connect(_on_game_events_game_started)
 
-	set_process(false)
+	switch_state(State.DISABLED)
 
-func _process(_delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		next()
+func switch_state(state: State, state_data := WavesManagerStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "WavesManagerStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _on_game_events_game_started(_path_index: int) -> void:
-	start_game()
+	switch_state(State.WAITING)
 
-func get_next() -> Wave:
-	if wave_number >= LAST_WAVE:
-		return null
-
-	if wave_number <= wave_collection.count():
-		return wave_collection.get_wave(wave_number)
-
-	var dummy_wave := Wave.new()
-
-	var is_boss_wave := wave_number % 5 == 0
-	dummy_wave.enemy = boss_enemy_scene if is_boss_wave else enemy_scene
-	dummy_wave.spawn_count = int(wave_number / 5.0) if is_boss_wave else wave_number
-
-	return dummy_wave
-
-func next():
-	if wave_number == 0:
+func next() -> Wave:
+	if _wave_number == 0:
 		waves_began.emit()
 
-	wave_number += 1
+	_wave_number += 1
 
-	var wave := get_next()
+	var wave := _get_next()
 	if wave == null:
 		print("No more waves to send!")
-		return
+		return null
 
-	print("Sending wave " + str(wave_number))
+	print("Sending wave " + str(_wave_number))
 
-	wave.number = wave_number
+	wave.number = _wave_number
 
 	wave_sent.emit(wave)
 
-	if wave_number <= wave_collection.count():
+	if _wave_number <= wave_collection.count():
 		print("Using " + str(wave.resource_path) + " resource")
 
-	for i in range(wave.spawn_count):
-		var enemy := EnemyManager.spawn_enemy(wave.enemy)
+	return wave
 
-		for e in wave.enhancements:
-			e.act(enemy)
+func _get_next() -> Wave:
+	if _wave_number >= LAST_WAVE:
+		return null
 
-		await get_tree().create_timer(1.0 / wave.spawn_frequency).timeout
+	if _wave_number <= wave_collection.count():
+		return wave_collection.get_wave(_wave_number)
 
-func start_game() -> void:
-	# HIGH: implement a node-based state machine. Do this for as many nodes in
-	# the game as possible!!
-	print("Enabling waves manager")
-	set_process(true)
+	var dummy_wave := Wave.new()
+
+	var is_boss_wave := _wave_number % 5 == 0
+	dummy_wave.enemy = boss_enemy_scene if is_boss_wave else enemy_scene
+	dummy_wave.spawn_count = int(_wave_number / 5.0) if is_boss_wave else _wave_number
+
+	return dummy_wave
