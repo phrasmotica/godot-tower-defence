@@ -9,9 +9,5 @@ func act_start():
 func act_end():
 	print("Paralysing enemies END")
 
-	for enemy in attached_enemies:
-		if is_instance_valid(enemy):
-			enemy.end_paralyse()
-
-func can_act(enemy: Enemy):
-	return not enemy.is_paralysed
+func can_act(enemy: Enemy) -> bool:
+	return enemy.can_be_paralysed()

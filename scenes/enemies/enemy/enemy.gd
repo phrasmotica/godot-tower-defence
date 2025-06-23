@@ -14,15 +14,12 @@ var bounty := 1
 @onready var stats: EnemyStats = $Stats
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
+# TODO: create an EnemyMovement abstraction script for this
 var current_speed := 0.0
-var is_slowed := false
-var is_paralysed := false
-var is_poisoned := false
 
 signal bolted
 signal hit(body:Node2D)
 signal die(enemy: Enemy)
-signal reached_end(enemy: Enemy)
 
 var _info: EnemyInfo = null
 
@@ -56,9 +53,6 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 
 	call_deferred("add_child", _current_state)
 
-func _process(delta):
-	move(delta)
-
 func set_max_health(amount: float):
 	stats.starting_health = amount
 	stats.current_health = amount
@@ -70,25 +64,6 @@ func set_max_speed(amount: float):
 
 func set_bounty(amount: int):
 	bounty = amount
-
-func move(delta):
-	if can_move():
-		accelerate(delta)
-
-		if progress_ratio < 1.0:
-			progress += current_speed * delta
-		else:
-			reached_end.emit(self)
-
-func accelerate(delta):
-	if can_accelerate():
-		current_speed = move_toward(current_speed, movement_speed, delta * movement_speed)
-
-func can_move():
-	return not is_paralysed
-
-func can_accelerate():
-	return not (is_slowed or is_paralysed) and current_speed < movement_speed
 
 func get_neighbours(max_distance_px: float):
 	var enemies = get_tree().get_nodes_in_group("enemies")
@@ -117,34 +92,23 @@ func get_neighbour(max_distance_px: float) -> Enemy:
 func get_distance_to(pos: Vector2):
 	return pos.distance_to(global_position)
 
-func slow(duration: float):
-	is_slowed = true
-	current_speed /= 2
+func can_be_slowed() -> bool:
+	return _current_state != null and _current_state.can_be_slowed()
 
-	var animation_speed = float(1 / duration)
-	animation_player.play("slow", -1, animation_speed)
+func slow(_duration: float) -> void:
+	switch_state(State.SLOWED)
 
-func end_slow():
-	is_slowed = false
+func can_be_paralysed() -> bool:
+	return _current_state != null and _current_state.can_be_paralysed()
 
-func paralyse(duration: float):
-	is_paralysed = true
-	current_speed = 0
+func paralyse(_duration: float) -> void:
+	switch_state(State.PARALYSED)
 
-	var animation_speed = float(1 / duration)
-	animation_player.play("paralyse", -1, animation_speed)
+func can_be_poisoned() -> bool:
+	return _current_state != null and _current_state.can_be_poisoned()
 
-func end_paralyse():
-	is_paralysed = false
-
-func poison(duration: float):
-	is_poisoned = true
-
-	var animation_speed = float(1 / duration)
-	animation_player.play("poison", -1, animation_speed)
-
-func end_poison():
-	is_poisoned = false
+func poison(_duration: float) -> void:
+	switch_state(State.POISONED)
 
 func _on_collision_area_body_entered(body: Projectile):
 	handle_strike(body, true)
@@ -174,6 +138,7 @@ func handle_damage(amount: float):
 	health_bar.draw_health(new_health)
 
 	if new_health <= 0:
+		# TODO: re-implement this in DYING state
 		animation_player.stop()
 		animation_player.play("die")
 

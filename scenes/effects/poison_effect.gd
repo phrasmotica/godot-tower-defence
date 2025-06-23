@@ -24,11 +24,7 @@ func act_process(delta):
 func act_end():
 	print("Poisoning enemies END")
 
-	for enemy in attached_enemies:
-		if is_instance_valid(enemy):
-			enemy.end_poison()
-
 	set_process(false)
 
 func can_act(enemy: Enemy):
-	return not enemy.is_poisoned
+	return enemy.can_be_poisoned()

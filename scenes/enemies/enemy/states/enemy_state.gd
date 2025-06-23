@@ -31,22 +31,21 @@ func transition_state(
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
 
-func is_upgrading() -> bool:
+func accelerate(delta: float) -> void:
+	if _enemy.current_speed < _enemy.movement_speed:
+		_enemy.current_speed = move_toward(_enemy.current_speed, _enemy.movement_speed, delta * _enemy.movement_speed)
+
+func move(delta: float) -> void:
+	if _enemy.progress_ratio < 1.0:
+		_enemy.progress += _enemy.current_speed * delta
+	else:
+		EnemyEvents.emit_enemy_reached_end(_enemy)
+
+func can_be_slowed() -> bool:
 	return false
 
-func can_be_selected() -> bool:
+func can_be_paralysed() -> bool:
 	return false
 
-func select() -> void:
-	_appearance.show_visualiser()
-	_appearance.show_range()
-
-	_interaction.show_selection()
-	_interaction.set_selected(true)
-
-func deselect() -> void:
-	_appearance.hide_visualiser()
-	_appearance.hide_range()
-
-	_interaction.hide_selection()
-	_interaction.set_selected(false)
+func can_be_poisoned() -> bool:
+	return false
