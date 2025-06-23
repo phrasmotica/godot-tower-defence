@@ -13,9 +13,6 @@ var _current_state: WavesManagerState = null
 
 var _wave_number := 0
 
-signal waves_began
-signal wave_sent(wave: Wave)
-
 func _ready() -> void:
 	GameEvents.game_started.connect(_on_game_events_game_started)
 
@@ -41,7 +38,7 @@ func _on_game_events_game_started(_path_index: int) -> void:
 
 func next() -> Wave:
 	if _wave_number == 0:
-		waves_began.emit()
+		WaveEvents.emit_waves_began()
 
 	_wave_number += 1
 
@@ -54,7 +51,7 @@ func next() -> Wave:
 
 	wave.number = _wave_number
 
-	wave_sent.emit(wave)
+	WaveEvents.emit_wave_sent(wave)
 
 	if _wave_number <= wave_collection.count():
 		print("Using " + str(wave.resource_path) + " resource")

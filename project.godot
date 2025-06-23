@@ -28,6 +28,7 @@ TowerPlacingEvents="*res://scenes/autoloads/tower_placing_events.gd"
 EnemyManager="*res://scenes/autoloads/enemy_manager.gd"
 EnemyEvents="*res://scenes/autoloads/enemy_events.gd"
 PathInteraction="*res://scenes/autoloads/path_interaction.gd"
+WaveEvents="*res://scenes/autoloads/waves_manager/wave_events.gd"
 
 [display]
 

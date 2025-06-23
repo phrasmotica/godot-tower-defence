@@ -16,7 +16,7 @@ func _ready() -> void:
 
 		LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
 
-		WavesManager.wave_sent.connect(_on_waves_manager_wave_sent)
+		WaveEvents.wave_sent.connect(_on_wave_sent)
 
 func _on_bank_manager_money_changed(new_money: int) -> void:
 	set_money(new_money)
@@ -24,7 +24,7 @@ func _on_bank_manager_money_changed(new_money: int) -> void:
 func _on_lives_manager_lives_changed(new_lives: int) -> void:
 	set_lives(new_lives)
 
-func _on_waves_manager_wave_sent(wave: Wave) -> void:
+func _on_wave_sent(wave: Wave) -> void:
 	set_wave(wave)
 
 func set_money(money: int) -> void:

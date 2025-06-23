@@ -25,7 +25,7 @@ func _ready() -> void:
 
 		TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
 
-		WavesManager.waves_began.connect(_on_waves_manager_waves_began)
+		WaveEvents.waves_began.connect(_on_waves_began)
 
 	set_active_path()
 
@@ -60,7 +60,7 @@ func _on_game_events_path_previewed(path_index: int) -> void:
 func _on_game_events_game_started(path_index: int) -> void:
 	active_path_index = path_index
 
-func _on_waves_manager_waves_began() -> void:
+func _on_waves_began() -> void:
 	get_active_path().start_game()
 
 func _on_path_mouse_validity_changed(is_valid: bool) -> void:
