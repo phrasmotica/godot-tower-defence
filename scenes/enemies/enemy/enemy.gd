@@ -24,11 +24,37 @@ signal hit(body:Node2D)
 signal die(enemy: Enemy)
 signal reached_end(enemy: Enemy)
 
-# HIGH: implement a state machine for this
+var _info: EnemyInfo = null
 
-func _ready():
+var _state_factory := EnemyStateFactory.new()
+var _current_state: EnemyState = null
+
+func _ready() -> void:
+	_info = EnemyInfo.new("ENEMY_NAME", bounty)
+
 	health_bar.set_max_health(stats.starting_health)
 	health_bar.hide()
+
+	switch_state(State.MOVING)
+
+func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data,
+		null, #appearance,
+		null, #colliders,
+		_info,
+		null) #interaction)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "EnemyStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _process(delta):
 	move(delta)
