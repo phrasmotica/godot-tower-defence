@@ -7,6 +7,7 @@ var _tower: Tower = null
 var _state_data: TowerStateData = null
 var _appearance: TowerAppearance = null
 var _colliders: TowerColliders = null
+var _info: TowerInfo = null
 var _interaction: TowerInteraction = null
 var _weaponry: TowerWeaponry = null
 
@@ -15,6 +16,7 @@ func setup(
 	state_data: TowerStateData,
 	appearance: TowerAppearance,
 	colliders: TowerColliders,
+	info: TowerInfo,
 	interaction: TowerInteraction,
 	weaponry: TowerWeaponry,
 ) -> void:
@@ -22,6 +24,7 @@ func setup(
 	_state_data = state_data
 	_appearance = appearance
 	_colliders = colliders
+	_info = info
 	_interaction = interaction
 	_weaponry = weaponry
 

@@ -26,10 +26,14 @@ var interaction: TowerInteraction = %Interaction
 @onready
 var weaponry: TowerWeaponry = %Weaponry
 
+var _info: TowerInfo = null
+
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
 func _ready() -> void:
+	_info = TowerInfo.new(tower_name, price)
+
 	weaponry.set_target_mode(starting_target_mode)
 
 	switch_state(State.PLACING)
@@ -45,6 +49,7 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 		state_data,
 		appearance,
 		colliders,
+		_info,
 		interaction,
 		weaponry)
 

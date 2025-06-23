@@ -25,13 +25,13 @@ func _process(_delta: float) -> void:
 	_tower.global_position = get_viewport().get_mouse_position()
 
 func _on_path_area_entered() -> void:
-	print(_tower.tower_name + " entered path area")
+	print(_info.get_name() + " entered path area")
 	_is_valid_location = false
 
 	_appearance.error_look()
 
 func _on_path_area_exited() -> void:
-	print(_tower.tower_name + " exited path area")
+	print(_info.get_name() + " exited path area")
 	_is_valid_location = true
 
 	_appearance.default_look()
@@ -49,9 +49,9 @@ func _on_valid_area_clicked() -> void:
 		print("Cannot place tower here!")
 		return
 
-	print("Placed new %s" % _tower.tower_name)
+	print("Placed new %s" % _info.get_name())
 
-	BankManager.deduct(_tower.price)
+	BankManager.deduct(_info.get_price())
 
 	TowerEvents.emit_tower_placing_finished(_tower)
 
