@@ -1,9 +1,10 @@
 class_name WaveCollection extends Resource
 
-@export var waves: Array[Wave] = []
+@export
+var waves: Array[Wave] = []
 
-func count() -> int:
-    return waves.size()
+func get_wave(index: int) -> Wave:
+	if index < 0 or index >= waves.size():
+		return null
 
-func get_wave(number: int) -> Wave:
-    return waves[number - 1]
+	return waves[index]

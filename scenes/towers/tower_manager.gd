@@ -4,6 +4,7 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
+# TODO: turn this script into an auto-load. It only reacts to signals from other auto-loads...
 func _ready() -> void:
 	KeyboardShortcuts.sell_tower.connect(TowerEvents.emit_tower_sold)
 
