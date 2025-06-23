@@ -13,6 +13,9 @@ func _init(last_index) -> void:
 func is_waiting_to_start() -> bool:
 	return _current_index == -1
 
+func restart() -> void:
+	_current_index = -1
+
 func create() -> Wave:
 	if _current_index >= _last_index:
 		return null

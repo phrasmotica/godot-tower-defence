@@ -2,7 +2,7 @@ extends Node
 
 enum State { DISABLED, WAITING }
 
-const LAST_WAVE_INDEX: int = 9
+const LAST_WAVE_INDEX: int = 4
 
 var _state_factory := WavesManagerStateFactory.new()
 var _current_state: WavesManagerState = null
@@ -30,6 +30,8 @@ func switch_state(state: State, state_data := WavesManagerStateData.new()) -> vo
 	call_deferred("add_child", _current_state)
 
 func _on_game_events_game_started(_path_index: int) -> void:
+	_wave_factory.restart()
+
 	switch_state(State.WAITING)
 
 func get_next_wave() -> Wave:
