@@ -2,8 +2,6 @@ class_name Tower extends Node2D
 
 enum State { PLACING, WARMUP, FIRING, UPGRADING, SELLING, DISABLED }
 
-enum TargetMode { NEAR, FAR, STRONG }
-
 @export
 var tower_name := ""
 
@@ -14,7 +12,7 @@ var tower_description := ""
 var price: int = 1
 
 @export
-var target_mode := TargetMode.NEAR
+var starting_target_mode := TowerWeaponry.TargetMode.NEAR
 
 @onready
 var appearance: TowerAppearance = %Appearance
@@ -32,6 +30,8 @@ var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
 func _ready() -> void:
+	weaponry.set_target_mode(starting_target_mode)
+
 	switch_state(State.PLACING)
 
 func switch_state(state: State, state_data := TowerStateData.new()) -> void:
@@ -67,8 +67,8 @@ func deselect() -> void:
 	if _current_state != null and _current_state.can_be_selected():
 		_current_state.deselect()
 
-func set_target_mode(index: int):
-	target_mode = index as TargetMode
+func set_target_mode(target_mode: TowerWeaponry.TargetMode) -> void:
+	weaponry.set_target_mode(target_mode)
 	print(tower_name + " now has target mode " + str(target_mode))
 
 func upgrade(index: int) -> void:

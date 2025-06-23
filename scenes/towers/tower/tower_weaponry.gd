@@ -1,6 +1,8 @@
 class_name TowerWeaponry
 extends Node
 
+enum TargetMode { NEAR, FAR, STRONG }
+
 @export
 var level_manager: TowerLevelManager
 
@@ -11,6 +13,7 @@ var barrel: GunBarrel
 var firing_line: FiringLine
 
 var _enemy_finder: EnemyFinder = null
+var _target_mode := TargetMode.NEAR
 
 signal projectile_created(projectile: Projectile)
 signal effect_created(effect: Effect, enemies: Array[Enemy])
@@ -39,6 +42,12 @@ func install_base() -> TowerLevel:
 
 	return first_level
 
+func get_target_mode() -> TargetMode:
+	return _target_mode
+
+func set_target_mode(target_mode: TargetMode) -> void:
+	_target_mode = target_mode
+
 func adjust_range(projectile_range: float) -> void:
 	level_manager.level_adjust_range(projectile_range)
 	level_manager.level_adjust_effect_range(projectile_range)
@@ -62,7 +71,7 @@ func get_total_value() -> int:
 	return level_manager.get_total_value()
 
 func for_firing(tower: Tower) -> void:
-	_enemy_finder = EnemyFinder.new(tower, level_manager)
+	_enemy_finder = EnemyFinder.new(tower, self, level_manager)
 
 func scan(delta: float) -> void:
 	var near_enemy := _enemy_finder.get_near_enemy(false)

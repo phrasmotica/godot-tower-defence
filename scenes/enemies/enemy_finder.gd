@@ -3,13 +3,16 @@ class_name EnemyFinder
 var enemy_sorter := EnemySorter.new()
 
 var _tower: Tower = null
+var _weaponry: TowerWeaponry = null
 var _level_manager: TowerLevelManager = null
 
 func _init(
 	tower: Tower,
+	weaponry: TowerWeaponry,
 	level_manager: TowerLevelManager,
 ) -> void:
 	_tower = tower
+	_weaponry = weaponry
 	_level_manager = level_manager
 
 func get_near_enemy(for_effect: bool) -> Enemy:
@@ -35,10 +38,10 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 	if in_range_enemies.size() <= 0:
 		return []
 
-	match _tower.target_mode:
-		Tower.TargetMode.STRONG:
+	match _weaponry.get_target_mode():
+		TowerWeaponry.TargetMode.STRONG:
 			enemy_sorter.strong(in_range_enemies)
-		Tower.TargetMode.FAR:
+		TowerWeaponry.TargetMode.FAR:
 			enemy_sorter.far(in_range_enemies, _tower.global_position)
 		_:
 			# nearest enemies first by default
