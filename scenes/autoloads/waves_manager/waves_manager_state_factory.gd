@@ -6,7 +6,6 @@ func _init() -> void:
 	states = {
 		WavesManager.State.DISABLED: WavesManagerStateDisabled,
 		WavesManager.State.WAITING: WavesManagerStateWaiting,
-		WavesManager.State.SENDING: WavesManagerStateSending,
 	}
 
 func get_fresh_state(state: WavesManager.State) -> WavesManagerState:
