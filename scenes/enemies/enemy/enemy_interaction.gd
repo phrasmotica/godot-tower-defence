@@ -1,0 +1,2 @@
+class_name EnemyInteraction
+extends Node2D

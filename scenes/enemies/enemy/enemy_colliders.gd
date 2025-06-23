@@ -1,0 +1,2 @@
+class_name EnemyColliders
+extends Node2D

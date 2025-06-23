@@ -1,0 +1,2 @@
+class_name EnemyAppearance
+extends Node2D
