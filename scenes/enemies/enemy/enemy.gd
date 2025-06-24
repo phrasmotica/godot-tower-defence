@@ -28,7 +28,7 @@ var _state_factory := EnemyStateFactory.new()
 var _current_state: EnemyState = null
 
 func _ready() -> void:
-	_info = EnemyInfo.new("ENEMY_NAME", bounty)
+	_info = EnemyInfo.new(name, bounty)
 
 	appearance.set_max_health(stats.starting_health)
 	appearance.hide_health()

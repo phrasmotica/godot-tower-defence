@@ -1,6 +1,7 @@
 extends Node
 
 var _enemies: Array[Enemy] = []
+var _spawned_count := 0
 
 func _ready() -> void:
 	EnemyEvents.enemy_died.connect(_on_enemy_died)
@@ -17,6 +18,9 @@ func get_enemies() -> Array[Enemy]:
 
 func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	var enemy: Enemy = enemy_scene.instantiate()
+	enemy.name = "Enemy%d" % _spawned_count
+
+	_spawned_count += 1
 
 	add_enemy(enemy)
 
