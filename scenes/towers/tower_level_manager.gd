@@ -38,8 +38,6 @@ func start_warmup() -> void:
 func finish_warmup() -> TowerLevel:
 	base_level.modulate = normal_colour
 
-	base_level.created_bolt.connect(_on_level_created_bolt)
-
 	return base_level
 
 func start_upgrade(index: int) -> TowerLevel:
@@ -56,21 +54,12 @@ func finish_upgrade() -> TowerLevel:
 	if ongoing_upgrade_index < 0 or not get_upgrade(ongoing_upgrade_index):
 		return
 
-	# hide old level
-	var old_level = get_current_level()
-
-	if old_level.created_bolt.is_connected(_on_level_created_bolt):
-		print("Disconnecting _on_level_created_bolt")
-		old_level.created_bolt.disconnect(_on_level_created_bolt)
-
 	upgrade_path.append(ongoing_upgrade_index)
 	ongoing_upgrade_index = -1
 
 	var new_level = get_current_level()
 
 	new_level.visible = true
-
-	new_level.created_bolt.connect(_on_level_created_bolt)
 
 	base_level.modulate = normal_colour
 
@@ -118,20 +107,3 @@ func level_adjust_effect_range(effect_range: float):
 		effect_area.radius = effect_range
 
 	adjust_effect_range.emit(effect_range)
-
-func should_create_effect(enemies: Array[Enemy]):
-	if effect_area:
-		return effect_area.enabled and enemies.size() > 0
-
-	return false
-
-func should_bolt(_enemies: Array[Enemy]):
-	if firing_line:
-		return firing_line.enabled && firing_line.can_see_enemies()
-
-	return false
-
-func _on_level_created_bolt(bolt_stats: TowerLevelStats) -> void:
-	print("Processing bolt")
-
-	firing_line.fire(bolt_stats)

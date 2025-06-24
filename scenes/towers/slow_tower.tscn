@@ -192,11 +192,12 @@ selection = NodePath("Selection")
 
 [node name="Selection" parent="Interaction" instance=ExtResource("2_qx8bf")]
 
-[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel", "effect_area")]
 unique_name_in_owner = true
 script = ExtResource("4_xnc4v")
 level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
+effect_area = NodePath("Levels/EffectArea")
 
 [node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("effect_area", "base_level")]
 script = ExtResource("5_t5pdt")

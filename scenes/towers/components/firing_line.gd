@@ -20,24 +20,19 @@ var shooting_range := 3.0:
 
 		_refresh()
 
-signal created_line(bolt_line: BoltLine)
-
 func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
 	ray_cast.target_position = Vector2(shooting_range * 100, 0)
 
-func can_see_enemies():
+func can_see_enemies() -> bool:
 	return ray_cast.is_colliding()
 
-func fire(bolt_stats: TowerLevelStats):
+func fire(bolt_stats: TowerLevelStats) -> BoltLine:
 	ray_cast_damage.process_enemies(ray_cast, bolt_stats)
 
 	var new_line: BoltLine = bolt_line.instantiate()
 	new_line.line.points[1] = ray_cast.target_position
 
-	created_line.emit(new_line)
-
-func _on_levels_adjust_range(projectile_range: float):
-	shooting_range = projectile_range
+	return new_line

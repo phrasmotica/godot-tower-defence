@@ -10,6 +10,9 @@ var level_manager: TowerLevelManager
 var barrel: GunBarrel
 
 @export
+var effect_area: EffectArea
+
+@export
 var firing_line: FiringLine
 
 var _enemy_finder: EnemyFinder = null
@@ -23,9 +26,6 @@ func _ready() -> void:
 	barrel.shoot.connect(_on_barrel_shoot)
 	barrel.pulse.connect(_on_barrel_pulse)
 	barrel.bolt.connect(_on_barrel_bolt)
-
-	if firing_line:
-		firing_line.created_line.connect(_on_created_line)
 
 func pause() -> void:
 	barrel.pause()
@@ -95,7 +95,7 @@ func _on_barrel_shoot() -> void:
 
 func _on_barrel_pulse() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(true)
-	if not level_manager.should_create_effect(in_range_enemies):
+	if not should_create_effect(in_range_enemies):
 		return
 
 	var level := level_manager.get_current_level()
@@ -103,20 +103,31 @@ func _on_barrel_pulse() -> void:
 
 	effect_created.emit(effect, in_range_enemies)
 
+func should_create_effect(enemies: Array[Enemy]) -> bool:
+	if effect_area:
+		return effect_area.enabled and enemies.size() > 0
+
+	return false
+
 func _on_barrel_bolt() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(false)
 
-	if not level_manager.should_bolt(in_range_enemies):
+	if not should_bolt(in_range_enemies):
 		return
 
 	var level := level_manager.get_current_level()
 
-	level.try_shoot_bolt()
+	print("Processing bolt")
 
-func _on_created_line(bolt_line: BoltLine) -> void:
-	print("Adding bolt line as child")
+	var bolt_line := firing_line.fire(level.projectile_stats)
 
 	bolt_line.rotation = level_manager.rotation
 	bolt_line.fire()
 
 	bolt_created.emit(bolt_line)
+
+func should_bolt(_enemies: Array[Enemy]) -> bool:
+	if firing_line:
+		return firing_line.enabled && firing_line.can_see_enemies()
+
+	return false
