@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 		print("Effect does nothing!")
 		transition_state(Enemy.State.MOVING)
 
-	_enemy.current_speed /= 2
+	_movement.slow(2)
 
 	var animation_speed := 1 / effect.effect_duration
 

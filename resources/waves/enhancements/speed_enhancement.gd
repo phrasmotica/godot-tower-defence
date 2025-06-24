@@ -5,4 +5,4 @@ class_name SpeedEnhancement extends WaveEnhancement
 var speed_mult := 1.0
 
 func act(enemy: Enemy) -> void:
-    enemy.set_max_speed(speed_mult * enemy.movement_speed)
+	enemy.scale_base_speed(speed_mult)

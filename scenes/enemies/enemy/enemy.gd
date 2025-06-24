@@ -17,10 +17,10 @@ var appearance: EnemyAppearance = %Appearance
 var colliders: EnemyColliders = %Colliders
 
 @onready
-var stats: EnemyStats = %Stats
+var movement: EnemyMovement = %Movement
 
-# TODO: create an EnemyMovement abstraction script for this
-var current_speed := 0.0
+@onready
+var stats: EnemyStats = %Stats
 
 signal bolted
 signal hit(body:Node2D)
@@ -38,6 +38,8 @@ func _ready() -> void:
 
 	colliders.projectile_entered.connect(_on_projectile_entered)
 
+	movement.set_base_speed(movement_speed)
+
 	switch_state(State.MOVING)
 
 func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
@@ -52,7 +54,8 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 		appearance,
 		colliders,
 		_info,
-		null) #interaction)
+		null, #interaction,
+		movement)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "EnemyStateMachine: %s" % str(state)
@@ -65,8 +68,8 @@ func set_max_health(amount: float) -> void:
 
 	appearance.set_max_health(amount)
 
-func set_max_speed(amount: float):
-	movement_speed = amount
+func scale_base_speed(factor: float) -> void:
+	movement.scale_base_speed(factor)
 
 func set_bounty(amount: int):
 	bounty = amount
@@ -150,6 +153,4 @@ func handle_damage(amount: float) -> void:
 
 func handle_knockback(amount: float, mult := 1.0) -> void:
 	if mult > 0:
-		var knockback_factor = amount * mult
-		print("Knocking enemy back by factor of " + str(knockback_factor))
-		current_speed = current_speed * (1 - (knockback_factor / 100.0))
+		movement.knockback(amount * mult)

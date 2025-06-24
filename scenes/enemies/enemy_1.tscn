@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=18 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
 [ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy/enemy.gd" id="1_mx3jq"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_wjupi"]
 [ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="3_3k5g8"]
 [ext_resource type="Script" uid="uid://ou6aw1huhg6j" path="res://scenes/enemies/enemy/enemy_colliders.gd" id="5_hp0oe"]
+[ext_resource type="Script" uid="uid://dvwwrj528slo" path="res://scenes/enemies/enemy/enemy_movement.gd" id="6_a01ek"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
 atlas = ExtResource("1_fkgmj")
@@ -267,6 +268,10 @@ collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_8qu8x")
+
+[node name="Movement" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_a01ek")
 
 [node name="Stats" type="Node" parent="."]
 unique_name_in_owner = true

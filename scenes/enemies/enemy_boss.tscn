@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://brbdisl4wehyt"]
+[gd_scene load_steps=21 format=3 uid="uid://brbdisl4wehyt"]
 
 [ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy/enemy.gd" id="1_snwv5"]
 [ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_dnuh1"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://rdopl1ep0uqy" path="res://assets/sprites/dark-moon.png" id="3_cv2ie"]
 [ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="4_qrl0g"]
 [ext_resource type="Script" uid="uid://ou6aw1huhg6j" path="res://scenes/enemies/enemy/enemy_colliders.gd" id="5_2orkc"]
+[ext_resource type="Script" uid="uid://dvwwrj528slo" path="res://scenes/enemies/enemy/enemy_movement.gd" id="6_pkga2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfwm1"]
 atlas = ExtResource("3_cv2ie")
@@ -314,6 +315,10 @@ collision_mask = 2
 
 [node name="Collider" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("CircleShape2D_x05kw")
+
+[node name="Movement" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_pkga2")
 
 [node name="Stats" type="Node" parent="."]
 unique_name_in_owner = true

@@ -9,6 +9,7 @@ var _appearance: EnemyAppearance = null
 var _colliders: EnemyColliders = null
 var _info: EnemyInfo = null
 var _interaction: EnemyInteraction = null
+var _movement: EnemyMovement = null
 
 func setup(
 	enemy: Enemy,
@@ -17,6 +18,7 @@ func setup(
 	colliders: EnemyColliders,
 	info: EnemyInfo,
 	interaction: EnemyInteraction,
+	movement: EnemyMovement,
 ) -> void:
 	_enemy = enemy
 	_state_data = state_data
@@ -24,6 +26,7 @@ func setup(
 	_colliders = colliders
 	_info = info
 	_interaction = interaction
+	_movement = movement
 
 func transition_state(
 	new_state: Enemy.State,
@@ -32,12 +35,11 @@ func transition_state(
 	state_transition_requested.emit(new_state, state_data)
 
 func accelerate(delta: float) -> void:
-	if _enemy.current_speed < _enemy.movement_speed:
-		_enemy.current_speed = move_toward(_enemy.current_speed, _enemy.movement_speed, delta * _enemy.movement_speed)
+	_movement.accelerate(delta)
 
 func move(delta: float) -> void:
 	if _enemy.progress_ratio < 1.0:
-		_enemy.progress += _enemy.current_speed * delta
+		_enemy.progress += delta * _movement.get_current_speed()
 	else:
 		EnemyEvents.emit_enemy_reached_end(_enemy)
 
