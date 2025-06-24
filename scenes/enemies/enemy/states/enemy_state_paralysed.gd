@@ -14,7 +14,7 @@ func _enter_tree() -> void:
 
 	var animation_speed := 1 / effect.effect_duration
 
-	_enemy.animation_player.play("paralyse", -1, animation_speed)
+	_appearance.animate_paralyse(animation_speed)
 
 	await get_tree().create_timer(effect.effect_duration).timeout
 

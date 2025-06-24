@@ -6,6 +6,4 @@ func _enter_tree() -> void:
 
 	EnemyEvents.emit_enemy_died(_enemy)
 
-	# this animation removes the enemy when it ends
-	_enemy.animation_player.stop()
-	_enemy.animation_player.play("die")
+	_appearance.animate_die()

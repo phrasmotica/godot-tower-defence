@@ -10,9 +10,10 @@ var movement_speed := 150.0
 @export_range(1, 5)
 var bounty := 1
 
-@onready var health_bar: HealthBar = $HealthBar
 @onready var stats: EnemyStats = $Stats
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@onready
+var appearance: EnemyAppearance = %Appearance
 
 # TODO: create an EnemyMovement abstraction script for this
 var current_speed := 0.0
@@ -28,8 +29,8 @@ var _current_state: EnemyState = null
 func _ready() -> void:
 	_info = EnemyInfo.new("ENEMY_NAME", bounty)
 
-	health_bar.set_max_health(stats.starting_health)
-	health_bar.hide()
+	appearance.set_max_health(stats.starting_health)
+	appearance.hide_health()
 
 	switch_state(State.MOVING)
 
@@ -42,7 +43,7 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
-		null, #appearance,
+		appearance,
 		null, #colliders,
 		_info,
 		null) #interaction)
@@ -52,11 +53,11 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 
 	call_deferred("add_child", _current_state)
 
-func set_max_health(amount: float):
+func set_max_health(amount: float) -> void:
 	stats.starting_health = amount
 	stats.current_health = amount
 
-	health_bar.set_max_health(amount)
+	appearance.set_max_health(amount)
 
 func set_max_speed(amount: float):
 	movement_speed = amount
@@ -134,11 +135,10 @@ func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 
 func handle_damage(amount: float):
 	var new_health = stats.take_damage(amount)
-	health_bar.draw_health(new_health)
+	appearance.set_current_health(new_health)
 
 	if new_health > 0:
-		animation_player.stop()
-		animation_player.play("peek_health")
+		appearance.animate_peek_health()
 	else:
 		switch_state(State.DYING)
 
