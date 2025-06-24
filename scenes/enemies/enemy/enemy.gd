@@ -94,20 +94,20 @@ func get_distance_to(pos: Vector2):
 func can_be_slowed() -> bool:
 	return _current_state != null and _current_state.can_be_slowed()
 
-func slow(_duration: float) -> void:
-	switch_state(State.SLOWED)
+func slow(effect: SlowEffect) -> void:
+	switch_state(State.SLOWED, EnemyStateData.build().with_effect(effect))
 
 func can_be_paralysed() -> bool:
 	return _current_state != null and _current_state.can_be_paralysed()
 
-func paralyse(_duration: float) -> void:
-	switch_state(State.PARALYSED)
+func paralyse(effect: ParalyseEffect) -> void:
+	switch_state(State.PARALYSED, EnemyStateData.build().with_effect(effect))
 
 func can_be_poisoned() -> bool:
 	return _current_state != null and _current_state.can_be_poisoned()
 
-func poison(_duration: float) -> void:
-	switch_state(State.POISONED)
+func poison(effect: PoisonEffect) -> void:
+	switch_state(State.POISONED, EnemyStateData.build().with_effect(effect))
 
 func _on_collision_area_body_entered(body: Projectile):
 	handle_strike(body, true)

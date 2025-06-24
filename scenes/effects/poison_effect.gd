@@ -7,7 +7,7 @@ func act_start():
 	print("Poisoning enemies START")
 
 	for enemy in attached_enemies:
-		enemy.poison(effect_duration)
+		enemy.poison(self)
 
 	set_process(true)
 

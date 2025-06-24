@@ -4,7 +4,7 @@ func act_start():
 	print("Paralysing enemies START")
 
 	for enemy in attached_enemies:
-		enemy.paralyse(effect_duration)
+		enemy.paralyse(self)
 
 func act_end():
 	print("Paralysing enemies END")

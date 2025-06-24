@@ -4,7 +4,7 @@ func act_start():
 	print("Slowing enemies START")
 
 	for enemy in attached_enemies:
-		enemy.slow(effect_duration)
+		enemy.slow(self)
 
 func act_end():
 	print("Slowing enemies END")
