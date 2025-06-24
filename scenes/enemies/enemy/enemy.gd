@@ -22,9 +22,6 @@ var movement: EnemyMovement = %Movement
 @onready
 var stats: EnemyStats = %Stats
 
-signal bolted
-signal hit(body:Node2D)
-
 var _info: EnemyInfo = null
 
 var _state_factory := EnemyStateFactory.new()
@@ -36,7 +33,7 @@ func _ready() -> void:
 	appearance.set_max_health(stats.starting_health)
 	appearance.hide_health()
 
-	colliders.projectile_entered.connect(_on_projectile_entered)
+	colliders.projectile_entered.connect(handle_strike)
 
 	movement.set_base_speed(movement_speed)
 
@@ -55,7 +52,8 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 		colliders,
 		_info,
 		null, #interaction,
-		movement)
+		movement,
+		stats)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "EnemyStateMachine: %s" % str(state)
@@ -95,38 +93,14 @@ func can_be_poisoned() -> bool:
 func poison(effect: PoisonEffect) -> void:
 	switch_state(State.POISONED, EnemyStateData.build().with_effect(effect))
 
-func _on_projectile_entered(body: Projectile) -> void:
-	handle_strike(body, true)
-
-func handle_aoe(body: Projectile):
-	# gentler knockback for an indirect hit. Also don't re-trigger the
-	# projectile's collision handler
-	handle_strike(body, false, 0.5)
+func handle_aoe(body: Projectile) -> void:
+	if _current_state != null:
+		_current_state.handle_aoe(body)
 
 func handle_bolt(bolt_stats: TowerLevelStats) -> void:
-	bolted.emit()
+	if _current_state != null:
+		_current_state.handle_bolt(bolt_stats)
 
-	handle_damage(bolt_stats.damage)
-	handle_knockback(bolt_stats.projectile_knockback)
-
-func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0) -> void:
-	hit.emit(body)
-
-	handle_damage(body.damage)
-	handle_knockback(body.knockback, knockback_mult)
-
-	if propagate:
-		body.handle_collision(self)
-
-func handle_damage(amount: float) -> void:
-	var new_health = stats.take_damage(amount)
-	appearance.set_current_health(new_health)
-
-	if new_health > 0:
-		appearance.animate_peek_health()
-	else:
-		switch_state(State.DYING)
-
-func handle_knockback(amount: float, mult := 1.0) -> void:
-	if mult > 0:
-		movement.knockback(amount * mult)
+func handle_strike(body: Projectile) -> void:
+	if _current_state != null:
+		_current_state.handle_strike(body)
