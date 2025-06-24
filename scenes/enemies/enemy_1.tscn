@@ -254,7 +254,7 @@ shape = SubResource("RectangleShape2D_8qu8x")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_c4ujo")
+&"": SubResource("AnimationLibrary_c4ujo")
 }
 
 [connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]

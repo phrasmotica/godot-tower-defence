@@ -9,8 +9,6 @@ func act_start():
 	for enemy in attached_enemies:
 		enemy.poison(effect_duration)
 
-		enemy.die.connect(func(e): attached_enemies.erase(e))
-
 	set_process(true)
 
 func act_process(delta):

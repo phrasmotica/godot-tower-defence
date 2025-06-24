@@ -2,7 +2,12 @@ class_name Effect extends Node
 
 var effect_duration: float
 
+# TODO: don't attach enemies to this effect. Instead attach one copy of this
+# effect to each enemy node that it affects...
 var attached_enemies: Array[Enemy]
+
+func _ready() -> void:
+	EnemyEvents.enemy_died.connect(_on_enemy_died)
 
 func _process(delta):
 	act_process(delta)
@@ -14,6 +19,9 @@ func start_timer():
 
 	timer.timeout.connect(act_end)
 	timer.timeout.connect(queue_free)
+
+func _on_enemy_died(enemy: Enemy) -> void:
+	attached_enemies.erase(enemy)
 
 func act_start():
 	# implemented in child classes

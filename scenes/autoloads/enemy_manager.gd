@@ -3,6 +3,7 @@ extends Node
 var _enemies: Array[Enemy] = []
 
 func _ready() -> void:
+	EnemyEvents.enemy_died.connect(_on_enemy_died)
 	EnemyEvents.enemy_reached_end.connect(_on_enemy_reached_end)
 
 func add_enemy(enemy: Enemy) -> void:
@@ -17,18 +18,14 @@ func get_enemies() -> Array[Enemy]:
 func spawn_enemy(enemy_scene: PackedScene) -> Enemy:
 	var enemy: Enemy = enemy_scene.instantiate()
 
-	enemy.die.connect(_on_enemy_die)
-
 	add_enemy(enemy)
 
 	EnemyEvents.emit_enemy_spawned(enemy)
 
 	return enemy
 
-func _on_enemy_die(enemy: Enemy) -> void:
+func _on_enemy_died(enemy: Enemy) -> void:
 	remove_enemy(enemy)
-
-	EnemyEvents.emit_enemy_died(enemy)
 
 func _on_enemy_reached_end(enemy: Enemy) -> void:
 	remove_enemy(enemy)

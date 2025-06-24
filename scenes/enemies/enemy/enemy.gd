@@ -19,7 +19,6 @@ var current_speed := 0.0
 
 signal bolted
 signal hit(body:Node2D)
-signal die(enemy: Enemy)
 
 var _info: EnemyInfo = null
 
@@ -137,17 +136,11 @@ func handle_damage(amount: float):
 	var new_health = stats.take_damage(amount)
 	health_bar.draw_health(new_health)
 
-	if new_health <= 0:
-		# TODO: re-implement this in DYING state
+	if new_health > 0:
 		animation_player.stop()
-		animation_player.play("die")
-
-		die.emit(self)
-
-		return
-
-	animation_player.stop()
-	animation_player.play("peek_health")
+		animation_player.play("peek_health")
+	else:
+		switch_state(State.DYING)
 
 func handle_knockback(amount: float, mult := 1.0):
 	if mult > 0:
