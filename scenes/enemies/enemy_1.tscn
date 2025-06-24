@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy/enemy.gd" id="1_mx3jq"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_vr2lm"]
 [ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_wjupi"]
-[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy_stats.gd" id="3_3k5g8"]
+[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="3_3k5g8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
 atlas = ExtResource("1_fkgmj")
@@ -250,6 +250,7 @@ offset_bottom = -40.0
 sprite_frames = SubResource("SpriteFrames_rm0dq")
 
 [node name="Stats" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("3_3k5g8")
 
 [node name="CollisionArea" type="Area2D" parent="."]

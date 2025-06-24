@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_dnuh1"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_u2ie8"]
 [ext_resource type="Texture2D" uid="uid://rdopl1ep0uqy" path="res://assets/sprites/dark-moon.png" id="3_cv2ie"]
-[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy_stats.gd" id="4_qrl0g"]
+[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="4_qrl0g"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfwm1"]
 atlas = ExtResource("3_cv2ie")
@@ -291,6 +291,7 @@ sprite_frames = SubResource("SpriteFrames_n7b52")
 frame_progress = 0.734405
 
 [node name="Stats" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("4_qrl0g")
 starting_health = 20.0
 

@@ -10,10 +10,11 @@ var movement_speed := 150.0
 @export_range(1, 5)
 var bounty := 1
 
-@onready var stats: EnemyStats = $Stats
-
 @onready
 var appearance: EnemyAppearance = %Appearance
+
+@onready
+var stats: EnemyStats = %Stats
 
 # TODO: create an EnemyMovement abstraction script for this
 var current_speed := 0.0
