@@ -1,9 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://buo64r0x83gru"]
+[gd_scene load_steps=18 format=3 uid="uid://buo64r0x83gru"]
 
 [ext_resource type="Texture2D" uid="uid://da1oud3sx5goq" path="res://assets/sprites/enemy1.jpg" id="1_fkgmj"]
-[ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy.gd" id="1_mx3jq"]
+[ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy/enemy.gd" id="1_mx3jq"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_vr2lm"]
-[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy_stats.gd" id="3_3k5g8"]
+[ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_wjupi"]
+[ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="3_3k5g8"]
+[ext_resource type="Script" uid="uid://ou6aw1huhg6j" path="res://scenes/enemies/enemy/enemy_colliders.gd" id="5_hp0oe"]
+[ext_resource type="Script" uid="uid://dvwwrj528slo" path="res://scenes/enemies/enemy/enemy_movement.gd" id="6_a01ek"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t5xpf"]
 atlas = ExtResource("1_fkgmj")
@@ -20,15 +23,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qu8x"]
-size = Vector2(64, 64)
-
 [sub_resource type="Animation" id="Animation_qsgl2"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Appearance/Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -40,7 +40,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:rotation")
+tracks/1/path = NodePath("Appearance/Sprite:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,7 +52,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:position")
+tracks/2/path = NodePath("Appearance/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -64,7 +64,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HealthBar:visible")
+tracks/3/path = NodePath("Appearance/HealthBar:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -81,7 +81,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:rotation")
+tracks/0/path = NodePath("Appearance/Sprite:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -93,7 +93,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/path = NodePath("Appearance/Sprite:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -105,7 +105,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Sprite:position")
+tracks/2/path = NodePath("Appearance/Sprite:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -131,7 +131,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("HealthBar:visible")
+tracks/4/path = NodePath("Appearance/HealthBar:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -146,7 +146,7 @@ resource_name = "paralyse"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Appearance/Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -162,7 +162,7 @@ length = 2.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("HealthBar")
+tracks/0/path = NodePath("Appearance/HealthBar")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -179,7 +179,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/path = NodePath("Appearance/Sprite:modulate")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -194,7 +194,7 @@ resource_name = "poison"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Appearance/Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -209,7 +209,7 @@ resource_name = "slow"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/path = NodePath("Appearance/Sprite:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -229,32 +229,50 @@ _data = {
 &"slow": SubResource("Animation_4vyub")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8qu8x"]
+size = Vector2(64, 64)
+
 [node name="Enemy1" type="PathFollow2D" groups=["enemies"]]
 rotates = false
 loop = false
 script = ExtResource("1_mx3jq")
 
-[node name="HealthBar" parent="." instance=ExtResource("2_vr2lm")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("health_bar", "animation_player")]
+unique_name_in_owner = true
+script = ExtResource("2_wjupi")
+health_bar = NodePath("HealthBar")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="HealthBar" parent="Appearance" instance=ExtResource("2_vr2lm")]
 visible = false
 offset_top = -40.0
 offset_bottom = -40.0
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Sprite" type="AnimatedSprite2D" parent="Appearance"]
 sprite_frames = SubResource("SpriteFrames_rm0dq")
 
-[node name="Stats" type="Node" parent="."]
-script = ExtResource("3_3k5g8")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_c4ujo")
+}
 
-[node name="CollisionArea" type="Area2D" parent="."]
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("5_hp0oe")
+collision_area = NodePath("CollisionArea")
+
+[node name="CollisionArea" type="Area2D" parent="Colliders"]
 visible = false
 collision_mask = 2
 
-[node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
+[node name="Collider" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_8qu8x")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_c4ujo")
-}
+[node name="Movement" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("6_a01ek")
 
-[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
+[node name="Stats" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_3k5g8")

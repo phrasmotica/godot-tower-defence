@@ -37,4 +37,4 @@ func _on_tower_button_create_tower(tower_scene: PackedScene) -> void:
 	TowerEvents.emit_tower_created(tower_scene)
 
 func _on_tower_button_cancel_tower() -> void:
-	TowerEvents.emit_tower_creation_cancelled()
+	TowerEvents.emit_tower_placing_cancelled()

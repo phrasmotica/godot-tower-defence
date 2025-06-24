@@ -9,7 +9,7 @@ signal money_changed(new_money: int)
 func _ready() -> void:
 	EnemyEvents.enemy_died.connect(
 		func(enemy: Enemy) -> void:
-			earn(enemy.bounty)
+			earn(enemy.get_bounty())
 	)
 
 	reset_money()

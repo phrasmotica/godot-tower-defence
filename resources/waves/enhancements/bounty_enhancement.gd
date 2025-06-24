@@ -5,4 +5,4 @@ class_name BountyEnhancement extends WaveEnhancement
 var bounty_mult := 1.0
 
 func act(enemy: Enemy) -> void:
-    enemy.set_bounty(int(bounty_mult * enemy.bounty))
+	enemy.scale_bounty(bounty_mult)

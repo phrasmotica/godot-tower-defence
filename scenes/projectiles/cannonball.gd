@@ -11,12 +11,12 @@ var explosion: Explosion = null
 @onready var sprite: AnimatedSprite2D = $Sprite
 @onready var collider: CollisionShape2D = $Collider
 
-func handle_collision(enemy: Enemy):
+func handle_collision(enemy: Enemy) -> void:
 	if explosion:
 		explosion.show()
 		explosion.explode()
 
-	var neighbours = enemy.get_neighbours(100 * area_radius)
+	var neighbours = EnemyManager.get_neighbours(enemy, 100 * area_radius)
 
 	print("Affecting " + str(neighbours.size()) + " neighbour(s) in radius " + str(area_radius))
 

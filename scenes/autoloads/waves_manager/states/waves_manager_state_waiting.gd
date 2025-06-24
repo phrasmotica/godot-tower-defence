@@ -21,6 +21,8 @@ func send(wave: Wave) -> void:
 
 	var spawned_count := 0
 
+	# TODO: ensure this spawning gets cancelled if it's in-progress when the
+	# game is restarted
 	for i in range(wave.spawn_count):
 		var enemy := EnemyManager.spawn_enemy(wave.enemy)
 

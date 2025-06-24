@@ -7,9 +7,7 @@ func act_start():
 	print("Poisoning enemies START")
 
 	for enemy in attached_enemies:
-		enemy.poison(effect_duration)
-
-		enemy.die.connect(func(e): attached_enemies.erase(e))
+		enemy.poison(self)
 
 	set_process(true)
 
@@ -24,11 +22,7 @@ func act_process(delta):
 func act_end():
 	print("Poisoning enemies END")
 
-	for enemy in attached_enemies:
-		if is_instance_valid(enemy):
-			enemy.end_poison()
-
 	set_process(false)
 
 func can_act(enemy: Enemy):
-	return not enemy.is_poisoned
+	return enemy.can_be_poisoned()
