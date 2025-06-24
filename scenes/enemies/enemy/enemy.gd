@@ -101,6 +101,10 @@ func handle_bolt(bolt_stats: TowerLevelStats) -> void:
 	if _current_state != null:
 		_current_state.handle_bolt(bolt_stats)
 
+func handle_damage(amount: float) -> void:
+	if _current_state != null:
+		_current_state.handle_damage(amount)
+
 func handle_strike(body: Projectile) -> void:
 	if _current_state != null:
 		_current_state.handle_strike(body)
