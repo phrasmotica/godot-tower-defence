@@ -14,6 +14,9 @@ var bounty := 1
 var appearance: EnemyAppearance = %Appearance
 
 @onready
+var colliders: EnemyColliders = %Colliders
+
+@onready
 var stats: EnemyStats = %Stats
 
 # TODO: create an EnemyMovement abstraction script for this
@@ -33,6 +36,8 @@ func _ready() -> void:
 	appearance.set_max_health(stats.starting_health)
 	appearance.hide_health()
 
+	colliders.projectile_entered.connect(_on_projectile_entered)
+
 	switch_state(State.MOVING)
 
 func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
@@ -45,7 +50,7 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 		self,
 		state_data,
 		appearance,
-		null, #colliders,
+		colliders,
 		_info,
 		null) #interaction)
 
@@ -111,7 +116,7 @@ func can_be_poisoned() -> bool:
 func poison(effect: PoisonEffect) -> void:
 	switch_state(State.POISONED, EnemyStateData.build().with_effect(effect))
 
-func _on_collision_area_body_entered(body: Projectile):
+func _on_projectile_entered(body: Projectile) -> void:
 	handle_strike(body, true)
 
 func handle_aoe(body: Projectile):
@@ -119,13 +124,13 @@ func handle_aoe(body: Projectile):
 	# projectile's collision handler
 	handle_strike(body, false, 0.5)
 
-func handle_bolt(bolt_stats: TowerLevelStats):
+func handle_bolt(bolt_stats: TowerLevelStats) -> void:
 	bolted.emit()
 
 	handle_damage(bolt_stats.damage)
 	handle_knockback(bolt_stats.projectile_knockback)
 
-func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
+func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0) -> void:
 	hit.emit(body)
 
 	handle_damage(body.damage)
@@ -134,7 +139,7 @@ func handle_strike(body: Projectile, propagate: bool, knockback_mult := 1.0):
 	if propagate:
 		body.handle_collision(self)
 
-func handle_damage(amount: float):
+func handle_damage(amount: float) -> void:
 	var new_health = stats.take_damage(amount)
 	appearance.set_current_health(new_health)
 
@@ -143,7 +148,7 @@ func handle_damage(amount: float):
 	else:
 		switch_state(State.DYING)
 
-func handle_knockback(amount: float, mult := 1.0):
+func handle_knockback(amount: float, mult := 1.0) -> void:
 	if mult > 0:
 		var knockback_factor = amount * mult
 		print("Knocking enemy back by factor of " + str(knockback_factor))

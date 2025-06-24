@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://brbdisl4wehyt"]
+[gd_scene load_steps=20 format=3 uid="uid://brbdisl4wehyt"]
 
 [ext_resource type="Script" uid="uid://d4hf847r0wtf0" path="res://scenes/enemies/enemy/enemy.gd" id="1_snwv5"]
 [ext_resource type="Script" uid="uid://b5ffgirkklo45" path="res://scenes/enemies/enemy/enemy_appearance.gd" id="2_dnuh1"]
 [ext_resource type="PackedScene" uid="uid://hnmb7fxbbg3f" path="res://scenes/enemies/health_bar.tscn" id="2_u2ie8"]
 [ext_resource type="Texture2D" uid="uid://rdopl1ep0uqy" path="res://assets/sprites/dark-moon.png" id="3_cv2ie"]
 [ext_resource type="Script" uid="uid://b1rjg8yxo8shu" path="res://scenes/enemies/enemy/enemy_stats.gd" id="4_qrl0g"]
+[ext_resource type="Script" uid="uid://ou6aw1huhg6j" path="res://scenes/enemies/enemy/enemy_colliders.gd" id="5_2orkc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfwm1"]
 atlas = ExtResource("3_cv2ie")
@@ -20,9 +21,6 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_x05kw"]
-radius = 32.0
 
 [sub_resource type="Animation" id="Animation_qsgl2"]
 length = 0.001
@@ -268,6 +266,9 @@ _data = {
 &"move": SubResource("Animation_mamad")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_x05kw"]
+radius = 32.0
+
 [node name="EnemyBoss" type="PathFollow2D" groups=["enemies"]]
 rotates = false
 loop = false
@@ -279,7 +280,7 @@ bounty = 5
 unique_name_in_owner = true
 script = ExtResource("2_dnuh1")
 health_bar = NodePath("HealthBar")
-animation_player = NodePath("../AnimationPlayer")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="HealthBar" parent="Appearance" instance=ExtResource("2_u2ie8")]
 visible = false
@@ -290,26 +291,31 @@ offset_bottom = -40.0
 sprite_frames = SubResource("SpriteFrames_n7b52")
 frame_progress = 0.734405
 
-[node name="Stats" type="Node" parent="."]
-unique_name_in_owner = true
-script = ExtResource("4_qrl0g")
-starting_health = 20.0
-
-[node name="CollisionArea" type="Area2D" parent="."]
-collision_mask = 2
-
-[node name="Collider" type="CollisionShape2D" parent="CollisionArea"]
-shape = SubResource("CircleShape2D_x05kw")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_c4ujo")
 }
 
-[node name="MoveAnimation" type="AnimationPlayer" parent="."]
+[node name="MoveAnimation" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_q6o1o")
 }
 autoplay = "move"
 
-[connection signal="body_entered" from="CollisionArea" to="." method="_on_collision_area_body_entered"]
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("5_2orkc")
+collision_area = NodePath("CollisionArea")
+
+[node name="CollisionArea" type="Area2D" parent="Colliders"]
+collision_mask = 2
+
+[node name="Collider" type="CollisionShape2D" parent="Colliders/CollisionArea"]
+shape = SubResource("CircleShape2D_x05kw")
+
+[node name="Stats" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("4_qrl0g")
+starting_health = 20.0
