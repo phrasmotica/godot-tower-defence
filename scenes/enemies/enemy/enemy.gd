@@ -77,33 +77,6 @@ func get_bounty() -> int:
 func scale_bounty(factor: float) -> void:
 	_info.scale_bounty(factor)
 
-func get_neighbours(max_distance_px: float):
-	var enemies = get_tree().get_nodes_in_group("enemies")
-	enemies.erase(self)
-
-	if enemies.size() <= 0:
-		return []
-
-	var neighbours = enemies.filter(func(e): return global_position.distance_to(e.global_position) <= max_distance_px)
-
-	return neighbours
-
-func get_neighbour(max_distance_px: float) -> Enemy:
-	var nearby_enemies = get_neighbours(max_distance_px)
-	if nearby_enemies.size() <= 0:
-		return null
-
-	# nearest enemies first
-	nearby_enemies.sort_custom(
-		func(e, f):
-			return e.get_distance_to(global_position) < f.get_distance_to(global_position)
-	)
-
-	return nearby_enemies[0]
-
-func get_distance_to(pos: Vector2):
-	return pos.distance_to(global_position)
-
 func can_be_slowed() -> bool:
 	return _current_state != null and _current_state.can_be_slowed()
 

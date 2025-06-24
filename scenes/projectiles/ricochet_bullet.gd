@@ -19,10 +19,10 @@ func handle_collision(enemy: Enemy):
 	queue_free()
 
 ## Rebound into the given enemy's nearest neighbour.
-func ricochet(enemy: Enemy):
+func ricochet(enemy: Enemy) -> void:
 	speed = int(speed * 0.5)
 
-	var nearest_enemy = enemy.get_neighbour(effective_range * 100)
+	var nearest_enemy = EnemyManager.get_neighbour(enemy, effective_range * 100)
 	if nearest_enemy:
 		print("Ricocheting towards " + nearest_enemy.name)
 

@@ -33,7 +33,7 @@ func get_near_enemies(for_effect: bool) -> Array[Enemy]:
 
 	var in_range_enemies = valid_enemies.filter(
 		func(e: Enemy) -> bool:
-			return e.get_distance_to(_tower.global_position) <= shooting_range
+			return e.global_position.distance_to(_tower.global_position) <= shooting_range
 	)
 
 	if in_range_enemies.size() <= 0:

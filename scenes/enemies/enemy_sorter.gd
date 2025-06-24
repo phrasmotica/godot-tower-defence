@@ -22,7 +22,7 @@ func strong(enemies: Array[Enemy]):
 	)
 
 func sort_near(e: Enemy, f: Enemy, pos: Vector2):
-	return e.get_distance_to(pos) < f.get_distance_to(pos)
+	return e.global_position.distance_to(pos) < f.global_position.distance_to(pos)
 
 func sort_far(e: Enemy, f: Enemy, pos: Vector2):
 	return not sort_near(e, f, pos)
