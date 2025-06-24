@@ -12,3 +12,6 @@ func get_name() -> String:
 
 func get_bounty() -> int:
 	return _bounty
+
+func scale_bounty(factor: float) -> void:
+	_bounty = int(factor * _bounty)

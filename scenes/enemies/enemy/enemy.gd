@@ -71,8 +71,11 @@ func set_max_health(amount: float) -> void:
 func scale_base_speed(factor: float) -> void:
 	movement.scale_base_speed(factor)
 
-func set_bounty(amount: int):
-	bounty = amount
+func get_bounty() -> int:
+	return _info.get_bounty()
+
+func scale_bounty(factor: float) -> void:
+	_info.scale_bounty(factor)
 
 func get_neighbours(max_distance_px: float):
 	var enemies = get_tree().get_nodes_in_group("enemies")
