@@ -44,8 +44,6 @@ var point_towards_enemy := true
 signal adjust_range(range: float)
 signal adjust_effect_range(range: float)
 
-signal created_bolt(bolt_stats: TowerLevelStats)
-
 func _refresh() -> void:
 	animated_sprite.sprite_frames = sprite
 
@@ -92,11 +90,6 @@ func get_total_value(path: Array[int]) -> int:
 	return price + (
 		upgrades[path[0]].get_total_value(path.slice(1))
 	)
-
-func try_shoot_bolt():
-	print("Shooting a bolt")
-
-	created_bolt.emit(projectile_stats)
 
 func emit_adjust_range(stats_range: float) -> void:
 	adjust_range.emit(stats_range)
