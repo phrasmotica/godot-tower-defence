@@ -126,7 +126,6 @@ texture = ExtResource("9_ja0ml")
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_tichb")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
-root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
