@@ -93,32 +93,6 @@ func get_total_value(path: Array[int]) -> int:
 		upgrades[path[0]].get_total_value(path.slice(1))
 	)
 
-func create_projectile() -> Projectile:
-	if not projectile_stats:
-		return null
-
-	print("Creating projectile")
-
-	var projectile_scene = projectile_stats.projectile
-
-	var projectile: Projectile = projectile_scene.instantiate()
-
-	projectile.damage = projectile_stats.damage
-	projectile.effective_range = projectile_stats.projectile_range
-	projectile.speed = projectile_stats.projectile_speed
-	projectile.knockback = projectile_stats.projectile_knockback
-	projectile.penetration_count = projectile_stats.penetration_count
-
-	return projectile
-
-func create_effect() -> Effect:
-	if not effect_stats:
-		return
-
-	print("Creating effect")
-
-	return effect_stats.create()
-
 func try_shoot_bolt():
 	print("Shooting a bolt")
 

@@ -22,11 +22,3 @@ var effect_duration := 1.0
 var effect: PackedScene
 
 signal adjust_range(stats_range: float)
-
-func create():
-    var new_effect: Effect = effect.instantiate()
-    new_effect.effect_duration = effect_duration
-
-    add_child(new_effect)
-
-    return new_effect

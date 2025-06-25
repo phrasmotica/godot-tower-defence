@@ -15,6 +15,9 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
+var _effect_factory := EffectFactory.new()
+var _projectile_factory := ProjectileFactory.new()
+
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
@@ -87,7 +90,10 @@ func _on_barrel_shoot() -> void:
 		return
 
 	var level := level_manager.get_current_level()
-	var projectile := level.create_projectile()
+	if not level.projectile_stats:
+		return
+
+	var projectile := _projectile_factory.create(level.projectile_stats)
 
 	var rotation := level_manager.rotation
 
@@ -102,7 +108,11 @@ func _on_barrel_pulse() -> void:
 		return
 
 	var level := level_manager.get_current_level()
-	var effect := level.create_effect()
+	if not level.effect_stats:
+		return
+
+	var effect := _effect_factory.create(level.effect_stats)
+	add_child(effect)
 
 	effect_created.emit(effect, in_range_enemies)
 
