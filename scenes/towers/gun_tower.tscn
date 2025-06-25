@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=19 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_v8t2a"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_8tvig"]
@@ -6,44 +6,39 @@
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_f7d4o"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xlhsu"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="4_4tss6"]
-[ext_resource type="Texture2D" uid="uid://bqxjks1khgpr4" path="res://assets/sprites/tower1upgrade1.png" id="4_gubpj"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_onfws"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="4_t0fww"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_tichb"]
 [ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_w4bk8"]
-[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="5_ikvgn"]
-[ext_resource type="Texture2D" uid="uid://cyvmiovifx22h" path="res://assets/sprites/tower1upgrade2.png" id="5_kp04t"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_8jbck"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="7_mplx0"]
-[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="9_drkpt"]
-[ext_resource type="PackedScene" uid="uid://bl4stws58mj3o" path="res://scenes/projectiles/ricochet_bullet.tscn" id="9_gndbw"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="9_ja0ml"]
+[ext_resource type="Resource" uid="uid://d0atqe6kpx4ue" path="res://resources/towers/upgrades/gun_tower_upgrades.tres" id="11_8tvig"]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath("%Weaponry/..:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1, 1)]
+"values": [Vector2(0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("BaseLevel:position")
+tracks/1/path = NodePath("%Weaponry/..:scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, 0)]
+"values": [Vector2(1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_ujsix"]
@@ -52,7 +47,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -64,7 +59,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -83,7 +78,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -103,76 +98,35 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_p5m64"]
-atlas = ExtResource("9_ja0ml")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_e2as7"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p5m64")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8x2l0"]
-atlas = ExtResource("4_gubpj")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6lplc"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8x2l0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t0rfb"]
-atlas = ExtResource("5_kp04t")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_rpdrq"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t0rfb")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="GunTower" type="Node2D"]
 script = ExtResource("1_v8t2a")
 tower_name = "Gun"
 tower_description = "Shoots simple bullets at enemies."
 price = 2
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_8tvig")
 designer = NodePath("Designer")
+level_sprite = NodePath("LevelSprite")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
 unique_name_in_owner = true
 script = ExtResource("6_8jbck")
-levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/Ricochet"), NodePath("../../Weaponry/Levels/BaseLevel/Pierce"), NodePath("../../Weaponry/Levels/BaseLevel/Pierce/BetterPierce")]
+level_manager = NodePath("../../Weaponry/Levels")
+
+[node name="LevelSprite" type="Sprite2D" parent="Appearance"]
+texture = ExtResource("9_ja0ml")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_xlhsu")]
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_tichb")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
-root_node = NodePath("../../Weaponry/Levels")
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
@@ -199,77 +153,14 @@ selection = NodePath("Selection")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
 unique_name_in_owner = true
+scale = Vector2(1.00136e-05, 1.00136e-05)
 script = ExtResource("4_onfws")
 level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 
-[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="Weaponry"]
 script = ExtResource("4_4tss6")
-base_level = NodePath("BaseLevel")
-
-[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
-sprite = SubResource("SpriteFrames_e2as7")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("Ricochet"), NodePath("Pierce")]
-
-[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 3.0
-
-[node name="Ricochet" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
-visible = false
-level_name = "Ricochet"
-level_description = "Shoots ricochet bullets instead of regular ones."
-price = 2
-sprite = SubResource("SpriteFrames_6lplc")
-projectile_stats = NodePath("Stats")
-
-[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/Ricochet"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("9_gndbw")
-fire_rate = 3.0
-rotate_speed = 4
-projectile_range = 4.0
-projectile_speed = 20
-
-[node name="Pierce" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("4_t0fww")]
-visible = false
-level_name = "Pierce"
-level_description = "Shoots faster, and bullets can hit two enemies!"
-price = 4
-sprite = SubResource("SpriteFrames_rpdrq")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("BetterPierce")]
-
-[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/Pierce"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 4.0
-rotate_speed = 5
-projectile_range = 4.0
-projectile_speed = 20
-projectile_knockback = 20.0
-penetration_count = 1
-
-[node name="BetterPierce" parent="Weaponry/Levels/BaseLevel/Pierce" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("4_t0fww")]
-visible = false
-modulate = Color(0.784314, 0.227451, 0.368627, 1)
-level_name = "Better Pierce"
-level_description = "Shoots even faster and increased penetration."
-price = 6
-sprite = SubResource("SpriteFrames_rpdrq")
-projectile_stats = NodePath("Stats")
-
-[node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/Pierce/BetterPierce"]
-script = ExtResource("9_drkpt")
-projectile = ExtResource("5_ikvgn")
-fire_rate = 5.0
-rotate_speed = 6
-projectile_range = 4.0
-projectile_speed = 30
-projectile_knockback = 20.0
-penetration_count = 2
+base_level = ExtResource("11_8tvig")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("7_mplx0")]
 

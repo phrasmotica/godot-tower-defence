@@ -6,6 +6,9 @@ extends Node2D
 var designer: TowerDesigner
 
 @export
+var level_sprite: Sprite2D
+
+@export
 var progress_bars: TowerProgressBars
 
 @export
@@ -16,6 +19,7 @@ var animation_player: AnimationPlayer
 
 func _ready() -> void:
 	if designer:
+		designer.adjust_sprite.connect(set_sprite)
 		designer.adjust_range.connect(set_range)
 		designer.adjust_effect_range.connect(set_range)
 
@@ -39,6 +43,9 @@ func show_visualiser() -> void:
 
 func hide_visualiser() -> void:
 	visualiser.hide()
+
+func set_sprite(sprite: Texture2D) -> void:
+	level_sprite.texture = sprite
 
 func set_range(radius: float) -> void:
 	visualiser.radius = radius
