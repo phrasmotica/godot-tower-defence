@@ -21,6 +21,9 @@ var appearance: TowerAppearance = %Appearance
 var colliders: TowerColliders = %Colliders
 
 @onready
+var designer: TowerDesigner = %Designer
+
+@onready
 var interaction: TowerInteraction = %Interaction
 
 @onready

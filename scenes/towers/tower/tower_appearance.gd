@@ -1,5 +1,9 @@
+@tool
 class_name TowerAppearance
 extends Node2D
+
+@export
+var designer: TowerDesigner
 
 @export
 var progress_bars: TowerProgressBars
@@ -9,6 +13,11 @@ var visualiser: TowerVisualiser
 
 @export
 var animation_player: AnimationPlayer
+
+func _ready() -> void:
+	if designer:
+		designer.adjust_range.connect(set_range)
+		designer.adjust_effect_range.connect(set_range)
 
 func adjust_range(projectile_range: float) -> void:
 	visualiser.radius = projectile_range
@@ -30,6 +39,9 @@ func show_visualiser() -> void:
 
 func hide_visualiser() -> void:
 	visualiser.hide()
+
+func set_range(radius: float) -> void:
+	visualiser.radius = radius
 
 func show_range() -> void:
 	visualiser.show_range()

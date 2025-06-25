@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://dhsqr00mauv38"]
+[gd_scene load_steps=23 format=3 uid="uid://dhsqr00mauv38"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_15oo1"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_xldjn"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_y85yk"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_f6hg6"]
+[ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_n8sd6"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_t01xi"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_61nrl"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_amb7d"]
@@ -119,12 +120,18 @@ tower_name = "Machine Gun"
 tower_description = "Fires bullets really fast!"
 price = 6
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_xldjn")
+designer = NodePath("Designer")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
+
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+unique_name_in_owner = true
+script = ExtResource("3_n8sd6")
+levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/BetterRange")]
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_f6hg6")]
 
@@ -196,5 +203,3 @@ projectile_speed = 20
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]

@@ -49,8 +49,11 @@ func set_target_mode(target_mode: TargetMode) -> void:
 	_target_mode = target_mode
 
 func adjust_range(projectile_range: float) -> void:
-	level_manager.level_adjust_range(projectile_range)
-	level_manager.level_adjust_effect_range(projectile_range)
+	if effect_area:
+		effect_area.radius = projectile_range
+
+	if firing_line:
+		firing_line.shooting_range = projectile_range
 
 func get_upgrade(index: int) -> TowerLevel:
 	return level_manager.get_upgrade(index)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=23 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_itrc6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_x3l14"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_3jave"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_1fwj3"]
+[ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4wo0m"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
 [ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="9_7e7tl"]
 [ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball.tscn" id="11_m47vg"]
@@ -107,12 +108,18 @@ tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_rqm4h")
+designer = NodePath("Designer")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
+
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+unique_name_in_owner = true
+script = ExtResource("6_4wo0m")
+levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/LongRange")]
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_xd60m")]
 
@@ -186,5 +193,3 @@ projectile_knockback = 80.0
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]

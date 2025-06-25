@@ -1,8 +1,9 @@
-[gd_scene load_steps=30 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=31 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_c2mwh"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_qx8bf"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_u61i6"]
+[ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_1iahv"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_2pw81"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_r7mld"]
 [ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_mu2ak"]
@@ -154,12 +155,18 @@ tower_name = "Slow Tower"
 tower_description = "Slows enemy movement speed temporarily."
 price = 3
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u61i6")
+designer = NodePath("Designer")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
+
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+unique_name_in_owner = true
+script = ExtResource("3_1iahv")
+levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/Slower"), NodePath("../../Weaponry/Levels/BaseLevel/Paralyse")]
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_r7mld")]
 
@@ -205,6 +212,7 @@ effect_area = NodePath("EffectArea")
 base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Weaponry/Levels" instance=ExtResource("7_50fd5")]
+visible = false
 radius = 2.0
 
 [node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("6_eu8cm")]
@@ -252,8 +260,3 @@ enable_pulse = true
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/Slower/EffectStats" to="Weaponry/Levels/BaseLevel/Slower" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/Paralyse/EffectStats" to="Weaponry/Levels/BaseLevel/Paralyse" method="_on_effect_stats_adjust_range"]

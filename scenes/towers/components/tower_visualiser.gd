@@ -46,9 +46,3 @@ func show_range():
 
 func hide_range():
 	range_area.hide()
-
-func _on_levels_adjust_effect_range(effect_range: float):
-	radius = effect_range
-
-func _on_levels_adjust_range(projectile_range: float):
-	radius = projectile_range

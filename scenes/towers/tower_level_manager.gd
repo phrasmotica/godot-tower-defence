@@ -13,24 +13,11 @@ var effect_area: EffectArea
 var firing_line: FiringLine
 
 @export
-var base_level: TowerLevel:
-	set(value):
-		print("Base level")
-		base_level = value
-
-		# MEDIUM: allow choosing which level the visualiser should visualise
-		if not base_level.adjust_range.is_connected(level_adjust_range):
-			base_level.adjust_range.connect(level_adjust_range)
-
-		if not base_level.adjust_effect_range.is_connected(level_adjust_effect_range):
-			base_level.adjust_effect_range.connect(level_adjust_effect_range)
+var base_level: TowerLevel
 
 var upgrade_path: Array[int] = []
 
 var ongoing_upgrade_index := -1
-
-signal adjust_range(range: float)
-signal adjust_effect_range(range: float)
 
 func start_warmup() -> void:
 	base_level.modulate = progress_colour
@@ -91,19 +78,3 @@ func point_towards_enemy(enemy: Enemy, delta: float):
 	# slowly changes the rotation to face the angle
 	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
 	rotation = new_rotation
-
-func level_adjust_range(projectile_range: float):
-	print("Level adjusting projectile range")
-
-	if firing_line:
-		firing_line.shooting_range = projectile_range
-
-	adjust_range.emit(projectile_range)
-
-func level_adjust_effect_range(effect_range: float):
-	print("Level adjusting effect range")
-
-	if effect_area:
-		effect_area.radius = effect_range
-
-	adjust_effect_range.emit(effect_range)

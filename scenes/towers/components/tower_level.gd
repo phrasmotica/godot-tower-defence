@@ -25,16 +25,14 @@ var projectile_stats: TowerLevelStats:
 	set(value):
 		projectile_stats = value
 
-		if projectile_stats and not projectile_stats.adjust_range.is_connected(emit_adjust_range):
-			projectile_stats.adjust_range.connect(emit_adjust_range)
+		_refresh()
 
 @export
 var effect_stats: EffectStats:
 	set(value):
 		effect_stats = value
 
-		if effect_stats and not effect_stats.adjust_range.is_connected(emit_adjust_effect_range):
-			effect_stats.adjust_range.connect(emit_adjust_effect_range)
+		_refresh()
 
 @export
 var upgrades: Array[TowerLevel]
@@ -50,6 +48,12 @@ signal created_bolt(bolt_stats: TowerLevelStats)
 
 func _refresh() -> void:
 	animated_sprite.sprite_frames = sprite
+
+	if projectile_stats and not projectile_stats.adjust_range.is_connected(emit_adjust_range):
+		projectile_stats.adjust_range.connect(emit_adjust_range)
+
+	if effect_stats and not effect_stats.adjust_range.is_connected(emit_adjust_effect_range):
+		effect_stats.adjust_range.connect(emit_adjust_effect_range)
 
 func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0
@@ -120,10 +124,8 @@ func try_shoot_bolt():
 
 	created_bolt.emit(projectile_stats)
 
-func emit_adjust_range(stats_range: float):
-	print("Level Stats Range " + str(stats_range))
+func emit_adjust_range(stats_range: float) -> void:
 	adjust_range.emit(stats_range)
 
-func emit_adjust_effect_range(stats_range: float):
-	print("Level EffectStats Range " + str(stats_range))
+func emit_adjust_effect_range(stats_range: float) -> void:
 	adjust_effect_range.emit(stats_range)

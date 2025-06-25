@@ -1,8 +1,9 @@
-[gd_scene load_steps=29 format=3 uid="uid://ba7v8p4mq36wb"]
+[gd_scene load_steps=30 format=3 uid="uid://ba7v8p4mq36wb"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_u706d"]
+[ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_glen8"]
 [ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_k0da5"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_smvoh"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_43s8n"]
@@ -152,12 +153,18 @@ tower_name = "Poison Tower"
 tower_description = "Inflicts gradual poison damage over time."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u706d")
+designer = NodePath("Designer")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
+
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+unique_name_in_owner = true
+script = ExtResource("3_glen8")
+levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/DoubleCheese"), NodePath("../../Weaponry/Levels/BaseLevel/TripleCheese")]
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_k0da5")]
 
@@ -208,6 +215,7 @@ effect_area = NodePath("EffectArea")
 base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Weaponry/Levels" instance=ExtResource("5_amh81")]
+visible = false
 radius = 2.0
 
 [node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
@@ -257,8 +265,3 @@ enable_pulse = true
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
-[connection signal="adjust_effect_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_effect_range"]
-[connection signal="adjust_range" from="Weaponry/Levels" to="Appearance/Visualiser" method="_on_levels_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/DoubleCheese/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
-[connection signal="adjust_range" from="Weaponry/Levels/BaseLevel/TripleCheese/EffectStats" to="Weaponry/Levels/BaseLevel" method="_on_effect_stats_adjust_range"]
