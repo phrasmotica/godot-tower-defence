@@ -7,12 +7,6 @@ const normal_colour := Color.WHITE
 var progress_colour := Color8(255, 255, 255, 80)
 
 @export
-var effect_area: EffectArea
-
-@export
-var firing_line: FiringLine
-
-@export
 var base_level: TowerLevel
 
 var upgrade_path: Array[int] = []
@@ -61,6 +55,7 @@ func get_current_level() -> TowerLevel:
 func get_total_value() -> int:
 	return base_level.get_total_value(upgrade_path)
 
+# TODO: compute the current aiming direction in TowerWeaponry instead
 func point_towards_enemy(enemy: Enemy, delta: float):
 	var current_level := get_current_level()
 	if not current_level.point_towards_enemy:
