@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=20 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_c2mwh"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_qx8bf"]
@@ -10,11 +10,10 @@
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_pmf8q"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_xnc4v"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_t5pdt"]
-[ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="6_eu8cm"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="7_50fd5"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="10_4dyam"]
-[ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scenes/effects/effect_stats.gd" id="10_bd5or"]
+[ext_resource type="Resource" uid="uid://gojcby15k4ak" path="res://resources/towers/upgrades/slow_tower_upgrades.tres" id="12_2pw81"]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
 length = 0.001
@@ -147,35 +146,19 @@ unique_name_in_owner = true
 script = ExtResource("4_xnc4v")
 level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
-effect_area = NodePath("Levels/EffectArea")
+effect_area = NodePath("EffectArea")
 
 [node name="Levels" type="Node2D" parent="Weaponry"]
 script = ExtResource("5_t5pdt")
-
-[node name="EffectArea" parent="Weaponry/Levels" instance=ExtResource("7_50fd5")]
-visible = false
-radius = 2.0
-
-[node name="BaseLevel" parent="Weaponry/Levels" instance=ExtResource("6_eu8cm")]
-
-[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel"]
-script = ExtResource("10_bd5or")
-
-[node name="Slower" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("6_eu8cm")]
-visible = false
-
-[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/Slower"]
-script = ExtResource("10_bd5or")
-
-[node name="Paralyse" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("6_eu8cm")]
-visible = false
-
-[node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/Paralyse"]
-script = ExtResource("10_bd5or")
+base_level = ExtResource("12_2pw81")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("10_4dyam")]
 enable_shoot = false
 enable_pulse = true
+
+[node name="EffectArea" parent="Weaponry" instance=ExtResource("7_50fd5")]
+visible = false
+radius = 2.0
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
 [connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]
