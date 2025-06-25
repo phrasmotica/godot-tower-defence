@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=21 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_ta74e"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_07j61"]
@@ -21,7 +21,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,7 +37,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,7 +49,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -67,7 +67,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -87,47 +87,37 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_o8dqj"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("7_l2h3t")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="SniperTower" type="Node2D"]
 script = ExtResource("1_ta74e")
 tower_name = "Sniper"
 tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
 price = 5
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
 script = ExtResource("2_07j61")
 designer = NodePath("Designer")
+level_sprite = NodePath("LevelSprite")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
 unique_name_in_owner = true
 script = ExtResource("6_4sp88")
-levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/InfinitePenetration")]
+level_manager = NodePath("../../Weaponry/Levels")
+
+[node name="LevelSprite" type="Sprite2D" parent="Appearance"]
+texture = ExtResource("7_l2h3t")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_8t556")]
-position = Vector2(32, 72)
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_s7iwo")]
-position = Vector2(32, 32)
 show_bolt_line = true
 radius = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
-root_node = NodePath("../../Weaponry/Levels")
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
@@ -167,47 +157,24 @@ level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 firing_line = NodePath("Levels/FiringLine")
 
-[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="Weaponry"]
 position = Vector2(32, 32)
 script = ExtResource("5_0kjs1")
-base_level = NodePath("BaseLevel")
 
 [node name="FiringLine" parent="Weaponry/Levels" instance=ExtResource("6_r2dx8")]
 shooting_range = 4.0
 
-[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("6_5un4q")]
-sprite = SubResource("SpriteFrames_o8dqj")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("InfinitePenetration")]
+[node name="BaseLevel" parent="Weaponry/Levels" instance=ExtResource("6_5un4q")]
 
 [node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("9_gb23g")
-stats_enabled = false
-damage = 4
-fire_rate = 0.4
-rotate_speed = 5
-projectile_range = 4.0
-projectile_knockback = 90.0
-penetration_count = 1
 
-[node name="InfinitePenetration" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("6_5un4q")]
+[node name="InfinitePenetration" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("6_5un4q")]
 visible = false
 modulate = Color(0.266667, 1, 1, 1)
-level_name = "Infinite Penetration"
-level_description = "Bolt can penetrate through all enemies!"
-price = 5
-sprite = SubResource("SpriteFrames_o8dqj")
-projectile_stats = NodePath("Stats")
 
 [node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/InfinitePenetration"]
 script = ExtResource("9_gb23g")
-stats_enabled = false
-damage = 4
-fire_rate = 0.4
-rotate_speed = 5
-projectile_range = 4.0
-projectile_knockback = 90.0
-infinite_penetration = true
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("11_l3rgg")]
 position = Vector2(32, 32)

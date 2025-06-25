@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dhsqr00mauv38"]
+[gd_scene load_steps=20 format=3 uid="uid://dhsqr00mauv38"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_15oo1"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_xldjn"]
@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="7_5iku6"]
 [ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="8_jy1jc"]
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="8_rev5t"]
-[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="9_i24xx"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="9_u55nn"]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
@@ -21,22 +20,10 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -49,7 +36,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -61,7 +48,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -79,7 +66,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:position")
+tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -99,39 +86,28 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dd7gb"]
-atlas = ExtResource("8_rev5t")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4md5v"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dd7gb")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="MachineGunTower" type="Node2D"]
 script = ExtResource("1_15oo1")
 tower_name = "Machine Gun"
 tower_description = "Fires bullets really fast!"
 price = 6
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_xldjn")
 designer = NodePath("Designer")
+level_sprite = NodePath("LevelSprite")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
 unique_name_in_owner = true
 script = ExtResource("3_n8sd6")
-levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/BetterRange")]
+level_manager = NodePath("../../Weaponry/Levels")
+
+[node name="LevelSprite" type="Sprite2D" parent="Appearance"]
+texture = ExtResource("8_rev5t")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_f6hg6")]
 
@@ -139,7 +115,7 @@ levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/
 radius = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
-root_node = NodePath("../../Weaponry/Levels")
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
@@ -170,34 +146,18 @@ script = ExtResource("4_61nrl")
 level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 
-[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="Weaponry"]
 script = ExtResource("4_bunb6")
-base_level = NodePath("BaseLevel")
 
-[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("projectile_stats", "upgrades") instance=ExtResource("7_5iku6")]
-sprite = SubResource("SpriteFrames_4md5v")
-projectile_stats = NodePath("Stats")
-upgrades = [NodePath("BetterRange")]
+[node name="BaseLevel" parent="Weaponry/Levels" instance=ExtResource("7_5iku6")]
 
 [node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("8_jy1jc")
-projectile = ExtResource("9_i24xx")
-fire_rate = 10.0
-projectile_range = 2.0
-projectile_speed = 20
 
-[node name="BetterRange" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("projectile_stats") instance=ExtResource("7_5iku6")]
-level_name = "Better Range"
-level_description = "Increased shooting range."
-price = 8
-sprite = SubResource("SpriteFrames_4md5v")
-projectile_stats = NodePath("Stats")
+[node name="BetterRange" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("7_5iku6")]
 
 [node name="Stats" type="Node" parent="Weaponry/Levels/BaseLevel/BetterRange"]
 script = ExtResource("8_jy1jc")
-projectile = ExtResource("9_i24xx")
-fire_rate = 10.0
-projectile_speed = 20
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("9_u55nn")]
 

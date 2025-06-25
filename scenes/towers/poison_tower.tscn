@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://ba7v8p4mq36wb"]
+[gd_scene load_steps=21 format=3 uid="uid://ba7v8p4mq36wb"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_8s1qd"]
 [ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
@@ -13,10 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="5_amh81"]
 [ext_resource type="PackedScene" uid="uid://djj6tjv3p0qo6" path="res://scenes/towers/components/tower_level.tscn" id="7_1pyih"]
 [ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="8_ierun"]
-[ext_resource type="PackedScene" uid="uid://1wo5l3lymj2v" path="res://scenes/effects/poison_effect.tscn" id="9_by8rj"]
 [ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scenes/effects/effect_stats.gd" id="10_t6u3a"]
-[ext_resource type="Texture2D" uid="uid://dirfq8o8oeu6v" path="res://assets/sprites/poison_tower_upgrade_1.png" id="11_ijwes"]
-[ext_resource type="Texture2D" uid="uid://c4ph5lctynlj8" path="res://assets/sprites/poison_tower_upgrade_2.png" id="12_yywre"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="13_k5en1"]
 
 [sub_resource type="Animation" id="Animation_qk45j"]
@@ -24,7 +21,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -33,18 +30,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector2(1, 1)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("BaseLevel:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_oiglf"]
 resource_name = "pulse"
@@ -52,7 +37,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("BaseLevel:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -68,7 +53,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:scale")
+tracks/0/path = NodePath(".:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -80,7 +65,7 @@ tracks/0/keys = {
 tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("..")
+tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -102,69 +87,28 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
 size = Vector2(64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nx5ly"]
-atlas = ExtResource("8_ierun")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8pydf"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_nx5ly")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_80u24"]
-atlas = ExtResource("11_ijwes")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dsedo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_80u24")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tfomp"]
-atlas = ExtResource("12_yywre")
-region = Rect2(0, 0, 64, 64)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_fu4ex"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tfomp")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="PoisonTower" type="Node2D"]
 script = ExtResource("1_8s1qd")
 tower_name = "Poison Tower"
 tower_description = "Inflicts gradual poison damage over time."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u706d")
 designer = NodePath("Designer")
+level_sprite = NodePath("LevelSprite")
 progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("levels")]
+[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
 unique_name_in_owner = true
 script = ExtResource("3_glen8")
-levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/Levels/BaseLevel/DoubleCheese"), NodePath("../../Weaponry/Levels/BaseLevel/TripleCheese")]
+level_manager = NodePath("../../Weaponry/Levels")
+
+[node name="LevelSprite" type="Sprite2D" parent="Appearance"]
+texture = ExtResource("8_ierun")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_k0da5")]
 
@@ -172,7 +116,7 @@ levels = [NodePath("../../Weaponry/Levels/BaseLevel"), NodePath("../../Weaponry/
 radius = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
-root_node = NodePath("../../Weaponry/Levels")
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
@@ -209,54 +153,29 @@ level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 effect_area = NodePath("Levels/EffectArea")
 
-[node name="Levels" type="Node2D" parent="Weaponry" node_paths=PackedStringArray("base_level")]
+[node name="Levels" type="Node2D" parent="Weaponry"]
 script = ExtResource("5_aaghm")
-base_level = NodePath("BaseLevel")
 
 [node name="EffectArea" parent="Weaponry/Levels" instance=ExtResource("5_amh81")]
 visible = false
 radius = 2.0
 
-[node name="BaseLevel" parent="Weaponry/Levels" node_paths=PackedStringArray("effect_stats", "upgrades") instance=ExtResource("7_1pyih")]
-sprite = SubResource("SpriteFrames_8pydf")
-effect_stats = NodePath("EffectStats")
-upgrades = [NodePath("DoubleCheese"), NodePath("TripleCheese")]
-point_towards_enemy = false
+[node name="BaseLevel" parent="Weaponry/Levels" instance=ExtResource("7_1pyih")]
 
 [node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel"]
 script = ExtResource("10_t6u3a")
-effect_duration = 3.0
-effect = ExtResource("9_by8rj")
 
-[node name="DoubleCheese" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("effect_stats") instance=ExtResource("7_1pyih")]
+[node name="DoubleCheese" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("7_1pyih")]
 visible = false
-level_name = "Double Cheese"
-level_description = "Twice the cheese, twice the poison!"
-price = 3
-sprite = SubResource("SpriteFrames_dsedo")
-effect_stats = NodePath("EffectStats")
-point_towards_enemy = false
 
 [node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/DoubleCheese"]
 script = ExtResource("10_t6u3a")
-effect_duration = 6.0
-effect = ExtResource("9_by8rj")
 
-[node name="TripleCheese" parent="Weaponry/Levels/BaseLevel" node_paths=PackedStringArray("animated_sprite", "effect_stats") instance=ExtResource("7_1pyih")]
+[node name="TripleCheese" parent="Weaponry/Levels/BaseLevel" instance=ExtResource("7_1pyih")]
 visible = false
-level_name = "Triple Cheese"
-level_description = "Triple?? Ultimate gr33d!"
-price = 8
-animated_sprite = NodePath("../DoubleCheese/Sprite")
-sprite = SubResource("SpriteFrames_fu4ex")
-effect_stats = NodePath("EffectStats")
-point_towards_enemy = false
 
 [node name="EffectStats" type="Node" parent="Weaponry/Levels/BaseLevel/TripleCheese"]
 script = ExtResource("10_t6u3a")
-effect_range = 3.0
-effect_duration = 9.0
-effect = ExtResource("9_by8rj")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("13_k5en1")]
 enable_shoot = false
