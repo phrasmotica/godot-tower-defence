@@ -1,5 +1,5 @@
 @tool
-class_name EffectStats extends Node
+class_name EffectStats extends Resource
 
 @export
 var stats_enabled := true
@@ -9,10 +9,10 @@ var fire_rate := 1
 
 @export_range(1.0, 10.0)
 var effect_range := 2.0:
-    set(value):
-        effect_range = value
-        print("EffectStats Range " + str(value))
-        adjust_range.emit(value)
+	set(value):
+		effect_range = value
+		print("EffectStats Range " + str(value))
+		adjust_range.emit(value)
 
 ## The length of time that the effect lasts for, in seconds.
 @export_range(1.0, 10.0)

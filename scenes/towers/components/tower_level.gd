@@ -1,5 +1,5 @@
 @tool
-class_name TowerLevel extends Node2D
+class_name TowerLevel extends Resource
 
 @export
 var level_name := ""
@@ -11,10 +11,7 @@ var level_description := ""
 var price := 1
 
 @export
-var animated_sprite: AnimatedSprite2D
-
-@export
-var sprite: SpriteFrames:
+var sprite: Texture2D:
 	set(value):
 		sprite = value
 
@@ -41,11 +38,12 @@ var upgrades: Array[TowerLevel]
 @export
 var point_towards_enemy := true
 
+signal adjust_sprite(texture: Texture2D)
 signal adjust_range(range: float)
 signal adjust_effect_range(range: float)
 
 func _refresh() -> void:
-	animated_sprite.sprite_frames = sprite
+	adjust_sprite.emit(sprite)
 
 	if projectile_stats and not projectile_stats.adjust_range.is_connected(emit_adjust_range):
 		projectile_stats.adjust_range.connect(emit_adjust_range)
@@ -70,6 +68,14 @@ func get_current_level(path: Array[int]) -> TowerLevel:
 		return self
 
 	return upgrades[path[0]].get_current_level(path.slice(1))
+
+func get_all_levels() -> Array[TowerLevel]:
+	var levels: Array[TowerLevel] = [self]
+
+	for u in upgrades:
+		levels.append_array(u.get_all_levels())
+
+	return levels
 
 func get_upgrade(path: Array[int], index: int) -> TowerLevel:
 	if path.size() <= 0:

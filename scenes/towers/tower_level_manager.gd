@@ -52,6 +52,9 @@ func get_upgrade(index: int) -> TowerLevel:
 func get_current_level() -> TowerLevel:
 	return base_level.get_current_level(upgrade_path)
 
+func get_all_levels() -> Array[TowerLevel]:
+	return base_level.get_all_levels()
+
 func get_total_value() -> int:
 	return base_level.get_total_value(upgrade_path)
 

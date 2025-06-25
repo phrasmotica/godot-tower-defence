@@ -1,5 +1,5 @@
 @tool
-class_name TowerLevelStats extends Node
+class_name TowerLevelStats extends Resource
 
 @export
 var stats_enabled := true
