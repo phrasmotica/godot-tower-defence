@@ -4,6 +4,8 @@ extends TowerState
 func _enter_tree() -> void:
 	print("Tower is now firing")
 
+	_appearance.for_firing()
+
 	_interaction.mouse_entered.connect(_on_mouse_entered)
 	_interaction.mouse_exited.connect(_on_mouse_exited)
 	_interaction.clicked.connect(_on_clicked)

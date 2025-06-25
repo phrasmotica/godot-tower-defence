@@ -33,11 +33,8 @@ func _ready() -> void:
 func pause() -> void:
 	barrel.pause()
 
-func start_warmup() -> void:
-	level_manager.start_warmup()
-
 func install_base() -> TowerLevel:
-	var first_level := level_manager.finish_warmup()
+	var first_level := level_manager.get_current_level()
 
 	barrel.setup(first_level)
 

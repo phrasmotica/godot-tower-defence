@@ -13,21 +13,11 @@ var upgrade_path: Array[int] = []
 
 var ongoing_upgrade_index := -1
 
-func start_warmup() -> void:
-	base_level.modulate = progress_colour
-
-func finish_warmup() -> TowerLevel:
-	base_level.modulate = normal_colour
-
-	return base_level
-
 func start_upgrade(index: int) -> TowerLevel:
-	var next_level = get_upgrade(index)
+	var next_level := get_upgrade(index)
 
 	if next_level:
 		ongoing_upgrade_index = index
-
-		base_level.modulate = progress_colour
 
 	return next_level
 
@@ -38,13 +28,7 @@ func finish_upgrade() -> TowerLevel:
 	upgrade_path.append(ongoing_upgrade_index)
 	ongoing_upgrade_index = -1
 
-	var new_level = get_current_level()
-
-	new_level.visible = true
-
-	base_level.modulate = normal_colour
-
-	return new_level
+	return get_current_level()
 
 func get_upgrade(index: int) -> TowerLevel:
 	return base_level.get_upgrade(upgrade_path, index)
