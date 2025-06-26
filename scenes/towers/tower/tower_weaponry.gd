@@ -1,5 +1,5 @@
 class_name TowerWeaponry
-extends Node
+extends Node2D
 
 enum TargetMode { NEAR, FAR, STRONG }
 
@@ -76,12 +76,16 @@ func get_total_value() -> int:
 func for_firing(tower: Tower) -> void:
 	_enemy_finder = EnemyFinder.new(tower, self, level_manager)
 
-func scan(delta: float, tower_pos: Vector2, tower_rotation: float) -> float:
+func scan(delta: float, tower_pos: Vector2) -> float:
+	var new_rotation := rotation
+
 	var near_enemy := _enemy_finder.get_near_enemy(false)
 	if near_enemy:
-		return point_towards_enemy(tower_pos, tower_rotation, near_enemy, delta)
+		new_rotation = point_towards_enemy(tower_pos, near_enemy, delta)
 
-	return tower_rotation
+	rotation = new_rotation
+
+	return rotation
 
 func _on_barrel_shoot() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(false)
@@ -137,10 +141,10 @@ func should_bolt(_enemies: Array[Enemy]) -> bool:
 	return false
 
 # TODO: put this in a new TowerAiming script
-func point_towards_enemy(tower_pos: Vector2, tower_rotation: float, enemy: Enemy, delta: float) -> float:
+func point_towards_enemy(tower_pos: Vector2, enemy: Enemy, delta: float) -> float:
 	var current_level := level_manager.get_current_level()
 	if not current_level.point_towards_enemy:
-		return tower_rotation
+		return rotation
 
 	var rotate_speed = current_level.projectile_stats.rotate_speed
 
@@ -152,5 +156,5 @@ func point_towards_enemy(tower_pos: Vector2, tower_rotation: float, enemy: Enemy
 		angle_to_enemy -= (2 * PI)
 
 	# slowly changes the rotation to face the angle
-	var new_rotation = rotate_toward(tower_rotation, angle_to_enemy, delta * rotate_speed)
+	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
 	return new_rotation
