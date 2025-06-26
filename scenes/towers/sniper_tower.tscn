@@ -154,7 +154,7 @@ level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 firing_line = NodePath("FiringLine")
 
-[node name="Levels" type="Node2D" parent="Weaponry"]
+[node name="Levels" type="Node" parent="Weaponry"]
 script = ExtResource("5_0kjs1")
 base_level = ExtResource("12_2ycho")
 

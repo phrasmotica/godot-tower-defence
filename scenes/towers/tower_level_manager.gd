@@ -1,5 +1,6 @@
 @tool
-class_name TowerLevelManager extends Node2D
+class_name TowerLevelManager
+extends Node
 
 const normal_colour := Color.WHITE
 

@@ -150,7 +150,7 @@ level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 effect_area = NodePath("EffectArea")
 
-[node name="Levels" type="Node2D" parent="Weaponry"]
+[node name="Levels" type="Node" parent="Weaponry"]
 script = ExtResource("5_t5pdt")
 base_level = ExtResource("12_2pw81")
 
