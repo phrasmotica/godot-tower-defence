@@ -72,10 +72,13 @@ func handle_strike(body: Projectile) -> void:
 	body.handle_collision(_enemy)
 
 func handle_damage(amount: float) -> void:
+	if not _stats.is_alive():
+		return
+
 	var new_health = _stats.take_damage(amount)
 	_appearance.set_current_health(new_health)
 
-	if new_health > 0:
+	if _stats.is_alive():
 		_appearance.animate_peek_health()
 	else:
 		transition_state(Enemy.State.DYING)
