@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cfr5uvn41s2ar" path="res://scenes/towers/components/gun_barrel.gd" id="1_ory0v"]
 
-[node name="Barrel" type="Node2D"]
+[node name="Barrel" type="Node"]
 script = ExtResource("1_ory0v")
 
 [node name="ShootTimer" type="Timer" parent="."]
