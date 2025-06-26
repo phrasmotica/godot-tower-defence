@@ -4,6 +4,9 @@ extends Node2D
 @export
 var path_tint: Control
 
+@export
+var projectile_container: ProjectileContainer
+
 var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
@@ -135,6 +138,15 @@ func _on_tower_placing_started(tower: Tower) -> void:
 
 func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
 	all_towers.append(tower)
+
+	tower.projectile_created.connect(emit_projectile_created)
+	tower.bolt_created.connect(emit_bolt_created)
+
+func emit_projectile_created(projectile: Projectile) -> void:
+	projectile_container.spawn_projectile(projectile)
+
+func emit_bolt_created(bolt_line: BoltLine) -> void:
+	projectile_container.spawn_bolt(bolt_line)
 
 func _on_tower_selected(tower: Tower) -> void:
 	select_tower(tower)

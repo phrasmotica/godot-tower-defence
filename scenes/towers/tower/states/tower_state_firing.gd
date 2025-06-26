@@ -31,9 +31,7 @@ func _on_projectile_created(projectile: Projectile) -> void:
 
 	_appearance.animate_shoot()
 
-	# BUG: projectiles get freed when the tower is sold. Probably happens
-	# with bolt lines too...
-	_tower.add_child(projectile)
+	_tower.emit_projectile_created(projectile)
 
 func _on_effect_created(effect: Effect, enemies: Array[Enemy]) -> void:
 	var valid_enemies := enemies.filter(
@@ -54,13 +52,12 @@ func _on_effect_created(effect: Effect, enemies: Array[Enemy]) -> void:
 func _on_bolt_created(bolt_line: BoltLine) -> void:
 	print("Adding bolt as child")
 
-	# BUG: bolts don't seem to appear...
 	bolt_line.rotation = _appearance.rotation
 	bolt_line.fire()
 
 	_appearance.animate_shoot()
 
-	_tower.add_child(bolt_line)
+	_tower.emit_bolt_created(bolt_line)
 
 func _on_mouse_entered() -> void:
 	_appearance.show_visualiser()

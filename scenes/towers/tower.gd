@@ -34,6 +34,9 @@ var _info: TowerInfo = null
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
+signal projectile_created(projectile: Projectile)
+signal bolt_created(bolt_line: BoltLine)
+
 func _ready() -> void:
 	_info = TowerInfo.new(tower_name, price)
 
@@ -66,6 +69,14 @@ func is_upgrading() -> bool:
 
 func set_disabled() -> void:
 	switch_state(State.DISABLED)
+
+func emit_projectile_created(projectile: Projectile) -> void:
+	projectile.global_position = global_position
+	projectile_created.emit(projectile)
+
+func emit_bolt_created(bolt_line: BoltLine) -> void:
+	bolt_line.global_position = global_position
+	bolt_created.emit(bolt_line)
 
 func select() -> void:
 	if _current_state != null and _current_state.can_be_selected():
