@@ -1,13 +1,13 @@
 class_name ParalyseEffect extends Effect
 
-func act_start():
-	print("Paralysing enemies START")
+func _enter_tree() -> void:
+	# print("Paralysing enemies START")
 
-	for enemy in attached_enemies:
-		enemy.paralyse(self)
+	enemy.paralyse(self)
 
-func act_end():
-	print("Paralysing enemies END")
+func _exit_tree() -> void:
+	# print("Paralysing enemies END")
+	pass
 
-func can_act(enemy: Enemy) -> bool:
+func can_act() -> bool:
 	return enemy.can_be_paralysed()
