@@ -10,8 +10,6 @@ var selected_tower: Tower = null
 
 # TODO: turn this script into an auto-load. It only reacts to signals from other auto-loads...
 func _ready() -> void:
-	KeyboardShortcuts.sell_tower.connect(TowerEvents.emit_tower_sold)
-
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
