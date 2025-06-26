@@ -55,6 +55,9 @@ func can_be_paralysed() -> bool:
 func can_be_poisoned() -> bool:
 	return false
 
+func can_take_damage() -> bool:
+	return true
+
 func handle_aoe(body: Projectile) -> void:
 	# gentler knockback for an indirect hit
 	handle_damage(body.damage)
@@ -72,13 +75,10 @@ func handle_strike(body: Projectile) -> void:
 	body.handle_collision(_enemy)
 
 func handle_damage(amount: float) -> void:
-	if not _stats.is_alive():
-		return
-
 	var new_health = _stats.take_damage(amount)
 	_appearance.set_current_health(new_health)
 
-	if _stats.is_alive():
+	if new_health > 0:
 		_appearance.animate_peek_health()
 	else:
 		transition_state(Enemy.State.DYING)

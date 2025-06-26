@@ -93,6 +93,9 @@ func can_be_poisoned() -> bool:
 func poison(effect: PoisonEffect) -> void:
 	switch_state(State.POISONED, EnemyStateData.build().with_effect(effect))
 
+func can_take_damage() -> bool:
+	return _current_state != null and _current_state.can_take_damage()
+
 func handle_aoe(body: Projectile) -> void:
 	if _current_state != null:
 		_current_state.handle_aoe(body)

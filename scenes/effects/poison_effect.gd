@@ -11,8 +11,7 @@ func _enter_tree() -> void:
 func _process(delta: float) -> void:
 	var damage = delta * damage_per_second
 
-	if is_instance_valid(enemy):
-		# TODO: we should stop doing this if the enemy has entered DYING state...
+	if is_instance_valid(enemy) and enemy.can_take_damage():
 		# print("Damaging " + str(damage))
 		enemy.handle_damage(damage)
 

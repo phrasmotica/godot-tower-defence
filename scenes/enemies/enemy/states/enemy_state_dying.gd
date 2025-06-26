@@ -7,3 +7,6 @@ func _enter_tree() -> void:
 	EnemyEvents.emit_enemy_died(_enemy)
 
 	_appearance.animate_die()
+
+func can_take_damage() -> bool:
+	return false
