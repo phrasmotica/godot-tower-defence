@@ -1,4 +1,8 @@
-class_name TowerManager extends Node2D
+class_name TowerManager
+extends Node2D
+
+@export
+var path_tint: Control
 
 var all_towers: Array[Tower] = []
 var selected_idx := 0
@@ -52,9 +56,9 @@ func previous_tower() -> void:
 	var new_tower = all_towers[selected_idx]
 	select_tower(new_tower)
 
-func deselect_tower():
+func deselect_tower() -> void:
 	if selected_tower:
-		unhighlight()
+		unhighlight(selected_tower)
 		selected_tower.deselect()
 		selected_tower = null
 	else:
@@ -99,10 +103,11 @@ func try_sell():
 	selected_tower.sell()
 	selected_tower = null
 
-func unhighlight():
-	# if selected_tower:
-	# 	selected_tower.reparent(self, true)
-	pass
+func highlight(tower: Tower) -> void:
+	tower.z_index = path_tint.z_index + 1
+
+func unhighlight(tower: Tower) -> void:
+	tower.z_index = 0
 
 func select_tower(tower: Tower) -> void:
 	if tower == selected_tower:
@@ -110,7 +115,7 @@ func select_tower(tower: Tower) -> void:
 		return
 
 	if selected_tower:
-		unhighlight()
+		unhighlight(selected_tower)
 		selected_tower.deselect()
 
 	var old_tower := selected_tower
@@ -119,6 +124,7 @@ func select_tower(tower: Tower) -> void:
 	selected_idx = all_towers.find(tower)
 
 	if selected_tower:
+		highlight(selected_tower)
 		selected_tower.select()
 
 	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
@@ -126,25 +132,15 @@ func select_tower(tower: Tower) -> void:
 func _on_tower_placing_started(tower: Tower) -> void:
 	deselect_tower()
 
-	# BUG: the tower is not appearing above the game tint when selected...
 	add_child(tower)
 
 func _on_tower_placing_finished(_tower: Tower) -> void:
-	# ensure the tower is not part of the UI anymore
-
-	# reparenting causes the tower node's _ready() method to be called, which
-	# resets it to the PLACING state. We don't want this... just disable all
-	# reparenting for now
-	# tower.reparent(self, true)
-
 	TowerEvents.tower_warmup_finished.connect(
 		func(t: Tower, _first_level: TowerLevel) -> void:
 			all_towers.append(t)
 	, CONNECT_ONE_SHOT)
 
 func _on_tower_selected(tower: Tower) -> void:
-	unhighlight()
-
 	select_tower(tower)
 
 func _on_lives_manager_lives_depleted() -> void:

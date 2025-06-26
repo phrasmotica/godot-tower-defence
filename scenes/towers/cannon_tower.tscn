@@ -118,7 +118,7 @@ script = ExtResource("6_4wo0m")
 level_manager = NodePath("../../Weaponry/Levels")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
-z_index = 100
+z_index = 5
 rotation = 1.5708
 texture = ExtResource("7_j030q")
 

@@ -20,9 +20,13 @@ paths = [NodePath("Path0"), NodePath("Path1")]
 [node name="Path1" parent="PathManager" instance=ExtResource("10_q42hf")]
 visible = false
 
-[node name="Towers" type="Node2D" parent="."]
-z_index = 1000
+[node name="PathTint" parent="." instance=ExtResource("6_gee14")]
+visible = false
+z_index = 10
+
+[node name="Towers" type="Node2D" parent="." node_paths=PackedStringArray("path_tint")]
 script = ExtResource("5_rtba5")
+path_tint = NodePath("../PathTint")
 
 [node name="Foreground" type="Node2D" parent="."]
 
@@ -37,8 +41,6 @@ offset_left = -320.0
 offset_right = 0.0
 offset_bottom = 1020.0
 grow_horizontal = 0
-
-[node name="GameTint" parent="CanvasLayer" instance=ExtResource("6_gee14")]
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 
