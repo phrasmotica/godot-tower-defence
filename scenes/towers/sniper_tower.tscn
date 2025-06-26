@@ -124,13 +124,11 @@ libraries = {
 
 [node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
 script = ExtResource("3_f0eiq")
 collision_area = NodePath("CollisionArea")
 
 [node name="CollisionArea" type="Area2D" parent="Colliders"]
 unique_name_in_owner = true
-position = Vector2(32, 32)
 collision_layer = 4
 collision_mask = 4
 
@@ -151,24 +149,20 @@ offset_bottom = 64.0
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel", "firing_line")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
 script = ExtResource("4_bxgl4")
 level_manager = NodePath("Levels")
 barrel = NodePath("Barrel")
 firing_line = NodePath("FiringLine")
 
 [node name="Levels" type="Node2D" parent="Weaponry"]
-position = Vector2(32, 32)
 script = ExtResource("5_0kjs1")
 base_level = ExtResource("12_2ycho")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("11_l3rgg")]
-position = Vector2(32, 32)
 enable_shoot = false
 enable_bolt = true
 
 [node name="FiringLine" parent="Weaponry" instance=ExtResource("6_r2dx8")]
-position = Vector2(32, 32)
 shooting_range = 4.0
 
 [connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
