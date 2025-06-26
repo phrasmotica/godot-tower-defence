@@ -19,6 +19,4 @@ func _enter_tree() -> void:
 
 	placing_tower.hide()
 
-	_game_ui.add_child(placing_tower)
-
 	transition_state(GameUI.State.PLACING_TOWER, GameUIStateData.build().with_placing_tower(placing_tower))

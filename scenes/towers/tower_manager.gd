@@ -123,8 +123,11 @@ func select_tower(tower: Tower) -> void:
 
 	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
 
-func _on_tower_placing_started(_tower: Tower) -> void:
+func _on_tower_placing_started(tower: Tower) -> void:
 	deselect_tower()
+
+	# BUG: the tower is not appearing above the game tint when selected...
+	add_child(tower)
 
 func _on_tower_placing_finished(_tower: Tower) -> void:
 	# ensure the tower is not part of the UI anymore
