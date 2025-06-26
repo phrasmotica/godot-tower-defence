@@ -76,10 +76,12 @@ func get_total_value() -> int:
 func for_firing(tower: Tower) -> void:
 	_enemy_finder = EnemyFinder.new(tower, self, level_manager)
 
-func scan(delta: float) -> void:
+func scan(delta: float, tower_pos: Vector2, tower_rotation: float) -> float:
 	var near_enemy := _enemy_finder.get_near_enemy(false)
 	if near_enemy:
-		level_manager.point_towards_enemy(near_enemy, delta)
+		return point_towards_enemy(tower_pos, tower_rotation, near_enemy, delta)
+
+	return tower_rotation
 
 func _on_barrel_shoot() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(false)
@@ -91,11 +93,6 @@ func _on_barrel_shoot() -> void:
 		return
 
 	var projectile := _projectile_factory.create(level.projectile_stats)
-
-	var rotation := level_manager.rotation
-
-	projectile.direction = Vector2.RIGHT.rotated(rotation)
-	projectile.rotation = rotation
 
 	projectile_created.emit(projectile)
 
@@ -131,9 +128,6 @@ func _on_barrel_bolt() -> void:
 
 	var bolt_line := firing_line.fire(level.projectile_stats)
 
-	bolt_line.rotation = level_manager.rotation
-	bolt_line.fire()
-
 	bolt_created.emit(bolt_line)
 
 func should_bolt(_enemies: Array[Enemy]) -> bool:
@@ -141,3 +135,22 @@ func should_bolt(_enemies: Array[Enemy]) -> bool:
 		return firing_line.enabled && firing_line.can_see_enemies()
 
 	return false
+
+# TODO: put this in a new TowerAiming script
+func point_towards_enemy(tower_pos: Vector2, tower_rotation: float, enemy: Enemy, delta: float) -> float:
+	var current_level := level_manager.get_current_level()
+	if not current_level.point_towards_enemy:
+		return tower_rotation
+
+	var rotate_speed = current_level.projectile_stats.rotate_speed
+
+	# gets the angle we want to face
+	var angle_to_enemy := tower_pos.direction_to(enemy.global_position).angle()
+
+	# ensure rotation is in the range (-180, 180]
+	while angle_to_enemy > PI:
+		angle_to_enemy -= (2 * PI)
+
+	# slowly changes the rotation to face the angle
+	var new_rotation = rotate_toward(tower_rotation, angle_to_enemy, delta * rotate_speed)
+	return new_rotation
