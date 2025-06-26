@@ -13,7 +13,8 @@ func _ready() -> void:
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
-	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
+
+	TowerEvents.tower_warmup_finished.connect(_on_tower_warmup_finished)
 
 	TowerEvents.tower_selected.connect(_on_tower_selected)
 	TowerEvents.tower_deselected.connect(deselect_tower)
@@ -132,11 +133,8 @@ func _on_tower_placing_started(tower: Tower) -> void:
 
 	add_child(tower)
 
-func _on_tower_placing_finished(_tower: Tower) -> void:
-	TowerEvents.tower_warmup_finished.connect(
-		func(t: Tower, _first_level: TowerLevel) -> void:
-			all_towers.append(t)
-	, CONNECT_ONE_SHOT)
+func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
+	all_towers.append(tower)
 
 func _on_tower_selected(tower: Tower) -> void:
 	select_tower(tower)
