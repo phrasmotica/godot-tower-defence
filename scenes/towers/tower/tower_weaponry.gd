@@ -18,6 +18,7 @@ var firing_line: FiringLine
 var _effect_factory := EffectFactory.new()
 var _projectile_factory := ProjectileFactory.new()
 
+var _aiming: TowerAiming = null
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
@@ -74,14 +75,18 @@ func get_total_value() -> int:
 	return level_manager.get_total_value()
 
 func for_firing(tower: Tower) -> void:
+	_aiming = TowerAiming.new(tower.global_position)
 	_enemy_finder = EnemyFinder.new(tower, self, level_manager)
 
-func scan(delta: float, tower_pos: Vector2) -> float:
+func scan(delta: float) -> float:
 	var new_rotation := rotation
 
 	var near_enemy := _enemy_finder.get_near_enemy(false)
 	if near_enemy:
-		new_rotation = point_towards_enemy(tower_pos, near_enemy, delta)
+		var level := level_manager.get_current_level()
+		var rotate_speed := level.projectile_stats.rotate_speed
+
+		new_rotation = _aiming.point_towards_enemy(rotate_speed, near_enemy, delta)
 
 	rotation = new_rotation
 
@@ -139,22 +144,3 @@ func should_bolt(_enemies: Array[Enemy]) -> bool:
 		return firing_line.enabled && firing_line.can_see_enemies()
 
 	return false
-
-# TODO: put this in a new TowerAiming script
-func point_towards_enemy(tower_pos: Vector2, enemy: Enemy, delta: float) -> float:
-	var current_level := level_manager.get_current_level()
-	if not current_level.point_towards_enemy:
-		return rotation
-
-	var rotate_speed = current_level.projectile_stats.rotate_speed
-
-	# gets the angle we want to face
-	var angle_to_enemy := tower_pos.direction_to(enemy.global_position).angle()
-
-	# ensure rotation is in the range (-180, 180]
-	while angle_to_enemy > PI:
-		angle_to_enemy -= (2 * PI)
-
-	# slowly changes the rotation to face the angle
-	var new_rotation = rotate_toward(rotation, angle_to_enemy, delta * rotate_speed)
-	return new_rotation

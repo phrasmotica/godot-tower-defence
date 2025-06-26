@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 	_weaponry.for_firing(_tower)
 
 func _process(delta: float) -> void:
-	_appearance.rotation = _weaponry.scan(delta, _tower.global_position)
+	_appearance.rotation = _weaponry.scan(delta)
 
 func _on_projectile_created(projectile: Projectile) -> void:
 	print("Adding projectile as child")
