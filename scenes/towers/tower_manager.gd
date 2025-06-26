@@ -11,7 +11,6 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
-# TODO: turn this script into an auto-load. It only reacts to signals from other auto-loads...
 func _ready() -> void:
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
