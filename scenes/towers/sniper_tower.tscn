@@ -107,6 +107,8 @@ script = ExtResource("6_4sp88")
 level_manager = NodePath("../../Weaponry/Levels")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
+z_index = 100
+rotation = 1.5708
 texture = ExtResource("7_l2h3t")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_8t556")]
