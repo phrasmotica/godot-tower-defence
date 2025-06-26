@@ -12,6 +12,7 @@ func _process(delta: float) -> void:
 	var damage = delta * damage_per_second
 
 	if is_instance_valid(enemy):
+		# TODO: we should stop doing this if the enemy has entered DYING state...
 		# print("Damaging " + str(damage))
 		enemy.handle_damage(damage)
 
