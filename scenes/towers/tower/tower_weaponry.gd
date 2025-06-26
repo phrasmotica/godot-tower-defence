@@ -1,5 +1,5 @@
 class_name TowerWeaponry
-extends Node
+extends Node2D
 
 enum TargetMode { NEAR, FAR, STRONG }
 
@@ -15,6 +15,10 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
+var _effect_factory := EffectFactory.new()
+var _projectile_factory := ProjectileFactory.new()
+
+var _aiming: TowerAiming = null
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
@@ -30,11 +34,8 @@ func _ready() -> void:
 func pause() -> void:
 	barrel.pause()
 
-func start_warmup() -> void:
-	level_manager.start_warmup()
-
 func install_base() -> TowerLevel:
-	var first_level := level_manager.finish_warmup()
+	var first_level := level_manager.get_current_level()
 
 	barrel.setup(first_level)
 
@@ -74,12 +75,22 @@ func get_total_value() -> int:
 	return level_manager.get_total_value()
 
 func for_firing(tower: Tower) -> void:
+	_aiming = TowerAiming.new(tower.global_position)
 	_enemy_finder = EnemyFinder.new(tower, self, level_manager)
 
-func scan(delta: float) -> void:
+func scan(delta: float) -> float:
+	var new_rotation := rotation
+
 	var near_enemy := _enemy_finder.get_near_enemy(false)
 	if near_enemy:
-		level_manager.point_towards_enemy(near_enemy, delta)
+		var level := level_manager.get_current_level()
+		var rotate_speed := level.projectile_stats.rotate_speed
+
+		new_rotation = _aiming.point_towards_enemy(rotate_speed, near_enemy, delta)
+
+	rotation = new_rotation
+
+	return rotation
 
 func _on_barrel_shoot() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(false)
@@ -87,12 +98,10 @@ func _on_barrel_shoot() -> void:
 		return
 
 	var level := level_manager.get_current_level()
-	var projectile := level.create_projectile()
+	if not level.projectile_stats:
+		return
 
-	var rotation := level_manager.rotation
-
-	projectile.direction = Vector2.RIGHT.rotated(rotation)
-	projectile.rotation = rotation
+	var projectile := _projectile_factory.create(level.projectile_stats)
 
 	projectile_created.emit(projectile)
 
@@ -102,7 +111,11 @@ func _on_barrel_pulse() -> void:
 		return
 
 	var level := level_manager.get_current_level()
-	var effect := level.create_effect()
+	if not level.effect_stats:
+		return
+
+	var effect := _effect_factory.create(level.effect_stats)
+	add_child(effect)
 
 	effect_created.emit(effect, in_range_enemies)
 
@@ -123,9 +136,6 @@ func _on_barrel_bolt() -> void:
 	print("Processing bolt")
 
 	var bolt_line := firing_line.fire(level.projectile_stats)
-
-	bolt_line.rotation = level_manager.rotation
-	bolt_line.fire()
 
 	bolt_created.emit(bolt_line)
 

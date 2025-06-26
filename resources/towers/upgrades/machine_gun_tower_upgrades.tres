@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="TowerLevel" load_steps=8 format=3 uid="uid://bh5gjq7f5hy14"]
+
+[ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet.tscn" id="1_v3aed"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="2_m7udy"]
+[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_h40wv"]
+[ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="4_bvmy3"]
+
+[sub_resource type="Resource" id="Resource_tm523"]
+script = ExtResource("2_m7udy")
+stats_enabled = true
+projectile = ExtResource("1_v3aed")
+damage = 1
+fire_rate = 10.0
+rotate_speed = 3
+projectile_range = 2.0
+projectile_speed = 20
+projectile_knockback = 0.0
+infinite_penetration = false
+penetration_count = 0
+metadata/_custom_type_script = "uid://bwof4mjs84gpu"
+
+[sub_resource type="Resource" id="Resource_sihq4"]
+script = ExtResource("2_m7udy")
+stats_enabled = true
+damage = 1
+fire_rate = 10.0
+rotate_speed = 3
+projectile_range = 3.0
+projectile_speed = 20
+projectile_knockback = 0.0
+infinite_penetration = false
+penetration_count = 0
+metadata/_custom_type_script = "uid://bwof4mjs84gpu"
+
+[sub_resource type="Resource" id="Resource_0180r"]
+script = ExtResource("3_h40wv")
+level_name = "Better Range"
+level_description = "Increased shooting range."
+price = 8
+sprite = ExtResource("4_bvmy3")
+projectile_stats = SubResource("Resource_sihq4")
+upgrades = Array[ExtResource("3_h40wv")]([])
+point_towards_enemy = true
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[resource]
+script = ExtResource("3_h40wv")
+level_name = "Base level"
+level_description = "Base level"
+price = 6
+sprite = ExtResource("4_bvmy3")
+projectile_stats = SubResource("Resource_tm523")
+upgrades = Array[ExtResource("3_h40wv")]([SubResource("Resource_0180r")])
+point_towards_enemy = true
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"

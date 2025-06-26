@@ -23,9 +23,6 @@ func _on_tower_created(tower_scene: PackedScene) -> void:
 	transition_state(GameUI.State.CREATING_TOWER, GameUIStateData.build().with_tower_scene(tower_scene))
 
 func _on_selected_tower_changed(_tower: Tower, old_tower: Tower) -> void:
-	# we assume tower is not null here
-	# tower.reparent(_game_ui, true)
-
 	if old_tower == null:
 		_appearance.animate_show_ui()
 

@@ -1,0 +1,68 @@
+[gd_resource type="Resource" script_class="TowerLevel" load_steps=12 format=3 uid="uid://babk7xbkiaetv"]
+
+[ext_resource type="PackedScene" uid="uid://1wo5l3lymj2v" path="res://scenes/effects/poison_effect.tscn" id="1_r1vic"]
+[ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scenes/effects/effect_stats.gd" id="2_k44u5"]
+[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_ga50h"]
+[ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="4_mv7ee"]
+[ext_resource type="Texture2D" uid="uid://dirfq8o8oeu6v" path="res://assets/sprites/poison_tower_upgrade_1.png" id="5_ah477"]
+[ext_resource type="Texture2D" uid="uid://c4ph5lctynlj8" path="res://assets/sprites/poison_tower_upgrade_2.png" id="6_e23lp"]
+
+[sub_resource type="Resource" id="Resource_55jto"]
+script = ExtResource("2_k44u5")
+stats_enabled = true
+fire_rate = 1
+effect_range = 2.0
+effect_duration = 3.0
+effect = ExtResource("1_r1vic")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_fq3jq"]
+script = ExtResource("2_k44u5")
+stats_enabled = true
+fire_rate = 1
+effect_range = 2.0
+effect_duration = 6.0
+effect = ExtResource("1_r1vic")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_krrim"]
+script = ExtResource("3_ga50h")
+level_name = "Double Cheese"
+level_description = "Twice the cheese, twice the poison!"
+price = 3
+sprite = ExtResource("5_ah477")
+effect_stats = SubResource("Resource_fq3jq")
+upgrades = Array[ExtResource("3_ga50h")]([])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[sub_resource type="Resource" id="Resource_vo6dp"]
+script = ExtResource("2_k44u5")
+stats_enabled = true
+fire_rate = 1
+effect_range = 3.0
+effect_duration = 9.0
+effect = ExtResource("1_r1vic")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_gc30b"]
+script = ExtResource("3_ga50h")
+level_name = "Triple Cheese"
+level_description = ""
+price = 8
+sprite = ExtResource("6_e23lp")
+effect_stats = SubResource("Resource_vo6dp")
+upgrades = Array[ExtResource("3_ga50h")]([])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[resource]
+script = ExtResource("3_ga50h")
+level_name = "Base level"
+level_description = "Base level"
+price = 4
+sprite = ExtResource("4_mv7ee")
+effect_stats = SubResource("Resource_55jto")
+upgrades = Array[ExtResource("3_ga50h")]([SubResource("Resource_krrim"), SubResource("Resource_gc30b")])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"

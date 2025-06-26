@@ -1,0 +1,69 @@
+[gd_resource type="Resource" script_class="TowerLevel" load_steps=13 format=3 uid="uid://gojcby15k4ak"]
+
+[ext_resource type="PackedScene" uid="uid://cqp50ghosc4oa" path="res://scenes/effects/slow_effect.tscn" id="1_j7d7v"]
+[ext_resource type="Script" uid="uid://jx2g7x5mdlca" path="res://scenes/effects/effect_stats.gd" id="2_23vnh"]
+[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_t7gll"]
+[ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="4_cp43q"]
+[ext_resource type="Texture2D" uid="uid://bngv7y86ypnm4" path="res://assets/sprites/slowerTower.png" id="5_ybtwo"]
+[ext_resource type="PackedScene" uid="uid://c8ef3082f0jwl" path="res://scenes/effects/paralyse_effect.tscn" id="6_2u3yj"]
+[ext_resource type="Texture2D" uid="uid://b1gc0k4nw34um" path="res://assets/sprites/paralyseTower.png" id="7_sgmf0"]
+
+[sub_resource type="Resource" id="Resource_mu2ak"]
+script = ExtResource("2_23vnh")
+stats_enabled = true
+fire_rate = 1
+effect_range = 2.0
+effect_duration = 3.0
+effect = ExtResource("1_j7d7v")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_lw8x3"]
+script = ExtResource("2_23vnh")
+stats_enabled = true
+fire_rate = 1
+effect_range = 2.0
+effect_duration = 5.0
+effect = ExtResource("1_j7d7v")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_l6tvs"]
+script = ExtResource("3_t7gll")
+level_name = "Slower"
+level_description = "Slows enemies for longer."
+price = 3
+sprite = ExtResource("5_ybtwo")
+effect_stats = SubResource("Resource_lw8x3")
+upgrades = Array[ExtResource("3_t7gll")]([])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[sub_resource type="Resource" id="Resource_lnclc"]
+script = ExtResource("2_23vnh")
+stats_enabled = true
+fire_rate = 1
+effect_range = 2.0
+effect_duration = 3.0
+effect = ExtResource("6_2u3yj")
+metadata/_custom_type_script = "uid://jx2g7x5mdlca"
+
+[sub_resource type="Resource" id="Resource_1f0yl"]
+script = ExtResource("3_t7gll")
+level_name = "Paralyse"
+level_description = "Paralyses enemies for a short time!"
+price = 4
+sprite = ExtResource("7_sgmf0")
+effect_stats = SubResource("Resource_lnclc")
+upgrades = Array[ExtResource("3_t7gll")]([])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[resource]
+script = ExtResource("3_t7gll")
+level_name = "Base level"
+level_description = "Base level"
+price = 3
+sprite = ExtResource("4_cp43q")
+effect_stats = SubResource("Resource_mu2ak")
+upgrades = Array[ExtResource("3_t7gll")]([SubResource("Resource_l6tvs"), SubResource("Resource_1f0yl")])
+point_towards_enemy = false
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"

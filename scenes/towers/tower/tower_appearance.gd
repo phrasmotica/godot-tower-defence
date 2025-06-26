@@ -2,8 +2,16 @@
 class_name TowerAppearance
 extends Node2D
 
+const normal_colour := Color.WHITE
+
+@export
+var progress_colour := Color8(255, 255, 255, 80)
+
 @export
 var designer: TowerDesigner
+
+@export
+var level_sprite: Sprite2D
 
 @export
 var progress_bars: TowerProgressBars
@@ -16,6 +24,7 @@ var animation_player: AnimationPlayer
 
 func _ready() -> void:
 	if designer:
+		designer.adjust_sprite.connect(set_sprite)
 		designer.adjust_range.connect(set_range)
 		designer.adjust_effect_range.connect(set_range)
 
@@ -25,6 +34,9 @@ func adjust_range(projectile_range: float) -> void:
 func for_placing() -> void:
 	visualiser.show_range()
 	visualiser.show_bolt_line = false
+
+func for_firing() -> void:
+	level_sprite.modulate = normal_colour
 
 func default_look() -> void:
 	visualiser.show()
@@ -40,6 +52,9 @@ func show_visualiser() -> void:
 func hide_visualiser() -> void:
 	visualiser.hide()
 
+func set_sprite(sprite: Texture2D) -> void:
+	level_sprite.texture = sprite
+
 func set_range(radius: float) -> void:
 	visualiser.radius = radius
 
@@ -50,11 +65,15 @@ func hide_range() -> void:
 	visualiser.hide_range()
 
 func do_warmup(finished_callback: Callable) -> void:
+	level_sprite.modulate = progress_colour
+
 	progress_bars.warmup_finished.connect(finished_callback)
 
 	progress_bars.do_warmup()
 
 func do_upgrade(finished_callback: Callable) -> void:
+	level_sprite.modulate = progress_colour
+
 	progress_bars.upgrade_finished.connect(finished_callback)
 
 	progress_bars.do_upgrade()

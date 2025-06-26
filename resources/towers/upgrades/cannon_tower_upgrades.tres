@@ -1,0 +1,54 @@
+[gd_resource type="Resource" script_class="TowerLevel" load_steps=8 format=3 uid="uid://c26gdmi7im4d3"]
+
+[ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball.tscn" id="1_f62hk"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="2_6nsx4"]
+[ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_kfd8k"]
+[ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="4_6nsx4"]
+
+[sub_resource type="Resource" id="Resource_onfws"]
+script = ExtResource("2_6nsx4")
+stats_enabled = true
+projectile = ExtResource("1_f62hk")
+damage = 3
+fire_rate = 1.0
+rotate_speed = 2
+projectile_range = 3.0
+projectile_speed = 10
+projectile_knockback = 80.0
+infinite_penetration = false
+penetration_count = 0
+metadata/_custom_type_script = "uid://bwof4mjs84gpu"
+
+[sub_resource type="Resource" id="Resource_vr1fm"]
+script = ExtResource("2_6nsx4")
+stats_enabled = true
+damage = 3
+fire_rate = 1.0
+rotate_speed = 2
+projectile_range = 5.0
+projectile_speed = 10
+projectile_knockback = 80.0
+infinite_penetration = false
+penetration_count = 0
+metadata/_custom_type_script = "uid://bwof4mjs84gpu"
+
+[sub_resource type="Resource" id="Resource_ypbn8"]
+script = ExtResource("3_kfd8k")
+level_name = "Long Range"
+level_description = "Increased range."
+price = 1
+projectile_stats = SubResource("Resource_vr1fm")
+upgrades = Array[ExtResource("3_kfd8k")]([])
+point_towards_enemy = true
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"
+
+[resource]
+script = ExtResource("3_kfd8k")
+level_name = "Base level"
+level_description = "Base level"
+price = 4
+sprite = ExtResource("4_6nsx4")
+projectile_stats = SubResource("Resource_onfws")
+upgrades = Array[ExtResource("3_kfd8k")]([SubResource("Resource_ypbn8")])
+point_towards_enemy = true
+metadata/_custom_type_script = "uid://cvxdsc2a5la7r"

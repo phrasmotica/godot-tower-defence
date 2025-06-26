@@ -4,6 +4,8 @@ extends TowerState
 func _enter_tree() -> void:
 	print("Tower is now firing")
 
+	_appearance.for_firing()
+
 	_interaction.mouse_entered.connect(_on_mouse_entered)
 	_interaction.mouse_exited.connect(_on_mouse_exited)
 	_interaction.clicked.connect(_on_clicked)
@@ -17,10 +19,15 @@ func _enter_tree() -> void:
 	_weaponry.for_firing(_tower)
 
 func _process(delta: float) -> void:
-	_weaponry.scan(delta)
+	_appearance.rotation = _weaponry.scan(delta)
 
 func _on_projectile_created(projectile: Projectile) -> void:
 	print("Adding projectile as child")
+
+	var rotation := _appearance.rotation
+
+	projectile.direction = Vector2.RIGHT.rotated(rotation)
+	projectile.rotation = rotation
 
 	_appearance.animate_shoot()
 
@@ -45,6 +52,12 @@ func _on_effect_created(effect: Effect, enemies: Array[Enemy]) -> void:
 	effect.start_timer()
 
 func _on_bolt_created(bolt_line: BoltLine) -> void:
+	print("Adding bolt as child")
+
+	# BUG: bolts don't seem to appear...
+	bolt_line.rotation = _appearance.rotation
+	bolt_line.fire()
+
 	_appearance.animate_shoot()
 
 	_tower.add_child(bolt_line)

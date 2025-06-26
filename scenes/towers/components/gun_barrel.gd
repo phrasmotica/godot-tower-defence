@@ -1,4 +1,4 @@
-class_name GunBarrel extends Node2D
+class_name GunBarrel extends Node
 
 ## Whether this barrel will emit its shoot signal, i.e. a projectile should be fired.
 @export var enable_shoot := true

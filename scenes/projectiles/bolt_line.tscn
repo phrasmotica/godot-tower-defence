@@ -64,5 +64,5 @@ width = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Line2D"]
 libraries = {
-"": SubResource("AnimationLibrary_akr1h")
+&"": SubResource("AnimationLibrary_akr1h")
 }

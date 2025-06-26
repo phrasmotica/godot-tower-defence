@@ -1,9 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b2hg1tskkcs4k"]
 
-[ext_resource type="Script" uid="uid://cyoje7y0sthhy" path="res://scenes/ui/game_tint.gd" id="1_fttif"]
+[ext_resource type="Script" uid="uid://cyoje7y0sthhy" path="res://scenes/ui/tint.gd" id="1_fttif"]
 
-[node name="GameTint" type="ColorRect"]
-visible = false
+[node name="Tint" type="ColorRect"]
 offset_right = 960.0
 offset_bottom = 720.0
 mouse_filter = 2

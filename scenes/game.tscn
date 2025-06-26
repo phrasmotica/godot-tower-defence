@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
-[ext_resource type="PackedScene" uid="uid://b2hg1tskkcs4k" path="res://scenes/ui/game_tint.tscn" id="6_gee14"]
+[ext_resource type="PackedScene" uid="uid://b2hg1tskkcs4k" path="res://scenes/ui/tint.tscn" id="6_gee14"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
@@ -20,9 +20,13 @@ paths = [NodePath("Path0"), NodePath("Path1")]
 [node name="Path1" parent="PathManager" instance=ExtResource("10_q42hf")]
 visible = false
 
-[node name="Towers" type="Node2D" parent="."]
-z_index = 1000
+[node name="PathTint" parent="." instance=ExtResource("6_gee14")]
+visible = false
+z_index = 10
+
+[node name="Towers" type="Node2D" parent="." node_paths=PackedStringArray("path_tint")]
 script = ExtResource("5_rtba5")
+path_tint = NodePath("../PathTint")
 
 [node name="Foreground" type="Node2D" parent="."]
 
@@ -37,8 +41,6 @@ offset_left = -320.0
 offset_right = 0.0
 offset_bottom = 1020.0
 grow_horizontal = 0
-
-[node name="GameTint" parent="CanvasLayer" instance=ExtResource("6_gee14")]
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 
