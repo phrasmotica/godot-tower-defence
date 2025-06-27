@@ -11,6 +11,9 @@ var all_towers: Array[Tower] = []
 var selected_idx := 0
 var selected_tower: Tower = null
 
+var _tower_selector := TowerSelector.new()
+var _tower_upgrader := TowerUpgrader.new()
+
 func _ready() -> void:
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
@@ -28,33 +31,11 @@ func _ready() -> void:
 	TowerEvents.tower_sold.connect(try_sell)
 
 func next_tower() -> void:
-	if all_towers.size() <= 0:
-		return
-
-	if all_towers.size() == 1 and selected_tower:
-		return
-
-	print("Selecting next tower")
-
-	if selected_tower:
-		selected_idx = (selected_idx + 1) % all_towers.size()
-
-	var new_tower = all_towers[selected_idx]
+	var new_tower := _tower_selector.next_tower(all_towers)
 	select_tower(new_tower)
 
 func previous_tower() -> void:
-	if all_towers.size() <= 0:
-		return
-
-	if all_towers.size() == 1 and selected_tower:
-		return
-
-	print("Selecting previous tower")
-
-	if selected_tower:
-		selected_idx = (selected_idx - 1) % all_towers.size()
-
-	var new_tower = all_towers[selected_idx]
+	var new_tower := _tower_selector.previous_tower(all_towers)
 	select_tower(new_tower)
 
 func deselect_tower() -> void:
@@ -70,26 +51,7 @@ func try_upgrade(index: int) -> void:
 		print("Tower upgrade failed: no tower selected")
 		return
 
-	var next_level = selected_tower.get_upgrade(index)
-	if not next_level:
-		print("Tower upgrade failed: no more upgrades")
-		return
-
-	if selected_tower.is_upgrading():
-		print("Tower upgrade failed: already upgrading")
-		return
-
-	if not BankManager.can_afford(next_level.price):
-		print("Tower upgrade failed: cannot afford")
-		return
-
-	print("Upgrading tower")
-
-	selected_tower.upgrade(index)
-
-	BankManager.deduct(next_level.price)
-
-	TowerEvents.emit_tower_upgrade_started(selected_tower, next_level)
+	_tower_upgrader.try_upgrade(selected_tower, index)
 
 func try_sell():
 	if not selected_tower:
