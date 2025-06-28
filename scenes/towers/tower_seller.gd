@@ -1,24 +1,27 @@
 class_name TowerSeller
 
+var _lister: TowerLister = null
 var _selector: TowerSelector = null
 
-func _init(selector: TowerSelector) -> void:
+func _init(lister: TowerLister, selector: TowerSelector) -> void:
+	_lister = lister
 	_selector = selector
 
-func try_sell() -> int:
+func try_sell() -> void:
 	var selected_tower := _selector.get_current()
 
 	if not selected_tower:
 		print("Tower sell failed: no tower selected")
-		return -1
+		return
 
 	print("Selling tower")
 
 	selected_tower.deselect()
 	selected_tower.sell()
 
-	var index := _selector.get_selected_index()
+	var sold_index := _selector.get_selected_index()
 
 	_selector.reset_current()
 
-	return index
+	if sold_index >= 0:
+		_lister.drop_at(sold_index)

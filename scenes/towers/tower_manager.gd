@@ -7,16 +7,16 @@ var path_tint: Control
 @export
 var projectile_container: ProjectileContainer
 
-var all_towers: Array[Tower] = []
-
 var _tower_highlighter := TowerHighlighter.new()
-var _tower_selector := TowerSelector.new()
+var _tower_lister := TowerLister.new()
+var _tower_selector: TowerSelector = null
 var _tower_seller: TowerSeller = null
 var _tower_upgrader: TowerUpgrader = null
 
 func _ready() -> void:
+	_tower_selector = TowerSelector.new(_tower_lister)
 	_tower_upgrader = TowerUpgrader.new(_tower_selector)
-	_tower_seller = TowerSeller.new(_tower_selector)
+	_tower_seller = TowerSeller.new(_tower_lister, _tower_selector)
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
@@ -34,11 +34,11 @@ func _ready() -> void:
 	TowerEvents.tower_sold.connect(try_sell)
 
 func next_tower() -> void:
-	var new_tower := _tower_selector.next_tower(all_towers)
+	var new_tower := _tower_selector.next_tower()
 	select_tower(new_tower)
 
 func previous_tower() -> void:
-	var new_tower := _tower_selector.previous_tower(all_towers)
+	var new_tower := _tower_selector.previous_tower()
 	select_tower(new_tower)
 
 func deselect_tower() -> void:
@@ -55,9 +55,7 @@ func try_upgrade(index: int) -> void:
 	_tower_upgrader.try_upgrade(index)
 
 func try_sell() -> void:
-	var sold_index := _tower_seller.try_sell()
-	if sold_index >= 0:
-		all_towers.remove_at(sold_index)
+	_tower_seller.try_sell()
 
 func select_tower(tower: Tower) -> void:
 	var selected_tower := _tower_selector.get_current()
@@ -72,7 +70,7 @@ func select_tower(tower: Tower) -> void:
 
 	var old_tower := selected_tower
 
-	_tower_selector.set_current(tower, all_towers.find(tower))
+	_tower_selector.set_current(tower)
 
 	if tower:
 		_tower_highlighter.highlight(tower, path_tint.z_index)
@@ -86,7 +84,7 @@ func _on_tower_placing_started(tower: Tower) -> void:
 	add_child(tower)
 
 func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
-	all_towers.append(tower)
+	_tower_lister.append(tower)
 
 	tower.projectile_created.connect(emit_projectile_created)
 	tower.bolt_created.connect(emit_bolt_created)
@@ -103,7 +101,7 @@ func _on_tower_selected(tower: Tower) -> void:
 func _on_lives_manager_lives_depleted() -> void:
 	print("Game has ended; disabling towers")
 
-	for t in all_towers:
+	for t in _tower_lister.list():
 		t.set_disabled()
 
 func _on_tower_target_mode_changed(index: int) -> void:
