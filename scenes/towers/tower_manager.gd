@@ -116,9 +116,6 @@ func _on_lives_manager_lives_depleted() -> void:
 		t.set_disabled()
 
 func _on_tower_target_mode_changed(index: int) -> void:
-	set_target_mode(index)
-
-func set_target_mode(index: int):
 	var selected_tower := _tower_selector.get_current()
 
 	if selected_tower:
