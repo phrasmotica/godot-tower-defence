@@ -10,9 +10,11 @@ var projectile_container: ProjectileContainer
 var all_towers: Array[Tower] = []
 
 var _tower_selector := TowerSelector.new()
-var _tower_upgrader := TowerUpgrader.new()
+var _tower_upgrader: TowerUpgrader = null
 
 func _ready() -> void:
+	_tower_upgrader = TowerUpgrader.new(_tower_selector)
+
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
@@ -47,13 +49,7 @@ func deselect_tower() -> void:
 		print("No tower is selected!")
 
 func try_upgrade(index: int) -> void:
-	var selected_tower := _tower_selector.get_current()
-
-	if not selected_tower:
-		print("Tower upgrade failed: no tower selected")
-		return
-
-	_tower_upgrader.try_upgrade(selected_tower, index)
+	_tower_upgrader.try_upgrade(index)
 
 func try_sell() -> void:
 	var selected_tower := _tower_selector.get_current()
