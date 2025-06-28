@@ -6,7 +6,7 @@ class_name Cannonball extends Projectile
 var area_radius := 1
 
 @onready
-var explosion_scene := preload("res://scenes/projectiles/explosion.tscn")
+var explosion_scene := preload("res://scenes/projectiles/cannonball/explosion.tscn")
 
 @onready
 var sprite: AnimatedSprite2D = %Sprite
