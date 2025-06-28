@@ -5,13 +5,16 @@ signal state_transition_requested(new_state: RicochetBullet.State, state_data: R
 
 var _ricochet_bullet: RicochetBullet = null
 var _state_data: RicochetBulletStateData = null
+var _movement: ProjectileMovement = null
 
 func setup(
 	ricochetBullet: RicochetBullet,
 	state_data: RicochetBulletStateData,
+	movement: ProjectileMovement,
 ) -> void:
 	_ricochet_bullet = ricochetBullet
 	_state_data = state_data
+	_movement = movement
 
 func transition_state(
 	new_state: RicochetBullet.State,

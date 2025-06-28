@@ -17,6 +17,8 @@ var _state_factory := CannonballStateFactory.new()
 var _current_state: CannonballState = null
 
 func _ready() -> void:
+	_movement = ProjectileMovement.new(direction, effective_range, speed)
+
 	switch_state(State.MOVING)
 
 func _process(_delta: float) -> void:
@@ -31,7 +33,8 @@ func switch_state(state: State, state_data := CannonballStateData.new()) -> void
 	_current_state.setup(
 		self,
 		state_data,
-		appearance)
+		appearance,
+		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "CannonballStateMachine: %s" % str(state)

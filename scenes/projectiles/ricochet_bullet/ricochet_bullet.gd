@@ -14,6 +14,8 @@ var _state_factory := RicochetBulletStateFactory.new()
 var _current_state: RicochetBulletState = null
 
 func _ready() -> void:
+	_movement = ProjectileMovement.new(direction, effective_range, speed)
+
 	switch_state(State.MOVING)
 
 func _process(_delta: float) -> void:
@@ -27,7 +29,8 @@ func switch_state(state: State, state_data := RicochetBulletStateData.new()) -> 
 
 	_current_state.setup(
 		self,
-		state_data)
+		state_data,
+		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "RicochetBulletStateMachine: %s" % str(state)

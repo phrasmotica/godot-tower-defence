@@ -1,18 +1,10 @@
 class_name RicochetBulletStateMoving
 extends RicochetBulletState
 
-var _distance_travelled := 0.0
-
-func _enter_tree() -> void:
-	_ricochet_bullet.start_position = _ricochet_bullet.global_position
-
 func _process(_delta: float) -> void:
-	var translation := _ricochet_bullet.direction * _ricochet_bullet.speed
-	_ricochet_bullet.translate(translation)
+	_ricochet_bullet.translate(_movement.translate())
 
-	_distance_travelled += translation.length()
-
-	if _distance_travelled >= 100 * _ricochet_bullet.effective_range:
+	if _movement.is_finished():
 		_ricochet_bullet.queue_free()
 
 func handle_collision(enemy: Enemy) -> void:
