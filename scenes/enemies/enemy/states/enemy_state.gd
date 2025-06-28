@@ -55,6 +55,9 @@ func can_be_paralysed() -> bool:
 func can_be_poisoned() -> bool:
 	return false
 
+func can_take_damage() -> bool:
+	return true
+
 func handle_aoe(body: Projectile) -> void:
 	# gentler knockback for an indirect hit
 	handle_damage(body.damage)

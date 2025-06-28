@@ -15,7 +15,6 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
-var _effect_factory := EffectFactory.new()
 var _projectile_factory := ProjectileFactory.new()
 
 var _aiming: TowerAiming = null
@@ -23,7 +22,7 @@ var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
 signal projectile_created(projectile: Projectile)
-signal effect_created(effect: Effect, enemies: Array[Enemy])
+signal effect_created(effect_stats: EffectStats, enemies: Array[Enemy])
 signal bolt_created(bolt_line: BoltLine)
 
 func _ready() -> void:
@@ -114,10 +113,7 @@ func _on_barrel_pulse() -> void:
 	if not level.effect_stats:
 		return
 
-	var effect := _effect_factory.create(level.effect_stats)
-	add_child(effect)
-
-	effect_created.emit(effect, in_range_enemies)
+	effect_created.emit(level.effect_stats, in_range_enemies)
 
 func should_create_effect(enemies: Array[Enemy]) -> bool:
 	if effect_area:

@@ -3,26 +3,21 @@ class_name PoisonEffect extends Effect
 @export_range(1.0, 3.0)
 var damage_per_second := 1.0
 
-func act_start():
-	print("Poisoning enemies START")
+func _enter_tree() -> void:
+	# print("Poisoning enemies START")
 
-	for enemy in attached_enemies:
-		enemy.poison(self)
+	enemy.poison(self)
 
-	set_process(true)
-
-func act_process(delta):
+func _process(delta: float) -> void:
 	var damage = delta * damage_per_second
 
-	for enemy in attached_enemies:
-		if is_instance_valid(enemy):
-			# print("Damaging " + str(damage))
-			enemy.handle_damage(damage)
+	if is_instance_valid(enemy) and enemy.can_take_damage():
+		# print("Damaging " + str(damage))
+		enemy.handle_damage(damage)
 
-func act_end():
-	print("Poisoning enemies END")
+func _exit_tree() -> void:
+	# print("Poisoning enemies END")
+	pass
 
-	set_process(false)
-
-func can_act(enemy: Enemy):
+func can_act() -> bool:
 	return enemy.can_be_poisoned()

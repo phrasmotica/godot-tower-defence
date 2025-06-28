@@ -1,13 +1,13 @@
 class_name SlowEffect extends Effect
 
-func act_start():
-	print("Slowing enemies START")
+func _enter_tree() -> void:
+	# print("Slowing enemy START")
 
-	for enemy in attached_enemies:
-		enemy.slow(self)
+	enemy.slow(self)
 
-func act_end():
-	print("Slowing enemies END")
+func _exit_tree() -> void:
+	# print("Slowing enemy END")
+	pass
 
-func can_act(enemy: Enemy) -> bool:
+func can_act() -> bool:
 	return enemy.can_be_slowed()

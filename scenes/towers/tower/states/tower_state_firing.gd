@@ -1,6 +1,8 @@
 class_name TowerStateFiring
 extends TowerState
 
+var _effect_factory := EffectFactory.new()
+
 func _enter_tree() -> void:
 	print("Tower is now firing")
 
@@ -33,21 +35,24 @@ func _on_projectile_created(projectile: Projectile) -> void:
 
 	_tower.emit_projectile_created(projectile)
 
-func _on_effect_created(effect: Effect, enemies: Array[Enemy]) -> void:
-	var valid_enemies := enemies.filter(
-		func(e: Enemy) -> bool:
-			return effect.can_act(e)
-	)
+func _on_effect_created(effect_stats: EffectStats, enemies: Array[Enemy]) -> void:
+	for enemy: Enemy in enemies:
+		var effect := _effect_factory.create(effect_stats)
+		effect.enemy = enemy
 
-	if valid_enemies.size() > 0:
-		print("Passing effect to enemies")
+		if effect.can_act():
+			enemy.add_child(effect)
+			effect.start_timer()
 
-		effect.attached_enemies = enemies
-		effect.act_start()
+	# if valid_enemies.size() > 0:
+	# 	print("Passing effect to enemies")
+
+	# 	effect.attached_enemies = enemies
+	# 	effect.act_start()
 
 	_appearance.animate_pulse()
 
-	effect.start_timer()
+	# effect.start_timer()
 
 func _on_bolt_created(bolt_line: BoltLine) -> void:
 	print("Adding bolt as child")
