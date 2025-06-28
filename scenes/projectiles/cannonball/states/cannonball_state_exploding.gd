@@ -3,17 +3,12 @@ extends CannonballState
 
 const EXPLOSION_TIME_PERIOD := 0.1
 
-var _explosion_scene := preload("res://scenes/projectiles/cannonball/explosion.tscn")
+var _explosion_factory := ExplosionFactory.new(EXPLOSION_TIME_PERIOD)
 
 func _enter_tree() -> void:
 	var enemy := _state_data.get_enemy()
 
-	var explosion: Explosion = _explosion_scene.instantiate()
-	explosion.time_period = EXPLOSION_TIME_PERIOD
-
-	# the unscaled explosion shader has a radius of 200px. So halving its scale
-	# means it has the correct radius
-	explosion.scale = 0.5 * _cannonball.area_radius * Vector2.ONE
+	var explosion: Explosion = _explosion_factory.create(_cannonball.area_radius)
 
 	explosion.tree_exited.connect(_cannonball.queue_free)
 
