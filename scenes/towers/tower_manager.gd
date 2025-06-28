@@ -9,6 +9,7 @@ var projectile_container: ProjectileContainer
 
 var all_towers: Array[Tower] = []
 
+var _tower_highlighter := TowerHighlighter.new()
 var _tower_selector := TowerSelector.new()
 var _tower_upgrader: TowerUpgrader = null
 
@@ -42,7 +43,7 @@ func deselect_tower() -> void:
 	var selected_tower := _tower_selector.get_current()
 
 	if selected_tower:
-		unhighlight(selected_tower)
+		_tower_highlighter.unhighlight(selected_tower)
 		selected_tower.deselect()
 		_tower_selector.reset_current()
 	else:
@@ -67,12 +68,6 @@ func try_sell() -> void:
 
 	_tower_selector.reset_current()
 
-func highlight(tower: Tower) -> void:
-	tower.z_index = path_tint.z_index + 1
-
-func unhighlight(tower: Tower) -> void:
-	tower.z_index = 0
-
 func select_tower(tower: Tower) -> void:
 	var selected_tower := _tower_selector.get_current()
 
@@ -81,7 +76,7 @@ func select_tower(tower: Tower) -> void:
 		return
 
 	if selected_tower:
-		unhighlight(selected_tower)
+		_tower_highlighter.unhighlight(selected_tower)
 		selected_tower.deselect()
 
 	var old_tower := selected_tower
@@ -89,7 +84,7 @@ func select_tower(tower: Tower) -> void:
 	_tower_selector.set_current(tower, all_towers.find(tower))
 
 	if tower:
-		highlight(tower)
+		_tower_highlighter.highlight(tower, path_tint.z_index)
 		tower.select()
 
 	TowerEvents.emit_selected_tower_changed(tower, old_tower)
