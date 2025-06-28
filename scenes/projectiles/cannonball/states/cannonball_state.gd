@@ -17,3 +17,6 @@ func transition_state(
 	state_data := CannonballStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func handle_collision(_enemy: Enemy) -> void:
+	pass
