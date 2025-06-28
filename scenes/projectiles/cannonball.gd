@@ -5,16 +5,33 @@ class_name Cannonball extends Projectile
 @export_range(3, 6)
 var area_radius := 3
 
-@export
-var explosion: Explosion = null
+@onready
+var explosion_scene := preload("res://scenes/projectiles/explosion.tscn")
 
-@onready var sprite: AnimatedSprite2D = $Sprite
-@onready var collider: CollisionShape2D = $Collider
+@onready
+var sprite: AnimatedSprite2D = %Sprite
+
+@onready
+var collider: CollisionShape2D = %Collider
+
+var _has_hit := false
+
+func _process(_delta: float) -> void:
+	if not _has_hit:
+		translate(direction * speed)
 
 func handle_collision(enemy: Enemy) -> void:
-	if explosion:
-		explosion.show()
-		explosion.explode()
+	_has_hit = true
+
+	var explosion: Explosion = explosion_scene.instantiate()
+	explosion.time_period = 0.1
+
+	# nominal scale - 0.75 is suitable for a radius of 3
+	# TODO: the unscaled explosion shader has a radius of 200px. Use this to
+	# scale it properly...
+	explosion.scale = 0.25 * area_radius * Vector2.ONE
+
+	add_child(explosion)
 
 	var neighbours = EnemyManager.get_neighbours(enemy, 100 * area_radius)
 
