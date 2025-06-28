@@ -25,8 +25,9 @@ func ricochet(enemy: Enemy) -> void:
 	if nearest_enemy:
 		print("Ricocheting towards " + nearest_enemy.name)
 
-		var new_rotation := _ricochet_bullet.global_position.direction_to(nearest_enemy.global_position)
-		_ricochet_bullet.rotation = new_rotation.angle()
-		_ricochet_bullet.direction = new_rotation
+		var new_direction := _ricochet_bullet.global_position.direction_to(nearest_enemy.global_position)
+		_ricochet_bullet.rotation = new_direction.angle()
+
+		_movement.change_direction(new_direction)
 	else:
 		print("No nearby enemy to ricochet towards!")
