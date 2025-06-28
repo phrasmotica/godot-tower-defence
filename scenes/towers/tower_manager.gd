@@ -8,8 +8,6 @@ var path_tint: Control
 var projectile_container: ProjectileContainer
 
 var all_towers: Array[Tower] = []
-var selected_idx := 0
-var selected_tower: Tower = null
 
 var _tower_selector := TowerSelector.new()
 var _tower_upgrader := TowerUpgrader.new()
@@ -39,32 +37,39 @@ func previous_tower() -> void:
 	select_tower(new_tower)
 
 func deselect_tower() -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if selected_tower:
 		unhighlight(selected_tower)
 		selected_tower.deselect()
-		selected_tower = null
+		_tower_selector.reset_current()
 	else:
 		print("No tower is selected!")
 
 func try_upgrade(index: int) -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if not selected_tower:
 		print("Tower upgrade failed: no tower selected")
 		return
 
 	_tower_upgrader.try_upgrade(selected_tower, index)
 
-func try_sell():
+func try_sell() -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if not selected_tower:
 		print("Tower sell failed: no tower selected")
 		return
 
 	print("Selling tower")
 
-	all_towers.remove_at(selected_idx)
+	all_towers.remove_at(_tower_selector.get_selected_index())
 
 	selected_tower.deselect()
 	selected_tower.sell()
-	selected_tower = null
+
+	_tower_selector.reset_current()
 
 func highlight(tower: Tower) -> void:
 	tower.z_index = path_tint.z_index + 1
@@ -73,6 +78,8 @@ func unhighlight(tower: Tower) -> void:
 	tower.z_index = 0
 
 func select_tower(tower: Tower) -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if tower == selected_tower:
 		print("%s is already selected!" % tower.name)
 		return
@@ -83,14 +90,13 @@ func select_tower(tower: Tower) -> void:
 
 	var old_tower := selected_tower
 
-	selected_tower = tower
-	selected_idx = all_towers.find(tower)
+	_tower_selector.set_current(tower, all_towers.find(tower))
 
-	if selected_tower:
-		highlight(selected_tower)
-		selected_tower.select()
+	if tower:
+		highlight(tower)
+		tower.select()
 
-	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
+	TowerEvents.emit_selected_tower_changed(tower, old_tower)
 
 func _on_tower_placing_started(tower: Tower) -> void:
 	deselect_tower()
@@ -122,5 +128,7 @@ func _on_tower_target_mode_changed(index: int) -> void:
 	set_target_mode(index)
 
 func set_target_mode(index: int):
+	var selected_tower := _tower_selector.get_current()
+
 	if selected_tower:
 		selected_tower.set_target_mode(index)
