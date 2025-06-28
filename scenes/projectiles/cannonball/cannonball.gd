@@ -10,6 +10,9 @@ var area_radius := 1
 @onready
 var appearance: CannonballAppearance = %Appearance
 
+@onready
+var collider: CollisionShape2D = %Collider
+
 var _state_factory := CannonballStateFactory.new()
 var _current_state: CannonballState = null
 
