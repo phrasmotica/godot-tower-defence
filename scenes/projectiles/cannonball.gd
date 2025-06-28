@@ -20,6 +20,8 @@ func _process(_delta: float) -> void:
 	if not _has_hit:
 		translate(direction * speed)
 
+		check_free()
+
 func handle_collision(enemy: Enemy) -> void:
 	_has_hit = true
 
