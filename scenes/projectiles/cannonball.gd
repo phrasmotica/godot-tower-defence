@@ -2,8 +2,8 @@
 ## centred on the enemy that is struck.
 class_name Cannonball extends Projectile
 
-@export_range(3, 6)
-var area_radius := 3
+@export_range(1, 6)
+var area_radius := 1
 
 @onready
 var explosion_scene := preload("res://scenes/projectiles/explosion.tscn")
