@@ -26,10 +26,9 @@ func handle_collision(enemy: Enemy) -> void:
 	var explosion: Explosion = explosion_scene.instantiate()
 	explosion.time_period = 0.1
 
-	# nominal scale - 0.75 is suitable for a radius of 3
-	# TODO: the unscaled explosion shader has a radius of 200px. Use this to
-	# scale it properly...
-	explosion.scale = 0.25 * area_radius * Vector2.ONE
+	# the unscaled explosion shader has a radius of 200px. So halving its scale
+	# means it has the correct radius
+	explosion.scale = 0.5 * area_radius * Vector2.ONE
 
 	add_child(explosion)
 
