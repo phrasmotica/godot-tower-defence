@@ -2,32 +2,38 @@
 ## and ricochets into its nearest neighbour.
 class_name RicochetBullet extends Projectile
 
+enum State { MOVING }
+
 @export_range(1, 2)
 var max_ricochets := 1
 
 @onready
 var ricochet_count := max_ricochets
 
-func handle_collision(enemy: Enemy):
-	if ricochet_count > 0:
-		ricochet_count -= 1
-		print("Collided with " + enemy.name + ", " + str(ricochet_count) + " ricochet(s) remaining")
-		ricochet(enemy)
-		return
+var _state_factory := RicochetBulletStateFactory.new()
+var _current_state: RicochetBulletState = null
 
-	print("Freeing after collision with " + enemy.name + ", no ricochets remaining")
-	queue_free()
+func _ready() -> void:
+	switch_state(State.MOVING)
 
-## Rebound into the given enemy's nearest neighbour.
-func ricochet(enemy: Enemy) -> void:
-	speed = int(speed * 0.5)
+func _process(_delta: float) -> void:
+	pass
 
-	var nearest_enemy = EnemyManager.get_neighbour(enemy, effective_range * 100)
-	if nearest_enemy:
-		print("Ricocheting towards " + nearest_enemy.name)
+func switch_state(state: State, state_data := RicochetBulletStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
 
-		var new_rotation := global_position.direction_to(nearest_enemy.global_position)
-		rotation = new_rotation.angle()
-		direction = new_rotation
-	else:
-		print("No nearby enemy to ricochet towards!")
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "RicochetBulletStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
+
+func handle_collision(enemy: Enemy) -> void:
+	if _current_state != null:
+		_current_state.handle_collision(enemy)
