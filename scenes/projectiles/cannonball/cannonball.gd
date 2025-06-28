@@ -22,7 +22,8 @@ var _current_state: CannonballState = null
 var _has_hit := false
 
 func _ready() -> void:
-	# TODO: why is the cannonball not appearing???
+	start_position = global_position
+
 	switch_state(State.MOVING)
 
 func _process(_delta: float) -> void:
