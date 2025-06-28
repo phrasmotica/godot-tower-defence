@@ -11,15 +11,13 @@ func _enter_tree() -> void:
 	var explosion: Explosion = _explosion_scene.instantiate()
 	explosion.time_period = EXPLOSION_TIME_PERIOD
 
-	explosion.global_position = _cannonball.global_position
-
 	# the unscaled explosion shader has a radius of 200px. So halving its scale
 	# means it has the correct radius
 	explosion.scale = 0.5 * _cannonball.area_radius * Vector2.ONE
 
 	explosion.tree_exited.connect(_cannonball.queue_free)
 
-	add_child(explosion)
+	_appearance.for_explosion(explosion)
 
 	var neighbours := EnemyManager.get_neighbours(enemy, 100 * _cannonball.area_radius)
 
@@ -27,6 +25,3 @@ func _enter_tree() -> void:
 
 	for e in neighbours:
 		(e as Enemy).handle_aoe(_cannonball)
-
-	_cannonball.sprite.hide()
-	_cannonball.collider.set_deferred("disabled", true)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://d04f2klaib01w"]
+[gd_scene load_steps=7 format=3 uid="uid://d04f2klaib01w"]
 
 [ext_resource type="Script" uid="uid://c07xl3lpg15g8" path="res://scenes/projectiles/cannonball/cannonball.gd" id="1_o16qq"]
 [ext_resource type="Texture2D" uid="uid://dco13fcvhkn8n" path="res://assets/sprites/bomb.png" id="2_003oa"]
+[ext_resource type="Script" uid="uid://cosrcmt4567eg" path="res://scenes/projectiles/cannonball/cannonball_appearance.gd" id="2_piuqk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8s53h"]
 atlas = ExtResource("2_003oa")
@@ -25,8 +26,12 @@ size = Vector2(25, 12)
 collision_layer = 2
 script = ExtResource("1_o16qq")
 
-[node name="Sprite" type="AnimatedSprite2D" parent="."]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
 unique_name_in_owner = true
+script = ExtResource("2_piuqk")
+sprite = NodePath("Sprite")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="Appearance"]
 scale = Vector2(0.4, 0.4)
 sprite_frames = SubResource("SpriteFrames_24fim")
 frame_progress = 0.239812

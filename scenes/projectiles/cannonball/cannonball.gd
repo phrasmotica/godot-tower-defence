@@ -8,13 +8,7 @@ enum State { MOVING, EXPLODING }
 var area_radius := 1
 
 @onready
-var explosion_scene := preload("res://scenes/projectiles/cannonball/explosion.tscn")
-
-@onready
-var sprite: AnimatedSprite2D = %Sprite
-
-@onready
-var collider: CollisionShape2D = %Collider
+var appearance: CannonballAppearance = %Appearance
 
 var _state_factory := CannonballStateFactory.new()
 var _current_state: CannonballState = null
@@ -30,7 +24,8 @@ func switch_state(state: State, state_data := CannonballStateData.new()) -> void
 
 	_current_state.setup(
 		self,
-		state_data)
+		state_data,
+		appearance)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "CannonballStateMachine: %s" % str(state)
