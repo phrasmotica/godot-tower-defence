@@ -5,13 +5,12 @@ enum State { MOVING }
 var _state_factory := BulletStateFactory.new()
 var _current_state: BulletState = null
 
+var _movement: ProjectileMovement = null
+
 func _ready() -> void:
 	_movement = ProjectileMovement.new(direction, effective_range, speed)
 
 	switch_state(State.MOVING)
-
-func _process(_delta: float) -> void:
-	pass
 
 func switch_state(state: State, state_data := BulletStateData.new()) -> void:
 	if _current_state != null:
