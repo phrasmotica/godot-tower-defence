@@ -11,10 +11,12 @@ var all_towers: Array[Tower] = []
 
 var _tower_highlighter := TowerHighlighter.new()
 var _tower_selector := TowerSelector.new()
+var _tower_seller: TowerSeller = null
 var _tower_upgrader: TowerUpgrader = null
 
 func _ready() -> void:
 	_tower_upgrader = TowerUpgrader.new(_tower_selector)
+	_tower_seller = TowerSeller.new(_tower_selector)
 
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
@@ -53,20 +55,9 @@ func try_upgrade(index: int) -> void:
 	_tower_upgrader.try_upgrade(index)
 
 func try_sell() -> void:
-	var selected_tower := _tower_selector.get_current()
-
-	if not selected_tower:
-		print("Tower sell failed: no tower selected")
-		return
-
-	print("Selling tower")
-
-	all_towers.remove_at(_tower_selector.get_selected_index())
-
-	selected_tower.deselect()
-	selected_tower.sell()
-
-	_tower_selector.reset_current()
+	var sold_index := _tower_seller.try_sell()
+	if sold_index >= 0:
+		all_towers.remove_at(sold_index)
 
 func select_tower(tower: Tower) -> void:
 	var selected_tower := _tower_selector.get_current()
