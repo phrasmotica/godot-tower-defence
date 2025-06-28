@@ -7,11 +7,17 @@ var path_tint: Control
 @export
 var projectile_container: ProjectileContainer
 
-var all_towers: Array[Tower] = []
-var selected_idx := 0
-var selected_tower: Tower = null
+var _tower_highlighter := TowerHighlighter.new()
+var _tower_lister := TowerLister.new()
+var _tower_selector: TowerSelector = null
+var _tower_seller: TowerSeller = null
+var _tower_upgrader: TowerUpgrader = null
 
 func _ready() -> void:
+	_tower_selector = TowerSelector.new(_tower_lister)
+	_tower_upgrader = TowerUpgrader.new(_tower_selector)
+	_tower_seller = TowerSeller.new(_tower_lister, _tower_selector)
+
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
@@ -28,107 +34,49 @@ func _ready() -> void:
 	TowerEvents.tower_sold.connect(try_sell)
 
 func next_tower() -> void:
-	if all_towers.size() <= 0:
-		return
-
-	if all_towers.size() == 1 and selected_tower:
-		return
-
-	print("Selecting next tower")
-
-	if selected_tower:
-		selected_idx = (selected_idx + 1) % all_towers.size()
-
-	var new_tower = all_towers[selected_idx]
+	var new_tower := _tower_selector.next_tower()
 	select_tower(new_tower)
 
 func previous_tower() -> void:
-	if all_towers.size() <= 0:
-		return
-
-	if all_towers.size() == 1 and selected_tower:
-		return
-
-	print("Selecting previous tower")
-
-	if selected_tower:
-		selected_idx = (selected_idx - 1) % all_towers.size()
-
-	var new_tower = all_towers[selected_idx]
+	var new_tower := _tower_selector.previous_tower()
 	select_tower(new_tower)
 
 func deselect_tower() -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if selected_tower:
-		unhighlight(selected_tower)
+		_tower_highlighter.unhighlight(selected_tower)
 		selected_tower.deselect()
-		selected_tower = null
+		_tower_selector.reset_current()
 	else:
 		print("No tower is selected!")
 
 func try_upgrade(index: int) -> void:
-	if not selected_tower:
-		print("Tower upgrade failed: no tower selected")
-		return
+	_tower_upgrader.try_upgrade(index)
 
-	var next_level = selected_tower.get_upgrade(index)
-	if not next_level:
-		print("Tower upgrade failed: no more upgrades")
-		return
-
-	if selected_tower.is_upgrading():
-		print("Tower upgrade failed: already upgrading")
-		return
-
-	if not BankManager.can_afford(next_level.price):
-		print("Tower upgrade failed: cannot afford")
-		return
-
-	print("Upgrading tower")
-
-	selected_tower.upgrade(index)
-
-	BankManager.deduct(next_level.price)
-
-	TowerEvents.emit_tower_upgrade_started(selected_tower, next_level)
-
-func try_sell():
-	if not selected_tower:
-		print("Tower sell failed: no tower selected")
-		return
-
-	print("Selling tower")
-
-	all_towers.remove_at(selected_idx)
-
-	selected_tower.deselect()
-	selected_tower.sell()
-	selected_tower = null
-
-func highlight(tower: Tower) -> void:
-	tower.z_index = path_tint.z_index + 1
-
-func unhighlight(tower: Tower) -> void:
-	tower.z_index = 0
+func try_sell() -> void:
+	_tower_seller.try_sell()
 
 func select_tower(tower: Tower) -> void:
+	var selected_tower := _tower_selector.get_current()
+
 	if tower == selected_tower:
 		print("%s is already selected!" % tower.name)
 		return
 
 	if selected_tower:
-		unhighlight(selected_tower)
+		_tower_highlighter.unhighlight(selected_tower)
 		selected_tower.deselect()
 
 	var old_tower := selected_tower
 
-	selected_tower = tower
-	selected_idx = all_towers.find(tower)
+	_tower_selector.set_current(tower)
 
-	if selected_tower:
-		highlight(selected_tower)
-		selected_tower.select()
+	if tower:
+		_tower_highlighter.highlight(tower, path_tint.z_index)
+		tower.select()
 
-	TowerEvents.emit_selected_tower_changed(selected_tower, old_tower)
+	TowerEvents.emit_selected_tower_changed(tower, old_tower)
 
 func _on_tower_placing_started(tower: Tower) -> void:
 	deselect_tower()
@@ -136,7 +84,7 @@ func _on_tower_placing_started(tower: Tower) -> void:
 	add_child(tower)
 
 func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
-	all_towers.append(tower)
+	_tower_lister.append(tower)
 
 	tower.projectile_created.connect(emit_projectile_created)
 	tower.bolt_created.connect(emit_bolt_created)
@@ -153,12 +101,11 @@ func _on_tower_selected(tower: Tower) -> void:
 func _on_lives_manager_lives_depleted() -> void:
 	print("Game has ended; disabling towers")
 
-	for t in all_towers:
+	for t in _tower_lister.list():
 		t.set_disabled()
 
 func _on_tower_target_mode_changed(index: int) -> void:
-	set_target_mode(index)
+	var selected_tower := _tower_selector.get_current()
 
-func set_target_mode(index: int):
 	if selected_tower:
 		selected_tower.set_target_mode(index)
