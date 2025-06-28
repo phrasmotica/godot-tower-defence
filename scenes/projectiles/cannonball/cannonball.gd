@@ -16,6 +16,9 @@ var _current_state: CannonballState = null
 func _ready() -> void:
 	switch_state(State.MOVING)
 
+func _process(_delta: float) -> void:
+	pass
+
 func switch_state(state: State, state_data := CannonballStateData.new()) -> void:
 	if _current_state != null:
 		_current_state.queue_free()
