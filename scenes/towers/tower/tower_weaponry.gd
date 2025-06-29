@@ -118,20 +118,15 @@ func should_create_effect(enemies: Array[Enemy]) -> bool:
 	return false
 
 func _on_barrel_bolt() -> void:
-	var in_range_enemies := _enemy_finder.get_near_enemies(false)
-
-	if not should_bolt(in_range_enemies):
+	if not should_bolt():
 		return
 
 	var level := level_manager.get_current_level()
-
-	print("Processing bolt")
-
 	var bolt_line := firing_line.fire(level.projectile_stats)
 
 	bolt_created.emit(bolt_line)
 
-func should_bolt(_enemies: Array[Enemy]) -> bool:
+func should_bolt() -> bool:
 	if firing_line:
 		return firing_line.enabled && firing_line.can_see_enemies()
 
