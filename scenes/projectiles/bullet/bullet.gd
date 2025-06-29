@@ -27,6 +27,7 @@ func switch_state(state: State, state_data := BulletStateData.new()) -> void:
 	_current_state.setup(
 		self,
 		state_data,
+		colliders,
 		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)

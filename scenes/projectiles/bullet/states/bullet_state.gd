@@ -5,15 +5,18 @@ signal state_transition_requested(new_state: Bullet.State, state_data: BulletSta
 
 var _bullet: Bullet = null
 var _state_data: BulletStateData = null
+var _colliders: BulletColliders = null
 var _movement: ProjectileMovement = null
 
 func setup(
 	bullet: Bullet,
 	state_data: BulletStateData,
+	colliders: BulletColliders,
 	movement: ProjectileMovement,
 ) -> void:
 	_bullet = bullet
 	_state_data = state_data
+	_colliders = colliders
 	_movement = movement
 
 func transition_state(
