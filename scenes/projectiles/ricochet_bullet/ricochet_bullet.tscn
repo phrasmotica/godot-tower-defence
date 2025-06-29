@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bl4stws58mj3o"]
+[gd_scene load_steps=7 format=3 uid="uid://bl4stws58mj3o"]
 
 [ext_resource type="Script" uid="uid://0gtpnpfqdk1k" path="res://scenes/projectiles/ricochet_bullet/ricochet_bullet.gd" id="1_jukuo"]
 [ext_resource type="Texture2D" uid="uid://ciowm4a0scvtx" path="res://assets/sprites/ricochet_bullet.png" id="2_134bq"]
+[ext_resource type="Script" uid="uid://cxol7se5fypvj" path="res://scenes/projectiles/bullet/bullet_colliders.gd" id="3_nfk3d"]
+[ext_resource type="Script" uid="uid://bbymmkk0q250h" path="res://scenes/projectiles/projectile_area_2d.gd" id="4_tc3bl"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8nhoy"]
 atlas = ExtResource("2_134bq")
@@ -18,8 +20,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RicochetBullet" type="StaticBody2D"]
-collision_layer = 2
+[node name="RicochetBullet" type="Node2D"]
 script = ExtResource("1_jukuo")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
@@ -28,5 +29,14 @@ scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_24fim")
 frame_progress = 0.239812
 
-[node name="Collider" type="CollisionPolygon2D" parent="."]
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("3_nfk3d")
+collision_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Colliders"]
+collision_layer = 2
+script = ExtResource("4_tc3bl")
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="Colliders/Area2D"]
 polygon = PackedVector2Array(6, 0, -6, 6, -2.3, 0, -6, -6)

@@ -8,6 +8,9 @@ enum State { MOVING }
 var max_ricochets := 1
 
 @onready
+var colliders: BulletColliders = %Colliders
+
+@onready
 var ricochet_count := max_ricochets
 
 var _state_factory := RicochetBulletStateFactory.new()
@@ -17,6 +20,8 @@ var _movement: ProjectileMovement = null
 
 func _ready() -> void:
 	_movement = ProjectileMovement.new(direction, effective_range, speed)
+
+	colliders.setup(self)
 
 	switch_state(State.MOVING)
 
@@ -29,6 +34,7 @@ func switch_state(state: State, state_data := RicochetBulletStateData.new()) -> 
 	_current_state.setup(
 		self,
 		state_data,
+		colliders,
 		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)

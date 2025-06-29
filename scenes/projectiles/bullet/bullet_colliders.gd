@@ -12,6 +12,10 @@ func _ready() -> void:
 func setup(projectile: Projectile) -> void:
 	collision_area.setup(projectile)
 
+func disable() -> void:
+	collision_area.set_deferred("monitorable", false)
+	collision_area.set_deferred("monitoring", false)
+
 func _handle_area_entered(enemy_body: EnemyArea2D) -> void:
 	var enemy := enemy_body.get_enemy()
 	enemy_hit.emit(enemy)

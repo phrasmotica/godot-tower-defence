@@ -1,6 +1,9 @@
 class_name RicochetBulletStateMoving
 extends RicochetBulletState
 
+func _enter_tree() -> void:
+	_colliders.enemy_hit.connect(handle_enemy_hit)
+
 func _process(_delta: float) -> void:
 	_ricochet_bullet.translate(_movement.translate())
 
@@ -8,6 +11,9 @@ func _process(_delta: float) -> void:
 		_ricochet_bullet.queue_free()
 
 func handle_collision(enemy: Enemy) -> void:
+	handle_enemy_hit(enemy)
+
+func handle_enemy_hit(enemy: Enemy) -> void:
 	if _ricochet_bullet.ricochet_count > 0:
 		_ricochet_bullet.ricochet_count -= 1
 		print("Collided with %s, %d ricochet(s) remaining" % [enemy.name, _ricochet_bullet.ricochet_count])

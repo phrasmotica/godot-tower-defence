@@ -11,7 +11,7 @@ var area_radius := 1
 var appearance: CannonballAppearance = %Appearance
 
 @onready
-var collider: CollisionShape2D = %Collider
+var colliders: BulletColliders = %Colliders
 
 var _state_factory := CannonballStateFactory.new()
 var _current_state: CannonballState = null
@@ -20,6 +20,8 @@ var _movement: ProjectileMovement = null
 
 func _ready() -> void:
 	_movement = ProjectileMovement.new(direction, effective_range, speed)
+
+	colliders.setup(self)
 
 	switch_state(State.MOVING)
 
@@ -33,6 +35,7 @@ func switch_state(state: State, state_data := CannonballStateData.new()) -> void
 		self,
 		state_data,
 		appearance,
+		colliders,
 		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)
