@@ -7,12 +7,14 @@ const normal_colour := Color.WHITE
 @export
 var progress_colour := Color8(255, 255, 255, 80)
 
+# TODO: move this to be a first-level child of the tower node
 @export
 var designer: TowerDesigner
 
 @export
 var level_sprite: Sprite2D
 
+# TODO: move this beneath the interaction node/script
 @export
 var visualiser: TowerVisualiser
 
