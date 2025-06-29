@@ -7,6 +7,3 @@ var penetration_count := 0
 
 var direction: Vector2
 var effective_range: float
-
-func handle_collision(_enemy: Enemy) -> void:
-	pass

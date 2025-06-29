@@ -71,9 +71,6 @@ func handle_strike(body: Projectile) -> void:
 	handle_damage(body.damage)
 	handle_knockback(body.knockback, 1.0)
 
-	# projectile is also affected by the collision
-	body.handle_collision(_enemy)
-
 func handle_damage(amount: float) -> void:
 	var new_health = _stats.take_damage(amount)
 	_appearance.set_current_health(new_health)

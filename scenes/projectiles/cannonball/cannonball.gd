@@ -42,7 +42,3 @@ func switch_state(state: State, state_data := CannonballStateData.new()) -> void
 	_current_state.name = "CannonballStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func handle_collision(enemy: Enemy) -> void:
-	if _current_state != null:
-		_current_state.handle_collision(enemy)

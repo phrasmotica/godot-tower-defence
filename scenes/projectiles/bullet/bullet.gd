@@ -14,7 +14,6 @@ func _ready() -> void:
 	_movement = ProjectileMovement.new(direction, effective_range, speed)
 
 	colliders.setup(self)
-	colliders.enemy_hit.connect(handle_collision)
 
 	switch_state(State.MOVING)
 
@@ -34,7 +33,3 @@ func switch_state(state: State, state_data := BulletStateData.new()) -> void:
 	_current_state.name = "BulletStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func handle_collision(enemy: Enemy) -> void:
-	if _current_state != null:
-		_current_state.handle_collision(enemy)
