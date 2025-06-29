@@ -141,6 +141,7 @@ selection = NodePath("Selection")
 
 [node name="ProgressBars" parent="Interaction" instance=ExtResource("3_k0da5")]
 position = Vector2(32, 72)
+display_mode = 1
 
 [node name="Selection" parent="Interaction" instance=ExtResource("2_bftvf")]
 offset_left = 0.0

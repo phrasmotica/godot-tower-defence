@@ -1,6 +1,8 @@
 @tool
 class_name TowerProgressBars extends Node2D
 
+enum DisplayMode { NONE, WARMUP, UPGRADE }
+
 @onready
 var warmup_bar: TowerProgressBar = %WarmupProgressBar
 
@@ -8,27 +10,16 @@ var warmup_bar: TowerProgressBar = %WarmupProgressBar
 var upgrade_bar: TowerProgressBar = %UpgradeProgressBar
 
 @export
-var show_warmup := true:
+var display_mode := DisplayMode.NONE:
 	set(value):
-		warmup_bar.visible = value
+		display_mode = value
 
-	get:
-		return warmup_bar.visible
-
-@export
-var show_upgrade := false:
-	set(value):
-		upgrade_bar.visible = value
-
-	get:
-		return upgrade_bar.visible
+		_refresh()
 
 signal warmup_started
 signal warmup_finished
 signal upgrade_started
 signal upgrade_finished
-
-var is_busy := false
 
 func _ready() -> void:
 	warmup_bar.started.connect(_on_warmup_progress_bar_started)
@@ -37,38 +28,40 @@ func _ready() -> void:
 	upgrade_bar.started.connect(_on_upgrade_progress_bar_started)
 	upgrade_bar.finished.connect(_on_upgrade_progress_bar_finished)
 
-func do_warmup():
-	if is_busy:
+	if Engine.is_editor_hint():
+		display_mode = DisplayMode.WARMUP
+
+	_refresh()
+
+func _refresh() -> void:
+	warmup_bar.visible = display_mode == DisplayMode.WARMUP
+	upgrade_bar.visible = display_mode == DisplayMode.UPGRADE
+
+func do_warmup() -> void:
+	if display_mode == DisplayMode.NONE:
+		display_mode = DisplayMode.WARMUP
+		warmup_bar.animate()
+	else:
 		print("Cannot do warmup, currently busy")
-		return
 
-	show_warmup = true
-	show_upgrade = false
+func do_upgrade() -> void:
+	if display_mode == DisplayMode.NONE:
+		display_mode = DisplayMode.UPGRADE
 
-	warmup_bar.animate()
-
-func do_upgrade():
-	if is_busy:
+		upgrade_bar.animate()
+	else:
 		print("Cannot do upgrade, currently busy")
-		return
-
-	show_warmup = false
-	show_upgrade = true
-
-	upgrade_bar.animate()
 
 func _on_warmup_progress_bar_started() -> void:
-	is_busy = true
 	warmup_started.emit()
 
 func _on_warmup_progress_bar_finished() -> void:
-	is_busy = false
+	display_mode = DisplayMode.NONE
 	warmup_finished.emit()
 
 func _on_upgrade_progress_bar_started() -> void:
-	is_busy = true
 	upgrade_started.emit()
 
 func _on_upgrade_progress_bar_finished() -> void:
-	is_busy = false
+	display_mode = DisplayMode.NONE
 	upgrade_finished.emit()
