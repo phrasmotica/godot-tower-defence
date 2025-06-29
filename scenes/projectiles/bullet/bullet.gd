@@ -2,6 +2,9 @@ class_name Bullet extends Projectile
 
 enum State { MOVING }
 
+@onready
+var colliders: BulletColliders = %Colliders
+
 var _state_factory := BulletStateFactory.new()
 var _current_state: BulletState = null
 
@@ -9,6 +12,9 @@ var _movement: ProjectileMovement = null
 
 func _ready() -> void:
 	_movement = ProjectileMovement.new(direction, effective_range, speed)
+
+	colliders.setup(self)
+	colliders.enemy_hit.connect(handle_collision)
 
 	switch_state(State.MOVING)
 
