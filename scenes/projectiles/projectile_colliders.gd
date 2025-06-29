@@ -1,4 +1,4 @@
-class_name BulletColliders
+class_name ProjectileColliders
 extends Node2D
 
 @export

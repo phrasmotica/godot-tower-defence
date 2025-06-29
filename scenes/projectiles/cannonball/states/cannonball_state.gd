@@ -6,14 +6,14 @@ signal state_transition_requested(new_state: Cannonball.State, state_data: Canno
 var _cannonball: Cannonball = null
 var _state_data: CannonballStateData = null
 var _appearance: CannonballAppearance = null
-var _colliders: BulletColliders = null
+var _colliders: ProjectileColliders = null
 var _movement: ProjectileMovement = null
 
 func setup(
 	cannonball: Cannonball,
 	state_data: CannonballStateData,
 	appearance: CannonballAppearance,
-	colliders: BulletColliders,
+	colliders: ProjectileColliders,
 	movement: ProjectileMovement,
 ) -> void:
 	_cannonball = cannonball

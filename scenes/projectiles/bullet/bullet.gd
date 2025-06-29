@@ -3,7 +3,7 @@ class_name Bullet extends Projectile
 enum State { MOVING }
 
 @onready
-var colliders: BulletColliders = %Colliders
+var colliders: ProjectileColliders = %Colliders
 
 var _state_factory := BulletStateFactory.new()
 var _current_state: BulletState = null

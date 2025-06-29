@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://djum40elgyioy" path="res://scenes/projectiles/bullet/bullet.gd" id="1_48g2p"]
 [ext_resource type="Texture2D" uid="uid://be0devneqeh3v" path="res://assets/sprites/bullet.png" id="1_gt4gp"]
-[ext_resource type="Script" uid="uid://cxol7se5fypvj" path="res://scenes/projectiles/bullet/bullet_colliders.gd" id="3_51erk"]
+[ext_resource type="Script" uid="uid://cxol7se5fypvj" path="res://scenes/projectiles/projectile_colliders.gd" id="3_51erk"]
 [ext_resource type="Script" uid="uid://bbymmkk0q250h" path="res://scenes/projectiles/projectile_area_2d.gd" id="4_em0g0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5qp1a"]

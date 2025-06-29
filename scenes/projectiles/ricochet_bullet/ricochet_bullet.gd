@@ -8,7 +8,7 @@ enum State { MOVING }
 var max_ricochets := 1
 
 @onready
-var colliders: BulletColliders = %Colliders
+var colliders: ProjectileColliders = %Colliders
 
 @onready
 var ricochet_count := max_ricochets
