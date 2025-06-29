@@ -2,30 +2,39 @@
 class_name TowerProgressBar extends Node2D
 
 @onready
-var animation_player: AnimationPlayer = $AnimationPlayer
+var rectangle: Sprite2D = %Sprite2D
 
-@export
-var color_rect: ColorRect
+@onready
+var animation_player: AnimationPlayer = $AnimationPlayer
 
 @export
 var colour: Color = Color.BLUE:
 	set(value):
-		color_rect.color = value
+		colour = value
 
-	get:
-		return color_rect.color
+		_refresh()
 
 signal started
 signal finished
 
-func _ready():
-	if not Engine.is_editor_hint():
-		color_rect.hide()
+func _ready() -> void:
+	_refresh()
 
-func animate():
+	if not Engine.is_editor_hint():
+		rectangle.hide()
+
+func _refresh() -> void:
+	if rectangle:
+		var gradient := Gradient.new()
+		gradient.colors = [colour]
+
+		assert(rectangle.texture is GradientTexture2D)
+		(rectangle.texture as GradientTexture2D).gradient = gradient
+
+func animate() -> void:
 	started.emit()
 
 	animation_player.play("progress")
 
-func finish():
+func finish() -> void:
 	finished.emit()
