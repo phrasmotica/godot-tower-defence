@@ -3,7 +3,7 @@ class_name Bullet extends Node2D
 enum State { MOVING }
 
 @export
-var projectile_stats: Projectile
+var projectile_stats: ProjectileStats
 
 @onready
 var colliders: ProjectileColliders = %Colliders

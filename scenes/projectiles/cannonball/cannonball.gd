@@ -5,7 +5,7 @@ class_name Cannonball extends Node2D
 enum State { MOVING, EXPLODING }
 
 @export
-var projectile_stats: Projectile
+var projectile_stats: ProjectileStats
 
 @export_range(1, 6)
 var area_radius := 1

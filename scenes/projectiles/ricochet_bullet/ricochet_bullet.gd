@@ -5,7 +5,7 @@ class_name RicochetBullet extends Node2D
 enum State { MOVING }
 
 @export
-var projectile_stats: Projectile
+var projectile_stats: ProjectileStats
 
 @export_range(1, 2)
 var max_ricochets := 1

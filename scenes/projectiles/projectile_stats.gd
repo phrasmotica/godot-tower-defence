@@ -1,4 +1,4 @@
-class_name Projectile
+class_name ProjectileStats
 extends Resource
 
 @export

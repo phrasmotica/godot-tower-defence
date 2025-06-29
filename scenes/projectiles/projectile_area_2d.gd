@@ -1,10 +1,10 @@
 class_name ProjectileArea2D
 extends Area2D
 
-var _parent_projectile: Projectile = null
+var _stats: ProjectileStats = null
 
-func setup(projectile: Projectile) -> void:
-	_parent_projectile = projectile
+func setup(stats: ProjectileStats) -> void:
+	_stats = stats
 
-func get_projectile() -> Projectile:
-	return _parent_projectile
+func get_projectile_stats() -> ProjectileStats:
+	return _stats

@@ -1,7 +1,7 @@
 class_name ProjectileFactory
 
 func create(stats: TowerLevelStats, rotation: float) -> Node2D:
-	var projectile_stats := Projectile.new()
+	var projectile_stats := ProjectileStats.new()
 
 	projectile_stats.damage = stats.damage
 	projectile_stats.effective_range = stats.projectile_range

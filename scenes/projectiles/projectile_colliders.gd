@@ -9,7 +9,7 @@ signal enemy_hit(enemy: Enemy)
 func _ready() -> void:
 	collision_area.area_entered.connect(_handle_area_entered)
 
-func setup(projectile: Projectile) -> void:
+func setup(projectile: ProjectileStats) -> void:
 	collision_area.setup(projectile)
 
 func disable() -> void:
