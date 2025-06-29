@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="TowerLevel" load_steps=7 format=3 uid="uid://b48kh7ji16na0"]
 
-[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="1_y1otk"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/tower_level_stats.gd" id="1_y1otk"]
 [ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="2_y7mtm"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="3_6m1k5"]
 

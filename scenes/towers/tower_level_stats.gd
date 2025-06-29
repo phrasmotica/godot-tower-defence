@@ -18,10 +18,10 @@ var rotate_speed: int = 3
 
 @export_range(1.0, 10.0)
 var projectile_range := 3.0:
-    set(value):
-        projectile_range = value
-        print("Stats Range " + str(value))
-        adjust_range.emit(value)
+	set(value):
+		projectile_range = value
+		print("Stats Range " + str(value))
+		adjust_range.emit(value)
 
 @export_range(5, 30)
 var projectile_speed: int = 10

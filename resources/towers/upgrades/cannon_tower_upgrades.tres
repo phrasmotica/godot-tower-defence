@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TowerLevel" load_steps=8 format=3 uid="uid://c26gdmi7im4d3"]
 
 [ext_resource type="PackedScene" uid="uid://d04f2klaib01w" path="res://scenes/projectiles/cannonball/cannonball.tscn" id="1_f62hk"]
-[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="2_6nsx4"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/tower_level_stats.gd" id="2_6nsx4"]
 [ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_kfd8k"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="4_6nsx4"]
 
