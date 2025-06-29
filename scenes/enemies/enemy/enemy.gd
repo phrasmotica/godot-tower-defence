@@ -33,6 +33,7 @@ func _ready() -> void:
 	appearance.set_max_health(stats.starting_health)
 	appearance.hide_health()
 
+	colliders.setup(self)
 	colliders.projectile_entered.connect(handle_strike)
 
 	movement.set_base_speed(movement_speed)
