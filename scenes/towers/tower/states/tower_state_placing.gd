@@ -1,8 +1,8 @@
 class_name TowerStatePlacing
 extends TowerState
 
-var _is_mouse_over_path := false
-var _is_valid_location := false
+var _is_mouse_over_path := true
+var _is_valid_location := true
 
 func _enter_tree() -> void:
 	print("Tower is now placing")
