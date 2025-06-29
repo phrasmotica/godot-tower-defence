@@ -13,17 +13,15 @@ var max_ricochets := 1
 @onready
 var colliders: ProjectileColliders = %Colliders
 
-# TODO: create utility script for keeping track of ricochets
-@onready
-var ricochet_count := max_ricochets
-
 var _state_factory := RicochetBulletStateFactory.new()
 var _current_state: RicochetBulletState = null
 
 var _movement: ProjectileMovement = null
+var _ricochets: RicochetTracker = null
 
 func _ready() -> void:
 	_movement = ProjectileMovement.new(projectile_stats)
+	_ricochets = RicochetTracker.new(max_ricochets)
 
 	colliders.setup(projectile_stats)
 
@@ -39,7 +37,8 @@ func switch_state(state: State, state_data := RicochetBulletStateData.new()) -> 
 		self,
 		state_data,
 		colliders,
-		_movement)
+		_movement,
+		_ricochets)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "RicochetBulletStateMachine: %s" % str(state)

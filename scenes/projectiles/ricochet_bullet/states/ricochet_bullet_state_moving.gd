@@ -14,9 +14,8 @@ func handle_collision(enemy: Enemy) -> void:
 	handle_enemy_hit(enemy)
 
 func handle_enemy_hit(enemy: Enemy) -> void:
-	if _ricochet_bullet.ricochet_count > 0:
-		_ricochet_bullet.ricochet_count -= 1
-		print("Collided with %s, %d ricochet(s) remaining" % [enemy.name, _ricochet_bullet.ricochet_count])
+	if _ricochets.try_deduct():
+		print("Collided with %s, %d ricochet(s) remaining" % [enemy.name, _ricochets.count()])
 		ricochet(enemy)
 		return
 
