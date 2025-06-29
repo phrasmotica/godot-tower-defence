@@ -24,12 +24,7 @@ func _process(delta: float) -> void:
 	_appearance.rotation = _weaponry.scan(delta)
 
 func _on_projectile_created(projectile: Projectile) -> void:
-	print("Adding projectile as child")
-
-	var rotation := _appearance.rotation
-
-	projectile.direction = Vector2.RIGHT.rotated(rotation)
-	projectile.rotation = rotation
+	projectile.rotation = _appearance.rotation
 
 	_appearance.animate_shoot()
 

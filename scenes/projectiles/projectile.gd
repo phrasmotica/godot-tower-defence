@@ -5,5 +5,4 @@ var speed := 10
 var knockback := 0.0
 var penetration_count := 0
 
-var direction: Vector2
 var effective_range: float
