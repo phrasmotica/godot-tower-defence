@@ -92,12 +92,11 @@ tower_name = "Sniper"
 tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
 price = 5
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_07j61")
 designer = NodePath("Designer")
 level_sprite = NodePath("LevelSprite")
-progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
@@ -110,9 +109,6 @@ level_manager = NodePath("../../Weaponry/Levels")
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("7_l2h3t")
-
-[node name="ProgressBars" parent="Appearance" instance=ExtResource("3_8t556")]
-position = Vector2(0, 40)
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_s7iwo")]
 show_bolt_line = true
@@ -136,11 +132,15 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
+[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
 unique_name_in_owner = true
 position = Vector2(-32, -32)
 script = ExtResource("4_2ycho")
+progress_bars = NodePath("ProgressBars")
 selection = NodePath("Selection")
+
+[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_8t556")]
+position = Vector2(32, 72)
 
 [node name="Selection" parent="Interaction" instance=ExtResource("2_pmdjk")]
 offset_left = 0.0
@@ -165,6 +165,3 @@ enable_bolt = true
 
 [node name="FiringLine" parent="Weaponry" instance=ExtResource("6_r2dx8")]
 shooting_range = 4.0
-
-[connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
-[connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]

@@ -104,12 +104,11 @@ tower_name = "Gun"
 tower_description = "Shoots simple bullets at enemies."
 price = 2
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "progress_bars", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_8tvig")
 designer = NodePath("Designer")
 level_sprite = NodePath("LevelSprite")
-progress_bars = NodePath("ProgressBars")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
@@ -122,9 +121,6 @@ level_manager = NodePath("../../Weaponry/Levels")
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("9_ja0ml")
-
-[node name="ProgressBars" parent="Appearance" instance=ExtResource("3_xlhsu")]
-position = Vector2(0, 40)
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_tichb")]
 
@@ -146,10 +142,14 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("selection")]
+[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
 unique_name_in_owner = true
 script = ExtResource("4_w4bk8")
+progress_bars = NodePath("ProgressBars")
 selection = NodePath("Selection")
+
+[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_xlhsu")]
+position = Vector2(0, 40)
 
 [node name="Selection" parent="Interaction" instance=ExtResource("2_nytid")]
 
@@ -165,6 +165,3 @@ script = ExtResource("4_4tss6")
 base_level = ExtResource("11_8tvig")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("7_mplx0")]
-
-[connection signal="upgrade_finished" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_finished"]
-[connection signal="upgrade_started" from="Appearance/ProgressBars" to="Weaponry/Levels" method="_on_progress_bars_upgrade_started"]

@@ -15,7 +15,8 @@ func _enter_tree() -> void:
 	if next_level:
 		_weaponry.pause()
 
-		_appearance.do_upgrade(_on_upgrade_finished)
+		_appearance.do_upgrade()
+		_interaction.do_upgrade(_on_upgrade_finished)
 
 func _on_mouse_entered() -> void:
 	_appearance.show_visualiser()

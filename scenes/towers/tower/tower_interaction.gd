@@ -2,6 +2,9 @@ class_name TowerInteraction
 extends Node
 
 @export
+var progress_bars: TowerProgressBars
+
+@export
 var selection: TowerSelection
 
 signal mouse_entered
@@ -32,6 +35,16 @@ func set_selected(selected: bool) -> void:
 
 func is_selected() -> bool:
 	return _is_selected
+
+func do_warmup(finished_callback: Callable) -> void:
+	progress_bars.warmup_finished.connect(finished_callback)
+
+	progress_bars.do_warmup()
+
+func do_upgrade(finished_callback: Callable) -> void:
+	progress_bars.upgrade_finished.connect(finished_callback)
+
+	progress_bars.do_upgrade()
 
 func _on_selection_gui_input(event: InputEvent) -> void:
 	if event.is_pressed():

@@ -11,7 +11,8 @@ func _enter_tree() -> void:
 
 	_interaction.enable_mouse()
 
-	_appearance.do_warmup(_on_warmup_finished)
+	_appearance.do_warmup()
+	_interaction.do_warmup(_on_warmup_finished)
 
 func _on_mouse_entered() -> void:
 	_appearance.show_visualiser()

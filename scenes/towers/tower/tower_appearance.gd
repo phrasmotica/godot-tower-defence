@@ -14,9 +14,6 @@ var designer: TowerDesigner
 var level_sprite: Sprite2D
 
 @export
-var progress_bars: TowerProgressBars
-
-@export
 var visualiser: TowerVisualiser
 
 @export
@@ -64,19 +61,11 @@ func show_range() -> void:
 func hide_range() -> void:
 	visualiser.hide_range()
 
-func do_warmup(finished_callback: Callable) -> void:
+func do_warmup() -> void:
 	level_sprite.modulate = progress_colour
 
-	progress_bars.warmup_finished.connect(finished_callback)
-
-	progress_bars.do_warmup()
-
-func do_upgrade(finished_callback: Callable) -> void:
+func do_upgrade() -> void:
 	level_sprite.modulate = progress_colour
-
-	progress_bars.upgrade_finished.connect(finished_callback)
-
-	progress_bars.do_upgrade()
 
 func animate_shoot() -> void:
 	if animation_player.current_animation.length() <= 0:
