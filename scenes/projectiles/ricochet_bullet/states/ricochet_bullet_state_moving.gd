@@ -25,9 +25,9 @@ func handle_enemy_hit(enemy: Enemy) -> void:
 
 ## Rebound into the given enemy's nearest neighbour.
 func ricochet(enemy: Enemy) -> void:
-	_ricochet_bullet.speed = int(_ricochet_bullet.speed * 0.5)
+	_ricochet_bullet.projectile_stats.speed = int(_ricochet_bullet.projectile_stats.speed * 0.5)
 
-	var nearest_enemy := EnemyManager.get_neighbour(enemy, 100 * _ricochet_bullet.effective_range)
+	var nearest_enemy := EnemyManager.get_neighbour(enemy, 100 * _ricochet_bullet.projectile_stats.effective_range)
 	if nearest_enemy:
 		print("Ricocheting towards " + nearest_enemy.name)
 

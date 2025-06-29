@@ -2,6 +2,7 @@ class_name TowerStateFiring
 extends TowerState
 
 var _effect_factory := EffectFactory.new()
+var _projectile_factory := ProjectileFactory.new()
 
 func _enter_tree() -> void:
 	print("Tower is now firing")
@@ -23,8 +24,10 @@ func _enter_tree() -> void:
 func _process(delta: float) -> void:
 	_appearance.rotation = _weaponry.scan(delta)
 
-func _on_projectile_created(projectile: Projectile) -> void:
-	projectile.rotation = _appearance.rotation
+func _on_projectile_created(tower_level: TowerLevel) -> void:
+	var projectile := _projectile_factory.create(
+		tower_level.projectile_stats,
+		_appearance.rotation)
 
 	_appearance.animate_shoot()
 

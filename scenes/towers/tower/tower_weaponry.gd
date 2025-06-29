@@ -15,13 +15,11 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
-var _projectile_factory := ProjectileFactory.new()
-
 var _aiming: TowerAiming = null
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
-signal projectile_created(projectile: Projectile)
+signal projectile_created(tower_level: TowerLevel)
 signal effect_created(effect_stats: EffectStats, enemies: Array[Enemy])
 signal bolt_created(bolt_line: BoltLine)
 
@@ -100,9 +98,7 @@ func _on_barrel_shoot() -> void:
 	if not level.projectile_stats:
 		return
 
-	var projectile := _projectile_factory.create(level.projectile_stats)
-
-	projectile_created.emit(projectile)
+	projectile_created.emit(level)
 
 func _on_barrel_pulse() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(true)

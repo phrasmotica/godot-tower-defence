@@ -1,8 +1,11 @@
 ## Projectile that damages all enemies in an area
 ## centred on the enemy that is struck.
-class_name Cannonball extends Projectile
+class_name Cannonball extends Node2D
 
 enum State { MOVING, EXPLODING }
+
+@export
+var projectile_stats: Projectile
 
 @export_range(1, 6)
 var area_radius := 1
@@ -19,9 +22,12 @@ var _current_state: CannonballState = null
 var _movement: ProjectileMovement = null
 
 func _ready() -> void:
-	_movement = ProjectileMovement.new(Vector2.RIGHT.rotated(rotation), effective_range, speed)
+	_movement = ProjectileMovement.new(
+		projectile_stats.direction,
+		projectile_stats.effective_range,
+		projectile_stats.speed)
 
-	colliders.setup(self)
+	colliders.setup(projectile_stats)
 
 	switch_state(State.MOVING)
 

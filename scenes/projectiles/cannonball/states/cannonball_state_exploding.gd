@@ -19,4 +19,4 @@ func _enter_tree() -> void:
 	print("Affecting %d neighbour(s) in radius %d" % [neighbours.size(), _cannonball.area_radius])
 
 	for e in neighbours:
-		(e as Enemy).handle_aoe(_cannonball)
+		(e as Enemy).handle_aoe(_cannonball.projectile_stats)

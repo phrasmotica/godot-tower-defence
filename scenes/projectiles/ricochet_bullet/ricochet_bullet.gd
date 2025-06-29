@@ -1,8 +1,11 @@
 ## Bullet that bounces off the the hit enemy
 ## and ricochets into its nearest neighbour.
-class_name RicochetBullet extends Projectile
+class_name RicochetBullet extends Node2D
 
 enum State { MOVING }
+
+@export
+var projectile_stats: Projectile
 
 @export_range(1, 2)
 var max_ricochets := 1
@@ -19,9 +22,12 @@ var _current_state: RicochetBulletState = null
 var _movement: ProjectileMovement = null
 
 func _ready() -> void:
-	_movement = ProjectileMovement.new(Vector2.RIGHT.rotated(rotation), effective_range, speed)
+	_movement = ProjectileMovement.new(
+		projectile_stats.direction,
+		projectile_stats.effective_range,
+		projectile_stats.speed)
 
-	colliders.setup(self)
+	colliders.setup(projectile_stats)
 
 	switch_state(State.MOVING)
 
