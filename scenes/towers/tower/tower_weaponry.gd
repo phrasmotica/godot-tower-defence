@@ -19,8 +19,8 @@ var _aiming: TowerAiming = null
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
-signal projectile_created(tower_level: TowerLevel)
-signal effect_created(effect_stats: EffectStats, enemies: Array[Enemy])
+signal shoot_requested(tower_level: TowerLevel)
+signal effect_requested(effect_stats: EffectStats, enemies: Array[Enemy])
 signal bolt_created(bolt_line: BoltLine)
 
 func _ready() -> void:
@@ -98,7 +98,7 @@ func _on_barrel_shoot() -> void:
 	if not level.projectile_stats:
 		return
 
-	projectile_created.emit(level)
+	shoot_requested.emit(level)
 
 func _on_barrel_pulse() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(true)
@@ -109,7 +109,7 @@ func _on_barrel_pulse() -> void:
 	if not level.effect_stats:
 		return
 
-	effect_created.emit(level.effect_stats, in_range_enemies)
+	effect_requested.emit(level.effect_stats, in_range_enemies)
 
 func should_create_effect(enemies: Array[Enemy]) -> bool:
 	if effect_area:
