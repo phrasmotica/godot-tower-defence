@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TowerLevel" load_steps=8 format=3 uid="uid://bh5gjq7f5hy14"]
 
 [ext_resource type="PackedScene" uid="uid://dkbrkn8ajicyx" path="res://scenes/projectiles/bullet/bullet.tscn" id="1_v3aed"]
-[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/stats.gd" id="2_m7udy"]
+[ext_resource type="Script" uid="uid://bwof4mjs84gpu" path="res://scenes/towers/tower_level_stats.gd" id="2_m7udy"]
 [ext_resource type="Script" uid="uid://cvxdsc2a5la7r" path="res://scenes/towers/components/tower_level.gd" id="3_h40wv"]
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="4_bvmy3"]
 

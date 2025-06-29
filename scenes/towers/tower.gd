@@ -34,7 +34,7 @@ var _info: TowerInfo = null
 var _state_factory := TowerStateFactory.new()
 var _current_state: TowerState = null
 
-signal projectile_created(projectile: Projectile)
+signal projectile_created(projectile: Node2D)
 signal bolt_created(bolt_line: BoltLine)
 
 func _ready() -> void:
@@ -70,7 +70,7 @@ func is_upgrading() -> bool:
 func set_disabled() -> void:
 	switch_state(State.DISABLED)
 
-func emit_projectile_created(projectile: Projectile) -> void:
+func emit_projectile_created(projectile: Node2D) -> void:
 	projectile.global_position = global_position
 	projectile_created.emit(projectile)
 

@@ -58,21 +58,18 @@ func can_be_poisoned() -> bool:
 func can_take_damage() -> bool:
 	return true
 
-func handle_aoe(body: Projectile) -> void:
+func handle_aoe(projectile_stats: ProjectileStats) -> void:
 	# gentler knockback for an indirect hit
-	handle_damage(body.damage)
-	handle_knockback(body.knockback, 0.5)
+	handle_damage(projectile_stats.damage)
+	handle_knockback(projectile_stats.knockback, 0.5)
 
 func handle_bolt(bolt_stats: TowerLevelStats) -> void:
 	handle_damage(bolt_stats.damage)
 	handle_knockback(bolt_stats.projectile_knockback)
 
-func handle_strike(body: Projectile) -> void:
-	handle_damage(body.damage)
-	handle_knockback(body.knockback, 1.0)
-
-	# projectile is also affected by the collision
-	body.handle_collision(_enemy)
+func handle_strike(projectile_stats: ProjectileStats) -> void:
+	handle_damage(projectile_stats.damage)
+	handle_knockback(projectile_stats.knockback, 1.0)
 
 func handle_damage(amount: float) -> void:
 	var new_health = _stats.take_damage(amount)

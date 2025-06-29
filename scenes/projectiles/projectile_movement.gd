@@ -7,14 +7,10 @@ var _speed: int
 
 var _distance_travelled: float
 
-func _init(
-	direction: Vector2,
-	effective_range: float,
-	speed: int,
-) -> void:
-	_direction = direction
-	_effective_range = effective_range
-	_speed = speed
+func _init(stats: ProjectileStats) -> void:
+	_direction = stats.direction
+	_effective_range = stats.effective_range
+	_speed = stats.speed
 
 func translate() -> Vector2:
 	var translation := _speed * _direction

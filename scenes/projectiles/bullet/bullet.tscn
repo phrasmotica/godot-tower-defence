@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkbrkn8ajicyx"]
+[gd_scene load_steps=8 format=3 uid="uid://dkbrkn8ajicyx"]
 
 [ext_resource type="Script" uid="uid://djum40elgyioy" path="res://scenes/projectiles/bullet/bullet.gd" id="1_48g2p"]
 [ext_resource type="Texture2D" uid="uid://be0devneqeh3v" path="res://assets/sprites/bullet.png" id="1_gt4gp"]
+[ext_resource type="Script" uid="uid://cxol7se5fypvj" path="res://scenes/projectiles/projectile_colliders.gd" id="3_51erk"]
+[ext_resource type="Script" uid="uid://bbymmkk0q250h" path="res://scenes/projectiles/projectile_area_2d.gd" id="4_em0g0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5qp1a"]
 atlas = ExtResource("1_gt4gp")
@@ -21,13 +23,21 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_iepp5"]
 radius = 6.0
 
-[node name="Bullet" type="StaticBody2D"]
-collision_layer = 2
+[node name="Bullet" type="Node2D"]
 script = ExtResource("1_48g2p")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_24fim")
 
-[node name="Collider" type="CollisionShape2D" parent="."]
+[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+unique_name_in_owner = true
+script = ExtResource("3_51erk")
+collision_area = NodePath("Area2D")
+
+[node name="Area2D" type="Area2D" parent="Colliders"]
+collision_layer = 2
+script = ExtResource("4_em0g0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Colliders/Area2D"]
 shape = SubResource("CircleShape2D_iepp5")

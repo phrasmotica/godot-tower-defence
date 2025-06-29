@@ -1,8 +1,11 @@
 ## Projectile that damages all enemies in an area
 ## centred on the enemy that is struck.
-class_name Cannonball extends Projectile
+class_name Cannonball extends Node2D
 
 enum State { MOVING, EXPLODING }
+
+@export
+var projectile_stats: ProjectileStats
 
 @export_range(1, 6)
 var area_radius := 1
@@ -11,7 +14,7 @@ var area_radius := 1
 var appearance: CannonballAppearance = %Appearance
 
 @onready
-var collider: CollisionShape2D = %Collider
+var colliders: ProjectileColliders = %Colliders
 
 var _state_factory := CannonballStateFactory.new()
 var _current_state: CannonballState = null
@@ -19,7 +22,9 @@ var _current_state: CannonballState = null
 var _movement: ProjectileMovement = null
 
 func _ready() -> void:
-	_movement = ProjectileMovement.new(direction, effective_range, speed)
+	_movement = ProjectileMovement.new(projectile_stats)
+
+	colliders.setup(projectile_stats)
 
 	switch_state(State.MOVING)
 
@@ -33,13 +38,10 @@ func switch_state(state: State, state_data := CannonballStateData.new()) -> void
 		self,
 		state_data,
 		appearance,
+		colliders,
 		_movement)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "CannonballStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
-
-func handle_collision(enemy: Enemy) -> void:
-	if _current_state != null:
-		_current_state.handle_collision(enemy)

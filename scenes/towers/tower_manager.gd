@@ -89,7 +89,7 @@ func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
 	tower.projectile_created.connect(emit_projectile_created)
 	tower.bolt_created.connect(emit_bolt_created)
 
-func emit_projectile_created(projectile: Projectile) -> void:
+func emit_projectile_created(projectile: Node2D) -> void:
 	projectile_container.spawn_projectile(projectile)
 
 func emit_bolt_created(bolt_line: BoltLine) -> void:

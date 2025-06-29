@@ -15,14 +15,12 @@ var effect_area: EffectArea
 @export
 var firing_line: FiringLine
 
-var _projectile_factory := ProjectileFactory.new()
-
 var _aiming: TowerAiming = null
 var _enemy_finder: EnemyFinder = null
 var _target_mode := TargetMode.NEAR
 
-signal projectile_created(projectile: Projectile)
-signal effect_created(effect_stats: EffectStats, enemies: Array[Enemy])
+signal shoot_requested(tower_level: TowerLevel)
+signal effect_requested(effect_stats: EffectStats, enemies: Array[Enemy])
 signal bolt_created(bolt_line: BoltLine)
 
 func _ready() -> void:
@@ -100,9 +98,7 @@ func _on_barrel_shoot() -> void:
 	if not level.projectile_stats:
 		return
 
-	var projectile := _projectile_factory.create(level.projectile_stats)
-
-	projectile_created.emit(projectile)
+	shoot_requested.emit(level)
 
 func _on_barrel_pulse() -> void:
 	var in_range_enemies := _enemy_finder.get_near_enemies(true)
@@ -113,7 +109,7 @@ func _on_barrel_pulse() -> void:
 	if not level.effect_stats:
 		return
 
-	effect_created.emit(level.effect_stats, in_range_enemies)
+	effect_requested.emit(level.effect_stats, in_range_enemies)
 
 func should_create_effect(enemies: Array[Enemy]) -> bool:
 	if effect_area:
@@ -122,20 +118,15 @@ func should_create_effect(enemies: Array[Enemy]) -> bool:
 	return false
 
 func _on_barrel_bolt() -> void:
-	var in_range_enemies := _enemy_finder.get_near_enemies(false)
-
-	if not should_bolt(in_range_enemies):
+	if not should_bolt():
 		return
 
 	var level := level_manager.get_current_level()
-
-	print("Processing bolt")
-
 	var bolt_line := firing_line.fire(level.projectile_stats)
 
 	bolt_created.emit(bolt_line)
 
-func should_bolt(_enemies: Array[Enemy]) -> bool:
+func should_bolt() -> bool:
 	if firing_line:
 		return firing_line.enabled && firing_line.can_see_enemies()
 

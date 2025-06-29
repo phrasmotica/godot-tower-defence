@@ -2,6 +2,7 @@ class_name TowerStateFiring
 extends TowerState
 
 var _effect_factory := EffectFactory.new()
+var _projectile_factory := ProjectileFactory.new()
 
 func _enter_tree() -> void:
 	print("Tower is now firing")
@@ -15,27 +16,24 @@ func _enter_tree() -> void:
 	_interaction.enable_mouse()
 
 	_weaponry.bolt_created.connect(_on_bolt_created)
-	_weaponry.effect_created.connect(_on_effect_created)
-	_weaponry.projectile_created.connect(_on_projectile_created)
+	_weaponry.effect_requested.connect(_on_effect_requested)
+	_weaponry.shoot_requested.connect(_on_shoot_requested)
 
 	_weaponry.for_firing(_tower)
 
 func _process(delta: float) -> void:
 	_appearance.rotation = _weaponry.scan(delta)
 
-func _on_projectile_created(projectile: Projectile) -> void:
-	print("Adding projectile as child")
-
-	var rotation := _appearance.rotation
-
-	projectile.direction = Vector2.RIGHT.rotated(rotation)
-	projectile.rotation = rotation
+func _on_shoot_requested(tower_level: TowerLevel) -> void:
+	var projectile := _projectile_factory.create(
+		tower_level.projectile_stats,
+		_appearance.rotation)
 
 	_appearance.animate_shoot()
 
 	_tower.emit_projectile_created(projectile)
 
-func _on_effect_created(effect_stats: EffectStats, enemies: Array[Enemy]) -> void:
+func _on_effect_requested(effect_stats: EffectStats, enemies: Array[Enemy]) -> void:
 	for enemy: Enemy in enemies:
 		var effect := _effect_factory.create(effect_stats)
 		effect.enemy = enemy
@@ -44,15 +42,7 @@ func _on_effect_created(effect_stats: EffectStats, enemies: Array[Enemy]) -> voi
 			enemy.add_child(effect)
 			effect.start_timer()
 
-	# if valid_enemies.size() > 0:
-	# 	print("Passing effect to enemies")
-
-	# 	effect.attached_enemies = enemies
-	# 	effect.act_start()
-
 	_appearance.animate_pulse()
-
-	# effect.start_timer()
 
 func _on_bolt_created(bolt_line: BoltLine) -> void:
 	print("Adding bolt as child")

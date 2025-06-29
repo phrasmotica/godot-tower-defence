@@ -1,6 +1,9 @@
 class_name RicochetBulletStateMoving
 extends RicochetBulletState
 
+func _enter_tree() -> void:
+	_colliders.enemy_hit.connect(handle_enemy_hit)
+
 func _process(_delta: float) -> void:
 	_ricochet_bullet.translate(_movement.translate())
 
@@ -8,9 +11,11 @@ func _process(_delta: float) -> void:
 		_ricochet_bullet.queue_free()
 
 func handle_collision(enemy: Enemy) -> void:
-	if _ricochet_bullet.ricochet_count > 0:
-		_ricochet_bullet.ricochet_count -= 1
-		print("Collided with %s, %d ricochet(s) remaining" % [enemy.name, _ricochet_bullet.ricochet_count])
+	handle_enemy_hit(enemy)
+
+func handle_enemy_hit(enemy: Enemy) -> void:
+	if _ricochets.try_deduct():
+		print("Collided with %s, %d ricochet(s) remaining" % [enemy.name, _ricochets.count()])
 		ricochet(enemy)
 		return
 
@@ -19,9 +24,9 @@ func handle_collision(enemy: Enemy) -> void:
 
 ## Rebound into the given enemy's nearest neighbour.
 func ricochet(enemy: Enemy) -> void:
-	_ricochet_bullet.speed = int(_ricochet_bullet.speed * 0.5)
+	_ricochet_bullet.projectile_stats.speed = int(_ricochet_bullet.projectile_stats.speed * 0.5)
 
-	var nearest_enemy := EnemyManager.get_neighbour(enemy, 100 * _ricochet_bullet.effective_range)
+	var nearest_enemy := EnemyManager.get_neighbour(enemy, 100 * _ricochet_bullet.projectile_stats.effective_range)
 	if nearest_enemy:
 		print("Ricocheting towards " + nearest_enemy.name)
 

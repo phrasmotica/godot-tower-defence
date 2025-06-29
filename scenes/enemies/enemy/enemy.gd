@@ -33,6 +33,7 @@ func _ready() -> void:
 	appearance.set_max_health(stats.starting_health)
 	appearance.hide_health()
 
+	colliders.setup(self)
 	colliders.projectile_entered.connect(handle_strike)
 
 	movement.set_base_speed(movement_speed)
@@ -96,9 +97,9 @@ func poison(effect: PoisonEffect) -> void:
 func can_take_damage() -> bool:
 	return _current_state != null and _current_state.can_take_damage()
 
-func handle_aoe(body: Projectile) -> void:
+func handle_aoe(projectile_stats: ProjectileStats) -> void:
 	if _current_state != null:
-		_current_state.handle_aoe(body)
+		_current_state.handle_aoe(projectile_stats)
 
 func handle_bolt(bolt_stats: TowerLevelStats) -> void:
 	if _current_state != null:
@@ -108,6 +109,6 @@ func handle_damage(amount: float) -> void:
 	if _current_state != null:
 		_current_state.handle_damage(amount)
 
-func handle_strike(body: Projectile) -> void:
+func handle_strike(projectile_stats: ProjectileStats) -> void:
 	if _current_state != null:
-		_current_state.handle_strike(body)
+		_current_state.handle_strike(projectile_stats)
