@@ -13,6 +13,7 @@ var max_ricochets := 1
 @onready
 var colliders: ProjectileColliders = %Colliders
 
+# TODO: create utility script for keeping track of ricochets
 @onready
 var ricochet_count := max_ricochets
 
