@@ -14,10 +14,7 @@ var _current_state: BulletState = null
 var _movement: ProjectileMovement = null
 
 func _ready() -> void:
-	_movement = ProjectileMovement.new(
-		projectile_stats.direction,
-		projectile_stats.effective_range,
-		projectile_stats.speed)
+	_movement = ProjectileMovement.new(projectile_stats)
 
 	colliders.setup(projectile_stats)
 
