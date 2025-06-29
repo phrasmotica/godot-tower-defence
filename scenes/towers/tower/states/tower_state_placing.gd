@@ -55,4 +55,6 @@ func _on_valid_area_clicked() -> void:
 
 	TowerEvents.emit_tower_placing_finished(_tower)
 
-	transition_state(Tower.State.WARMUP)
+	# TODO: it'd be preferable to switch to the warmup state here, but we'd lose
+	# state data due to the reparenting from the game UI to the tower manager.
+	# I.e. the tower's existing state machine re-enters the tree...

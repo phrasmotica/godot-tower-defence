@@ -42,8 +42,6 @@ func _ready() -> void:
 
 	weaponry.set_target_mode(starting_target_mode)
 
-	switch_state(State.PLACING)
-
 func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 	if _current_state != null:
 		_current_state.queue_free()
@@ -63,6 +61,10 @@ func switch_state(state: State, state_data := TowerStateData.new()) -> void:
 	_current_state.name = "TowerStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
+
+func clear_state() -> void:
+	if _current_state != null:
+		remove_child(_current_state)
 
 func is_upgrading() -> bool:
 	return _current_state != null and _current_state.is_upgrading()

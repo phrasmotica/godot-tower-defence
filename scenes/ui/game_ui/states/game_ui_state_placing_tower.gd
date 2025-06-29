@@ -15,6 +15,9 @@ func _enter_tree() -> void:
 	TowerEvents.tower_placing_cancelled.connect(_on_tower_placing_cancelled)
 	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 
+	_game_ui.add_child(placing_tower)
+	placing_tower.switch_state(Tower.State.PLACING)
+
 	TowerEvents.emit_tower_placing_started(placing_tower)
 
 func _process(_delta: float) -> void:

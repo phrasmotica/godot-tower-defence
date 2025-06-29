@@ -21,6 +21,7 @@ func _ready() -> void:
 	LivesManager.lives_depleted.connect(_on_lives_manager_lives_depleted)
 
 	TowerEvents.tower_placing_started.connect(_on_tower_placing_started)
+	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 
 	TowerEvents.tower_warmup_finished.connect(_on_tower_warmup_finished)
 
@@ -78,10 +79,14 @@ func select_tower(tower: Tower) -> void:
 
 	TowerEvents.emit_selected_tower_changed(tower, old_tower)
 
-func _on_tower_placing_started(tower: Tower) -> void:
+func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
-	add_child(tower)
+func _on_tower_placing_finished(tower: Tower) -> void:
+	tower.clear_state()
+	tower.reparent(self, true)
+
+	tower.switch_state(Tower.State.WARMUP)
 
 func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
 	_tower_lister.append(tower)
