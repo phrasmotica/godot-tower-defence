@@ -83,10 +83,9 @@ func _on_tower_placing_started(_tower: Tower) -> void:
 	deselect_tower()
 
 func _on_tower_placing_finished(tower: Tower) -> void:
-	tower.clear_state()
+	# ensures the current state does not set up after re-entering tree
+	tower.skip_state_transition_setup()
 	tower.reparent(self, true)
-
-	tower.switch_state(Tower.State.WARMUP)
 
 func _on_tower_warmup_finished(tower: Tower, _first_level: TowerLevel) -> void:
 	_tower_lister.append(tower)

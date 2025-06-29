@@ -11,6 +11,8 @@ var _info: TowerInfo = null
 var _interaction: TowerInteraction = null
 var _weaponry: TowerWeaponry = null
 
+var _skip_setup := false
+
 func setup(
 	tower: Tower,
 	state_data: TowerStateData,
@@ -33,6 +35,9 @@ func transition_state(
 	state_data := TowerStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func skip_setup() -> void:
+	_skip_setup = true
 
 func is_upgrading() -> bool:
 	return false

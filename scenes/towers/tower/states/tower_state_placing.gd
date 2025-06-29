@@ -5,6 +5,11 @@ var _is_mouse_over_path := true
 var _is_valid_location := true
 
 func _enter_tree() -> void:
+	if _skip_setup:
+		_skip_setup = false
+		print("TowerStatePlacing: %s skipping setup" % _info.get_name())
+		return
+
 	print("Tower is now placing")
 
 	_colliders.path_area_entered.connect(_on_path_area_entered)
@@ -55,6 +60,4 @@ func _on_valid_area_clicked() -> void:
 
 	TowerEvents.emit_tower_placing_finished(_tower)
 
-	# TODO: it'd be preferable to switch to the warmup state here, but we'd lose
-	# state data due to the reparenting from the game UI to the tower manager.
-	# I.e. the tower's existing state machine re-enters the tree...
+	transition_state(Tower.State.WARMUP)
