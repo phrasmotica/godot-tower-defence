@@ -112,6 +112,7 @@ rotation = 1.5708
 texture = ExtResource("7_l2h3t")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_8t556")]
+position = Vector2(0, 40)
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_s7iwo")]
 show_bolt_line = true

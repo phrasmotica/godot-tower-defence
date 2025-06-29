@@ -123,6 +123,7 @@ rotation = 1.5708
 texture = ExtResource("7_j030q")
 
 [node name="ProgressBars" parent="Appearance" instance=ExtResource("3_xd60m")]
+position = Vector2(0, 40)
 
 [node name="Visualiser" parent="Appearance" instance=ExtResource("4_u4erw")]
 
