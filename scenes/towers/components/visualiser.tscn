@@ -4,12 +4,12 @@
 [ext_resource type="PackedScene" uid="uid://bkiugvcd885f7" path="res://scenes/towers/components/range_area.tscn" id="2_ddbsy"]
 [ext_resource type="PackedScene" uid="uid://mfvhoc1kpcc0" path="res://scenes/projectiles/bolt_line.tscn" id="5_af1on"]
 
-[node name="Visualiser" type="Node2D" node_paths=PackedStringArray("range_area", "bolt_line")]
+[node name="Visualiser" type="Node2D"]
 script = ExtResource("1_potvq")
-range_area = NodePath("RangeArea")
-bolt_line = NodePath("BoltLine")
 
 [node name="RangeArea" parent="." instance=ExtResource("2_ddbsy")]
+unique_name_in_owner = true
 
 [node name="BoltLine" parent="." instance=ExtResource("5_af1on")]
+unique_name_in_owner = true
 visible = false

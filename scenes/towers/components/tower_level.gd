@@ -38,18 +38,21 @@ var upgrades: Array[TowerLevel]
 @export
 var point_towards_enemy := true
 
-signal adjust_sprite(texture: Texture2D)
-signal adjust_range(range: float)
-signal adjust_effect_range(range: float)
+signal projectile_stats_changed(stats: TowerLevelStats)
+signal effect_stats_changed(stats: EffectStats)
 
 func _refresh() -> void:
-	adjust_sprite.emit(sprite)
+	if projectile_stats and not projectile_stats.changed.is_connected(emit_projectile_stats_changed):
+		projectile_stats \
+			.changed \
+			.connect(emit_projectile_stats_changed)
 
-	if projectile_stats and not projectile_stats.adjust_range.is_connected(emit_adjust_range):
-		projectile_stats.adjust_range.connect(emit_adjust_range)
+	if effect_stats and not effect_stats.changed.is_connected(emit_effect_stats_changed):
+		effect_stats \
+			.changed \
+			.connect(emit_effect_stats_changed)
 
-	if effect_stats and not effect_stats.adjust_range.is_connected(emit_adjust_effect_range):
-		effect_stats.adjust_range.connect(emit_adjust_effect_range)
+	emit_changed()
 
 func get_fire_rate():
 	return projectile_stats.fire_rate if projectile_stats else 0.0
@@ -97,8 +100,8 @@ func get_total_value(path: Array[int]) -> int:
 		upgrades[path[0]].get_total_value(path.slice(1))
 	)
 
-func emit_adjust_range(stats_range: float) -> void:
-	adjust_range.emit(stats_range)
+func emit_projectile_stats_changed() -> void:
+	projectile_stats_changed.emit(projectile_stats)
 
-func emit_adjust_effect_range(stats_range: float) -> void:
-	adjust_effect_range.emit(stats_range)
+func emit_effect_stats_changed() -> void:
+	effect_stats_changed.emit(effect_stats)

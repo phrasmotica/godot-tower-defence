@@ -1,11 +1,6 @@
 @tool
-class_name TowerVisualiser extends Node2D
-
-@export
-var range_area: RangeArea
-
-@export
-var bolt_line: BoltLine
+class_name TowerVisualiser
+extends Node2D
 
 @export
 var show_range_area := true:
@@ -28,21 +23,29 @@ var radius := 3.0:
 
 		_refresh()
 
+@onready
+var range_area: RangeArea = %RangeArea
+
+@onready
+var bolt_line: BoltLine = %BoltLine
+
 func _refresh() -> void:
-	bolt_line.visible = show_bolt_line
-	bolt_line.shooting_range = radius
+	if bolt_line:
+		bolt_line.visible = show_bolt_line
+		bolt_line.shooting_range = radius
 
-	range_area.visible = show_range_area
-	range_area.radius = radius
+	if range_area:
+		range_area.visible = show_range_area
+		range_area.radius = radius
 
-func set_default_look():
+func set_default_look() -> void:
 	range_area.set_default_look()
 
-func set_error_look():
+func set_error_look() -> void:
 	range_area.set_error_look()
 
-func show_range():
+func show_range() -> void:
 	range_area.show()
 
-func hide_range():
+func hide_range() -> void:
 	range_area.hide()

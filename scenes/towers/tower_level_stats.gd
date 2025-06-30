@@ -20,8 +20,8 @@ var rotate_speed: int = 3
 var projectile_range := 3.0:
 	set(value):
 		projectile_range = value
-		print("Stats Range " + str(value))
-		adjust_range.emit(value)
+
+		emit_changed()
 
 @export_range(5, 30)
 var projectile_speed: int = 10
@@ -39,5 +39,3 @@ var infinite_penetration := false
 ## How many collisions with enemies the projectile will survive.
 @export
 var penetration_count := 0
-
-signal adjust_range(stats_range: float)

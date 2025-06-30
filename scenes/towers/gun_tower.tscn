@@ -1,16 +1,12 @@
-[gd_scene load_steps=19 format=3 uid="uid://bm6ytyxvbceh0"]
+[gd_scene load_steps=13 format=3 uid="uid://bm6ytyxvbceh0"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_v8t2a"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_8tvig"]
-[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_nytid"]
-[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_f7d4o"]
-[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xlhsu"]
-[ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="4_4tss6"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_onfws"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_tichb"]
-[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_w4bk8"]
+[ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_bkd86"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_8jbck"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="7_mplx0"]
+[ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_pvks6"]
 [ext_resource type="Texture2D" uid="uid://b3723x1ovx18d" path="res://assets/sprites/tower1.png" id="9_ja0ml"]
 [ext_resource type="Resource" uid="uid://d0atqe6kpx4ue" path="res://resources/towers/upgrades/gun_tower_upgrades.tres" id="11_8tvig"]
 
@@ -41,36 +37,6 @@ tracks/1/keys = {
 "values": [Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ujsix"]
-resource_name = "sell"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
 [sub_resource type="Animation" id="Animation_6t6p5"]
 resource_name = "shoot"
 length = 0.1
@@ -78,7 +44,7 @@ step = 0.01
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("./Appearance/LevelSprite:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -91,12 +57,8 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
 &"RESET": SubResource("Animation_qk45j"),
-&"sell": SubResource("Animation_ujsix"),
 &"shoot": SubResource("Animation_6t6p5")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
 
 [node name="GunTower" type="Node2D"]
 script = ExtResource("1_v8t2a")
@@ -104,65 +66,41 @@ tower_name = "Gun"
 tower_description = "Shoots simple bullets at enemies."
 price = 2
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_8tvig")
-designer = NodePath("Designer")
+designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
-
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
-unique_name_in_owner = true
-script = ExtResource("6_8jbck")
-level_manager = NodePath("../../Weaponry/Levels")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("9_ja0ml")
 
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_tichb")]
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
+root_node = NodePath("../..")
 libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+[node name="Colliders" parent="." instance=ExtResource("5_bkd86")]
 unique_name_in_owner = true
-script = ExtResource("3_f7d4o")
-collision_area = NodePath("CollisionArea")
 
-[node name="CollisionArea" type="Area2D" parent="Colliders"]
+[node name="Designer" type="Node" parent="." node_paths=PackedStringArray("weaponry")]
 unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 4
+script = ExtResource("6_8jbck")
+weaponry = NodePath("../Weaponry")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
-shape = SubResource("RectangleShape2D_p0cbx")
-
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_pvks6")]
 unique_name_in_owner = true
-script = ExtResource("4_w4bk8")
-progress_bars = NodePath("ProgressBars")
-selection = NodePath("Selection")
+designer = NodePath("../Designer")
 
-[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_xlhsu")]
-position = Vector2(0, 40)
-display_mode = 1
-
-[node name="Selection" parent="Interaction" instance=ExtResource("2_nytid")]
-
-[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel")]
 unique_name_in_owner = true
 scale = Vector2(1.00136e-05, 1.00136e-05)
 script = ExtResource("4_onfws")
-level_manager = NodePath("Levels")
-barrel = NodePath("Barrel")
-
-[node name="Levels" type="Node" parent="Weaponry"]
-script = ExtResource("4_4tss6")
 base_level = ExtResource("11_8tvig")
+barrel = NodePath("Barrel")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("7_mplx0")]

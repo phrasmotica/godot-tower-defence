@@ -1,11 +1,32 @@
+@tool
 class_name TowerInteraction
 extends Node
 
 @export
-var progress_bars: TowerProgressBars
+var range_radius := 3.0:
+	set(value):
+		range_radius = value
+
+		_refresh()
 
 @export
-var selection: TowerSelection
+var show_firing_line := false:
+	set(value):
+		show_firing_line = value
+
+		_refresh()
+
+@export
+var designer: TowerDesigner
+
+@onready
+var progress_bars: TowerProgressBars = %ProgressBars
+
+@onready
+var visualiser: TowerVisualiser = %Visualiser
+
+@onready
+var selection: TowerSelection = %Selection
 
 signal mouse_entered
 signal mouse_exited
@@ -14,9 +35,56 @@ signal clicked
 var _is_selected := false
 
 func _ready() -> void:
-	selection.mouse_entered.connect(mouse_entered.emit)
-	selection.mouse_exited.connect(mouse_exited.emit)
-	selection.gui_input.connect(_on_selection_gui_input)
+	if not Engine.is_editor_hint():
+		selection.mouse_entered.connect(mouse_entered.emit)
+		selection.mouse_exited.connect(mouse_exited.emit)
+		selection.gui_input.connect(_on_selection_gui_input)
+
+	if designer:
+		designer \
+			.level_projectile_stats_changed \
+			.connect(_on_level_projectile_stats_changed)
+
+		designer \
+			.level_effect_stats_changed \
+			.connect(_on_level_effect_stats_changed)
+
+	_refresh()
+
+func _refresh() -> void:
+	if visualiser:
+		visualiser.radius = range_radius
+		visualiser.show_bolt_line = show_firing_line
+
+func _on_level_projectile_stats_changed(stats: TowerLevelStats) -> void:
+	range_radius = stats.projectile_range
+
+func _on_level_effect_stats_changed(stats: EffectStats) -> void:
+	range_radius = stats.effect_range
+
+func for_placing() -> void:
+	visualiser.show_range()
+	visualiser.show_bolt_line = false
+
+func default_look() -> void:
+	visualiser.show()
+	visualiser.set_default_look()
+
+func error_look() -> void:
+	visualiser.show()
+	visualiser.set_error_look()
+
+func show_visualiser() -> void:
+	visualiser.show()
+
+func hide_visualiser() -> void:
+	visualiser.hide()
+
+func show_range() -> void:
+	visualiser.show_range()
+
+func hide_range() -> void:
+	visualiser.hide_range()
 
 func enable_mouse() -> void:
 	selection.enable_mouse()

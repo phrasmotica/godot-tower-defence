@@ -4,8 +4,7 @@ extends TowerState
 func _enter_tree() -> void:
 	print("%s has started selling" % _info.get_name())
 
-	# this animation calls queue_free() on its end
-	_appearance.animate_sell()
+	_tower.add_child(Shrinker.new(_tower))
 
 	var sell_price := get_sell_price()
 

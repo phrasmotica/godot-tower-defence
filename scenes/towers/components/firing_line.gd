@@ -33,6 +33,11 @@ func fire(bolt_stats: TowerLevelStats) -> BoltLine:
 	ray_cast_damage.process_enemies(ray_cast, bolt_stats)
 
 	var new_line: BoltLine = bolt_line.instantiate()
-	new_line.line.points[1] = ray_cast.target_position
+
+	new_line.ready.connect(
+		func() -> void:
+			new_line.line.points[1] = ray_cast.target_position
+			new_line.fire()
+	)
 
 	return new_line

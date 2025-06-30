@@ -18,18 +18,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Selection" type="Control" node_paths=PackedStringArray("selection_sprite")]
+[node name="Selection" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 32.0
-offset_bottom = 32.0
+offset_right = 72.0
+offset_bottom = 72.0
 mouse_filter = 2
 mouse_default_cursor_shape = 2
 script = ExtResource("1_q28oh")
-selection_sprite = NodePath("SelectionSprite")
 
-[node name="SelectionSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(32, 32)
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_7prn5")
+centered = false

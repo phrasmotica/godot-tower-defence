@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://swdwyypf2o1l"]
+
+[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="1_h6jiw"]
+[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="2_x7c3g"]
+[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="3_mesti"]
+[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="3_x7c3g"]
+
+[node name="TowerInteraction" type="Node2D"]
+script = ExtResource("1_h6jiw")
+
+[node name="ProgressBars" parent="." instance=ExtResource("2_x7c3g")]
+unique_name_in_owner = true
+position = Vector2(0, 40)
+display_mode = 1
+
+[node name="Visualiser" parent="." instance=ExtResource("3_x7c3g")]
+unique_name_in_owner = true
+show_bolt_line = true
+
+[node name="Selection" parent="." instance=ExtResource("3_mesti")]
+unique_name_in_owner = true
+offset_left = -36.0
+offset_top = -36.0
+offset_right = 36.0
+offset_bottom = 36.0

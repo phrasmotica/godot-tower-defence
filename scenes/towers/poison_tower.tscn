@@ -1,16 +1,12 @@
-[gd_scene load_steps=20 format=3 uid="uid://ba7v8p4mq36wb"]
+[gd_scene load_steps=14 format=3 uid="uid://ba7v8p4mq36wb"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_8s1qd"]
-[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_bftvf"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_u706d"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_glen8"]
-[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_k0da5"]
-[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_smvoh"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_43s8n"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_71qj7"]
-[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_ei3pu"]
-[ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_aaghm"]
 [ext_resource type="PackedScene" uid="uid://ciydhlp5id3lj" path="res://scenes/towers/components/effect_area.tscn" id="5_amh81"]
+[ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_rbwhh"]
+[ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_ey5i0"]
 [ext_resource type="Texture2D" uid="uid://irug4lq7tr4v" path="res://assets/sprites/poisonTower.png" id="8_ierun"]
 [ext_resource type="Resource" uid="uid://babk7xbkiaetv" path="res://resources/towers/upgrades/poison_tower_upgrades.tres" id="12_43s8n"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="13_k5en1"]
@@ -36,7 +32,7 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
+tracks/0/path = NodePath("./Appearance:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -46,45 +42,11 @@ tracks/0/keys = {
 "values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_ujsix"]
-resource_name = "sell"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(1, 1), Vector2(1e-05, 1e-05)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qnhh7"]
 _data = {
 &"RESET": SubResource("Animation_qk45j"),
-&"pulse": SubResource("Animation_oiglf"),
-&"sell": SubResource("Animation_ujsix")
+&"pulse": SubResource("Animation_oiglf")
 }
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
 
 [node name="PoisonTower" type="Node2D"]
 script = ExtResource("1_8s1qd")
@@ -92,26 +54,17 @@ tower_name = "Poison Tower"
 tower_description = "Inflicts gradual poison damage over time."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u706d")
-designer = NodePath("Designer")
+designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
-
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
-unique_name_in_owner = true
-script = ExtResource("3_glen8")
-level_manager = NodePath("../../Weaponry/Levels")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("8_ierun")
-
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_71qj7")]
-radius = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
 root_node = NodePath("../..")
@@ -119,46 +72,25 @@ libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+[node name="Colliders" parent="." instance=ExtResource("5_rbwhh")]
 unique_name_in_owner = true
-script = ExtResource("3_smvoh")
-collision_area = NodePath("CollisionArea")
 
-[node name="CollisionArea" type="Area2D" parent="Colliders"]
+[node name="Designer" type="Node" parent="." node_paths=PackedStringArray("weaponry")]
 unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 4
+script = ExtResource("3_glen8")
+weaponry = NodePath("../Weaponry")
 
-[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
-shape = SubResource("RectangleShape2D_p0cbx")
-
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_ey5i0")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
-script = ExtResource("4_ei3pu")
-progress_bars = NodePath("ProgressBars")
-selection = NodePath("Selection")
+range_radius = 2.0
+designer = NodePath("../Designer")
 
-[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_k0da5")]
-position = Vector2(32, 72)
-display_mode = 1
-
-[node name="Selection" parent="Interaction" instance=ExtResource("2_bftvf")]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 64.0
-offset_bottom = 64.0
-
-[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel", "effect_area")]
+[node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel", "effect_area")]
 unique_name_in_owner = true
 script = ExtResource("4_43s8n")
-level_manager = NodePath("Levels")
+base_level = ExtResource("12_43s8n")
 barrel = NodePath("Barrel")
 effect_area = NodePath("EffectArea")
-
-[node name="Levels" type="Node" parent="Weaponry"]
-script = ExtResource("5_aaghm")
-base_level = ExtResource("12_43s8n")
 
 [node name="Barrel" parent="Weaponry" instance=ExtResource("13_k5en1")]
 enable_shoot = false
