@@ -30,6 +30,8 @@ func _ready() -> void:
 
 	if Engine.is_editor_hint():
 		display_mode = DisplayMode.WARMUP
+	else:
+		display_mode = DisplayMode.NONE
 
 	_refresh()
 
