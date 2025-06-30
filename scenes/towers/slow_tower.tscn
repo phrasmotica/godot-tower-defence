@@ -94,15 +94,10 @@ price = 3
 [node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u61i6")
-designer = NodePath("Designer")
+designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
 visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
-
-[node name="Designer" type="Node" parent="Appearance" node_paths=PackedStringArray("level_manager")]
-unique_name_in_owner = true
-script = ExtResource("3_1iahv")
-level_manager = NodePath("../../Weaponry/Levels")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
@@ -130,6 +125,11 @@ collision_mask = 4
 
 [node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
+
+[node name="Designer" type="Node" parent="." node_paths=PackedStringArray("weaponry")]
+unique_name_in_owner = true
+script = ExtResource("3_1iahv")
+weaponry = NodePath("../Weaponry")
 
 [node name="Interaction" parent="." instance=ExtResource("7_flqse")]
 unique_name_in_owner = true

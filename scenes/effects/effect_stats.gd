@@ -11,7 +11,8 @@ var fire_rate := 1
 var effect_range := 2.0:
 	set(value):
 		effect_range = value
-		print("EffectStats Range " + str(value))
+
+		# TODO: use emit_changed() instead
 		adjust_range.emit(value)
 
 ## The length of time that the effect lasts for, in seconds.

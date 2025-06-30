@@ -20,7 +20,8 @@ var rotate_speed: int = 3
 var projectile_range := 3.0:
 	set(value):
 		projectile_range = value
-		print("Stats Range " + str(value))
+
+		# TODO: use emit_changed() instead
 		adjust_range.emit(value)
 
 @export_range(5, 30)

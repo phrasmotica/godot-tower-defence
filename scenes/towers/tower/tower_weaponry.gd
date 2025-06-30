@@ -1,3 +1,4 @@
+@tool
 class_name TowerWeaponry
 extends Node2D
 
@@ -24,12 +25,16 @@ signal effect_requested(effect_stats: EffectStats, enemies: Array[Enemy])
 signal bolt_created(bolt_line: BoltLine)
 
 func _ready() -> void:
-	barrel.shoot.connect(_on_barrel_shoot)
-	barrel.pulse.connect(_on_barrel_pulse)
-	barrel.bolt.connect(_on_barrel_bolt)
+	if not Engine.is_editor_hint():
+		barrel.shoot.connect(_on_barrel_shoot)
+		barrel.pulse.connect(_on_barrel_pulse)
+		barrel.bolt.connect(_on_barrel_bolt)
 
 func pause() -> void:
 	barrel.pause()
+
+func get_all_levels() -> Array[TowerLevel]:
+	return level_manager.get_all_levels()
 
 func install_base() -> TowerLevel:
 	var first_level := level_manager.get_current_level()
