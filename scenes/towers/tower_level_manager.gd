@@ -2,11 +2,6 @@
 class_name TowerLevelManager
 extends Node
 
-const normal_colour := Color.WHITE
-
-@export
-var progress_colour := Color8(255, 255, 255, 80)
-
 @export
 var base_level: TowerLevel
 
