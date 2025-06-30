@@ -16,7 +16,7 @@ func handle_collision(enemy: Enemy) -> void:
 func handle_enemy_hit(enemy: Enemy) -> void:
 	if _bullet.projectile_stats.penetration_count > 0:
 		_bullet.projectile_stats.penetration_count -= 1
-		print("Collided with %s, %d penetration(s) remaining" % [enemy.name, _bullet.penetration_count])
+		print("Collided with %s, %d penetration(s) remaining" % [enemy.name, _bullet.projectile_stats.penetration_count])
 		return
 
 	print("Freeing after collision with %s" % enemy.name)
