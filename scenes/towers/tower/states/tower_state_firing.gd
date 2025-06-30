@@ -48,7 +48,6 @@ func _on_bolt_created(bolt_line: BoltLine) -> void:
 	print("Adding bolt as child")
 
 	bolt_line.rotation = _appearance.rotation
-	bolt_line.fire()
 
 	_appearance.animate_shoot()
 
