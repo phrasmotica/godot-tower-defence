@@ -11,7 +11,10 @@ signal adjust_effect_range(range: float)
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
-		for level in weaponry.get_all_levels():
-			level.adjust_sprite.connect(adjust_sprite.emit)
-			level.adjust_range.connect(adjust_range.emit)
-			level.adjust_effect_range.connect(adjust_effect_range.emit)
+		weaponry.ready.connect(_setup_design_signals)
+
+func _setup_design_signals() -> void:
+	for level in weaponry.get_all_levels():
+		level.adjust_sprite.connect(adjust_sprite.emit)
+		level.adjust_range.connect(adjust_range.emit)
+		level.adjust_effect_range.connect(adjust_effect_range.emit)
