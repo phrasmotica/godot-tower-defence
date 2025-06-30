@@ -34,14 +34,26 @@ func _ready() -> void:
 		selection.gui_input.connect(_on_selection_gui_input)
 
 	if designer:
-		designer.adjust_range.connect(set_range)
-		designer.adjust_effect_range.connect(set_range)
+		designer \
+			.level_projectile_stats_changed \
+			.connect(_on_level_projectile_stats_changed)
+
+		designer \
+			.level_effect_stats_changed \
+			.connect(_on_level_effect_stats_changed)
 
 func _refresh() -> void:
 	visualiser.show_bolt_line = show_firing_line
 
-func adjust_range(projectile_range: float) -> void:
-	visualiser.radius = projectile_range
+func _on_level_projectile_stats_changed(stats: TowerLevelStats) -> void:
+	set_range(stats.projectile_range)
+
+	_refresh()
+
+func _on_level_effect_stats_changed(stats: EffectStats) -> void:
+	set_range(stats.effect_range)
+
+	_refresh()
 
 func for_placing() -> void:
 	visualiser.show_range()

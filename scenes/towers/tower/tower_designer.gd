@@ -5,9 +5,9 @@ extends Node
 @export
 var weaponry: TowerWeaponry
 
-signal adjust_sprite(sprite: Texture2D)
-signal adjust_range(range: float)
-signal adjust_effect_range(range: float)
+signal level_changed(level: TowerLevel)
+signal level_projectile_stats_changed(stats: TowerLevelStats)
+signal level_effect_stats_changed(stats: EffectStats)
 
 func _ready() -> void:
 	if Engine.is_editor_hint():
@@ -15,6 +15,6 @@ func _ready() -> void:
 
 func _setup_design_signals() -> void:
 	for level in weaponry.get_all_levels():
-		level.adjust_sprite.connect(adjust_sprite.emit)
-		level.adjust_range.connect(adjust_range.emit)
-		level.adjust_effect_range.connect(adjust_effect_range.emit)
+		level.changed.connect(level_changed.emit.bind(level))
+		level.projectile_stats_changed.connect(level_projectile_stats_changed.emit)
+		level.effect_stats_changed.connect(level_effect_stats_changed.emit)

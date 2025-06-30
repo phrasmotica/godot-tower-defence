@@ -18,13 +18,13 @@ var animation_player: AnimationPlayer
 
 func _ready() -> void:
 	if designer:
-		designer.adjust_sprite.connect(set_sprite)
+		designer.level_changed.connect(_on_level_changed)
 
 func for_firing() -> void:
 	level_sprite.modulate = normal_colour
 
-func set_sprite(sprite: Texture2D) -> void:
-	level_sprite.texture = sprite
+func _on_level_changed(level: TowerLevel) -> void:
+	level_sprite.texture = level.sprite
 
 func do_warmup() -> void:
 	level_sprite.modulate = progress_colour
