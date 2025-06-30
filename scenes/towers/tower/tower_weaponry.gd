@@ -35,6 +35,9 @@ func _ready() -> void:
 
 	_level_manager = TowerLevelManager.new(base_level)
 
+	# TODO: emit a signal indicating the weaponry is now ready, so that the
+	# designer script can update the visualiser in the editor
+
 func pause() -> void:
 	barrel.pause()
 
