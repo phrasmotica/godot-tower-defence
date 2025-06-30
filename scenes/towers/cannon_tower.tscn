@@ -1,10 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=15 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_rqm4h"]
-[ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_14fnt"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_ku1qw"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
+[ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_uxxv3"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4wo0m"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
 [ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_rqm4h"]
@@ -91,9 +91,6 @@ _data = {
 &"shoot": SubResource("Animation_dsmby")
 }
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_p0cbx"]
-size = Vector2(64, 64)
-
 [node name="CannonTower" type="Node2D"]
 script = ExtResource("1_bjpxi")
 tower_name = "Cannon"
@@ -120,18 +117,8 @@ libraries = {
 &"": SubResource("AnimationLibrary_qnhh7")
 }
 
-[node name="Colliders" type="Node2D" parent="." node_paths=PackedStringArray("collision_area")]
+[node name="Colliders" parent="." instance=ExtResource("5_uxxv3")]
 unique_name_in_owner = true
-script = ExtResource("3_14fnt")
-collision_area = NodePath("CollisionArea")
-
-[node name="CollisionArea" type="Area2D" parent="Colliders"]
-unique_name_in_owner = true
-collision_layer = 4
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
-shape = SubResource("RectangleShape2D_p0cbx")
 
 [node name="Designer" type="Node" parent="." node_paths=PackedStringArray("weaponry")]
 unique_name_in_owner = true

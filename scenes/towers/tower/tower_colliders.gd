@@ -1,8 +1,8 @@
 class_name TowerColliders
-extends Node
+extends Node2D
 
-@export
-var collision_area: Area2D
+@onready
+var collision_area: Area2D = %CollisionArea
 
 signal path_area_entered
 signal path_area_exited
