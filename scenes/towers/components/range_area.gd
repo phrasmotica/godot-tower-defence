@@ -15,6 +15,7 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
+	# TODO: create a fancy shader for the sprite!
 	if range_sprite:
 		var range_scale := radius / 10
 		range_sprite.scale = range_scale * Vector2.ONE
