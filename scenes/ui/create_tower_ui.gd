@@ -24,7 +24,7 @@ func set_default_mode() -> void:
 	for ctb in create_tower_buttons:
 		ctb.is_creating_mode = false
 
-func set_default_mode_except(tower_scene: PackedScene) -> void:
+func set_creating_mode_except(tower_scene: PackedScene) -> void:
 	for ctb in create_tower_buttons:
 		if ctb.tower != tower_scene:
 			ctb.is_creating_mode = false
