@@ -10,12 +10,14 @@ void fragment() {
 	float dist_from_centre = distance(centre, UV);
 
 	float ring_near_side = (current_time / time_period) - 0.5;
-
-	//float ring_width = 0.1 * (time_period - current_time) / time_period;
 	float ring_far_side = min(0.5, current_time / time_period);
 
 	if (dist_from_centre >= ring_near_side && dist_from_centre <= ring_far_side) {
-		COLOR.rgba = mix(start_colour, end_colour, 2.0 * dist_from_centre);
+		float mix_step = 1.0 - cos(PI * dist_from_centre);
+		float alpha = cos((7.0 / 8.0) * PI * dist_from_centre);
+
+		COLOR.rgb = mix(start_colour, end_colour, mix_step).rgb;
+		COLOR.a = alpha;
 	}
 	else {
 		COLOR.a = 0.0;

@@ -5,7 +5,7 @@
 [resource]
 resource_local_to_scene = true
 shader = ExtResource("1_o8ufb")
-shader_parameter/start_colour = Color(0.780392, 0.243137, 0.243137, 1)
+shader_parameter/start_colour = Color(1, 0, 0, 1)
 shader_parameter/end_colour = Color(1, 1, 1, 1)
 shader_parameter/time_period = 1.0
 shader_parameter/current_time = 0.45
