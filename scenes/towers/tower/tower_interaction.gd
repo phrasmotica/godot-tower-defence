@@ -3,6 +3,13 @@ class_name TowerInteraction
 extends Node
 
 @export
+var range_radius := 3.0:
+	set(value):
+		range_radius = value
+
+		_refresh()
+
+@export
 var show_firing_line := false:
 	set(value):
 		show_firing_line = value
@@ -42,18 +49,18 @@ func _ready() -> void:
 			.level_effect_stats_changed \
 			.connect(_on_level_effect_stats_changed)
 
+	_refresh()
+
 func _refresh() -> void:
-	visualiser.show_bolt_line = show_firing_line
+	if visualiser:
+		visualiser.radius = range_radius
+		visualiser.show_bolt_line = show_firing_line
 
 func _on_level_projectile_stats_changed(stats: TowerLevelStats) -> void:
-	set_range(stats.projectile_range)
-
-	_refresh()
+	range_radius = stats.projectile_range
 
 func _on_level_effect_stats_changed(stats: EffectStats) -> void:
-	set_range(stats.effect_range)
-
-	_refresh()
+	range_radius = stats.effect_range
 
 func for_placing() -> void:
 	visualiser.show_range()
@@ -72,9 +79,6 @@ func show_visualiser() -> void:
 
 func hide_visualiser() -> void:
 	visualiser.hide()
-
-func set_range(radius: float) -> void:
-	visualiser.radius = radius
 
 func show_range() -> void:
 	visualiser.show_range()

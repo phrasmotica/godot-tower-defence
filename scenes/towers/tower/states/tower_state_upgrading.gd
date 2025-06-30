@@ -30,7 +30,7 @@ func _on_upgrade_finished() -> void:
 
 	var next_level := _weaponry.install_upgrade()
 
-	_interaction.set_range(next_level.get_range(true))
+	_interaction.range_radius = next_level.get_range(true)
 
 	TowerEvents.emit_tower_upgrade_finished(_tower, next_level)
 

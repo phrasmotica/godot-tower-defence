@@ -25,7 +25,7 @@ func _on_warmup_finished() -> void:
 
 	var base_level := _weaponry.install_base()
 
-	_interaction.set_range(base_level.get_range(true))
+	_interaction.range_radius = base_level.get_range(true)
 
 	TowerEvents.emit_tower_warmup_finished(_tower, base_level)
 

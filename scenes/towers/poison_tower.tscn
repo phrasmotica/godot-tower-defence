@@ -82,6 +82,7 @@ weaponry = NodePath("../Weaponry")
 
 [node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_ey5i0")]
 unique_name_in_owner = true
+range_radius = 2.0
 designer = NodePath("../Designer")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel", "effect_area")]
