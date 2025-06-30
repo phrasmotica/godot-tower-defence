@@ -42,4 +42,6 @@ func animate_pulse() -> void:
 
 func animate_sell() -> void:
 	# this animation calls queue_free() on the Tower when it ends
+	# TODO: do the sell animation in a Node2D that attaches to the tower being
+	# sold. It can just use a tween to scale the entire tower down to 0
 	animation_player.play("sell")
