@@ -34,8 +34,11 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
-	warmup_bar.visible = display_mode == DisplayMode.WARMUP
-	upgrade_bar.visible = display_mode == DisplayMode.UPGRADE
+	if warmup_bar:
+		warmup_bar.visible = display_mode == DisplayMode.WARMUP
+
+	if upgrade_bar:
+		upgrade_bar.visible = display_mode == DisplayMode.UPGRADE
 
 func do_warmup() -> void:
 	if display_mode == DisplayMode.NONE:
