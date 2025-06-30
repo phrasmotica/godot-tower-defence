@@ -1,15 +1,15 @@
 @tool
 class_name RangeArea extends Node2D
 
-@export
-var range_sprite: AnimatedSprite2D
-
 @export_range(1.0, 10.0)
 var radius := 3.0:
 	set(value):
 		radius = value
 
 		_refresh()
+
+@onready
+var range_sprite: AnimatedSprite2D = %Sprite2D
 
 func _ready() -> void:
 	_refresh()
