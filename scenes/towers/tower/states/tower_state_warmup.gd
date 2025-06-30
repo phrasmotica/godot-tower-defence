@@ -4,7 +4,7 @@ extends TowerState
 func _enter_tree() -> void:
 	print("%s is now warming up" % _info.get_name())
 
-	_appearance.hide_visualiser()
+	_interaction.hide_visualiser()
 
 	_interaction.mouse_entered.connect(_on_mouse_entered)
 	_interaction.mouse_exited.connect(_on_mouse_exited)
@@ -15,17 +15,17 @@ func _enter_tree() -> void:
 	_interaction.do_warmup(_on_warmup_finished)
 
 func _on_mouse_entered() -> void:
-	_appearance.show_visualiser()
+	_interaction.show_visualiser()
 
 func _on_mouse_exited() -> void:
-	_appearance.hide_visualiser()
+	_interaction.hide_visualiser()
 
 func _on_warmup_finished() -> void:
 	print("%s has finished warming up" % _info.get_name())
 
 	var base_level := _weaponry.install_base()
 
-	_appearance.adjust_range(base_level.get_range(true))
+	_interaction.adjust_range(base_level.get_range(true))
 
 	TowerEvents.emit_tower_warmup_finished(_tower, base_level)
 

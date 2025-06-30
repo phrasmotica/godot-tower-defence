@@ -55,11 +55,11 @@ func _on_bolt_created(bolt_line: BoltLine) -> void:
 	_tower.emit_bolt_created(bolt_line)
 
 func _on_mouse_entered() -> void:
-	_appearance.show_visualiser()
+	_interaction.show_visualiser()
 
 func _on_mouse_exited() -> void:
 	if not _interaction.is_selected():
-		_appearance.hide_visualiser()
+		_interaction.hide_visualiser()
 
 func _on_clicked() -> void:
 	if not _interaction.is_selected():

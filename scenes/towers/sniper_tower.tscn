@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=15 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_ta74e"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_07j61"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_bxgl4"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_s7iwo"]
 [ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_07j61"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4sp88"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/towers/components/firing_line.tscn" id="6_r2dx8"]
@@ -86,22 +85,17 @@ tower_name = "Sniper"
 tower_description = "Fires a high-damage bolt that instantly hits enemies. Can hit two enemies with each bolt."
 price = 5
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_07j61")
 designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("7_l2h3t")
-
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_s7iwo")]
-show_bolt_line = true
-radius = 4.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
 libraries = {
@@ -116,9 +110,9 @@ unique_name_in_owner = true
 script = ExtResource("6_4sp88")
 weaponry = NodePath("../Weaponry")
 
-[node name="Interaction" parent="." instance=ExtResource("7_f0eiq")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_f0eiq")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
+designer = NodePath("../Designer")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel", "firing_line")]
 unique_name_in_owner = true

@@ -19,18 +19,18 @@ func _enter_tree() -> void:
 		_interaction.do_upgrade(_on_upgrade_finished)
 
 func _on_mouse_entered() -> void:
-	_appearance.show_visualiser()
+	_interaction.show_visualiser()
 
 func _on_mouse_exited() -> void:
 	if not _interaction.is_selected():
-		_appearance.hide_visualiser()
+		_interaction.hide_visualiser()
 
 func _on_upgrade_finished() -> void:
 	print("%s has finished upgrading" % _info.get_name())
 
 	var next_level := _weaponry.install_upgrade()
 
-	_appearance.adjust_range(next_level.get_range(true))
+	_interaction.adjust_range(next_level.get_range(true))
 
 	TowerEvents.emit_tower_upgrade_finished(_tower, next_level)
 

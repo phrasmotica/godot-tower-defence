@@ -1,9 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=14 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_rqm4h"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_ku1qw"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
 [ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_uxxv3"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4wo0m"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
@@ -97,20 +96,17 @@ tower_name = "Cannon"
 tower_description = "Fires cannonballs, which affect all enemies in an area."
 price = 4
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_rqm4h")
 designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("7_j030q")
-
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_u4erw")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
 libraries = {
@@ -125,9 +121,9 @@ unique_name_in_owner = true
 script = ExtResource("6_4wo0m")
 weaponry = NodePath("../Weaponry")
 
-[node name="Interaction" parent="." instance=ExtResource("7_rqm4h")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_rqm4h")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
+designer = NodePath("../Designer")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel")]
 unique_name_in_owner = true

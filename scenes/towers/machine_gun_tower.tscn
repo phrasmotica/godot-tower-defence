@@ -1,10 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://dhsqr00mauv38"]
+[gd_scene load_steps=14 format=3 uid="uid://dhsqr00mauv38"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_15oo1"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_xldjn"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_n8sd6"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_61nrl"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_amb7d"]
 [ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_w8lmp"]
 [ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_xldjn"]
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="8_rev5t"]
@@ -85,21 +84,17 @@ tower_name = "Machine Gun"
 tower_description = "Fires bullets really fast!"
 price = 6
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_xldjn")
 designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("8_rev5t")
-
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_amb7d")]
-radius = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
 libraries = {
@@ -114,9 +109,9 @@ unique_name_in_owner = true
 script = ExtResource("3_n8sd6")
 weaponry = NodePath("../Weaponry")
 
-[node name="Interaction" parent="." instance=ExtResource("7_xldjn")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_xldjn")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
+designer = NodePath("../Designer")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel")]
 unique_name_in_owner = true

@@ -17,8 +17,7 @@ func _enter_tree() -> void:
 
 	_interaction.hide_selection()
 	_interaction.disable_mouse()
-
-	_appearance.for_placing()
+	_interaction.for_placing()
 
 	PathInteraction.mouse_validity_changed.connect(_on_mouse_validity_changed)
 	PathInteraction.valid_area_clicked.connect(_on_valid_area_clicked)
@@ -33,21 +32,21 @@ func _on_path_area_entered() -> void:
 	print(_info.get_name() + " entered path area")
 	_is_valid_location = false
 
-	_appearance.error_look()
+	_interaction.error_look()
 
 func _on_path_area_exited() -> void:
 	print(_info.get_name() + " exited path area")
 	_is_valid_location = true
 
-	_appearance.default_look()
+	_interaction.default_look()
 
 func _on_mouse_validity_changed(is_valid: bool) -> void:
 	_is_mouse_over_path = is_valid
 
 	if _is_mouse_over_path:
-		_appearance.default_look()
+		_interaction.default_look()
 	else:
-		_appearance.error_look()
+		_interaction.error_look()
 
 func _on_valid_area_clicked() -> void:
 	if not (_is_mouse_over_path and _is_valid_location):

@@ -1,9 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://b8qu4bxbhapgl"]
+[gd_scene load_steps=15 format=3 uid="uid://b8qu4bxbhapgl"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_c2mwh"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_u61i6"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="3_1iahv"]
-[ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_pmf8q"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_xnc4v"]
 [ext_resource type="PackedScene" uid="uid://bx8cv6dne17fy" path="res://scenes/towers/components/tower_colliders.tscn" id="5_wwh60"]
 [ext_resource type="Texture2D" uid="uid://bauh87fo4ohfx" path="res://assets/sprites/slowTower.png" id="7_34jkt"]
@@ -87,21 +86,17 @@ tower_name = "Slow Tower"
 tower_description = "Slows enemy movement speed temporarily."
 price = 3
 
-[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "visualiser", "animation_player")]
+[node name="Appearance" type="Node2D" parent="." node_paths=PackedStringArray("designer", "level_sprite", "animation_player")]
 unique_name_in_owner = true
 script = ExtResource("2_u61i6")
 designer = NodePath("../Designer")
 level_sprite = NodePath("LevelSprite")
-visualiser = NodePath("Visualiser")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="LevelSprite" type="Sprite2D" parent="Appearance"]
 z_index = 5
 rotation = 1.5708
 texture = ExtResource("7_34jkt")
-
-[node name="Visualiser" parent="Appearance" instance=ExtResource("4_pmf8q")]
-radius = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Appearance"]
 root_node = NodePath("../..")
@@ -117,9 +112,9 @@ unique_name_in_owner = true
 script = ExtResource("3_1iahv")
 weaponry = NodePath("../Weaponry")
 
-[node name="Interaction" parent="." instance=ExtResource("7_flqse")]
+[node name="Interaction" parent="." node_paths=PackedStringArray("designer") instance=ExtResource("7_flqse")]
 unique_name_in_owner = true
-position = Vector2(-32, -32)
+designer = NodePath("../Designer")
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("barrel", "effect_area")]
 unique_name_in_owner = true
