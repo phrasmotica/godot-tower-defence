@@ -1,11 +1,11 @@
 class_name TowerInteraction
 extends Node
 
-@export
-var progress_bars: TowerProgressBars
+@onready
+var progress_bars: TowerProgressBars = %ProgressBars
 
-@export
-var selection: TowerSelection
+@onready
+var selection: TowerSelection = %Selection
 
 signal mouse_entered
 signal mouse_exited

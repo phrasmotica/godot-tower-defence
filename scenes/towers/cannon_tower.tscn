@@ -1,16 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://8o1qoddn66j5"]
+[gd_scene load_steps=17 format=3 uid="uid://8o1qoddn66j5"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_bjpxi"]
-[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_itrc6"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_rqm4h"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_14fnt"]
-[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_xd60m"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_ku1qw"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_u4erw"]
-[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_x3l14"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_3jave"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4wo0m"]
 [ext_resource type="Texture2D" uid="uid://casbyj0mmo3p6" path="res://assets/sprites/cannon.png" id="7_j030q"]
+[ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_rqm4h"]
 [ext_resource type="Resource" uid="uid://c26gdmi7im4d3" path="res://resources/towers/upgrades/cannon_tower_upgrades.tres" id="11_x3l14"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="12_nqfhp"]
 
@@ -141,17 +139,9 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
+[node name="Interaction" parent="." instance=ExtResource("7_rqm4h")]
 unique_name_in_owner = true
-script = ExtResource("4_x3l14")
-progress_bars = NodePath("ProgressBars")
-selection = NodePath("Selection")
-
-[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_xd60m")]
-position = Vector2(0, 40)
-display_mode = 1
-
-[node name="Selection" parent="Interaction" instance=ExtResource("2_itrc6")]
+position = Vector2(-32, -32)
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel")]
 unique_name_in_owner = true

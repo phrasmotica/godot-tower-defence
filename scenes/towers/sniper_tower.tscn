@@ -1,16 +1,14 @@
-[gd_scene load_steps=20 format=3 uid="uid://dgqvlr3p36r22"]
+[gd_scene load_steps=18 format=3 uid="uid://dgqvlr3p36r22"]
 
 [ext_resource type="Script" uid="uid://dsyhra1vf5k8x" path="res://scenes/towers/tower.gd" id="1_ta74e"]
 [ext_resource type="Script" uid="uid://dr5wh2umvo374" path="res://scenes/towers/tower/tower_appearance.gd" id="2_07j61"]
-[ext_resource type="PackedScene" uid="uid://dv3r5r2fd58hf" path="res://scenes/towers/components/tower_selection.tscn" id="2_pmdjk"]
-[ext_resource type="PackedScene" uid="uid://bsqy7xfg6a4le" path="res://scenes/towers/components/tower_progress_bars.tscn" id="3_8t556"]
 [ext_resource type="Script" uid="uid://iqha7cvlmpy4" path="res://scenes/towers/tower/tower_colliders.gd" id="3_f0eiq"]
-[ext_resource type="Script" uid="uid://d2phmnyjsc5y2" path="res://scenes/towers/tower/tower_interaction.gd" id="4_2ycho"]
 [ext_resource type="Script" uid="uid://b8bklqbmmv5eb" path="res://scenes/towers/tower/tower_weaponry.gd" id="4_bxgl4"]
 [ext_resource type="PackedScene" uid="uid://ct2i4k8jry8hy" path="res://scenes/towers/components/visualiser.tscn" id="4_s7iwo"]
 [ext_resource type="Script" uid="uid://cl1mdbfndxx2t" path="res://scenes/towers/tower_level_manager.gd" id="5_0kjs1"]
 [ext_resource type="Script" uid="uid://ciqjparbf4kt4" path="res://scenes/towers/tower/tower_designer.gd" id="6_4sp88"]
 [ext_resource type="PackedScene" uid="uid://b80wrboq0yfrq" path="res://scenes/towers/components/firing_line.tscn" id="6_r2dx8"]
+[ext_resource type="PackedScene" uid="uid://swdwyypf2o1l" path="res://scenes/towers/components/tower_interaction.tscn" id="7_f0eiq"]
 [ext_resource type="Texture2D" uid="uid://5j5cwxlgnigt" path="res://assets/sprites/sniper.png" id="7_l2h3t"]
 [ext_resource type="PackedScene" uid="uid://dennk04qdhx0m" path="res://scenes/towers/components/barrel.tscn" id="11_l3rgg"]
 [ext_resource type="Resource" uid="uid://b48kh7ji16na0" path="res://resources/towers/upgrades/sniper_tower_upgrades.tres" id="12_2ycho"]
@@ -132,22 +130,9 @@ collision_mask = 4
 [node name="CollisionShape" type="CollisionShape2D" parent="Colliders/CollisionArea"]
 shape = SubResource("RectangleShape2D_p0cbx")
 
-[node name="Interaction" type="Node2D" parent="." node_paths=PackedStringArray("progress_bars", "selection")]
+[node name="Interaction" parent="." instance=ExtResource("7_f0eiq")]
 unique_name_in_owner = true
 position = Vector2(-32, -32)
-script = ExtResource("4_2ycho")
-progress_bars = NodePath("ProgressBars")
-selection = NodePath("Selection")
-
-[node name="ProgressBars" parent="Interaction" instance=ExtResource("3_8t556")]
-position = Vector2(32, 72)
-display_mode = 1
-
-[node name="Selection" parent="Interaction" instance=ExtResource("2_pmdjk")]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 64.0
-offset_bottom = 64.0
 
 [node name="Weaponry" type="Node2D" parent="." node_paths=PackedStringArray("level_manager", "barrel", "firing_line")]
 unique_name_in_owner = true
