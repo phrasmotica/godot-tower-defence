@@ -1,6 +1,8 @@
 @tool
 class_name UpgradeTowerButton extends Button
 
+enum State { ENABLED }
+
 @export var action_name: StringName
 @export var upgrade_index := 0
 
