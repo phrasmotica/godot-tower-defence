@@ -20,7 +20,8 @@ func _on_money_changed(_old_money: int, new_money: int) -> void:
 	_money_after_upgrade = new_money
 	update_affordability(_money_after_upgrade)
 
-func _on_upgrade_finished() -> void:
+func _on_upgrade_finished(_tower: Tower, _next_level: TowerLevel) -> void:
+	# TODO: why isn't this being hit??
 	update_affordability(_money_after_upgrade)
 
 func _on_selected_tower_changed(_new_tower: Tower, _old_tower: Tower) -> void:

@@ -42,6 +42,14 @@ var _state_factory := UpgradeTowerButtonStateFactory.new()
 var _current_state: UpgradeTowerButtonState = null
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+
+	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
+	TowerEvents.tower_deselected.connect(_on_tower_deselected)
+
+	TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
+
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new()) -> void:
@@ -58,6 +66,15 @@ func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new())
 	_current_state.name = "UpgradeTowerButtonStateMachine: %s" % str(state)
 
 	call_deferred("add_child", _current_state)
+
+func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
+	set_upgrade_level(new_tower)
+
+func _on_tower_deselected() -> void:
+	set_upgrade_level(null)
+
+func _on_tower_upgrade_started(_tower: Tower, _next_level: TowerLevel) -> void:
+	disable_button()
 
 # TODO: move this into the base state
 func set_upgrade_level(tower: Tower) -> void:
