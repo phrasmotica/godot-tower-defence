@@ -33,19 +33,10 @@ var tower_price := 0
 
 var original_icon: Texture2D
 
-var is_creating_mode := false:
-	set(value):
-		is_creating_mode = value
-
-		_refresh()
-
 var _state_factory := CreateTowerButtonStateFactory.new()
 var _current_state: CreateTowerButtonState = null
 
-signal create_tower(tower_scene: PackedScene)
-signal cancel_tower
-
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
@@ -61,9 +52,6 @@ func _ready():
 		name_text.text = dummy_tower.tower_name
 		price_text.text = "Price: " + str(dummy_tower.price)
 		description_text.text = dummy_tower.tower_description
-
-	mouse_filter = MOUSE_FILTER_IGNORE
-	set_process(false)
 
 	switch_state(State.DISABLED)
 
@@ -82,53 +70,9 @@ func switch_state(state: State, state_data := CreateTowerButtonStateData.new()) 
 
 	call_deferred("add_child", _current_state)
 
-func _refresh() -> void:
-	if is_creating_mode:
-		tooltip.hide()
-		icon = null
-	else:
-		icon = original_icon
+func enable() -> void:
+	switch_state(State.ENABLED)
 
-func start_game():
-	mouse_filter = MOUSE_FILTER_STOP
-	set_process(true)
-
-func create():
-	is_creating_mode = true
-
-	create_tower.emit(tower)
-
-func update_affordability(money: int):
+func update_affordability(money: int) -> void:
+	# TODO: create a new state for CANNOT_AFFORD
 	disabled = tower_price > money
-
-func cancel():
-	is_creating_mode = false
-
-	cancel_tower.emit()
-
-func _process(_delta):
-	if Engine.is_editor_hint():
-		return
-
-	if Input.is_action_just_pressed(action_name):
-		print("Creating tower via shortcut")
-		create()
-
-func _on_pressed():
-	if is_creating_mode:
-		cancel()
-		tooltip.show()
-		return
-
-	print("Creating tower via button")
-	create()
-
-func _on_mouse_entered():
-	if not disabled:
-		if is_creating_mode:
-			cancel()
-
-		tooltip.show()
-
-func _on_mouse_exited():
-	tooltip.hide()

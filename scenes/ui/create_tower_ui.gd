@@ -14,20 +14,11 @@ func _on_bank_manager_money_changed(new_money: int) -> void:
 	update_affordability(new_money)
 
 func _on_game_events_game_started(_path_index: int) -> void:
-	start_game()
-
-func start_game():
-	for ctb in create_tower_buttons:
-		ctb.start_game()
+	set_default_mode()
 
 func set_default_mode() -> void:
 	for ctb in create_tower_buttons:
-		ctb.is_creating_mode = false
-
-func set_creating_mode_except(tower_scene: PackedScene) -> void:
-	for ctb in create_tower_buttons:
-		if ctb.tower != tower_scene:
-			ctb.is_creating_mode = false
+		ctb.enable()
 
 func update_affordability(money: int):
 	for ctb in create_tower_buttons:

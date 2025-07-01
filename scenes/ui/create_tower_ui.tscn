@@ -77,16 +77,3 @@ layout_mode = 2
 icon = ExtResource("13_t1p3x")
 tower = ExtResource("14_eddet")
 action_name = &"tower_6"
-
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/GunTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/SlowTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/CannonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/SniperTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/PoisonTowerButton" to="." method="_on_tower_button_create_tower"]
-[connection signal="cancel_tower" from="PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton" to="." method="_on_tower_button_cancel_tower"]
-[connection signal="create_tower" from="PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton" to="." method="_on_tower_button_create_tower"]
