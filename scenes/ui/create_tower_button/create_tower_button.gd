@@ -1,7 +1,7 @@
 @tool
 class_name CreateTowerButton extends Button
 
-enum State { DISABLED, ENABLED, CREATING }
+enum State { DISABLED, CANNOT_AFFORD, ENABLED, CREATING }
 
 @export
 var tower: PackedScene
@@ -53,6 +53,10 @@ func _ready() -> void:
 		price_text.text = "Price: " + str(dummy_tower.price)
 		description_text.text = dummy_tower.tower_description
 
+	BankManager.money_changed.connect(_on_bank_manager_money_changed)
+
+	GameEvents.game_started.connect(_on_game_events_game_started)
+
 	switch_state(State.DISABLED)
 
 func switch_state(state: State, state_data := CreateTowerButtonStateData.new()) -> void:
@@ -70,9 +74,12 @@ func switch_state(state: State, state_data := CreateTowerButtonStateData.new()) 
 
 	call_deferred("add_child", _current_state)
 
-func enable() -> void:
-	switch_state(State.ENABLED)
+func _on_bank_manager_money_changed(money: int) -> void:
+	# TODO: only do these transitions if we are not already in those states
+	if tower_price > money:
+		switch_state(State.CANNOT_AFFORD)
+	else:
+		switch_state(State.ENABLED)
 
-func update_affordability(money: int) -> void:
-	# TODO: create a new state for CANNOT_AFFORD
-	disabled = tower_price > money
+func _on_game_events_game_started(_path_index: int) -> void:
+	switch_state(State.ENABLED)

@@ -4,6 +4,8 @@ extends CreateTowerButtonState
 func _enter_tree() -> void:
 	print("CreateTowerButton is now enabled")
 
+	_button.disabled = false
+
 	_button.mouse_filter = Control.MOUSE_FILTER_STOP
 
 	_button.mouse_entered.connect(_on_mouse_entered)

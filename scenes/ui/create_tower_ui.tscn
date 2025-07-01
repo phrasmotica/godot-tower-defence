@@ -15,13 +15,12 @@
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="13_t1p3x"]
 [ext_resource type="PackedScene" uid="uid://dhsqr00mauv38" path="res://scenes/towers/machine_gun_tower.tscn" id="14_eddet"]
 
-[node name="CreateTowerUI" type="Control" node_paths=PackedStringArray("create_tower_buttons")]
+[node name="CreateTowerUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 320.0
 offset_bottom = 560.0
 script = ExtResource("1_f2jje")
-create_tower_buttons = [NodePath("PanelContainer/MarginContainer/GridContainer/GunTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SlowTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/CannonTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/SniperTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/PoisonTowerButton"), NodePath("PanelContainer/MarginContainer/GridContainer/MachineGunTowerButton")]
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0

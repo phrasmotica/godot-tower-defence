@@ -5,6 +5,7 @@ var states: Dictionary
 func _init() -> void:
 	states = {
 		CreateTowerButton.State.DISABLED: CreateTowerButtonStateDisabled,
+		CreateTowerButton.State.CANNOT_AFFORD: CreateTowerButtonStateCannotAfford,
 		CreateTowerButton.State.ENABLED: CreateTowerButtonStateEnabled,
 		CreateTowerButton.State.CREATING: CreateTowerButtonStateCreating,
 	}

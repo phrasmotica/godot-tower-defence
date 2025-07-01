@@ -36,6 +36,4 @@ func cancel() -> void:
 	finish()
 
 func finish() -> void:
-	_appearance.default_mode()
-
 	transition_state(GameUI.State.ENABLED)
