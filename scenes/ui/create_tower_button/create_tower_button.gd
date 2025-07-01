@@ -36,6 +36,8 @@ var original_icon: Texture2D
 var _state_factory := CreateTowerButtonStateFactory.new()
 var _current_state: CreateTowerButtonState = null
 
+var _money_from_bank := 0
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
@@ -74,11 +76,15 @@ func switch_state(state: State, state_data := CreateTowerButtonStateData.new()) 
 
 	call_deferred("add_child", _current_state)
 
-func _on_bank_manager_money_changed(money: int) -> void:
-	# TODO: only do these transitions if we are not already in those states
-	if tower_price > money:
+func _on_bank_manager_money_changed(new_money: int) -> void:
+	var can_no_longer_afford := tower_price <= _money_from_bank and tower_price > new_money
+	var can_now_afford := tower_price > _money_from_bank and tower_price <= new_money
+
+	_money_from_bank = new_money
+
+	if can_no_longer_afford:
 		switch_state(State.CANNOT_AFFORD)
-	else:
+	elif can_now_afford:
 		switch_state(State.ENABLED)
 
 func _on_game_events_game_started(_path_index: int) -> void:
