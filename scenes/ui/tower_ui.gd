@@ -25,7 +25,7 @@ func _ready() -> void:
 		TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
 		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
-func _on_bank_manager_money_changed(new_money: int) -> void:
+func _on_bank_manager_money_changed(_old_money: int, new_money: int) -> void:
 	_money_from_bank = new_money
 
 	update_affordability()

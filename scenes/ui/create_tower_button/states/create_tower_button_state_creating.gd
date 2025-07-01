@@ -17,12 +17,15 @@ func _enter_tree() -> void:
 
 	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
 
-	BankManager.money_changed.connect(handle_money_changed)
+	BankManager.money_changed.connect(_on_money_changed)
 
 func _on_mouse_entered() -> void:
 	TowerEvents.emit_tower_placing_cancelled()
 
 	transition_state(CreateTowerButton.State.ENABLED)
+
+func _on_money_changed(old_money: int, new_money: int) -> void:
+	update_affordability(old_money, new_money)
 
 func _on_tower_placing_finished(_tower: Tower) -> void:
 	_button.icon = _original_icon

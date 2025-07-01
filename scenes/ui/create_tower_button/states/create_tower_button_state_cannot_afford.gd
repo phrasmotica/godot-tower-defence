@@ -6,4 +6,7 @@ func _enter_tree() -> void:
 
 	_button.disabled = true
 
-	BankManager.money_changed.connect(handle_money_changed)
+	BankManager.money_changed.connect(_on_money_changed)
+
+func _on_money_changed(old_money: int, new_money: int) -> void:
+	update_affordability(old_money, new_money)

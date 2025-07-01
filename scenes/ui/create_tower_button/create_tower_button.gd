@@ -29,9 +29,8 @@ var show_tooltip := false:
 	get:
 		return tooltip.visible
 
-# TODO: put these in a dependency that can be injected into the states
+# TODO: put this in a dependency that can be injected into the states?
 var tower_price := 0
-var money_from_bank := 0
 
 var original_icon: Texture2D
 
