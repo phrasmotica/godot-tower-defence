@@ -1,7 +1,7 @@
 @tool
 class_name UpgradeTowerButton extends Button
 
-enum State { ENABLED }
+enum State { DISABLED, CANNOT_AFFORD, ENABLED, UPGRADING }
 
 @export var action_name: StringName
 @export var upgrade_index := 0
