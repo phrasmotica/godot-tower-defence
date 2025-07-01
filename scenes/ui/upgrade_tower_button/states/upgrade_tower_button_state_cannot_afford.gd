@@ -3,3 +3,10 @@ extends UpgradeTowerButtonState
 
 func _enter_tree() -> void:
 	print("UpgradeTowerButton is now cannot afford")
+
+	_button.disabled = true
+
+	BankManager.money_changed.connect(_on_money_changed)
+
+func _on_money_changed(_old_money: int, new_money: int) -> void:
+	update_affordability(new_money)

@@ -88,6 +88,4 @@ align_tooltip_bottom = true
 layout_mode = 2
 
 [connection signal="item_selected" from="TowerPanelContainer/MarginContainer/VBoxContainer/TargetModeOptions" to="." method="_on_target_mode_options_item_selected"]
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton0" to="." method="_on_upgrade_button_upgrade_tower"]
-[connection signal="upgrade_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/UpgradeButton1" to="." method="_on_upgrade_button_upgrade_tower"]
 [connection signal="sell_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton" to="." method="_on_sell_button_sell_tower"]

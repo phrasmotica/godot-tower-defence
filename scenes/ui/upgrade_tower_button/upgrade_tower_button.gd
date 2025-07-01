@@ -3,8 +3,11 @@ class_name UpgradeTowerButton extends Button
 
 enum State { DISABLED, CANNOT_AFFORD, ENABLED, UPGRADING }
 
-@export var action_name: StringName
-@export var upgrade_index := 0
+@export
+var action_name: StringName
+
+@export
+var upgrade_index := 0
 
 @export
 var tooltip: Control
@@ -35,9 +38,29 @@ var align_tooltip_bottom := false:
 
 var upgrade_level: TowerLevel
 
-signal upgrade_tower(index: int)
+var _state_factory := UpgradeTowerButtonStateFactory.new()
+var _current_state: UpgradeTowerButtonState = null
 
-func set_upgrade_level(tower: Tower):
+func _ready() -> void:
+	switch_state(State.DISABLED)
+
+func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "UpgradeTowerButtonStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
+
+# TODO: move this into the base state
+func set_upgrade_level(tower: Tower) -> void:
 	upgrade_level = tower.get_upgrade(upgrade_index) if tower else null
 
 	if upgrade_level:
@@ -49,64 +72,32 @@ func set_upgrade_level(tower: Tower):
 		price_text.text = "Price: " + str(upgrade_level.price)
 		description_text.text = upgrade_level.level_description
 
-		disabled = false
-		enable_button(true)
+		enable_button()
 	else:
 		text = "-"
 		description_text.text = "-"
 
-		disabled = true
-		disable_button(true)
+		disable_button()
 
 	_refresh()
 
 	tooltip.hide()
 
-func enable_button(set_cursor: bool):
-	if set_cursor:
-		mouse_default_cursor_shape = CURSOR_POINTING_HAND
+func enable_button() -> void:
+	switch_state(State.ENABLED)
 
-	set_process(true)
+func disable_button() -> void:
+	switch_state(State.DISABLED)
 
-func disable_button(set_cursor: bool):
-	if set_cursor:
-		mouse_default_cursor_shape = CURSOR_ARROW
-
-	set_process(false)
-
-func update_affordability(money: int):
-	if upgrade_level:
-		if upgrade_level.price <= money:
-			disabled = false
-			enable_button(false)
-		else:
-			disabled = true
-			disable_button(false)
-	else:
-		disabled = true
-		disable_button(true)
+func update_affordability(money: int) -> void:
+	if _current_state != null:
+		_current_state.update_affordability(money)
 
 func _refresh() -> void:
 	if align_tooltip_bottom:
 		tooltip.position.y = self.size.y - tooltip.size.y
 	else:
 		tooltip.position.y = 0
-
-func upgrade():
-	tooltip.hide()
-	upgrade_tower.emit(upgrade_index)
-
-func _process(_delta):
-	if Engine.is_editor_hint():
-		return
-
-	if Input.is_action_just_pressed(action_name):
-		print("Upgrading tower via shortcut")
-		upgrade()
-
-func _on_pressed():
-	print("Upgrading tower via button")
-	upgrade()
 
 func _on_mouse_entered():
 	if upgrade_level:
