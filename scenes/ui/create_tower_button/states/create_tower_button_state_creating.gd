@@ -15,10 +15,14 @@ func _enter_tree() -> void:
 
 	_button.mouse_entered.connect(_on_mouse_entered)
 
+	TowerEvents.tower_placing_finished.connect(_on_tower_placing_finished)
+
 func _on_mouse_entered() -> void:
 	TowerEvents.emit_tower_placing_cancelled()
 
 	transition_state(CreateTowerButton.State.ENABLED)
 
-func _exit_tree() -> void:
+func _on_tower_placing_finished(_tower: Tower) -> void:
 	_button.icon = _original_icon
+
+	transition_state(CreateTowerButton.State.ENABLED)
