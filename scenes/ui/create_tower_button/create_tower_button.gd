@@ -1,6 +1,8 @@
 @tool
 class_name CreateTowerButton extends Button
 
+enum State { DISABLED, ENABLED, CREATING }
+
 @export
 var tower: PackedScene
 
@@ -37,6 +39,9 @@ var is_creating_mode := false:
 
 		_refresh()
 
+var _state_factory := CreateTowerButtonStateFactory.new()
+var _current_state: CreateTowerButtonState = null
+
 signal create_tower(tower_scene: PackedScene)
 signal cancel_tower
 
@@ -59,6 +64,23 @@ func _ready():
 
 	mouse_filter = MOUSE_FILTER_IGNORE
 	set_process(false)
+
+	switch_state(State.DISABLED)
+
+func switch_state(state: State, state_data := CreateTowerButtonStateData.new()) -> void:
+	if _current_state != null:
+		_current_state.queue_free()
+
+	_current_state = _state_factory.get_fresh_state(state)
+
+	_current_state.setup(
+		self,
+		state_data)
+
+	_current_state.state_transition_requested.connect(switch_state)
+	_current_state.name = "CreateTowerButtonStateMachine: %s" % str(state)
+
+	call_deferred("add_child", _current_state)
 
 func _refresh() -> void:
 	if is_creating_mode:
