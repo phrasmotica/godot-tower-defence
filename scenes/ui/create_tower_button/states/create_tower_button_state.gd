@@ -18,3 +18,14 @@ func transition_state(
 	state_data := CreateTowerButtonStateData.new(),
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
+
+func handle_money_changed(new_money: int) -> void:
+	var can_no_longer_afford := _button.tower_price <= _button.money_from_bank and _button.tower_price > new_money
+	var can_now_afford := _button.tower_price > _button.money_from_bank and _button.tower_price <= new_money
+
+	_button.money_from_bank = new_money
+
+	if can_no_longer_afford:
+		transition_state(CreateTowerButton.State.CANNOT_AFFORD)
+	elif can_now_afford:
+		transition_state(CreateTowerButton.State.ENABLED)

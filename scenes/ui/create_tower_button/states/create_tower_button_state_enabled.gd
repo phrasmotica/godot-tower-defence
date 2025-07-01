@@ -12,6 +12,8 @@ func _enter_tree() -> void:
 	_button.mouse_exited.connect(_on_mouse_exited)
 	_button.pressed.connect(_on_pressed)
 
+	BankManager.money_changed.connect(handle_money_changed)
+
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(_button.action_name):
 		print("Creating tower via shortcut")
