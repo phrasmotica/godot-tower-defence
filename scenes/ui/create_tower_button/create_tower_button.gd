@@ -55,9 +55,8 @@ func _ready() -> void:
 		price_text.text = "Price: " + str(dummy_tower.price)
 		description_text.text = dummy_tower.tower_description
 
+	# TODO: only connect this in the ENABLED and CANNOT_AFFORD states
 	BankManager.money_changed.connect(_on_bank_manager_money_changed)
-
-	GameEvents.game_started.connect(_on_game_events_game_started)
 
 	switch_state(State.DISABLED)
 
@@ -86,6 +85,3 @@ func _on_bank_manager_money_changed(new_money: int) -> void:
 		switch_state(State.CANNOT_AFFORD)
 	elif can_now_afford:
 		switch_state(State.ENABLED)
-
-func _on_game_events_game_started(_path_index: int) -> void:
-	switch_state(State.ENABLED)
