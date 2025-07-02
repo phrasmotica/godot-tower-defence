@@ -99,9 +99,6 @@ func set_upgrade_level(tower: Tower) -> void:
 
 		switch_state(State.DISABLED)
 
-func enable_button() -> void:
-	switch_state(State.ENABLED)
-
 func resolve_state() -> void:
 	if _current_state != null:
 		_current_state.resolve_state(_money_from_bank)
