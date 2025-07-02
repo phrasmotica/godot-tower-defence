@@ -16,12 +16,9 @@ func _process(_delta: float) -> void:
 		print("%s upgrading via shortcut" % get_button_name())
 		TowerEvents.emit_upgrade_tower(_button.upgrade_index)
 
-func _on_tower_upgrade_started(index: int, _tower: Tower, _next_level: TowerLevel) -> void:
+func _on_tower_upgrade_started(_index: int, _tower: Tower, _next_level: TowerLevel) -> void:
 	# we can assume this upgrade is for the selected tower
-	if index == _button.upgrade_index:
-		transition_state(UpgradeTowerButton.State.UPGRADING)
-	else:
-		transition_state(UpgradeTowerButton.State.DISABLED)
+	transition_state(UpgradeTowerButton.State.DISABLED)
 
 func _on_pressed() -> void:
 	print("%s upgrading via button" % get_button_name())

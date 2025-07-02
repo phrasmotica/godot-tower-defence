@@ -1,7 +1,7 @@
 @tool
 class_name UpgradeTowerButton extends Button
 
-enum State { DISABLED, CANNOT_AFFORD, ENABLED, UPGRADING }
+enum State { DISABLED, ENABLED, UNAVAILABLE }
 
 @export
 var action_name: StringName
@@ -44,7 +44,7 @@ func _ready() -> void:
 
 	TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
-	switch_state(State.DISABLED)
+	switch_state(State.UNAVAILABLE)
 
 func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new()) -> void:
 	if _current_state != null:
@@ -90,7 +90,7 @@ func set_upgrade_level(tower: Tower) -> void:
 		else:
 			print("No tower is selected, disabling %s" % _current_state.get_button_name())
 
-		switch_state(State.DISABLED)
+		switch_state(State.UNAVAILABLE)
 
 func resolve_state() -> void:
 	if _current_state != null:

@@ -27,9 +27,9 @@ func resolve_state(money: int) -> void:
 		if _button.upgrade_level.price <= money:
 			transition_state(UpgradeTowerButton.State.ENABLED)
 		else:
-			transition_state(UpgradeTowerButton.State.CANNOT_AFFORD)
+			transition_state(UpgradeTowerButton.State.DISABLED)
 	else:
-		transition_state(UpgradeTowerButton.State.DISABLED)
+		transition_state(UpgradeTowerButton.State.UNAVAILABLE)
 
 func get_button_name() -> String:
 	return "UpgradeTowerButton%d" % _button.upgrade_index
