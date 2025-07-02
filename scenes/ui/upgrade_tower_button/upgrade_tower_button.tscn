@@ -1,9 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://dx8exrpefyqrk"]
+[gd_scene load_steps=4 format=3 uid="uid://dx8exrpefyqrk"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_0hbru"]
 [ext_resource type="Script" uid="uid://bvwy1x2lffxoh" path="res://scenes/ui/upgrade_tower_button/upgrade_tower_button.gd" id="1_o1ho0"]
+[ext_resource type="Script" uid="uid://1wf2o6un51ai" path="res://scenes/ui/upgrade_tower_button/upgrade_tower_button_appearance.gd" id="3_gi8tv"]
 
-[node name="UpgradeTowerButton" type="Button" node_paths=PackedStringArray("tooltip", "name_text", "price_text", "description_text")]
+[node name="UpgradeTowerButton" type="Button"]
 offset_right = 180.0
 offset_bottom = 60.0
 focus_mode = 0
@@ -11,15 +12,20 @@ mouse_default_cursor_shape = 2
 theme = ExtResource("1_0hbru")
 text = "Upgrade"
 script = ExtResource("1_o1ho0")
-tooltip = NodePath("Tooltip")
-name_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Name")
-price_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Price")
-description_text = NodePath("Tooltip/Background/MarginContainer/VBoxContainer/Description")
 metadata/_edit_vertical_guides_ = [8.0, 172.0]
 metadata/_edit_horizontal_guides_ = [8.0, 52.0, 60.0]
 
+[node name="Appearance" type="Node" parent="." node_paths=PackedStringArray("button", "tooltip", "tooltip_background", "name_text", "price_text", "description_text")]
+unique_name_in_owner = true
+script = ExtResource("3_gi8tv")
+button = NodePath("..")
+tooltip = NodePath("../Tooltip")
+tooltip_background = NodePath("../Tooltip/Background")
+name_text = NodePath("../Tooltip/Background/MarginContainer/VBoxContainer/Name")
+price_text = NodePath("../Tooltip/Background/MarginContainer/VBoxContainer/Price")
+description_text = NodePath("../Tooltip/Background/MarginContainer/VBoxContainer/Description")
+
 [node name="Tooltip" type="Control" parent="."]
-visible = false
 z_index = 50
 layout_mode = 3
 anchors_preset = 0
@@ -59,7 +65,3 @@ custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
 text = "Upgrade description goes here, and will be altered by whichever tower the button is for."
 autowrap_mode = 2
-
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
-[connection signal="resized" from="Tooltip/Background" to="." method="_on_background_resized"]

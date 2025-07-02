@@ -5,13 +5,16 @@ signal state_transition_requested(new_state: UpgradeTowerButton.State, state_dat
 
 var _button: UpgradeTowerButton = null
 var _state_data: UpgradeTowerButtonStateData = null
+var _appearance: UpgradeTowerButtonAppearance = null
 
 func setup(
 	button: UpgradeTowerButton,
 	state_data: UpgradeTowerButtonStateData,
+	appearance: UpgradeTowerButtonAppearance,
 ) -> void:
 	_button = button
 	_state_data = state_data
+	_appearance = appearance
 
 func transition_state(
 	new_state: UpgradeTowerButton.State,

@@ -5,4 +5,5 @@ func _enter_tree() -> void:
 	print("%s is now upgrading" % get_button_name())
 
 	_button.disabled = true
-	_button.tooltip.hide()
+
+	_appearance.hide_tooltip()

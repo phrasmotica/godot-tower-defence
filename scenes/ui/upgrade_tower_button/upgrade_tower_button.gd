@@ -10,31 +10,15 @@ var action_name: StringName
 var upgrade_index := 0
 
 @export
-var tooltip: Control
-
-@export
-var name_text: Label
-
-@export
-var price_text: Label
-
-@export
-var description_text: Label
-
-@export
-var show_tooltip := false:
-	set(value):
-		tooltip.visible = value
-
-	get:
-		return tooltip.visible
-
-@export
 var align_tooltip_bottom := false:
 	set(value):
 		align_tooltip_bottom = value
 
-		_refresh()
+		if appearance:
+			appearance.realign_tooltip()
+
+@onready
+var appearance: UpgradeTowerButtonAppearance = %Appearance
 
 var upgrade_level: TowerLevel
 
@@ -46,6 +30,9 @@ var _money_from_bank := 0
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+
+	mouse_entered.connect(_on_mouse_entered)
+	mouse_exited.connect(_on_mouse_exited)
 
 	# HIGH: GRADUALLY move all of this signal handling into the state machine...
 	# everything is working now, but it did take a while to figure out all the
@@ -68,7 +55,8 @@ func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new())
 
 	_current_state.setup(
 		self,
-		state_data)
+		state_data,
+		appearance)
 
 	_current_state.state_transition_requested.connect(switch_state)
 	_current_state.name = "UpgradeTowerButtonStateMachine: %s" % str(state)
@@ -89,7 +77,7 @@ func _on_tower_upgrade_started(index: int, _tower: Tower, _next_level: TowerLeve
 	if index == upgrade_index:
 		switch_state(State.UPGRADING)
 	else:
-		disable_button()
+		switch_state(State.DISABLED)
 
 func _on_tower_upgrade_finished(_index: int, tower: Tower, _next_level: TowerLevel) -> void:
 	set_upgrade_level(tower)
@@ -100,13 +88,7 @@ func set_upgrade_level(tower: Tower) -> void:
 	if upgrade_level:
 		print("%s does have upgrade index=%d" % [tower.name, upgrade_index])
 
-		text = upgrade_level.level_name
-
-		# prefer this to a tooltip so that we can control its appearance
-		# by mouse enter/exit events rather than by the mouse being idle
-		name_text.text = upgrade_level.level_name
-		price_text.text = "Price: " + str(upgrade_level.price)
-		description_text.text = upgrade_level.level_description
+		appearance.set_upgrade_level(upgrade_level)
 
 		resolve_state()
 	else:
@@ -115,40 +97,18 @@ func set_upgrade_level(tower: Tower) -> void:
 		else:
 			print("No tower is selected, disabling %s" % _current_state.get_button_name())
 
-		text = "-"
-		description_text.text = "-"
-
-		disable_button()
-
-	_refresh()
-
-	tooltip.hide()
+		switch_state(State.DISABLED)
 
 func enable_button() -> void:
 	switch_state(State.ENABLED)
-
-func disable_button() -> void:
-	switch_state(State.DISABLED)
 
 func resolve_state() -> void:
 	if _current_state != null:
 		_current_state.resolve_state(_money_from_bank)
 
-func _refresh() -> void:
-	if align_tooltip_bottom:
-		tooltip.position.y = self.size.y - tooltip.size.y
-	else:
-		tooltip.position.y = 0
-
-func _on_mouse_entered():
+func _on_mouse_entered() -> void:
 	if upgrade_level:
-		tooltip.show()
+		appearance.show_tooltip()
 
-func _on_mouse_exited():
-	tooltip.hide()
-
-func _on_background_resized():
-	# background node is a panel container, so shrinks to the
-	# correct size after the tooltip content gets updated
-	tooltip.size.y = tooltip.get_node("Background").size.y
-	_refresh()
+func _on_mouse_exited() -> void:
+	appearance.hide_tooltip()
