@@ -41,14 +41,22 @@ var upgrade_level: TowerLevel
 var _state_factory := UpgradeTowerButtonStateFactory.new()
 var _current_state: UpgradeTowerButtonState = null
 
+var _money_from_bank := 0
+
 func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
+
+	# HIGH: GRADUALLY move all of this signal handling into the state machine...
+	# everything is working now, but it did take a while to figure out all the
+	# transitions and whatnot
+	BankManager.money_changed.connect(_on_money_changed)
 
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
 
 	TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
+	TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
 	switch_state(State.DISABLED)
 
@@ -67,6 +75,10 @@ func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new())
 
 	call_deferred("add_child", _current_state)
 
+func _on_money_changed(_old_money: int, new_money: int) -> void:
+	_money_from_bank = new_money
+	resolve_state()
+
 func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 	set_upgrade_level(new_tower)
 
@@ -74,14 +86,20 @@ func _on_tower_deselected() -> void:
 	set_upgrade_level(null)
 
 func _on_tower_upgrade_started(index: int, _tower: Tower, _next_level: TowerLevel) -> void:
-	if index != upgrade_index:
+	if index == upgrade_index:
+		switch_state(State.UPGRADING)
+	else:
 		disable_button()
 
-# TODO: move this into the base state
+func _on_tower_upgrade_finished(_index: int, tower: Tower, _next_level: TowerLevel) -> void:
+	set_upgrade_level(tower)
+
 func set_upgrade_level(tower: Tower) -> void:
 	upgrade_level = tower.get_upgrade(upgrade_index) if tower else null
 
 	if upgrade_level:
+		print("%s does have upgrade index=%d" % [tower.name, upgrade_index])
+
 		text = upgrade_level.level_name
 
 		# prefer this to a tooltip so that we can control its appearance
@@ -90,8 +108,13 @@ func set_upgrade_level(tower: Tower) -> void:
 		price_text.text = "Price: " + str(upgrade_level.price)
 		description_text.text = upgrade_level.level_description
 
-		enable_button()
+		resolve_state()
 	else:
+		if tower:
+			print("%s does NOT have upgrade index=%d" % [tower.name, upgrade_index])
+		else:
+			print("No tower is selected, disabling %s" % _current_state.get_button_name())
+
 		text = "-"
 		description_text.text = "-"
 
@@ -107,9 +130,9 @@ func enable_button() -> void:
 func disable_button() -> void:
 	switch_state(State.DISABLED)
 
-func resolve_state(money: int) -> void:
+func resolve_state() -> void:
 	if _current_state != null:
-		_current_state.resolve_state(money)
+		_current_state.resolve_state(_money_from_bank)
 
 func _refresh() -> void:
 	if align_tooltip_bottom:
