@@ -16,7 +16,7 @@ signal tower_deselected()
 
 signal upgrade_tower(index: int)
 signal tower_upgrade_started(index: int, tower: Tower, next_level: TowerLevel)
-signal tower_upgrade_finished(tower: Tower, next_level: TowerLevel)
+signal tower_upgrade_finished(index: int, tower: Tower, next_level: TowerLevel)
 
 signal target_mode_changed(index: int)
 signal tower_sold
@@ -84,10 +84,10 @@ func emit_tower_upgrade_started(index: int, tower: Tower, next_level: TowerLevel
 
 	tower_upgrade_started.emit(index, tower, next_level)
 
-func emit_tower_upgrade_finished(tower: Tower, next_level: TowerLevel) -> void:
-	print(tower.name + " upgrade finished")
+func emit_tower_upgrade_finished(index: int, tower: Tower, next_level: TowerLevel) -> void:
+	print("%s upgrade index=%d finished" % [tower.name, index])
 
-	tower_upgrade_finished.emit(tower, next_level)
+	tower_upgrade_finished.emit(index, tower, next_level)
 
 func emit_target_mode_changed(index: int) -> void:
 	print("Target mode changed")

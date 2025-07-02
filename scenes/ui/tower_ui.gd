@@ -25,7 +25,7 @@ func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 func _on_tower_deselected() -> void:
 	set_tower(null)
 
-func _on_tower_upgrade_finished(tower: Tower, _next_level: TowerLevel) -> void:
+func _on_tower_upgrade_finished(_index: int, tower: Tower, _next_level: TowerLevel) -> void:
 	set_tower(tower)
 
 func _on_target_mode_options_item_selected(index: int) -> void:

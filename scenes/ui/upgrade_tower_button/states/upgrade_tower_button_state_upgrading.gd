@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 
 	BankManager.money_changed.connect(_on_money_changed)
 
-	TowerEvents.tower_upgrade_finished.connect(_on_upgrade_finished)
+	TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
 
@@ -18,7 +18,7 @@ func _on_money_changed(_old_money: int, new_money: int) -> void:
 	_money_after_upgrade = new_money
 	resolve_state(_money_after_upgrade)
 
-func _on_upgrade_finished(_tower: Tower, _next_level: TowerLevel) -> void:
+func _on_tower_upgrade_finished(_index: int, tower: Tower, _next_level: TowerLevel) -> void:
 	# TODO: why isn't this being hit??
 	resolve_state(_money_after_upgrade)
 

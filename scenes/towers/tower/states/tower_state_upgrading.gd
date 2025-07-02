@@ -32,7 +32,9 @@ func _on_upgrade_finished() -> void:
 
 	_interaction.range_radius = next_level.get_range(true)
 
-	TowerEvents.emit_tower_upgrade_finished(_tower, next_level)
+	var upgrade_index := _state_data.get_upgrade_index()
+
+	TowerEvents.emit_tower_upgrade_finished(upgrade_index, _tower, next_level)
 
 	transition_state(Tower.State.FIRING)
 
