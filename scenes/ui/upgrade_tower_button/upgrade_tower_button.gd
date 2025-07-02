@@ -31,9 +31,6 @@ func _ready() -> void:
 	if Engine.is_editor_hint():
 		return
 
-	mouse_entered.connect(_on_mouse_entered)
-	mouse_exited.connect(_on_mouse_exited)
-
 	# HIGH: GRADUALLY move all of this signal handling into the state machine...
 	# everything is working now, but it did take a while to figure out all the
 	# transitions and whatnot
@@ -95,10 +92,3 @@ func set_upgrade_level(tower: Tower) -> void:
 func resolve_state() -> void:
 	if _current_state != null:
 		_current_state.resolve_state(_money_from_bank)
-
-func _on_mouse_entered() -> void:
-	if upgrade_level:
-		appearance.show_tooltip()
-
-func _on_mouse_exited() -> void:
-	appearance.hide_tooltip()
