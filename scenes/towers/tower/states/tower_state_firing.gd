@@ -45,9 +45,7 @@ func _on_effect_requested(effect_stats: EffectStats, enemies: Array[Enemy]) -> v
 	_appearance.animate_pulse()
 
 func _on_bolt_created(bolt_line: BoltLine) -> void:
-	print("Adding bolt as child")
-
-	bolt_line.rotation = _appearance.rotation
+	bolt_line.rotate(_appearance.rotation)
 
 	_appearance.animate_shoot()
 

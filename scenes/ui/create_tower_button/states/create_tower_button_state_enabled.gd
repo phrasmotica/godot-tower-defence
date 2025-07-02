@@ -2,7 +2,7 @@ class_name CreateTowerButtonStateEnabled
 extends CreateTowerButtonState
 
 func _enter_tree() -> void:
-	print("CreateTowerButton is now enabled")
+	print("%s is now enabled" % get_button_name())
 
 	_button.disabled = false
 
@@ -16,7 +16,7 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(_button.action_name):
-		print("Creating tower via shortcut")
+		print("%s creating via shortcut" % get_button_name())
 
 		transition_state(CreateTowerButton.State.CREATING)
 
@@ -27,9 +27,9 @@ func _on_mouse_exited() -> void:
 	_button.tooltip.hide()
 
 func _on_pressed() -> void:
-	print("Creating tower via button")
+	print("%s creating via button" % get_button_name())
 
 	transition_state(CreateTowerButton.State.CREATING)
 
 func _on_money_changed(old_money: int, new_money: int) -> void:
-	update_affordability(old_money, new_money)
+	resolve_state(old_money, new_money)
