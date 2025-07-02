@@ -1,13 +1,13 @@
 class_name UpgradeTowerButtonStateData
 
-var _set_cursor := false
+var _upgrade_level: TowerLevel = null
 
 static func build() -> UpgradeTowerButtonStateData:
 	return UpgradeTowerButtonStateData.new()
 
-func with_set_cursor(set_cursor: bool) -> UpgradeTowerButtonStateData:
-	_set_cursor = set_cursor
+func with_upgrade_level(upgrade_level: TowerLevel) -> UpgradeTowerButtonStateData:
+	_upgrade_level = upgrade_level
 	return self
 
-func get_set_cursor() -> bool:
-	return _set_cursor
+func get_upgrade_level() -> TowerLevel:
+	return _upgrade_level
