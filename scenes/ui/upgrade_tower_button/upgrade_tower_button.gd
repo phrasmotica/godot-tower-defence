@@ -107,9 +107,9 @@ func enable_button() -> void:
 func disable_button() -> void:
 	switch_state(State.DISABLED)
 
-func update_affordability(money: int) -> void:
+func resolve_state(money: int) -> void:
 	if _current_state != null:
-		_current_state.update_affordability(money)
+		_current_state.resolve_state(money)
 
 func _refresh() -> void:
 	if align_tooltip_bottom:

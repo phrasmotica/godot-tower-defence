@@ -19,7 +19,7 @@ func _process(_delta: float) -> void:
 		TowerEvents.emit_upgrade_tower(_button.upgrade_index)
 
 func _on_money_changed(_old_money: int, new_money: int) -> void:
-	update_affordability(new_money)
+	resolve_state(new_money)
 
 func _on_pressed() -> void:
 	print("%s upgrading via button" % get_button_name())

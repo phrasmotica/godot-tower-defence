@@ -19,7 +19,7 @@ func transition_state(
 ) -> void:
 	state_transition_requested.emit(new_state, state_data)
 
-func update_affordability(money: int) -> void:
+func resolve_state(money: int) -> void:
 	if _button.upgrade_level:
 		if _button.upgrade_level.price <= money:
 			transition_state(UpgradeTowerButton.State.ENABLED)
