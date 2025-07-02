@@ -42,7 +42,6 @@ func _ready() -> void:
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
 
-	TowerEvents.tower_upgrade_started.connect(_on_tower_upgrade_started)
 	TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
 	switch_state(State.DISABLED)
@@ -72,12 +71,6 @@ func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 
 func _on_tower_deselected() -> void:
 	set_upgrade_level(null)
-
-func _on_tower_upgrade_started(index: int, _tower: Tower, _next_level: TowerLevel) -> void:
-	if index == upgrade_index:
-		switch_state(State.UPGRADING)
-	else:
-		switch_state(State.DISABLED)
 
 func _on_tower_upgrade_finished(_index: int, tower: Tower, _next_level: TowerLevel) -> void:
 	set_upgrade_level(tower)
