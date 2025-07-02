@@ -26,6 +26,9 @@ func reset_money() -> void:
 	print("Resetting to " + str(STARTING_MONEY) + " money")
 	_set_money(STARTING_MONEY)
 
+func get_money() -> int:
+	return _current_money
+
 func can_afford(amount: int) -> bool:
 	return _current_money >= amount
 

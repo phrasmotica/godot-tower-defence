@@ -31,4 +31,4 @@ func try_upgrade(index: int) -> void:
 
 	BankManager.deduct(next_level.price)
 
-	TowerEvents.emit_tower_upgrade_started(selected_tower, next_level)
+	TowerEvents.emit_tower_upgrade_started(index, selected_tower, next_level)
