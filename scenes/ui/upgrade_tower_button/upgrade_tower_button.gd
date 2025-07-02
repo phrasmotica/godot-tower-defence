@@ -73,8 +73,9 @@ func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 func _on_tower_deselected() -> void:
 	set_upgrade_level(null)
 
-func _on_tower_upgrade_started(_tower: Tower, _next_level: TowerLevel) -> void:
-	disable_button()
+func _on_tower_upgrade_started(index: int, _tower: Tower, _next_level: TowerLevel) -> void:
+	if index != upgrade_index:
+		disable_button()
 
 # TODO: move this into the base state
 func set_upgrade_level(tower: Tower) -> void:
