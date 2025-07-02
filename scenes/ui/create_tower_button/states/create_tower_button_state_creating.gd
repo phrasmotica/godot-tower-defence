@@ -26,7 +26,7 @@ func _on_mouse_entered() -> void:
 	transition_state(CreateTowerButton.State.ENABLED)
 
 func _on_money_changed(old_money: int, new_money: int) -> void:
-	update_affordability(old_money, new_money)
+	resolve_state(old_money, new_money)
 
 func _on_tower_placing_finished(_tower: Tower) -> void:
 	_button.icon = _original_icon

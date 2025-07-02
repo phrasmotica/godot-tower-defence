@@ -32,4 +32,4 @@ func _on_pressed() -> void:
 	transition_state(CreateTowerButton.State.CREATING)
 
 func _on_money_changed(old_money: int, new_money: int) -> void:
-	update_affordability(old_money, new_money)
+	resolve_state(old_money, new_money)
