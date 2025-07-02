@@ -4,9 +4,7 @@ extends CreateTowerButtonState
 var _original_icon: Texture2D = null
 
 func _enter_tree() -> void:
-	print("CreateTowerButton is now creating")
-
-	TowerEvents.emit_tower_created(_button.tower)
+	print("%s is now creating" % get_button_name())
 
 	_button.tooltip.hide()
 
@@ -20,6 +18,11 @@ func _enter_tree() -> void:
 
 	BankManager.money_changed.connect(_on_money_changed)
 
+	TowerEvents.emit_tower_created(_button.tower)
+
+	# do this last so that we don't induce the callback by ourselves!
+	TowerEvents.tower_created.connect(_on_tower_created)
+
 func _on_mouse_entered() -> void:
 	TowerEvents.emit_tower_placing_cancelled()
 
@@ -27,6 +30,13 @@ func _on_mouse_entered() -> void:
 
 func _on_money_changed(old_money: int, new_money: int) -> void:
 	resolve_state(old_money, new_money)
+
+func _on_tower_created(tower_scene: PackedScene) -> void:
+	if tower_scene != _button.tower:
+		# we're now placing a different tower, so revert
+		_button.icon = _original_icon
+
+		transition_state(CreateTowerButton.State.ENABLED)
 
 func _on_tower_placing_finished(_tower: Tower) -> void:
 	_button.icon = _original_icon

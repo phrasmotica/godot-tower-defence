@@ -27,3 +27,6 @@ func resolve_state(old_money: int, new_money: int) -> void:
 		transition_state(CreateTowerButton.State.CANNOT_AFFORD)
 	elif can_now_afford:
 		transition_state(CreateTowerButton.State.ENABLED)
+
+func get_button_name() -> String:
+	return _button.name

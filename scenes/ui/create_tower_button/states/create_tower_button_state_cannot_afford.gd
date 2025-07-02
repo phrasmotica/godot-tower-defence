@@ -2,7 +2,7 @@ class_name CreateTowerButtonStateCannotAfford
 extends CreateTowerButtonState
 
 func _enter_tree() -> void:
-	print("CreateTowerButton is now cannot afford")
+	print("%s is now cannot afford" % get_button_name())
 
 	_button.disabled = true
 
