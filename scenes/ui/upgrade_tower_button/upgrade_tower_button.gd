@@ -25,6 +25,10 @@ var upgrade_level: TowerLevel
 var _state_factory := UpgradeTowerButtonStateFactory.new()
 var _current_state: UpgradeTowerButtonState = null
 
+# HIGH: eventually we won't need this anymore. But we need it for now because
+# the set_upgrade_level method is in this script.
+# We need to set it initially to be nonzero, so the money_changed event handler
+# is required for now.
 var _money_from_bank := 0
 
 func _ready() -> void:
@@ -61,7 +65,6 @@ func switch_state(state: State, state_data := UpgradeTowerButtonStateData.new())
 
 func _on_money_changed(_old_money: int, new_money: int) -> void:
 	_money_from_bank = new_money
-	resolve_state()
 
 func _on_selected_tower_changed(new_tower: Tower, _old_tower: Tower) -> void:
 	set_upgrade_level(new_tower)
