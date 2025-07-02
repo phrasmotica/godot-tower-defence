@@ -5,7 +5,7 @@ var _effect_factory := EffectFactory.new()
 var _projectile_factory := ProjectileFactory.new()
 
 func _enter_tree() -> void:
-	print("Tower is now firing")
+	Logger.info("Tower is now firing")
 
 	_appearance.for_firing()
 

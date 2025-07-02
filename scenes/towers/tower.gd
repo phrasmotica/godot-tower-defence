@@ -92,7 +92,7 @@ func deselect() -> void:
 
 func set_target_mode(target_mode: TowerWeaponry.TargetMode) -> void:
 	weaponry.set_target_mode(target_mode)
-	print(tower_name + " now has target mode " + str(target_mode))
+	Logger.info("%s now has target mode %d" % [tower_name, target_mode])
 
 func upgrade(index: int) -> void:
 	switch_state(State.UPGRADING, TowerStateData.build().with_upgrade_index(index))

@@ -9,23 +9,23 @@ func try_upgrade(index: int) -> void:
 	var selected_tower := _selector.get_current()
 
 	if not selected_tower:
-		print("Tower upgrade failed: no tower selected")
+		Logger.info("Tower upgrade failed: no tower selected")
 		return
 
 	var next_level = selected_tower.get_upgrade(index)
 	if not next_level:
-		print("Tower upgrade failed: no more upgrades")
+		Logger.info("Tower upgrade failed: no more upgrades")
 		return
 
 	if selected_tower.is_upgrading():
-		print("Tower upgrade failed: already upgrading")
+		Logger.info("Tower upgrade failed: already upgrading")
 		return
 
 	if not BankManager.can_afford(next_level.price):
-		print("Tower upgrade failed: cannot afford")
+		Logger.info("Tower upgrade failed: cannot afford")
 		return
 
-	print("Upgrading tower")
+	Logger.info("Upgrading tower")
 
 	selected_tower.upgrade(index)
 

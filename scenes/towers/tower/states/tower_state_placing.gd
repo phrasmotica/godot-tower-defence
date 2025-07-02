@@ -7,10 +7,10 @@ var _is_valid_location := true
 func _enter_tree() -> void:
 	if _skip_setup:
 		_skip_setup = false
-		print("TowerStatePlacing: %s skipping setup" % _info.get_name())
+		Logger.info("TowerStatePlacing: %s skipping setup" % _info.get_name())
 		return
 
-	print("Tower is now placing")
+	Logger.info("Tower is now placing")
 
 	_colliders.path_area_entered.connect(_on_path_area_entered)
 	_colliders.path_area_exited.connect(_on_path_area_exited)
@@ -29,13 +29,13 @@ func _process(_delta: float) -> void:
 	_tower.global_position = get_viewport().get_mouse_position()
 
 func _on_path_area_entered() -> void:
-	print(_info.get_name() + " entered path area")
+	Logger.info("%s entered path area" % _info.get_name())
 	_is_valid_location = false
 
 	_interaction.error_look()
 
 func _on_path_area_exited() -> void:
-	print(_info.get_name() + " exited path area")
+	Logger.info("%s exited path area" % _info.get_name())
 	_is_valid_location = true
 
 	_interaction.default_look()
@@ -50,10 +50,10 @@ func _on_mouse_validity_changed(is_valid: bool) -> void:
 
 func _on_valid_area_clicked() -> void:
 	if not (_is_mouse_over_path and _is_valid_location):
-		print("Cannot place tower here!")
+		Logger.info("Cannot place tower here!")
 		return
 
-	print("Placed new %s" % _info.get_name())
+	Logger.info("Placed new %s" % _info.get_name())
 
 	BankManager.deduct(_info.get_price())
 

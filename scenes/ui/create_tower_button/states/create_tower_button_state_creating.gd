@@ -4,7 +4,7 @@ extends CreateTowerButtonState
 var _original_icon: Texture2D = null
 
 func _enter_tree() -> void:
-	print("%s is now creating" % get_button_name())
+	Logger.info("%s is now creating" % get_button_name())
 
 	_button.tooltip.hide()
 

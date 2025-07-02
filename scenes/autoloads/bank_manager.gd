@@ -18,12 +18,12 @@ func _set_money(amount: int) -> void:
 	var old_money := _current_money
 
 	_current_money = amount
-	print("Now on " + str(_current_money) + " money")
+	Logger.info("Now on %d money" % _current_money)
 
 	emit_money_changed(old_money, _current_money)
 
 func reset_money() -> void:
-	print("Resetting to " + str(STARTING_MONEY) + " money")
+	Logger.info("Resetting to %d money" % STARTING_MONEY)
 	_set_money(STARTING_MONEY)
 
 func get_money() -> int:

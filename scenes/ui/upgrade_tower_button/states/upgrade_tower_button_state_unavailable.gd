@@ -2,7 +2,7 @@ class_name UpgradeTowerButtonStateUnavailable
 extends UpgradeTowerButtonState
 
 func _enter_tree() -> void:
-	print("%s is now unavailable" % get_button_name())
+	Logger.info("%s is now unavailable" % get_button_name())
 
 	_upgrade_level = _state_data.get_upgrade_level()
 

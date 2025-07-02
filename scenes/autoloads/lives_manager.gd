@@ -15,18 +15,18 @@ func _ready() -> void:
 
 func reset_lives() -> void:
 	set_lives(STARTING_LIVES)
-	print("Resetting to " + str(STARTING_LIVES) + " lives")
+	Logger.info("Resetting to %d lives" % STARTING_LIVES)
 
 func add_lives(amount) -> void:
 	set_lives(max(0, current_lives + amount))
-	print("Now on " + str(current_lives) + " lives")
+	Logger.info("Now on %d lives" % current_lives)
 
 func set_lives(lives) -> void:
 	current_lives = lives
 	lives_changed.emit(current_lives)
 
 	if current_lives <= 0:
-		print("Ran out of lives!")
+		Logger.info("Ran out of lives!")
 		is_dead = true
 		lives_depleted.emit()
 
@@ -34,5 +34,5 @@ func _handle_enemy_reached_end(enemy: Enemy) -> void:
 	if is_dead:
 		return
 
-	print(enemy.name + " reached end of path")
+	Logger.info("%s reached end of path" % enemy.name)
 	add_lives(-1)

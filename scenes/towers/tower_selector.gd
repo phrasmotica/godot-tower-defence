@@ -31,7 +31,7 @@ func next_tower() -> Tower:
 	if all_towers.size() == 1 and _selected_tower:
 		return _selected_tower
 
-	print("Selecting next tower")
+	Logger.info("Selecting next tower")
 
 	var selected_index := _selected_idx
 
@@ -49,7 +49,7 @@ func previous_tower() -> Tower:
 	if all_towers.size() == 1 and _selected_tower:
 		return _selected_tower
 
-	print("Selecting previous tower")
+	Logger.info("Selecting previous tower")
 
 	var selected_index := _selected_idx
 

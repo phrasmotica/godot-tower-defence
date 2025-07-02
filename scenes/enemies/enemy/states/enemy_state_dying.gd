@@ -2,7 +2,7 @@ class_name EnemyStateDying
 extends EnemyState
 
 func _enter_tree() -> void:
-	print("%s is now dying" % _info.get_name())
+	Logger.info("%s is now dying" % _info.get_name())
 
 	EnemyEvents.emit_enemy_died(_enemy)
 

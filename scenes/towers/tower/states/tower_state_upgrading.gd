@@ -2,7 +2,7 @@ class_name TowerStateUpgrading
 extends TowerState
 
 func _enter_tree() -> void:
-	print("%s has started upgrading" % _info.get_name())
+	Logger.info("%s has started upgrading" % _info.get_name())
 
 	_interaction.mouse_entered.connect(_on_mouse_entered)
 	_interaction.mouse_exited.connect(_on_mouse_exited)
@@ -26,7 +26,7 @@ func _on_mouse_exited() -> void:
 		_interaction.hide_visualiser()
 
 func _on_upgrade_finished() -> void:
-	print("%s has finished upgrading" % _info.get_name())
+	Logger.info("%s has finished upgrading" % _info.get_name())
 
 	var next_level := _weaponry.install_upgrade()
 

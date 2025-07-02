@@ -17,7 +17,7 @@ func _enter_tree() -> void:
 
 	var neighbours := EnemyManager.get_neighbours(enemy, 100 * radius)
 
-	print("Affecting %d neighbour(s) in radius %d" % [neighbours.size(), radius])
+	Logger.info("Affecting %d neighbour(s) in radius %d" % [neighbours.size(), radius])
 
 	for e in neighbours:
 		e.handle_aoe(_cannonball.projectile_stats)

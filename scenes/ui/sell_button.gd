@@ -22,7 +22,7 @@ func _process(_delta):
 		return
 
 func _on_pressed():
-	print("Selling tower via button")
+	Logger.info("Selling tower via button")
 	sell()
 
 func _on_mouse_entered():
