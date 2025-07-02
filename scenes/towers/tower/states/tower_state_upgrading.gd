@@ -30,6 +30,8 @@ func _on_upgrade_finished() -> void:
 
 	var next_level := _weaponry.install_upgrade()
 
+	_appearance.set_level(next_level)
+
 	_interaction.range_radius = next_level.get_range(true)
 
 	var upgrade_index := _state_data.get_upgrade_index()

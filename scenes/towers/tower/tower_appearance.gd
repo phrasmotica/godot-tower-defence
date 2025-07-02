@@ -24,6 +24,9 @@ func for_firing() -> void:
 	level_sprite.modulate = normal_colour
 
 func _on_level_changed(level: TowerLevel) -> void:
+	set_level(level)
+
+func set_level(level: TowerLevel) -> void:
 	level_sprite.texture = level.sprite
 
 func do_warmup() -> void:
