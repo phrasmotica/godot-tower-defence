@@ -40,6 +40,7 @@ script = ExtResource("3_kfd8k")
 level_name = "Long Range"
 level_description = "Increased range and accuracy."
 price = 1
+sprite = ExtResource("4_6nsx4")
 projectile_stats = SubResource("Resource_vr1fm")
 upgrades = Array[ExtResource("3_kfd8k")]([])
 point_towards_enemy = true
