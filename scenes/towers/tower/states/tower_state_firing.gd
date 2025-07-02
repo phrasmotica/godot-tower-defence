@@ -1,6 +1,8 @@
 class_name TowerStateFiring
 extends TowerState
 
+const AIMING_VARIANCE := deg_to_rad(20.0)
+
 var _effect_factory := EffectFactory.new()
 var _projectile_factory := ProjectileFactory.new()
 
@@ -27,7 +29,8 @@ func _process(delta: float) -> void:
 func _on_shoot_requested(tower_level: TowerLevel) -> void:
 	var projectile := _projectile_factory.create(
 		tower_level.projectile_stats,
-		_appearance.rotation)
+		_appearance.rotation,
+		AIMING_VARIANCE)
 
 	_appearance.animate_shoot()
 
