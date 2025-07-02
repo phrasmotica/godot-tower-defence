@@ -1,8 +1,6 @@
 class_name TowerStateFiring
 extends TowerState
 
-const AIMING_VARIANCE := deg_to_rad(20.0)
-
 var _effect_factory := EffectFactory.new()
 var _projectile_factory := ProjectileFactory.new()
 
@@ -29,8 +27,7 @@ func _process(delta: float) -> void:
 func _on_shoot_requested(tower_level: TowerLevel) -> void:
 	var projectile := _projectile_factory.create(
 		tower_level.projectile_stats,
-		_appearance.rotation,
-		AIMING_VARIANCE)
+		_appearance.rotation)
 
 	_appearance.animate_shoot()
 
@@ -48,9 +45,7 @@ func _on_effect_requested(effect_stats: EffectStats, enemies: Array[Enemy]) -> v
 	_appearance.animate_pulse()
 
 func _on_bolt_created(bolt_line: BoltLine) -> void:
-	print("Adding bolt as child")
-
-	bolt_line.rotation = _appearance.rotation
+	bolt_line.rotate(_appearance.rotation)
 
 	_appearance.animate_shoot()
 

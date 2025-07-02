@@ -1,9 +1,9 @@
 class_name ProjectileFactory
 
-func create(stats: TowerLevelStats, rotation: float, aiming_variance: float) -> Node2D:
+func create(stats: TowerLevelStats, rotation: float) -> Node2D:
 	var projectile_stats := ProjectileStats.new()
 
-	var variance := aiming_variance * (randf() - 0.5)
+	var variance := stats.get_accuracy_variance() * (randf() - 0.5)
 	var aim_direction := Vector2.RIGHT.rotated(rotation).rotated(variance)
 
 	projectile_stats.damage = stats.damage

@@ -33,6 +33,7 @@ func fire(bolt_stats: TowerLevelStats) -> BoltLine:
 	ray_cast_damage.process_enemies(ray_cast, bolt_stats)
 
 	var new_line: BoltLine = bolt_line.instantiate()
+	new_line.rotate(bolt_stats.get_accuracy_variance() * (randf() - 0.5))
 
 	new_line.ready.connect(
 		func() -> void:
