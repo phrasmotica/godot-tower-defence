@@ -4,7 +4,7 @@ extends UpgradeTowerButtonState
 var _money_after_upgrade := 0
 
 func _enter_tree() -> void:
-	print("UpgradeTowerButton is now upgrading")
+	print("%s is now upgrading" % get_button_name())
 
 	_button.tooltip.hide()
 
@@ -13,8 +13,6 @@ func _enter_tree() -> void:
 	TowerEvents.tower_upgrade_finished.connect(_on_upgrade_finished)
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)
 	TowerEvents.tower_deselected.connect(_on_tower_deselected)
-
-	TowerEvents.emit_upgrade_tower(_button.upgrade_index)
 
 func _on_money_changed(_old_money: int, new_money: int) -> void:
 	_money_after_upgrade = new_money

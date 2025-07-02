@@ -27,3 +27,6 @@ func update_affordability(money: int) -> void:
 			transition_state(UpgradeTowerButton.State.CANNOT_AFFORD)
 	else:
 		transition_state(UpgradeTowerButton.State.DISABLED)
+
+func get_button_name() -> String:
+	return "UpgradeTowerButton%d" % _button.upgrade_index
