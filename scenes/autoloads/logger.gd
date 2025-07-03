@@ -1,13 +1,14 @@
 @tool
 extends Node
 
-enum Level { FATAL, ERROR, INFO, DEBUG }
+enum Level { FATAL, ERROR, WARNING, INFO, DEBUG }
 
 const MIN_LEVEL := Level.INFO
 
 var _prefixes := {
 	Level.FATAL: "FTL",
 	Level.ERROR: "ERR",
+	Level.WARNING: "WRN",
 	Level.INFO: "INF",
 	Level.DEBUG: "DBG",
 }
@@ -23,6 +24,10 @@ func fatal(msg: String) -> void:
 func error(msg: String) -> void:
 	if Level.ERROR <= MIN_LEVEL:
 		_print_message(msg, Level.ERROR)
+
+func warning(msg: String) -> void:
+	if Level.WARNING <= MIN_LEVEL:
+		_print_message(msg, Level.WARNING)
 
 func info(msg: String) -> void:
 	if Level.INFO <= MIN_LEVEL:

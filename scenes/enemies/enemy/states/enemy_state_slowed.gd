@@ -7,7 +7,7 @@ func _enter_tree() -> void:
 	var effect := _state_data.get_effect()
 
 	if not effect or effect.effect_duration <= 0:
-		Logger.error("Effect does nothing!")
+		Logger.warning("Effect does nothing!")
 		transition_state(Enemy.State.MOVING)
 
 	_movement.slow(2)
