@@ -2,7 +2,7 @@ class_name TowerStateSelling
 extends TowerState
 
 func _enter_tree() -> void:
-	print("%s has started selling" % _info.get_name())
+	Logger.info("%s has started selling" % _info.get_name())
 
 	_tower.add_child(Shrinker.new(_tower))
 

@@ -2,12 +2,12 @@ class_name EnemyStateSlowed
 extends EnemyState
 
 func _enter_tree() -> void:
-	print("%s is now slowed" % _info.get_name())
+	Logger.info("%s is now slowed" % _info.get_name())
 
 	var effect := _state_data.get_effect()
 
 	if not effect or effect.effect_duration <= 0:
-		print("Effect does nothing!")
+		Logger.warning("Effect does nothing!")
 		transition_state(Enemy.State.MOVING)
 
 	_movement.slow(2)

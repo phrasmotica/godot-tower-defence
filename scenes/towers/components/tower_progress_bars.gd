@@ -47,7 +47,7 @@ func do_warmup() -> void:
 		display_mode = DisplayMode.WARMUP
 		warmup_bar.animate()
 	else:
-		print("Cannot do warmup, currently busy")
+		Logger.warning("Cannot do warmup, currently busy")
 
 func do_upgrade() -> void:
 	if display_mode == DisplayMode.NONE:
@@ -55,7 +55,7 @@ func do_upgrade() -> void:
 
 		upgrade_bar.animate()
 	else:
-		print("Cannot do upgrade, currently busy")
+		Logger.warning("Cannot do upgrade, currently busy")
 
 func _on_warmup_progress_bar_started() -> void:
 	warmup_started.emit()

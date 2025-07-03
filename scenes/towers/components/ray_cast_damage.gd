@@ -9,7 +9,7 @@ func process_enemies(ray_cast: RayCast2D, bolt_stats: TowerLevelStats):
 	elif bolt_stats.penetration_count > 0:
 		for i in range(bolt_stats.penetration_count + 1):
 			if enemy_collider != null:
-				print("Ray cast penetrating enemy " + str(i))
+				Logger.debug("Ray cast penetrating enemy %d" % i)
 				enemy_collider = process_enemy(ray_cast, enemy_collider, bolt_stats)
 	else:
 		process_enemy(ray_cast, enemy_collider, bolt_stats)

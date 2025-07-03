@@ -2,7 +2,7 @@ class_name TowerStateWarmup
 extends TowerState
 
 func _enter_tree() -> void:
-	print("%s is now warming up" % _info.get_name())
+	Logger.info("%s is now warming up" % _info.get_name())
 
 	_interaction.hide_visualiser()
 
@@ -21,7 +21,7 @@ func _on_mouse_exited() -> void:
 	_interaction.hide_visualiser()
 
 func _on_warmup_finished() -> void:
-	print("%s has finished warming up" % _info.get_name())
+	Logger.info("%s has finished warming up" % _info.get_name())
 
 	var base_level := _weaponry.install_base()
 

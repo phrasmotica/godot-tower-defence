@@ -30,7 +30,7 @@ func _ready() -> void:
 	set_active_path()
 
 func set_active_path() -> void:
-	print("Setting active path " + str(active_path_index))
+	Logger.debug("Setting active path %s" % active_path_index)
 
 	for i in range(paths.size()):
 		if i == active_path_index:
@@ -65,12 +65,10 @@ func _on_waves_began() -> void:
 
 func _on_path_mouse_validity_changed(is_valid: bool) -> void:
 	if is_valid:
-		# print("Valid area entered")
 		is_mouse_over_valid_area = true
 
 		PathInteraction.emit_mouse_validity_changed(true)
 	else:
-		# print("Valid area exited")
 		is_mouse_over_valid_area = false
 
 		PathInteraction.emit_mouse_validity_changed(false)

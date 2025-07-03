@@ -2,7 +2,7 @@ class_name UpgradeTowerButtonStateDisabled
 extends UpgradeTowerButtonState
 
 func _enter_tree() -> void:
-	print("%s is now disabled" % get_button_name())
+	Logger.info("%s is now disabled" % get_button_name())
 
 	_upgrade_level = _state_data.get_upgrade_level()
 	_appearance.set_upgrade_level(_upgrade_level)

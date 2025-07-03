@@ -2,18 +2,18 @@ class_name GameUIStateCreatingTower
 extends GameUIState
 
 func _enter_tree() -> void:
-	print("Game UI is now creating tower")
+	Logger.info("Game UI is now creating tower")
 
 	var tower_scene := _state_data.get_tower_scene()
 
 	var placing_tower: Tower = tower_scene.instantiate()
 
 	if not BankManager.can_afford(placing_tower.price):
-		print(placing_tower.name + " purchase failed: cannot afford")
+		Logger.error("%s purchase failed: cannot afford" % placing_tower.name)
 
 		transition_state(GameUI.State.ENABLED)
 
-	print("Purchasing " + placing_tower.name)
+	Logger.debug("Purchasing %s" % placing_tower.name)
 
 	placing_tower.hide()
 

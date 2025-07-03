@@ -11,10 +11,10 @@ func try_sell() -> void:
 	var selected_tower := _selector.get_current()
 
 	if not selected_tower:
-		print("Tower sell failed: no tower selected")
+		Logger.info("Tower sell failed: no tower selected")
 		return
 
-	print("Selling tower")
+	Logger.info("Selling tower")
 
 	selected_tower.deselect()
 	selected_tower.sell()

@@ -29,12 +29,18 @@ EnemyManager="*res://scenes/autoloads/enemy_manager.gd"
 EnemyEvents="*res://scenes/autoloads/enemy_events.gd"
 PathInteraction="*res://scenes/autoloads/path_interaction.gd"
 WaveEvents="*res://scenes/autoloads/waves_manager/wave_events.gd"
+Logger="*res://scenes/autoloads/logger.gd"
+Log="*res://addons/GoLogger/Log.tscn"
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/GoLogger/plugin.cfg")
 
 [input]
 

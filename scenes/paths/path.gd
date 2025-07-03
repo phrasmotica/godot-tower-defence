@@ -46,13 +46,9 @@ func add_enemy(enemy: Enemy) -> void:
 	path_waypoints.add_child(enemy)
 
 func _on_path_mouse_entered() -> void:
-	# print("Valid area entered")
-
 	mouse_validity_changed.emit(true)
 
 func _on_path_mouse_exited() -> void:
-	# print("Valid area exited")
-
 	mouse_validity_changed.emit(false)
 
 func _on_valid_placement_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:

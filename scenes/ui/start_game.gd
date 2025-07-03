@@ -4,13 +4,13 @@ func _ready():
 	show()
 
 func _on_play_button_0_pressed():
-	print("Playing path 0")
+	Logger.debug("Playing path 0")
 	hide()
 
 	GameEvents.emit_game_started(0)
 
 func _on_play_button_1_pressed():
-	print("Playing path 1")
+	Logger.debug("Playing path 1")
 	hide()
 
 	GameEvents.emit_game_started(1)

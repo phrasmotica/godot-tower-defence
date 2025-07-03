@@ -4,11 +4,11 @@ extends GameUIState
 var _placing_tower: Tower
 
 func _enter_tree() -> void:
-	print("Game UI is now placing tower")
+	Logger.info("Game UI is now placing tower")
 
 	_placing_tower = _state_data.get_placing_tower()
 	if not _placing_tower:
-		print("No tower to place!")
+		Logger.warning("No tower to place!")
 
 		transition_state(GameUI.State.ENABLED)
 

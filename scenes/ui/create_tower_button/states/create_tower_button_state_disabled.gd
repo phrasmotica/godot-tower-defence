@@ -2,7 +2,7 @@ class_name CreateTowerButtonStateDisabled
 extends CreateTowerButtonState
 
 func _enter_tree() -> void:
-	print("%s is now disabled" % get_button_name())
+	Logger.info("%s is now disabled" % get_button_name())
 
 	_button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 

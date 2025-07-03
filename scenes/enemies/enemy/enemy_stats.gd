@@ -10,5 +10,4 @@ func _ready() -> void:
 
 func take_damage(amount: float) -> float:
 	_current_health -= amount
-	# print("Took " + str(amount) + " damage, health is now " + str(_current_health))
 	return _current_health

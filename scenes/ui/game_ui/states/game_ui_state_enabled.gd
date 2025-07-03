@@ -2,7 +2,7 @@ class_name GameUIStateEnabled
 extends GameUIState
 
 func _enter_tree() -> void:
-	print("Game UI is now enabled")
+	Logger.info("Game UI is now enabled")
 
 	TowerEvents.tower_created.connect(_on_tower_created)
 	TowerEvents.selected_tower_changed.connect(_on_selected_tower_changed)

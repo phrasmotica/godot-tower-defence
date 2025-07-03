@@ -2,7 +2,7 @@ class_name UpgradeTowerButtonStateEnabled
 extends UpgradeTowerButtonState
 
 func _enter_tree() -> void:
-	print("%s is now enabled" % get_button_name())
+	Logger.info("%s is now enabled" % get_button_name())
 
 	_upgrade_level = _state_data.get_upgrade_level()
 	_appearance.set_upgrade_level(_upgrade_level)
@@ -25,7 +25,7 @@ func _enter_tree() -> void:
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed(_button.action_name):
-		print("%s upgrading via shortcut" % get_button_name())
+		Logger.info("%s upgrading via shortcut" % get_button_name())
 		TowerEvents.emit_upgrade_tower(_button.upgrade_index)
 
 func _on_money_changed(_old_money: int, new_money: int) -> void:
@@ -52,5 +52,5 @@ func _on_mouse_exited() -> void:
 	_appearance.hide_tooltip()
 
 func _on_pressed() -> void:
-	print("%s upgrading via button" % get_button_name())
+	Logger.info("%s upgrading via button" % get_button_name())
 	TowerEvents.emit_upgrade_tower(_button.upgrade_index)
