@@ -8,7 +8,7 @@ func _enter_tree() -> void:
 
 	_placing_tower = _state_data.get_placing_tower()
 	if not _placing_tower:
-		Logger.info("No tower to place!")
+		Logger.error("No tower to place!")
 
 		transition_state(GameUI.State.ENABLED)
 

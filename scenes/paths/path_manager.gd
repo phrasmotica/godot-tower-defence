@@ -30,7 +30,7 @@ func _ready() -> void:
 	set_active_path()
 
 func set_active_path() -> void:
-	Logger.info("Setting active path %s" % active_path_index)
+	Logger.debug("Setting active path %s" % active_path_index)
 
 	for i in range(paths.size()):
 		if i == active_path_index:

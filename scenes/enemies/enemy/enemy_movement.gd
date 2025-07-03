@@ -27,5 +27,5 @@ func halt() -> void:
 	_current_speed = 0
 
 func knockback(knockback_factor: float) -> void:
-	Logger.info("Knocking enemy back by factor of %.1f" % knockback_factor)
+	Logger.debug("Knocking enemy back by factor of %.1f" % knockback_factor)
 	_current_speed = _current_speed * (1 - (knockback_factor / 100.0))

@@ -43,12 +43,12 @@ func set_upgrade_level(tower: Tower) -> void:
 		_upgrade_level = null
 
 	if _upgrade_level:
-		Logger.info("%s does have upgrade index=%d" % [tower.name, _button.upgrade_index])
+		Logger.debug("%s does have upgrade index=%d" % [tower.name, _button.upgrade_index])
 	else:
 		if tower:
-			Logger.info("%s does NOT have upgrade index=%d" % [tower.name, _button.upgrade_index])
+			Logger.debug("%s does NOT have upgrade index=%d" % [tower.name, _button.upgrade_index])
 		else:
-			Logger.info("No tower is selected, disabling %s" % get_button_name())
+			Logger.debug("No tower is selected, disabling %s" % get_button_name())
 
 	resolve_state()
 

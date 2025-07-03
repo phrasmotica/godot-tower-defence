@@ -18,7 +18,7 @@ func _set_money(amount: int) -> void:
 	var old_money := _current_money
 
 	_current_money = amount
-	Logger.info("Now on %d money" % _current_money)
+	Logger.debug("Now on %d money" % _current_money)
 
 	emit_money_changed(old_money, _current_money)
 

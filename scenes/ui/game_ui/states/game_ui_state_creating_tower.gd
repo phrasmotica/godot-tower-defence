@@ -9,11 +9,11 @@ func _enter_tree() -> void:
 	var placing_tower: Tower = tower_scene.instantiate()
 
 	if not BankManager.can_afford(placing_tower.price):
-		Logger.info("%s purchase failed: cannot afford" % placing_tower.name)
+		Logger.error("%s purchase failed: cannot afford" % placing_tower.name)
 
 		transition_state(GameUI.State.ENABLED)
 
-	Logger.info("Purchasing %s" % placing_tower.name)
+	Logger.debug("Purchasing %s" % placing_tower.name)
 
 	placing_tower.hide()
 

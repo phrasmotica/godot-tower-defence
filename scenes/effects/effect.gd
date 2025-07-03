@@ -5,7 +5,7 @@ var effect_duration: float
 var enemy: Enemy
 
 func start_timer():
-	Logger.info("Effect duration %.1f" % effect_duration)
+	Logger.debug("Effect duration %.1f" % effect_duration)
 
 	var timer = get_tree().create_timer(effect_duration)
 

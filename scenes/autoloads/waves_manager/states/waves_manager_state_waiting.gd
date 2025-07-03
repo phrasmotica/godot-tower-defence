@@ -15,7 +15,7 @@ func send(wave: Wave) -> void:
 	Logger.info("Started sending wave %d" % wave.number)
 
 	if wave.resource_path.length() > 0:
-		Logger.info("Using %s resource" % wave.resource_path)
+		Logger.debug("Using %s resource" % wave.resource_path)
 
 	WaveEvents.emit_wave_sent(wave)
 

@@ -29,13 +29,13 @@ func _process(_delta: float) -> void:
 	_tower.global_position = get_viewport().get_mouse_position()
 
 func _on_path_area_entered() -> void:
-	Logger.info("%s entered path area" % _info.get_name())
+	Logger.debug("%s entered path area" % _info.get_name())
 	_is_valid_location = false
 
 	_interaction.error_look()
 
 func _on_path_area_exited() -> void:
-	Logger.info("%s exited path area" % _info.get_name())
+	Logger.debug("%s exited path area" % _info.get_name())
 	_is_valid_location = true
 
 	_interaction.default_look()
@@ -50,7 +50,7 @@ func _on_mouse_validity_changed(is_valid: bool) -> void:
 
 func _on_valid_area_clicked() -> void:
 	if not (_is_mouse_over_path and _is_valid_location):
-		Logger.info("Cannot place tower here!")
+		Logger.error("Cannot place tower here!")
 		return
 
 	Logger.info("Placed new %s" % _info.get_name())

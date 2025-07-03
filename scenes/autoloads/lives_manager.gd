@@ -19,7 +19,7 @@ func reset_lives() -> void:
 
 func add_lives(amount) -> void:
 	set_lives(max(0, current_lives + amount))
-	Logger.info("Now on %d lives" % current_lives)
+	Logger.debug("Now on %d lives" % current_lives)
 
 func set_lives(lives) -> void:
 	current_lives = lives
@@ -34,5 +34,5 @@ func _handle_enemy_reached_end(enemy: Enemy) -> void:
 	if is_dead:
 		return
 
-	Logger.info("%s reached end of path" % enemy.name)
+	Logger.debug("%s reached end of path" % enemy.name)
 	add_lives(-1)

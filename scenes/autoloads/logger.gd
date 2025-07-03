@@ -1,5 +1,36 @@
 @tool
 extends Node
 
+enum Level { FATAL, ERROR, INFO, DEBUG }
+
+const MIN_LEVEL := Level.INFO
+
+var _prefixes := {
+	Level.FATAL: "FTL",
+	Level.ERROR: "ERR",
+	Level.INFO: "INF",
+	Level.DEBUG: "DBG",
+}
+
+func _init() -> void:
+	if not Engine.is_editor_hint():
+		_print_message("Minimum logging level: %s" % _prefixes[MIN_LEVEL], Level.INFO)
+
+func fatal(msg: String) -> void:
+	if Level.FATAL <= MIN_LEVEL:
+		_print_message(msg, Level.FATAL)
+
+func error(msg: String) -> void:
+	if Level.ERROR <= MIN_LEVEL:
+		_print_message(msg, Level.ERROR)
+
 func info(msg: String) -> void:
-	print(msg)
+	if Level.INFO <= MIN_LEVEL:
+		_print_message(msg, Level.INFO)
+
+func debug(msg: String) -> void:
+	if Level.DEBUG <= MIN_LEVEL:
+		_print_message(msg, Level.DEBUG)
+
+func _print_message(msg: String, level: Level) -> void:
+	print("[%s] %s" % [_prefixes[level], msg])

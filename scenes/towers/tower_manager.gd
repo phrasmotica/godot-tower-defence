@@ -50,7 +50,7 @@ func deselect_tower() -> void:
 		selected_tower.deselect()
 		_tower_selector.reset_current()
 	else:
-		Logger.info("No tower is selected!")
+		Logger.debug("No tower is selected!")
 
 func try_upgrade(index: int) -> void:
 	_tower_upgrader.try_upgrade(index)
@@ -62,7 +62,7 @@ func select_tower(tower: Tower) -> void:
 	var selected_tower := _tower_selector.get_current()
 
 	if tower == selected_tower:
-		Logger.info("%s is already selected!" % tower.name)
+		Logger.debug("%s is already selected!" % tower.name)
 		return
 
 	if selected_tower:

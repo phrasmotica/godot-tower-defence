@@ -40,6 +40,6 @@ func get_next_wave() -> Wave:
 
 	var wave := _wave_factory.create()
 	if wave == null:
-		Logger.info("No more waves to send!")
+		Logger.debug("No more waves to send!")
 
 	return wave
