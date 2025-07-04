@@ -14,8 +14,9 @@ var range_sprite: AnimatedSprite2D = %Sprite2D
 func _ready() -> void:
 	_refresh()
 
+# TODO: update the current time in the sprite's shader material
+
 func _refresh() -> void:
-	# TODO: create a fancy shader for the sprite!
 	if range_sprite:
 		var range_scale := radius / 10
 		range_sprite.scale = range_scale * Vector2.ONE

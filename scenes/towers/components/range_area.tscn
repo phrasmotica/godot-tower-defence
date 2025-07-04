@@ -1,7 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkiugvcd885f7"]
+[gd_scene load_steps=7 format=3 uid="uid://bkiugvcd885f7"]
 
 [ext_resource type="Script" uid="uid://bu8yx8gaixode" path="res://scenes/towers/components/range_area.gd" id="1_gs8lo"]
 [ext_resource type="Texture2D" uid="uid://i2j4kvn0w7q4" path="res://assets/sprites/range.png" id="1_m2nxb"]
+[ext_resource type="Shader" uid="uid://dp5cq5s2ribhp" path="res://scenes/towers/components/range_area.gdshader" id="2_bn3un"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ur6ke"]
+shader = ExtResource("2_bn3un")
+shader_parameter/current_time = 0.0
+shader_parameter/ring_width = 0.007
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
 atlas = ExtResource("1_m2nxb")
@@ -23,4 +29,6 @@ script = ExtResource("1_gs8lo")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
+material = SubResource("ShaderMaterial_ur6ke")
+scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_ocubu")
