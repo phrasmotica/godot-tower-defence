@@ -1,4 +1,5 @@
-class_name Enemy extends PathFollow2D
+class_name Enemy
+extends Node2D
 
 enum State { MOVING, PARALYSED, POISONED, SLOWED, DYING }
 
@@ -26,6 +27,8 @@ var _info: EnemyInfo = null
 
 var _state_factory := EnemyStateFactory.new()
 var _current_state: EnemyState = null
+
+signal move_requested(amount: float)
 
 func _ready() -> void:
 	_info = EnemyInfo.new(name, bounty)
@@ -69,6 +72,9 @@ func set_max_health(amount: float) -> void:
 
 func scale_base_speed(factor: float) -> void:
 	movement.scale_base_speed(factor)
+
+func emit_move_requested(amount: float) -> void:
+	move_requested.emit(amount)
 
 func get_bounty() -> int:
 	return _info.get_bounty()

@@ -43,7 +43,23 @@ func start_game():
 	start_arrow.hide()
 
 func add_enemy(enemy: Enemy) -> void:
-	path_waypoints.add_child(enemy)
+	var path_follow := PathFollow2D.new()
+	path_follow.rotates = false
+	path_follow.loop = false
+
+	path_follow.add_child(enemy)
+
+	enemy.move_requested.connect(
+		func(amount: float) -> void:
+			if path_follow.progress_ratio < 1.0:
+				path_follow.progress += amount
+			else:
+				EnemyEvents.emit_enemy_reached_end(enemy)
+	)
+
+	enemy.tree_exited.connect(path_follow.queue_free)
+
+	path_waypoints.add_child(path_follow)
 
 func _on_path_mouse_entered() -> void:
 	mouse_validity_changed.emit(true)

@@ -41,10 +41,7 @@ func accelerate(delta: float) -> void:
 	_movement.accelerate(delta)
 
 func move(delta: float) -> void:
-	if _enemy.progress_ratio < 1.0:
-		_enemy.progress += delta * _movement.get_current_speed()
-	else:
-		EnemyEvents.emit_enemy_reached_end(_enemy)
+	_enemy.emit_move_requested(delta * _movement.get_current_speed())
 
 func can_be_slowed() -> bool:
 	return false
