@@ -76,7 +76,13 @@ func for_placing() -> void:
 
 func set_level(level: TowerLevel) -> void:
 	range_radius = level.get_range(true)
-	scan_duration = 10.0 / level.projectile_stats.rotate_speed
+
+	var new_scan_duration := 3.0
+
+	if level.projectile_stats:
+		new_scan_duration = 10.0 / level.projectile_stats.rotate_speed
+
+	scan_duration = new_scan_duration
 
 func default_look() -> void:
 	visualiser.show()
