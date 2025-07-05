@@ -1,78 +1,47 @@
+//	Radar shader v2 by Brian Smith (steampunkdemon.itch.io)
+//	MIT Licence
+
 shader_type canvas_item;
 
-uniform bool show_scan_line;
-uniform float ring_width:hint_range(0.005, 0.02);
+group_uniforms TimeParameters;
 
 uniform float current_time:hint_range(0.0, 1.0);
 
-bool is_in_scan_line(vec2 pos) {
-	float angle = atan(pos.y - 0.5, pos.x - 0.5);
+group_uniforms VisualParameters;
 
-	float actual_time = current_time;
-	if (actual_time > 0.5) {
-		actual_time -= 1.0;
-	}
+uniform bool show_trail;
+uniform vec4 beam_color : source_color = vec4(0.5, 1.0, 0.5, 1.0);
+uniform vec4 trail_color : source_color = vec4(0.0, 0.5, 0.0, 1.0);
+uniform float beam_width : hint_range(0.0, 0.05) = 0.003;
+uniform float trail_width : hint_range(0.0, 1.0) = 0.25;
 
-	return abs(angle - 2.0 * PI * actual_time) < 0.02;
-}
-
-float get_similarity_to_scan_line(vec2 pos) {
-	float angle = atan(pos.y - 0.5, pos.x - 0.5);
-	angle += PI;
-	
-	//if (current_time > 0.5) {
-		//angle -= PI;
-	//}
-	
-	//if (angle < 0.0) {
-		//angle += 2.0 * PI;
-	//}
-
-	float actual_time = current_time;
-	float scan_angle = 2.0 * PI * actual_time;
-	//scan_angle -= PI;
-	
-	//if (scan_angle > PI) {
-		//scan_angle -= 2.0 * PI;
-	//}
-	
-	//if (angle > 0.0 && scan_angle < 0.0) {
-		//angle += 2.0 * PI;
-	//}
-
-	float dist = scan_angle - angle;
-
-	if (dist < 0.0) {
-		return 0.0;
-	}
-
-	return 1.0 - dist;
-}
-
-bool is_in_border_ring(vec2 pos) {
-	float dist = distance(pos, vec2(0.5));
-
-	return dist > 0.5 - ring_width && dist < 0.5;
-}
-
-bool is_outside(vec2 pos) {
-	float dist = distance(pos, vec2(0.5));
-
-	return dist > 0.5;
+float greater_than(float x, float y) {
+	return max(sign(x - y), 0.0);
 }
 
 void fragment() {
-	if (show_scan_line) {
-		COLOR.rgb = vec3(0.0, 0.8, 0.0);
-		COLOR.a = 0.8 * get_similarity_to_scan_line(UV);
+	// these are our coordinates between (-1, -1) and (1, 1)
+	vec2 uv = UV * 2.0 - 1.0;
+
+	if (show_trail) {
+		// this is in the range [0, 1]
+		float angle = (atan(uv.y, uv.x) + PI) / (2.0 * PI);
+
+		// this is our progress through the animation
+		float current_beam_angle = current_time;
+
+		// wrap around to "before" the beam angle if we're ahead of it
+		angle = angle - 1.0 * greater_than(angle, current_beam_angle);
+
+		// render the trail
+		float trail_mix_amount = max(0.0, (1.0 - (current_beam_angle - angle) / trail_width));
+		COLOR.rgb = mix(COLOR.rgb, trail_color.rgb, trail_color.a * trail_mix_amount);
+
+		// render the beam
+		float beam_mix_amount = greater_than(angle, current_beam_angle - beam_width);
+		COLOR.rgb = mix(COLOR.rgb, beam_color.rgb, beam_color.a * beam_mix_amount);
 	}
 
-	if (is_in_border_ring(UV)) {
-		COLOR.rgb = vec3(0.1);
-		COLOR.a = 0.8;
-	}
-
-	if (is_outside(UV)) {
-		COLOR = vec4(0.0);
-	}
+	// don't show anything beyond the circle
+	COLOR.a *= greater_than(1.0, length(uv));
 }

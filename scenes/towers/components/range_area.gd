@@ -13,6 +13,9 @@ var radius := 3.0:
 @export
 var animate_shader := false:
 	set(value):
+		if value and not animate_shader:
+			_current_time = randf()
+
 		animate_shader = value
 
 		_refresh()
@@ -58,7 +61,7 @@ func _refresh() -> void:
 
 		_shader_updater.update_current_time(_current_time)
 
-	_shader_updater.set_bool("show_scan_line", animate_shader)
+	_shader_updater.set_bool("show_trail", animate_shader)
 
 func set_default_look() -> void:
 	range_sprite.modulate = Color.WHITE
