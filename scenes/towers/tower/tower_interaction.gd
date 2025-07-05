@@ -10,6 +10,13 @@ var range_radius := 3.0:
 		_refresh()
 
 @export
+var scan_duration := 5.0:
+	set(value):
+		scan_duration = value
+
+		_refresh()
+
+@export
 var show_firing_line := false:
 	set(value):
 		show_firing_line = value
@@ -54,6 +61,7 @@ func _ready() -> void:
 func _refresh() -> void:
 	if visualiser:
 		visualiser.radius = range_radius
+		visualiser.scan_duration = scan_duration
 		visualiser.show_bolt_line = show_firing_line
 
 func _on_level_projectile_stats_changed(stats: TowerLevelStats) -> void:
@@ -65,6 +73,10 @@ func _on_level_effect_stats_changed(stats: EffectStats) -> void:
 func for_placing() -> void:
 	visualiser.show_range()
 	visualiser.show_bolt_line = false
+
+func set_level(level: TowerLevel) -> void:
+	range_radius = level.get_range(true)
+	scan_duration = 10.0 / level.projectile_stats.rotate_speed
 
 func default_look() -> void:
 	visualiser.show()
@@ -85,6 +97,9 @@ func show_range() -> void:
 
 func hide_range() -> void:
 	visualiser.hide_range()
+
+func animate_range(animate: bool) -> void:
+	visualiser.animate_range(animate)
 
 func enable_mouse() -> void:
 	selection.enable_mouse()

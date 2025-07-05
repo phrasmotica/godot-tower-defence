@@ -48,6 +48,7 @@ func can_be_selected() -> bool:
 func select() -> void:
 	_interaction.show_visualiser()
 	_interaction.show_range()
+	_interaction.animate_range(true)
 
 	_interaction.show_selection()
 	_interaction.set_selected(true)
@@ -55,6 +56,7 @@ func select() -> void:
 func deselect() -> void:
 	_interaction.hide_visualiser()
 	_interaction.hide_range()
+	_interaction.animate_range(false)
 
 	_interaction.hide_selection()
 	_interaction.set_selected(false)

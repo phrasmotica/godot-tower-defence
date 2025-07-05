@@ -23,6 +23,13 @@ var radius := 3.0:
 
 		_refresh()
 
+@export
+var scan_duration := 5.0:
+	set(value):
+		scan_duration = value
+
+		_refresh()
+
 @onready
 var range_area: RangeArea = %RangeArea
 
@@ -37,6 +44,10 @@ func _refresh() -> void:
 	if range_area:
 		range_area.visible = show_range_area
 		range_area.radius = radius
+		range_area.time_period = scan_duration
+
+		# TODO: the trail size in the range area shader should vary
+		# with the time period. Smaller time period, larger trail size...
 
 func set_default_look() -> void:
 	range_area.set_default_look()
@@ -49,3 +60,6 @@ func show_range() -> void:
 
 func hide_range() -> void:
 	range_area.hide()
+
+func animate_range(animate: bool) -> void:
+	range_area.animate_shader = animate
