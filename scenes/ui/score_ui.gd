@@ -1,5 +1,5 @@
 @tool
-class_name ScoreUI extends Control
+class_name ScoreUI extends MarginContainer
 
 @export
 var money_label: AmountLabel

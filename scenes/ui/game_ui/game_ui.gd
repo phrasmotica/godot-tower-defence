@@ -1,4 +1,4 @@
-class_name GameUI extends Control
+class_name GameUI extends PanelContainer
 
 enum State { ENABLED, DISABLED, CREATING_TOWER, PLACING_TOWER }
 
