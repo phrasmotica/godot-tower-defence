@@ -14,62 +14,55 @@
 [ext_resource type="Texture2D" uid="uid://oe021etnj55y" path="res://assets/sprites/machine_gun.png" id="13_t1p3x"]
 [ext_resource type="PackedScene" uid="uid://dhsqr00mauv38" path="res://scenes/towers/machine_gun_tower.tscn" id="14_eddet"]
 
-[node name="CreateTowerUI" type="Control"]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 320.0
-offset_bottom = 560.0
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
+[node name="CreateTowerUI" type="PanelContainer"]
 offset_right = 320.0
 offset_bottom = 560.0
 theme = ExtResource("2_g6khh")
 theme_type_variation = &"FlatPanelContainer"
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="GridContainer" type="GridContainer" parent="PanelContainer/MarginContainer"]
+[node name="GridContainer" type="GridContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(280, 2.08165e-12)
 layout_mode = 2
 theme_override_constants/h_separation = 20
 theme_override_constants/v_separation = 20
 columns = 3
 
-[node name="GunTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="GunTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 tower = ExtResource("4_2mqtm")
 
-[node name="SlowTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="SlowTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 icon = ExtResource("5_tbci1")
 tower = ExtResource("6_f7sbe")
 action_name = &"tower_2"
 
-[node name="CannonTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="CannonTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 icon = ExtResource("7_axexm")
 tower = ExtResource("8_rw5cr")
 action_name = &"tower_3"
 
-[node name="SniperTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="SniperTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 icon = ExtResource("9_wfpgm")
 tower = ExtResource("10_cu7lm")
 action_name = &"tower_4"
 
-[node name="PoisonTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="PoisonTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 icon = ExtResource("11_c7jkd")
 tower = ExtResource("12_2e8k1")
 action_name = &"tower_5"
 
-[node name="MachineGunTowerButton" parent="PanelContainer/MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
+[node name="MachineGunTowerButton" parent="MarginContainer/GridContainer" instance=ExtResource("3_yi25p")]
 layout_mode = 2
 icon = ExtResource("13_t1p3x")
 tower = ExtResource("14_eddet")
