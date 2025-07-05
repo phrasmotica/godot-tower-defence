@@ -16,6 +16,39 @@ bool is_in_scan_line(vec2 pos) {
 	return abs(angle - 2.0 * PI * actual_time) < 0.02;
 }
 
+float get_similarity_to_scan_line(vec2 pos) {
+	float angle = atan(pos.y - 0.5, pos.x - 0.5);
+	angle += PI;
+	
+	//if (current_time > 0.5) {
+		//angle -= PI;
+	//}
+	
+	//if (angle < 0.0) {
+		//angle += 2.0 * PI;
+	//}
+
+	float actual_time = current_time;
+	float scan_angle = 2.0 * PI * actual_time;
+	//scan_angle -= PI;
+	
+	//if (scan_angle > PI) {
+		//scan_angle -= 2.0 * PI;
+	//}
+	
+	//if (angle > 0.0 && scan_angle < 0.0) {
+		//angle += 2.0 * PI;
+	//}
+
+	float dist = scan_angle - angle;
+
+	if (dist < 0.0) {
+		return 0.0;
+	}
+
+	return 1.0 - dist;
+}
+
 bool is_in_border_ring(vec2 pos) {
 	float dist = distance(pos, vec2(0.5));
 
@@ -29,9 +62,9 @@ bool is_outside(vec2 pos) {
 }
 
 void fragment() {
-	if (show_scan_line && is_in_scan_line(UV)) {
-		COLOR.rgb = vec3(0.7);
-		COLOR.a = 0.8;
+	if (show_scan_line) {
+		COLOR.rgb = vec3(0.0, 0.8, 0.0);
+		COLOR.a = 0.8 * get_similarity_to_scan_line(UV);
 	}
 
 	if (is_in_border_ring(UV)) {
