@@ -6,8 +6,10 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ur6ke"]
 shader = ExtResource("2_bn3un")
-shader_parameter/current_time = 0.0
+shader_parameter/show_scan_line = false
 shader_parameter/ring_width = 0.007
+shader_parameter/time_period = 5.0
+shader_parameter/current_time = 0.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xedab"]
 atlas = ExtResource("1_m2nxb")

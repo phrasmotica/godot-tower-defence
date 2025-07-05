@@ -1,17 +1,19 @@
 shader_type canvas_item;
 
-uniform float current_time;
+uniform bool show_scan_line;
 uniform float ring_width:hint_range(0.005, 0.02);
+
+uniform float current_time:hint_range(0.0, 1.0);
 
 bool is_in_scan_line(vec2 pos) {
 	float angle = atan(pos.y - 0.5, pos.x - 0.5);
-	
+
 	float actual_time = current_time;
-	while (actual_time > PI) {
-		actual_time -= 2.0 * PI;
+	if (actual_time > 0.5) {
+		actual_time -= 1.0;
 	}
-	
-	return abs(angle - actual_time) < 0.02;
+
+	return abs(angle - 2.0 * PI * actual_time) < 0.02;
 }
 
 bool is_in_border_ring(vec2 pos) {
@@ -27,7 +29,7 @@ bool is_outside(vec2 pos) {
 }
 
 void fragment() {
-	if (is_in_scan_line(UV)) {
+	if (show_scan_line && is_in_scan_line(UV)) {
 		COLOR.rgb = vec3(0.7);
 		COLOR.a = 0.8;
 	}

@@ -49,3 +49,6 @@ func show_range() -> void:
 
 func hide_range() -> void:
 	range_area.hide()
+
+func animate_range(animate: bool) -> void:
+	range_area.animate_shader = animate

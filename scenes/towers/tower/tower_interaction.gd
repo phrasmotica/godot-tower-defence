@@ -86,6 +86,9 @@ func show_range() -> void:
 func hide_range() -> void:
 	visualiser.hide_range()
 
+func animate_range(animate: bool) -> void:
+	visualiser.animate_range(animate)
+
 func enable_mouse() -> void:
 	selection.enable_mouse()
 
