@@ -73,9 +73,10 @@ script = ExtResource("2_8cfus")
 animation_player = NodePath("../AnimationPlayer")
 
 [node name="ScoreUI" parent="." instance=ExtResource("2_la3np")]
-offset_bottom = 160.0
+layout_mode = 0
 
 [node name="CreateTowerUI" parent="." instance=ExtResource("4_3pagb")]
+layout_mode = 0
 offset_top = 160.0
 offset_bottom = 720.0
 
