@@ -6,6 +6,8 @@ var animation_player: AnimationPlayer
 
 var _is_animated_in := false
 
+# TODO: use tweens for animations, instead of an AnimationPlayer
+
 func animate_show_ui() -> void:
 	animation_player.play("show_tower_ui")
 	_is_animated_in = true
