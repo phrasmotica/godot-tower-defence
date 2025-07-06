@@ -7,41 +7,47 @@
 [ext_resource type="Texture2D" uid="uid://dun8itp66olx0" path="res://assets/sprites/hearts.png" id="5_xllah"]
 [ext_resource type="Texture2D" uid="uid://qxe5204xcxf3" path="res://assets/sprites/alien-bug.png" id="6_stxc5"]
 
-[node name="ScoreUI" type="MarginContainer"]
+[node name="ScoreUI" type="MarginContainer" node_paths=PackedStringArray("money_label", "lives_label", "wave_label")]
+custom_minimum_size = Vector2(320, 0)
 offset_right = 320.0
-offset_bottom = 138.0
+offset_bottom = 84.0
 theme = ExtResource("2_27d4k")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
 script = ExtResource("1_tukbq")
+money_label = NodePath("HBoxContainer/VBoxContainer/MoneyLabel")
+lives_label = NodePath("HBoxContainer/VBoxContainer/LivesLabel")
+wave_label = NodePath("HBoxContainer/WaveLabel")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-custom_minimum_size = Vector2(192, 0)
+custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
 [node name="MoneyLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 icon = ExtResource("4_mrvhk")
+icon_size = 48
 
 [node name="LivesLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
-icon = ExtResource("5_xllah")
 text = "Lives"
+icon = ExtResource("5_xllah")
+icon_size = 48
 
 [node name="WaveLabel" parent="HBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 1
-icon = ExtResource("6_stxc5")
-text = "Wave"
-vertical_layout = true
 default_text = "-"
+text = "Wave"
+icon = ExtResource("6_stxc5")
+icon_size = 48
+vertical_layout = true
+amount_text_size = 40
