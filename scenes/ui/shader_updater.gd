@@ -1,4 +1,4 @@
-class_name ShaderTimeUpdater
+class_name ShaderUpdater
 
 var _material: ShaderMaterial = null
 

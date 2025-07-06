@@ -78,13 +78,13 @@ var text_label: Label = %Text
 @onready
 var amount_label: Label = %Amount
 
-var _icon_updater: ShaderTimeUpdater = null
+var _icon_updater: ShaderUpdater = null
 
 func _ready() -> void:
 	var icon_material := texture_rect.material as ShaderMaterial
 	assert(icon_material)
 
-	_icon_updater = ShaderTimeUpdater.new(icon_material)
+	_icon_updater = ShaderUpdater.new(icon_material)
 
 	_refresh()
 

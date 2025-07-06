@@ -13,14 +13,14 @@ var time_period := 1.0:
 @onready
 var sprite: AnimatedSprite2D = %Sprite
 
-var _shader_updater: ShaderTimeUpdater = null
+var _shader_updater: ShaderUpdater = null
 var _current_time := 0.0
 
 func _ready() -> void:
 	var explosion_material := sprite.material as ShaderMaterial
 	assert(explosion_material)
 
-	_shader_updater = ShaderTimeUpdater.new(explosion_material)
+	_shader_updater = ShaderUpdater.new(explosion_material)
 	_shader_updater.update_time_period(time_period)
 
 func _process(delta: float) -> void:
