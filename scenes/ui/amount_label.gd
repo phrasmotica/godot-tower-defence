@@ -57,6 +57,13 @@ var vertical_layout := false:
 		_refresh()
 
 @export
+var abbreviate_amount := false:
+	set(value):
+		abbreviate_amount = value
+
+		_refresh()
+
+@export
 var amount_text_size := 28:
 	set(value):
 		amount_text_size = value
@@ -147,4 +154,21 @@ func _refresh() -> void:
 			text_label.text = text
 
 	if amount_label:
-		amount_label.text = default_text if (default_text.length() > 0 and amount == 0) else str(amount)
+		amount_label.text = _compute_amount_text()
+
+func _compute_amount_text() -> String:
+	if amount <= 0 and default_text.length() > 0:
+		return default_text
+
+	if abbreviate_amount:
+		# TODO: these abbreviations aren't perfect... here are some errors:
+		# 1005 => 1.00k but 1006 => 1.01k
+		# 999994 => 999.99k but 999995 => 1000.00k
+		# 999999 => 1000.00k but 1000000 => 1.00m
+		if amount >= 1000000.0:
+			return "%.2fm" % float(amount / 1000000.0)
+
+		if amount >= 1000.0:
+			return "%.2fk" % float(amount / 1000.0)
+
+	return str(amount)
