@@ -1,14 +1,14 @@
 @tool
 class_name ScoreUI extends MarginContainer
 
-@export
-var money_label: AmountLabel
+@onready
+var money_label: AmountLabel = %MoneyLabel
 
-@export
-var lives_label: AmountLabel
+@onready
+var lives_label: AmountLabel = %LivesLabel
 
-@export
-var wave_label: AmountLabel
+@onready
+var wave_label: AmountLabel = %WaveLabel
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():

@@ -14,7 +14,7 @@ shader_parameter/replacement_colour = Color(1, 1, 1, 1)
 offset_right = 160.0
 offset_bottom = 40.0
 theme = ExtResource("1_nsib7")
-theme_override_constants/separation = 20
+theme_override_constants/separation = 10
 script = ExtResource("1_n4uao")
 text = "Money"
 
