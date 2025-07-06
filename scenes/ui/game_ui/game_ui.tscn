@@ -36,7 +36,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CreateTowerUI" parent="VBoxContainer" instance=ExtResource("4_3pagb")]
-custom_minimum_size = Vector2(0, 305)
+custom_minimum_size = Vector2(0, 294)
 layout_mode = 2
 
 [node name="TowerUIPusher" parent="VBoxContainer" node_paths=PackedStringArray("to_push") instance=ExtResource("7_dqr6q")]

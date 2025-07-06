@@ -13,3 +13,6 @@ func update_current_time(current_time: float) -> void:
 
 func set_bool(param: StringName, value: bool) -> void:
 	_material.set_shader_parameter(param, value)
+
+func set_color(param: StringName, value: Color) -> void:
+	_material.set_shader_parameter(param, value)

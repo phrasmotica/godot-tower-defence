@@ -33,10 +33,17 @@ var icon: Texture2D:
 
 		_refresh()
 
-@export
-var icon_size := 40:
+@export_range(32.0, 128.0)
+var icon_size := 40.0:
 	set(value):
 		icon_size = value
+
+		_refresh()
+
+@export
+var icon_colour := Color.WHITE:
+	set(value):
+		icon_colour = value
 
 		_refresh()
 
@@ -71,10 +78,20 @@ var text_label: Label = %Text
 @onready
 var amount_label: Label = %Amount
 
+var _icon_updater: ShaderTimeUpdater = null
+
 func _ready() -> void:
+	var icon_material := texture_rect.material as ShaderMaterial
+	assert(icon_material)
+
+	_icon_updater = ShaderTimeUpdater.new(icon_material)
+
 	_refresh()
 
 func _refresh() -> void:
+	if _icon_updater:
+		_icon_updater.set_color("replacement_colour", icon_colour)
+
 	if amount_label:
 		amount_label.add_theme_font_size_override("font_size", amount_text_size)
 

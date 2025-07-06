@@ -33,12 +33,14 @@ alignment = 1
 layout_mode = 2
 icon = ExtResource("4_mrvhk")
 icon_size = 48
+icon_colour = Color(1, 1, 0, 1)
 
 [node name="LivesLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
 layout_mode = 2
 text = "Lives"
 icon = ExtResource("5_xllah")
 icon_size = 48
+icon_colour = Color(1, 0.054902, 0.654902, 1)
 
 [node name="WaveLabel" parent="HBoxContainer" instance=ExtResource("3_3bjug")]
 layout_mode = 2
@@ -48,6 +50,7 @@ alignment = 1
 default_text = "-"
 text = "Wave"
 icon = ExtResource("6_stxc5")
-icon_size = 48
+icon_size = 64
+icon_colour = Color(0.778707, 0.879066, 0.890793, 1)
 vertical_layout = true
 amount_text_size = 40

@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://diwd7nkeshej7"]
+[gd_scene load_steps=5 format=3 uid="uid://diwd7nkeshej7"]
 
 [ext_resource type="Script" uid="uid://dauvu8db80uqs" path="res://scenes/ui/amount_label.gd" id="1_n4uao"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_nsib7"]
+[ext_resource type="Shader" uid="uid://bb2tbbee7yt1" path="res://scenes/ui/ui_icon.gdshader" id="4_pbv33"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8tr1b"]
+resource_local_to_scene = true
+shader = ExtResource("4_pbv33")
+shader_parameter/alpha_threshold = 0.1
+shader_parameter/replacement_colour = Color(1, 1, 1, 1)
 
 [node name="AmountLabel" type="HBoxContainer"]
 offset_right = 160.0
@@ -26,6 +33,7 @@ theme_override_constants/separation = 0
 [node name="TextureRect" type="TextureRect" parent="HeaderContainer"]
 unique_name_in_owner = true
 visible = false
+material = SubResource("ShaderMaterial_8tr1b")
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 expand_mode = 4
