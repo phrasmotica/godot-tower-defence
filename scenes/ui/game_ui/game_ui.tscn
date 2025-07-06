@@ -1,65 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://drho24vtc7gs3"]
+[gd_scene load_steps=8 format=3 uid="uid://drho24vtc7gs3"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_8cfus"]
 [ext_resource type="Script" uid="uid://8pgxstn4vsio" path="res://scenes/ui/game_ui/game_ui.gd" id="2_2lwfb"]
 [ext_resource type="Script" uid="uid://b6ik7b5f4fgkn" path="res://scenes/ui/game_ui/game_ui_appearance.gd" id="2_8cfus"]
 [ext_resource type="PackedScene" uid="uid://6y0ndmyl14yj" path="res://scenes/ui/score_ui.tscn" id="2_la3np"]
 [ext_resource type="PackedScene" uid="uid://dmydv5g0nq3jg" path="res://scenes/ui/create_tower_ui.tscn" id="4_3pagb"]
+[ext_resource type="PackedScene" uid="uid://dcfg7v7h8a7ks" path="res://scenes/ui/vertical_pusher.tscn" id="7_dqr6q"]
 [ext_resource type="PackedScene" uid="uid://cdtbovc5xoi4i" path="res://scenes/ui/tower_ui.tscn" id="14_yox6r"]
-
-[sub_resource type="Animation" id="Animation_qr7uh"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CreateTowerUI:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 532)]
-}
-
-[sub_resource type="Animation" id="Animation_4emn7"]
-resource_name = "hide_tower_ui"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CreateTowerUI:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 263), Vector2(0, 532)]
-}
-
-[sub_resource type="Animation" id="Animation_fmc87"]
-resource_name = "show_tower_ui"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CreateTowerUI:custom_minimum_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(0, 532), Vector2(0, 263)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fjgy4"]
-_data = {
-&"RESET": SubResource("Animation_qr7uh"),
-&"hide_tower_ui": SubResource("Animation_4emn7"),
-&"show_tower_ui": SubResource("Animation_fmc87")
-}
 
 [node name="GameUI" type="PanelContainer"]
 offset_right = 320.0
@@ -68,16 +15,10 @@ theme = ExtResource("1_8cfus")
 theme_type_variation = &"FlatPanelContainer"
 script = ExtResource("2_2lwfb")
 
-[node name="Appearance" type="Node" parent="." node_paths=PackedStringArray("animation_player")]
+[node name="Appearance" type="Node" parent="." node_paths=PackedStringArray("tower_ui_pusher")]
 unique_name_in_owner = true
 script = ExtResource("2_8cfus")
-animation_player = NodePath("../AnimationPlayer")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-root_node = NodePath("../VBoxContainer")
-libraries = {
-&"": SubResource("AnimationLibrary_fjgy4")
-}
+tower_ui_pusher = NodePath("../VBoxContainer/TowerUIPusher")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
@@ -95,12 +36,12 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CreateTowerUI" parent="VBoxContainer" instance=ExtResource("4_3pagb")]
-custom_minimum_size = Vector2(0, 532)
+custom_minimum_size = Vector2(0, 273)
 layout_mode = 2
 
-[node name="Spacer3" type="Control" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="TowerUIPusher" parent="VBoxContainer" node_paths=PackedStringArray("to_push") instance=ExtResource("7_dqr6q")]
 layout_mode = 2
+to_push = NodePath("TowerUI")
 
-[node name="TowerUI" parent="VBoxContainer" instance=ExtResource("14_yox6r")]
+[node name="TowerUI" parent="VBoxContainer/TowerUIPusher" instance=ExtResource("14_yox6r")]
 layout_mode = 2
