@@ -18,6 +18,9 @@ func _ready() -> void:
 
 		WaveEvents.wave_sent.connect(_on_wave_sent)
 
+		set_money(BankManager.get_money())
+		set_lives(LivesManager.get_lives())
+
 func _on_bank_manager_money_changed(_old_money: int, new_money: int) -> void:
 	set_money(new_money)
 
