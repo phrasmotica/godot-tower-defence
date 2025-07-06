@@ -2,11 +2,20 @@
 class_name AmountLabel extends HBoxContainer
 
 @export
-var icon: Texture2D:
+var amount := 0:
 	set(value):
-		icon = value
+		amount = value
 
 		_refresh()
+
+@export
+var default_text := "":
+	set(value):
+		default_text = value
+
+		_refresh()
+
+@export_group("Label")
 
 @export
 var text := "":
@@ -15,12 +24,23 @@ var text := "":
 
 		_refresh()
 
+@export_group("Icon")
+
 @export
-var amount := 0:
+var icon: Texture2D:
 	set(value):
-		amount = value
+		icon = value
 
 		_refresh()
+
+@export
+var icon_size := 40:
+	set(value):
+		icon_size = value
+
+		_refresh()
+
+@export_group("Layout")
 
 @export
 var vertical_layout := false:
@@ -30,9 +50,9 @@ var vertical_layout := false:
 		_refresh()
 
 @export
-var default_text := "":
+var amount_text_size := 28:
 	set(value):
-		default_text = value
+		amount_text_size = value
 
 		_refresh()
 
@@ -55,6 +75,9 @@ func _ready() -> void:
 	_refresh()
 
 func _refresh() -> void:
+	if amount_label:
+		amount_label.add_theme_font_size_override("font_size", amount_text_size)
+
 	if vertical_layout:
 		alignment = BoxContainer.ALIGNMENT_CENTER
 
@@ -86,7 +109,7 @@ func _refresh() -> void:
 
 		if amount_label:
 			amount_label.reparent(self)
-			amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_RIGHT
+			amount_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT if icon else HORIZONTAL_ALIGNMENT_RIGHT
 
 	if icon:
 		if text_label:
@@ -96,6 +119,7 @@ func _refresh() -> void:
 		if texture_rect:
 			texture_rect.show()
 			texture_rect.texture = icon
+			texture_rect.custom_minimum_size = icon_size * Vector2.ONE
 	else:
 		if texture_rect:
 			texture_rect.hide()
