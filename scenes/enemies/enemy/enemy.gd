@@ -65,8 +65,9 @@ func switch_state(state: State, state_data := EnemyStateData.new()) -> void:
 	call_deferred("add_child", _current_state)
 
 func set_max_health(amount: float) -> void:
+	# TODO: create a better abstraction in EnemyStats for this logic
 	stats.starting_health = amount
-	stats.current_health = amount
+	stats.set_current_health(amount)
 
 	appearance.set_max_health(amount)
 
