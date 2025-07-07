@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dcfg7v7h8a7ks"]
+
+[ext_resource type="Script" uid="uid://3nmmaneojxe4" path="res://scenes/ui/vertical_pusher.gd" id="1_38mhx"]
+
+[node name="VerticalPusher" type="VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 100.0
+theme_override_constants/separation = 0
+script = ExtResource("1_38mhx")
+
+[node name="Pusher" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 2

@@ -2,15 +2,13 @@ class_name GameUIAppearance
 extends Node
 
 @export
-var animation_player: AnimationPlayer
+var tower_ui_pusher: VerticalPusher
 
-var _is_animated_in := false
+func hide_tower_ui() -> void:
+	tower_ui_pusher.progress = 1.0
 
 func animate_show_ui() -> void:
-	animation_player.play("show_tower_ui")
-	_is_animated_in = true
+	tower_ui_pusher.animate_pull()
 
 func animate_hide_ui() -> void:
-	if _is_animated_in:
-		animation_player.play("hide_tower_ui")
-		_is_animated_in = false
+	tower_ui_pusher.animate_push()

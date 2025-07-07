@@ -28,4 +28,4 @@ func sort_far(e: Enemy, f: Enemy, pos: Vector2):
 	return not sort_near(e, f, pos)
 
 func sort_strong(e: Enemy, f: Enemy):
-	return e.stats.current_health > f.stats.current_health
+	return e.stats.get_current_health() > f.stats.get_current_health()

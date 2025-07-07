@@ -5,34 +5,26 @@
 [ext_resource type="PackedScene" uid="uid://dx8exrpefyqrk" path="res://scenes/ui/upgrade_tower_button/upgrade_tower_button.tscn" id="2_sf8mk"]
 [ext_resource type="PackedScene" uid="uid://4kglokib7mv3" path="res://scenes/ui/sell_button.tscn" id="4_40co4"]
 
-[node name="TowerUI" type="Control" node_paths=PackedStringArray("tower_name_label", "sell_button")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 320.0
-offset_bottom = 300.0
-script = ExtResource("1_w24hd")
-tower_name_label = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/TowerNameLabel")
-sell_button = NodePath("TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton")
-
-[node name="TowerPanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
+[node name="TowerUI" type="PanelContainer"]
 offset_right = 320.0
 offset_bottom = 300.0
 theme = ExtResource("1_jh88n")
 theme_type_variation = &"SecondaryPanelContainer"
+script = ExtResource("1_w24hd")
 
-[node name="MarginContainer" type="MarginContainer" parent="TowerPanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 custom_minimum_size = Vector2(0, 62.195)
 layout_mode = 2
 
-[node name="TowerNameLabel" type="Label" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+[node name="TowerNameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 43)
 layout_mode = 2
 theme_type_variation = &"HeaderSmall"
@@ -40,7 +32,8 @@ theme_override_font_sizes/font_size = 32
 text = "Gun"
 autowrap_mode = 2
 
-[node name="TargetModeOptions" type="OptionButton" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+[node name="TargetModeOptions" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 focus_mode = 0
 selected = 0
@@ -52,20 +45,20 @@ popup/item_1/id = 1
 popup/item_2/text = "Target Strong"
 popup/item_2/id = 2
 
-[node name="Spacer" type="Control" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="TowerPanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 20
 
-[node name="UpgradeButton0" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
+[node name="UpgradeButton0" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Upgrade 0"
@@ -73,7 +66,7 @@ text_overrun_behavior = 3
 action_name = &"tower_upgrade_0"
 align_tooltip_bottom = true
 
-[node name="UpgradeButton1" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
+[node name="UpgradeButton1" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("2_sf8mk")]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 text = "Upgrade long name"
@@ -82,8 +75,6 @@ action_name = &"tower_upgrade_1"
 upgrade_index = 1
 align_tooltip_bottom = true
 
-[node name="SellButton" parent="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_40co4")]
+[node name="SellButton" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("4_40co4")]
+unique_name_in_owner = true
 layout_mode = 2
-
-[connection signal="item_selected" from="TowerPanelContainer/MarginContainer/VBoxContainer/TargetModeOptions" to="." method="_on_target_mode_options_item_selected"]
-[connection signal="sell_tower" from="TowerPanelContainer/MarginContainer/VBoxContainer/HBoxContainer/SellButton" to="." method="_on_sell_button_sell_tower"]

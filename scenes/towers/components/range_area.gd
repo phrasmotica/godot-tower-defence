@@ -31,7 +31,7 @@ var time_period := 5.0:
 @onready
 var range_sprite: AnimatedSprite2D = %Sprite2D
 
-var _shader_updater: ShaderTimeUpdater = null
+var _shader_updater: ShaderUpdater = null
 var _current_time := 0.0
 
 func _ready() -> void:
@@ -40,7 +40,7 @@ func _ready() -> void:
 	var range_material := range_sprite.material as ShaderMaterial
 	assert(range_material)
 
-	_shader_updater = ShaderTimeUpdater.new(range_material)
+	_shader_updater = ShaderUpdater.new(range_material)
 	_shader_updater.update_time_period(time_period)
 
 func _process(delta: float) -> void:

@@ -17,6 +17,9 @@ func reset_lives() -> void:
 	set_lives(STARTING_LIVES)
 	Logger.info("Resetting to %d lives" % STARTING_LIVES)
 
+func get_lives() -> int:
+	return current_lives
+
 func add_lives(amount) -> void:
 	set_lives(max(0, current_lives + amount))
 	Logger.debug("Now on %d lives" % current_lives)

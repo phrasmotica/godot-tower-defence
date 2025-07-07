@@ -1,49 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://6y0ndmyl14yj"]
+[gd_scene load_steps=7 format=3 uid="uid://6y0ndmyl14yj"]
 
 [ext_resource type="Script" uid="uid://cwu1h5vgvn0pa" path="res://scenes/ui/score_ui.gd" id="1_tukbq"]
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="2_27d4k"]
 [ext_resource type="PackedScene" uid="uid://diwd7nkeshej7" path="res://scenes/ui/amount_label.tscn" id="3_3bjug"]
+[ext_resource type="Texture2D" uid="uid://dwss1bls3bl18" path="res://assets/sprites/two-coins.png" id="4_mrvhk"]
+[ext_resource type="Texture2D" uid="uid://dun8itp66olx0" path="res://assets/sprites/hearts.png" id="5_xllah"]
+[ext_resource type="Texture2D" uid="uid://qxe5204xcxf3" path="res://assets/sprites/alien-bug.png" id="6_stxc5"]
 
-[node name="ScoreUI" type="Control" node_paths=PackedStringArray("money_label", "lives_label", "wave_label")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 320.0
-offset_bottom = 180.0
-script = ExtResource("1_tukbq")
-money_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/MoneyLabel")
-lives_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/LivesLabel")
-wave_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/WaveLabel")
-
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
+[node name="ScoreUI" type="MarginContainer"]
+custom_minimum_size = Vector2(320, 0)
 offset_right = 320.0
 offset_bottom = 160.0
 theme = ExtResource("2_27d4k")
-theme_type_variation = &"FlatPanelContainer"
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
-layout_mode = 2
-theme = ExtResource("2_27d4k")
 theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 20
+script = ExtResource("1_tukbq")
+metadata/_edit_vertical_guides_ = [40.0, 80.0, 120.0, 160.0, 200.0, 240.0, 280.0, 320.0]
+metadata/_edit_horizontal_guides_ = [40.0, 80.0, 120.0, 160.0]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+custom_minimum_size = Vector2(170, 0)
 layout_mode = 2
 theme_override_constants/separation = 10
+alignment = 1
 
-[node name="MoneyLabel" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
+[node name="MoneyLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
+unique_name_in_owner = true
 layout_mode = 2
+icon = ExtResource("4_mrvhk")
+icon_size = 64.0
+icon_colour = Color(1, 1, 0, 1)
+amount_text_size = 32
 
-[node name="LivesLabel" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
+[node name="LivesLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Lives"
+icon = ExtResource("5_xllah")
+icon_size = 64.0
+icon_colour = Color(1, 0.054902, 0.654902, 1)
+amount_text_size = 32
 
-[node name="WaveLabel" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
-custom_minimum_size = Vector2(0, 0)
+[node name="WaveLabel" parent="HBoxContainer" instance=ExtResource("3_3bjug")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-text = "Wave"
-amount = 0
+size_flags_vertical = 8
+alignment = 1
 default_text = "-"
+text = "Wave"
+icon = ExtResource("6_stxc5")
+icon_size = 92.0
+icon_colour = Color(0.778707, 0.879066, 0.890793, 1)
+vertical_layout = true
+amount_text_size = 40

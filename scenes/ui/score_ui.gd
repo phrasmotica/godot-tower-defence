@@ -1,14 +1,14 @@
 @tool
-class_name ScoreUI extends Control
+class_name ScoreUI extends MarginContainer
 
-@export
-var money_label: AmountLabel
+@onready
+var money_label: AmountLabel = %MoneyLabel
 
-@export
-var lives_label: AmountLabel
+@onready
+var lives_label: AmountLabel = %LivesLabel
 
-@export
-var wave_label: AmountLabel
+@onready
+var wave_label: AmountLabel = %WaveLabel
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -17,6 +17,9 @@ func _ready() -> void:
 		LivesManager.lives_changed.connect(_on_lives_manager_lives_changed)
 
 		WaveEvents.wave_sent.connect(_on_wave_sent)
+
+		set_money(BankManager.get_money())
+		set_lives(LivesManager.get_lives())
 
 func _on_bank_manager_money_changed(_old_money: int, new_money: int) -> void:
 	set_money(new_money)

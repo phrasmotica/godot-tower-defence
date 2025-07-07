@@ -1,11 +1,14 @@
 @tool
-class_name TowerUI extends Control
+class_name TowerUI extends PanelContainer
 
-@export
-var tower_name_label: Label
+@onready
+var tower_name_label: Label = %TowerNameLabel
 
-@export
-var sell_button: SellButton
+@onready
+var target_mode_options: OptionButton = %TargetModeOptions
+
+@onready
+var sell_button: SellButton = %SellButton
 
 func _ready() -> void:
 	if not Engine.is_editor_hint():
@@ -14,7 +17,11 @@ func _ready() -> void:
 
 		TowerEvents.tower_upgrade_finished.connect(_on_tower_upgrade_finished)
 
-func set_tower(tower: Tower):
+		target_mode_options.item_selected.connect(_on_target_mode_options_item_selected)
+
+		sell_button.sell_tower.connect(_on_sell_button_sell_tower)
+
+func set_tower(tower: Tower) -> void:
 	tower_name_label.text = tower.tower_name if tower else ""
 
 	sell_button.set_tower(tower)
