@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://dgtufrjl0qobf"]
+[gd_scene load_steps=11 format=3 uid="uid://dgtufrjl0qobf"]
 
 [ext_resource type="Script" uid="uid://6y6dgm6dwokl" path="res://scenes/towers/tower_manager.gd" id="5_rtba5"]
 [ext_resource type="Script" uid="uid://b6cvfk5q3srt7" path="res://scenes/projectiles/projectile_container.gd" id="6_0tnpc"]
 [ext_resource type="PackedScene" uid="uid://b2hg1tskkcs4k" path="res://scenes/ui/tint.tscn" id="6_gee14"]
+[ext_resource type="PackedScene" uid="uid://buvg0qrqisu1m" path="res://scenes/ui/wave_ui/wave_ui.tscn" id="8_vtaks"]
 [ext_resource type="Script" uid="uid://uc48toghoyoj" path="res://scenes/paths/path_manager.gd" id="8_wg70s"]
 [ext_resource type="PackedScene" uid="uid://bfpflw4sl38vd" path="res://scenes/ui/game_over.tscn" id="9_2ng1j"]
 [ext_resource type="PackedScene" uid="uid://cwre1fwtm2nge" path="res://scenes/paths/path_0.tscn" id="9_f2e1u"]
@@ -44,6 +45,10 @@ anchor_right = 1.0
 offset_left = -320.0
 offset_right = 0.0
 grow_horizontal = 0
+
+[node name="WaveUI" parent="CanvasLayer" instance=ExtResource("8_vtaks")]
+offset_top = 720.0
+offset_bottom = 800.0
 
 [node name="OverlayCanvas" type="CanvasLayer" parent="."]
 

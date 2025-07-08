@@ -10,7 +10,7 @@
 
 [node name="GameUI" type="PanelContainer"]
 offset_right = 320.0
-offset_bottom = 720.0
+offset_bottom = 800.0
 theme = ExtResource("1_8cfus")
 theme_type_variation = &"FlatPanelContainer"
 script = ExtResource("2_2lwfb")
@@ -36,7 +36,7 @@ custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CreateTowerUI" parent="VBoxContainer" instance=ExtResource("4_3pagb")]
-custom_minimum_size = Vector2(0, 278)
+custom_minimum_size = Vector2(0, 358)
 layout_mode = 2
 
 [node name="TowerUIPusher" parent="VBoxContainer" node_paths=PackedStringArray("to_push") instance=ExtResource("7_dqr6q")]
