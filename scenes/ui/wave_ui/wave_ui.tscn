@@ -1,0 +1,85 @@
+[gd_scene load_steps=6 format=3 uid="uid://buvg0qrqisu1m"]
+
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_o5eac"]
+[ext_resource type="PackedScene" uid="uid://c4i4eqvva8ifq" path="res://scenes/ui/wave_ui/wave_panel.tscn" id="2_7tjou"]
+[ext_resource type="PackedScene" uid="uid://1opbwqrawi72" path="res://scenes/ui/wave_ui/icon_button.tscn" id="2_gyaw7"]
+[ext_resource type="Texture2D" uid="uid://bj1lr0s437xu6" path="res://assets/sprites/next.png" id="2_lacf5"]
+[ext_resource type="Texture2D" uid="uid://dcl0y1nleeshe" path="res://assets/sprites/fast-forward-disabled.png" id="3_1vnf5"]
+
+[node name="WaveUI" type="PanelContainer"]
+offset_right = 960.0
+offset_bottom = 80.0
+theme = ExtResource("1_o5eac")
+theme_type_variation = &"WavePanelContainer"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="NextButton" parent="MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("2_gyaw7")]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+texture = ExtResource("2_lacf5")
+texture_colour = Color(0, 0.713726, 0.243137, 1)
+
+[node name="SpeedButton" parent="MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("2_gyaw7")]
+custom_minimum_size = Vector2(100, 60)
+layout_mode = 2
+texture = ExtResource("3_1vnf5")
+texture_size = Vector2(48, 48)
+texture_colour = Color(1, 0.301961, 0, 1)
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+horizontal_scroll_mode = 3
+vertical_scroll_mode = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="WavePanel0" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel1" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel2" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel3" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel4" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel5" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel6" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel7" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel8" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
+
+[node name="WavePanel9" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+layout_mode = 2
