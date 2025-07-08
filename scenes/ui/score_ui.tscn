@@ -10,7 +10,7 @@
 [node name="ScoreUI" type="MarginContainer"]
 custom_minimum_size = Vector2(320, 0)
 offset_right = 320.0
-offset_bottom = 160.0
+offset_bottom = 133.0
 theme = ExtResource("2_27d4k")
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_right = 20
@@ -32,29 +32,28 @@ alignment = 1
 unique_name_in_owner = true
 layout_mode = 2
 icon = ExtResource("4_mrvhk")
-icon_size = 64.0
+icon_size = 48.0
 icon_colour = Color(1, 1, 0, 1)
-amount_text_size = 32
+abbreviate_amount = true
 
 [node name="LivesLabel" parent="HBoxContainer/VBoxContainer" instance=ExtResource("3_3bjug")]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Lives"
 icon = ExtResource("5_xllah")
-icon_size = 64.0
+icon_size = 48.0
 icon_colour = Color(1, 0.054902, 0.654902, 1)
-amount_text_size = 32
 
 [node name="WaveLabel" parent="HBoxContainer" instance=ExtResource("3_3bjug")]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-size_flags_vertical = 8
+size_flags_horizontal = 3
+size_flags_vertical = 4
 alignment = 1
 default_text = "-"
 text = "Wave"
 icon = ExtResource("6_stxc5")
-icon_size = 92.0
+icon_size = 80.0
 icon_colour = Color(0.778707, 0.879066, 0.890793, 1)
 vertical_layout = true
 amount_text_size = 40
