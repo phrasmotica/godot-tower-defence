@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://1opbwqrawi72"]
+
+[ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_hegu8"]
+[ext_resource type="Shader" uid="uid://bb2tbbee7yt1" path="res://scenes/ui/ui_icon.gdshader" id="1_sq7gs"]
+[ext_resource type="Script" uid="uid://5g3v0s2a8exo" path="res://scenes/ui/wave_ui/icon_button.gd" id="2_jaji7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1vnf5"]
+resource_local_to_scene = true
+shader = ExtResource("1_sq7gs")
+shader_parameter/alpha_threshold = 0.2
+shader_parameter/alpha_mix = 0.0
+shader_parameter/replacement_colour = Color(1, 1, 1, 1)
+
+[node name="IconButton" type="Button"]
+custom_minimum_size = Vector2(60, 60)
+theme = ExtResource("1_hegu8")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("2_jaji7")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+unique_name_in_owner = true
+material = SubResource("ShaderMaterial_1vnf5")
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 2
