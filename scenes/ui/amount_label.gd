@@ -161,14 +161,6 @@ func _compute_amount_text() -> String:
 		return default_text
 
 	if abbreviate_amount:
-		# TODO: these abbreviations aren't perfect... here are some errors:
-		# 1005 => 1.00k but 1006 => 1.01k
-		# 999994 => 999.99k but 999995 => 1000.00k
-		# 999999 => 1000.00k but 1000000 => 1.00m
-		if amount >= 1000000.0:
-			return "%.2fm" % float(amount / 1000000.0)
-
-		if amount >= 1000.0:
-			return "%.2fk" % float(amount / 1000.0)
+		return NumberFormatter.abbreviate(amount)
 
 	return str(amount)
