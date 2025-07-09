@@ -8,9 +8,9 @@ void fragment() {
 	// 1.0 if alpha is above threshold, else 0.0
 	float alpha_factor = step(alpha_threshold, COLOR.a);
 	vec3 rgb = mix(COLOR.rgb, replacement_colour.rgb, alpha_factor);
-	
+
 	// lerp between COLOR.a and 1.0
 	float alpha = alpha_factor * mix(COLOR.a, 1.0, alpha_mix);
-	
+
 	COLOR = vec4(rgb, alpha);
 }

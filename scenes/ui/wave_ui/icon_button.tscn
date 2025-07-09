@@ -13,6 +13,8 @@ shader_parameter/replacement_colour = Color(1, 1, 1, 1)
 
 [node name="IconButton" type="Button"]
 custom_minimum_size = Vector2(60, 60)
+focus_mode = 0
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_hegu8")
 icon_alignment = 1
 expand_icon = true
