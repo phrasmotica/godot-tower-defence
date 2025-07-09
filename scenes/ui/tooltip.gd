@@ -1,8 +1,5 @@
 @tool
-class_name Tooltip extends Control
-
-@export
-var label: Label
+class_name Tooltip extends PanelContainer
 
 @export_multiline
 var text := "":
@@ -13,7 +10,5 @@ var text := "":
 	get:
 		return label.text if label else ""
 
-func _on_background_resized():
-	# background node is a panel container, so shrinks to the
-	# correct size after the tooltip content gets updated
-	size = get_node("Background").size
+@onready
+var label: Label = %Description

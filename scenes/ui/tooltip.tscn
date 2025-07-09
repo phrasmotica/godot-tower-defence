@@ -3,32 +3,24 @@
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_vaipc"]
 [ext_resource type="Script" uid="uid://bc0s4vrokfdr1" path="res://scenes/ui/tooltip.gd" id="2_tflp5"]
 
-[node name="Tooltip" type="Control" node_paths=PackedStringArray("label")]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 160.0
-offset_bottom = 107.0
+[node name="Tooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(152, 59)
+offset_right = 152.0
+offset_bottom = 59.0
 theme = ExtResource("1_vaipc")
 script = ExtResource("2_tflp5")
-label = NodePath("Background/MarginContainer/Description")
 text = "Tooltip text goes here!"
 
-[node name="Background" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 160.0
-offset_bottom = 60.0
-
-[node name="MarginContainer" type="MarginContainer" parent="Background"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Description" type="Label" parent="Background/MarginContainer"]
+[node name="Description" type="Label" parent="MarginContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 21)
 layout_mode = 2
 text = "Tooltip text goes here!"
 autowrap_mode = 2
-
-[connection signal="resized" from="Background" to="." method="_on_background_resized"]

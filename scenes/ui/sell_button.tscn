@@ -20,10 +20,10 @@ metadata/_edit_horizontal_guides_ = [60.0, 8.0, 52.0]
 [node name="Tooltip" parent="." instance=ExtResource("3_javho")]
 visible = false
 z_index = 50
+layout_mode = 0
 offset_left = -165.0
 offset_right = -5.0
 offset_bottom = 155.0
-text = "Sell this tower for 1 money."
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
