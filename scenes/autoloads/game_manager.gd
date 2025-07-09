@@ -2,15 +2,12 @@ extends Node
 
 const FAST_FORWARD_SPEED := 3
 
-func _process(_delta):
-	if Input.is_action_just_pressed("fast_forward"):
-		speed_up()
+func _ready() -> void:
+	SpeedEvents.speed_fast_requested.connect(speed_up)
+	SpeedEvents.speed_normal_requested.connect(speed_regular)
 
-	if Input.is_action_just_released("fast_forward"):
-		speed_regular()
-
-func speed_up():
+func speed_up() -> void:
 	Engine.time_scale = FAST_FORWARD_SPEED
 
-func speed_regular():
+func speed_regular() -> void:
 	Engine.time_scale = 1
