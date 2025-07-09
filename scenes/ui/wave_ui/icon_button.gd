@@ -41,4 +41,5 @@ func _refresh() -> void:
 		texture_rect.custom_minimum_size = texture_size
 		texture_rect.texture = texture
 
-	_updater.set_color("replacement_colour", texture_colour)
+	if _updater:
+		_updater.set_color("replacement_colour", texture_colour)
