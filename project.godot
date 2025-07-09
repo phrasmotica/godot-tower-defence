@@ -31,6 +31,7 @@ PathInteraction="*res://scenes/autoloads/path_interaction.gd"
 WaveEvents="*res://scenes/autoloads/waves_manager/wave_events.gd"
 Logger="*res://scenes/autoloads/logger.gd"
 Log="*res://addons/GoLogger/Log.tscn"
+SpeedEvents="*res://scenes/autoloads/speed_events.gd"
 
 [display]
 
