@@ -4,12 +4,13 @@ extends WavesManagerState
 func _enter_tree() -> void:
 	Logger.info("WavesManager is now waiting")
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		var next_wave := _waves_manager.get_next_wave()
+	WaveEvents.wave_requested.connect(_on_wave_requested)
 
-		if next_wave != null:
-			send(next_wave)
+func _on_wave_requested() -> void:
+	var next_wave := _waves_manager.get_next_wave()
+
+	if next_wave != null:
+		send(next_wave)
 
 func send(wave: Wave) -> void:
 	Logger.info("Started sending wave %d" % wave.number)
