@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://buvg0qrqisu1m"]
+[gd_scene load_steps=7 format=3 uid="uid://buvg0qrqisu1m"]
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_o5eac"]
+[ext_resource type="Script" uid="uid://2s6m26nbl7e4" path="res://scenes/ui/wave_ui/wave_ui.gd" id="2_4wkjd"]
 [ext_resource type="PackedScene" uid="uid://c4i4eqvva8ifq" path="res://scenes/ui/wave_ui/wave_panel.tscn" id="2_7tjou"]
 [ext_resource type="PackedScene" uid="uid://1opbwqrawi72" path="res://scenes/ui/wave_ui/icon_button.tscn" id="2_gyaw7"]
 [ext_resource type="Texture2D" uid="uid://bj1lr0s437xu6" path="res://assets/sprites/next.png" id="2_lacf5"]
@@ -11,6 +12,7 @@ offset_right = 960.0
 offset_bottom = 80.0
 theme = ExtResource("1_o5eac")
 theme_type_variation = &"WavePanelContainer"
+script = ExtResource("2_4wkjd")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -27,6 +29,7 @@ layout_mode = 2
 theme_override_constants/separation = 8
 
 [node name="NextButton" parent="MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("2_gyaw7")]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 60)
 layout_mode = 2
 texture = ExtResource("2_lacf5")
