@@ -2,7 +2,7 @@ extends Node
 
 enum State { DISABLED, WAITING }
 
-const LAST_WAVE_INDEX: int = 4
+const LAST_WAVE_INDEX: int = 10
 
 var _state_factory := WavesManagerStateFactory.new()
 var _current_state: WavesManagerState = null
