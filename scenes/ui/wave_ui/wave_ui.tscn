@@ -2,10 +2,10 @@
 
 [ext_resource type="Theme" uid="uid://bqnr1830yqwqe" path="res://assets/themes/td_theme.tres" id="1_o5eac"]
 [ext_resource type="Script" uid="uid://2s6m26nbl7e4" path="res://scenes/ui/wave_ui/wave_ui.gd" id="2_4wkjd"]
-[ext_resource type="PackedScene" uid="uid://c4i4eqvva8ifq" path="res://scenes/ui/wave_ui/wave_panel.tscn" id="2_7tjou"]
 [ext_resource type="PackedScene" uid="uid://1opbwqrawi72" path="res://scenes/ui/wave_ui/icon_button.tscn" id="2_gyaw7"]
 [ext_resource type="Texture2D" uid="uid://bj1lr0s437xu6" path="res://assets/sprites/next.png" id="2_lacf5"]
 [ext_resource type="Texture2D" uid="uid://dcl0y1nleeshe" path="res://assets/sprites/fast-forward-disabled.png" id="3_1vnf5"]
+[ext_resource type="PackedScene" uid="uid://wwh76ais863f" path="res://scenes/ui/tooltip.tscn" id="7_4wkjd"]
 
 [node name="WaveUI" type="PanelContainer"]
 offset_right = 960.0
@@ -18,7 +18,7 @@ script = ExtResource("2_4wkjd")
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
-theme_override_constants/margin_right = 0
+theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
@@ -59,32 +59,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 8
 
-[node name="WavePanel0" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
+[node name="WaveTooltip" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("7_4wkjd")]
+unique_name_in_owner = true
 layout_mode = 2
-
-[node name="WavePanel1" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel2" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel3" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel4" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel5" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel6" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel7" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel8" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
-
-[node name="WavePanel9" parent="MarginContainer/HBoxContainer/ScrollContainer/HBoxContainer" instance=ExtResource("2_7tjou")]
-layout_mode = 2
+size_flags_horizontal = 3
+text = "Click the green button to start the game, or press the Space bar."

@@ -1,4 +1,6 @@
-class_name Wave extends Resource
+@tool
+class_name Wave
+extends Resource
 
 @export_multiline
 var description := ""
