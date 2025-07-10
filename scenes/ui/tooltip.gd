@@ -4,11 +4,16 @@ class_name Tooltip extends PanelContainer
 @export_multiline
 var text := "":
 	set(value):
-		if label:
-			label.text = value
+		text = value
 
-	get:
-		return label.text if label else ""
+		_refresh()
 
 @onready
 var label: Label = %Description
+
+func _ready() -> void:
+	_refresh()
+
+func _refresh() -> void:
+	if label:
+		label.text = text
